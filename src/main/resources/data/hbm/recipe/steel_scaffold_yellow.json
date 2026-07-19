@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": ["SSS", "SDS", "SSS"],
+  "key": {
+    "S": { "item": "hbm:steel_scaffold" },
+    "D": { "tag": "c:dyes/yellow" }
+  },
+  "result": {
+    "id": "hbm:steel_scaffold",
+    "count": 8,
+    "components": {
+      "minecraft:block_state": { "variant": "yellow" },
+      "minecraft:custom_model_data": 3
+    }
+  }
+}

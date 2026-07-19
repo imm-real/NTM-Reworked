@@ -1,0 +1,37 @@
+{
+  "id": "hbm:ass.derrick",
+  "name": "ass.derrick",
+  "inputs": [
+    { "ingredient": { "tag": "c:plates/steel" }, "count": 8 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:plate_cast",
+        "components": {
+          "minecraft:custom_data": { "material": "copper" },
+          "minecraft:custom_model_data": 2900
+        },
+        "strict": true
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:pipe",
+        "components": {
+          "minecraft:custom_data": { "material": "steel" },
+          "minecraft:custom_model_data": 30
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    { "ingredient": { "item": "hbm:motor" }, "count": 1 },
+    { "ingredient": { "item": "hbm:drill_titanium" }, "count": 1 }
+  ],
+  "output": { "id": "hbm:machine_well", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

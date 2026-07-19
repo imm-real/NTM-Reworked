@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=asbestos": {
+      "model": "hbm:block/stone_resource_asbestos"
+    },
+    "type=bauxite": {
+      "model": "hbm:block/stone_resource_bauxite"
+    },
+    "type=hematite": {
+      "model": "hbm:block/stone_resource_hematite"
+    },
+    "type=limestone": {
+      "model": "hbm:block/stone_resource_limestone"
+    },
+    "type=malachite": {
+      "model": "hbm:block/stone_resource_malachite"
+    },
+    "type=sulfur": {
+      "model": "hbm:block/stone_resource_sulfur"
+    }
+  }
+}

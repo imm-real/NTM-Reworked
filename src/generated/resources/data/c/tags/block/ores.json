@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#c:ores/aluminum",
+    "#c:ores/titanium",
+    "#c:ores/tungsten",
+    "#c:ores/cobalt",
+    "#c:ores/rare_earth",
+    "#c:ores/coltan",
+    "#c:ores/lithium"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:block_state": {
+          "type": "limestone"
+        },
+        "minecraft:custom_model_data": 4
+      },
+      "items": "hbm:stone_resource",
+      "strict": true
+    },
+    {
+      "tag": "minecraft:sand"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "hbm:ball_fireclay"
+  }
+}

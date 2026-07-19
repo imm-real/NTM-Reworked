@@ -1,0 +1,15 @@
+{
+  "parent": "hbm:block/steel_scaffold_steel",
+  "display": {
+    "gui": {
+      "rotation": [30, 315, 0],
+      "translation": [0, 0, 0],
+      "scale": [0.625, 0.625, 0.625]
+    }
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "hbm:item/steel_scaffold_red" },
+    { "predicate": { "custom_model_data": 2 }, "model": "hbm:item/steel_scaffold_white" },
+    { "predicate": { "custom_model_data": 3 }, "model": "hbm:item/steel_scaffold_yellow" }
+  ]
+}

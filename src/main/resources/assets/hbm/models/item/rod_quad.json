@@ -1,0 +1,104 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "hbm:item/rod_quad.lithium"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "hbm:item/rod_quad_tritium"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "hbm:item/rod_quad_co"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "hbm:item/rod_quad_co60"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "hbm:item/rod_quad_th232"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "hbm:item/rod_quad_thf"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 6
+      },
+      "model": "hbm:item/rod_quad_u235"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 7
+      },
+      "model": "hbm:item/rod_quad_np237"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 8
+      },
+      "model": "hbm:item/rod_quad_u238"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 9
+      },
+      "model": "hbm:item/rod_quad_pu238"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 10
+      },
+      "model": "hbm:item/rod_quad_pu239"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 11
+      },
+      "model": "hbm:item/rod_quad_rgp"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 12
+      },
+      "model": "hbm:item/rod_quad_waste"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 13
+      },
+      "model": "hbm:item/rod_quad_lead"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 14
+      },
+      "model": "hbm:item/rod_quad_uranium"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 15
+      },
+      "model": "hbm:item/rod_quad_ra226"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 16
+      },
+      "model": "hbm:item/rod_quad_ac227"
+    }
+  ]
+}

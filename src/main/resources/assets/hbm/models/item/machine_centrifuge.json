@@ -1,0 +1,26 @@
+{
+  "parent": "hbm:block/centrifuge",
+  "display": {
+    "gui": {
+      "rotation": [30, 225, 0],
+      "translation": [-2.474874, -3.948557, -1.125],
+      "scale": [0.21875, 0.21875, 0.21875]
+    },
+    "ground": {
+      "translation": [0, 2, 0],
+      "scale": [0.1875, 0.1875, 0.1875]
+    },
+    "fixed": {
+      "rotation": [0, 90, 0],
+      "scale": [0.25, 0.25, 0.25]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 135, 0],
+      "scale": [0.25, 0.25, 0.25]
+    },
+    "thirdperson_righthand": {
+      "rotation": [75, 135, 0],
+      "scale": [0.25, 0.25, 0.25]
+    }
+  }
+}

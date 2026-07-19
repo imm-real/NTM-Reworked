@@ -1,0 +1,6 @@
+{
+  "parent": "hbm:block/fluid_duct_obj",
+  "visibility": {
+    "pnp": true
+  }
+}

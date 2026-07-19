@@ -1,0 +1,94 @@
+{
+  "parent": "hbm:block/arc_furnace_obj",
+  "visibility": {
+    "Furnace": true,
+    "Lid": true,
+    "Ring1": true,
+    "Ring2": true,
+    "Ring3": true,
+    "Electrode1": true,
+    "Electrode2": true,
+    "Electrode3": true,
+    "Cable1": true,
+    "Cable2": true,
+    "Cable3": true
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [-1.237437, -3.840304, -1.0625],
+      "scale": [
+        0.109375,
+        0.109375,
+        0.109375
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        2,
+        0
+      ],
+      "scale": [
+        0.125,
+        0.125,
+        0.125
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        0,
+        -2,
+        0
+      ],
+      "scale": [
+        0.125,
+        0.125,
+        0.125
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        135,
+        0
+      ],
+      "translation": [
+        0,
+        1,
+        0
+      ],
+      "scale": [
+        0.125,
+        0.125,
+        0.125
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        135,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.125,
+        0.125,
+        0.125
+      ]
+    }
+  }
+}

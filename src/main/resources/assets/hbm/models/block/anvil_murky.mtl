@@ -1,0 +1,13 @@
+newmtl anvil_murky_side
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+d 1.0
+map_Kd hbm:block/anvil_steel
+
+newmtl anvil_murky_top
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+d 1.0
+map_Kd hbm:block/anvil_murky

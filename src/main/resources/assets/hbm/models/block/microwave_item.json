@@ -1,0 +1,10 @@
+{
+  "parent": "hbm:block/microwave_body",
+  "display": {
+    "gui": {"rotation": [30, 225, 0], "translation": [-9.899494, -0.911651, -14.885075], "scale": [0.9375, 0.9375, 0.9375]},
+    "ground": {"translation": [0, -4, 9], "scale": [0.7, 0.7, 0.7]},
+    "fixed": {"rotation": [0, 180, 0], "translation": [0, -7, 12], "scale": [1.0, 1.0, 1.0]},
+    "thirdperson_righthand": {"rotation": [75, 135, 0], "translation": [0, -5, 9], "scale": [0.8, 0.8, 0.8]},
+    "firstperson_righthand": {"rotation": [0, 135, 0], "translation": [0, -6, 10], "scale": [0.8, 0.8, 0.8]}
+  }
+}

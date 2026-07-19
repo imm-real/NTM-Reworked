@@ -1,0 +1,41 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "hbm:block/sandbags_core"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/sandbags_north"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/sandbags_east"
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/sandbags_south"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/sandbags_west"
+      },
+      "when": {
+        "west": "true"
+      }
+    }
+  ]
+}

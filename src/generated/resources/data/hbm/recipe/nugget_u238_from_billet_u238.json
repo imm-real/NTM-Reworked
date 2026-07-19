@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:billet_u238"
+    }
+  ],
+  "result": {
+    "count": 6,
+    "id": "hbm:nugget_u238"
+  }
+}

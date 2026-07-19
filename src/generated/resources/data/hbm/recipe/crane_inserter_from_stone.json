@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "hbm:conveyor_wand"
+    },
+    "C": {
+      "item": "minecraft:stone_bricks"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "C C",
+    "CBC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:crane_inserter"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "ambientocclusion": false,
+  "textures": {"belt": "hbm:block/conveyor", "particle": "hbm:block/conveyor"},
+  "elements": [{"from": [0, 0, 4], "to": [2, 4, 12], "faces": {"down": {"texture": "#belt"}}}]
+}

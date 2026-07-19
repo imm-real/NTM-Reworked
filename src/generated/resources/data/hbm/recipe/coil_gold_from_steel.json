@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/steel"
+    },
+    "W": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "gold"
+        },
+        "minecraft:custom_model_data": 7900
+      },
+      "items": "hbm:wire_fine",
+      "strict": true
+    }
+  },
+  "pattern": [
+    "WWW",
+    "WIW",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:coil_gold"
+  }
+}

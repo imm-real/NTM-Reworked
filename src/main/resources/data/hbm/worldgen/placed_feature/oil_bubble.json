@@ -1,0 +1,6 @@
+{
+  "feature": "hbm:oil_bubble",
+  "placement": [
+    { "type": "minecraft:biome" }
+  ]
+}

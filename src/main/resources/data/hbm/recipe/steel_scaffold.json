@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": ["SSS", " S ", "SSS"],
+  "key": { "S": { "tag": "c:ingots/steel" } },
+  "result": { "id": "hbm:steel_scaffold", "count": 8 }
+}

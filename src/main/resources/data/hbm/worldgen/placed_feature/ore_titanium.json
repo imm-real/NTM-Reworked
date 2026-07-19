@@ -1,0 +1,16 @@
+{
+  "feature": "hbm:ore_titanium",
+  "placement": [
+    { "type": "hbm:config_ore_count", "ore": "titanium" },
+    { "type": "minecraft:in_square" },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": { "above_bottom": 5 },
+        "max_inclusive": { "above_bottom": 34 }
+      }
+    },
+    { "type": "minecraft:biome" }
+  ]
+}

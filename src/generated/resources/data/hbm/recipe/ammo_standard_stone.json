@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "C": {
+      "tag": "c:cobblestones/normal"
+    },
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "C",
+    "P",
+    "G"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "hbm_ammo_type": "stone"
+      },
+      "minecraft:custom_model_data": 0
+    },
+    "count": 6,
+    "id": "hbm:ammo_standard"
+  }
+}

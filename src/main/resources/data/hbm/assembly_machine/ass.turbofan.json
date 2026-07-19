@@ -1,0 +1,60 @@
+{
+  "id": "hbm:ass.turbofan",
+  "name": "ass.turbofan",
+  "inputs": [
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:shell",
+        "components": {
+          "minecraft:custom_data": { "material": "titanium" },
+          "minecraft:custom_model_data": 2200
+        },
+        "strict": true
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:pipe",
+        "components": {
+          "minecraft:custom_data": { "material": "dura_steel" },
+          "minecraft:custom_model_data": 33
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    { "ingredient": { "item": "hbm:plate_polymer" }, "count": 12 },
+    { "ingredient": { "item": "hbm:turbine_tungsten" }, "count": 1 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:wire_dense",
+        "components": {
+          "minecraft:custom_data": { "material": "gold" },
+          "minecraft:custom_model_data": 7900
+        },
+        "strict": true
+      },
+      "count": 12
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "basic" },
+          "minecraft:custom_model_data": 8
+        },
+        "strict": true
+      },
+      "count": 3
+    }
+  ],
+  "output": { "id": "hbm:machine_turbofan", "count": 1 },
+  "duration": 300,
+  "power": 100,
+  "pools": []
+}

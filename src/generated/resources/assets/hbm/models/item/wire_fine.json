@@ -1,0 +1,62 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "hbm:item/wire_fine_steel",
+      "predicate": {
+        "custom_model_data": 30
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_red_copper",
+      "predicate": {
+        "custom_model_data": 31
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_carbon",
+      "predicate": {
+        "custom_model_data": 699
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_aluminium",
+      "predicate": {
+        "custom_model_data": 1300
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_copper",
+      "predicate": {
+        "custom_model_data": 2900
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_zirconium",
+      "predicate": {
+        "custom_model_data": 4000
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_tungsten",
+      "predicate": {
+        "custom_model_data": 7400
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_gold",
+      "predicate": {
+        "custom_model_data": 7900
+      }
+    },
+    {
+      "model": "hbm:item/wire_fine_lead",
+      "predicate": {
+        "custom_model_data": 8200
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "hbm:item/wire_fine"
+  }
+}

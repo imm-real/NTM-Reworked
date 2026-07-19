@@ -1,0 +1,49 @@
+{
+  "id": "hbm:ass.iturbine",
+  "name": "ass.iturbine",
+  "inputs": [
+    { "ingredient": { "tag": "c:plates/steel" }, "count": 16 },
+    { "ingredient": { "tag": "c:ingots/rubber" }, "count": 4 },
+    { "ingredient": { "item": "hbm:turbine_titanium" }, "count": 2 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:wire_dense",
+        "components": {
+          "minecraft:custom_data": { "material": "gold" },
+          "minecraft:custom_model_data": 7900
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:pipe",
+        "components": {
+          "minecraft:custom_data": { "material": "dura_steel" },
+          "minecraft:custom_model_data": 33
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "basic" },
+          "minecraft:custom_model_data": 8
+        },
+        "strict": true
+      },
+      "count": 2
+    }
+  ],
+  "output": { "id": "hbm:machine_industrial_turbine", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

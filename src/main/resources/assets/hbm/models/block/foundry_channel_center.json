@@ -1,0 +1,17 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "hbm:block/foundry_channel_side",
+    "bottom": "hbm:block/foundry_channel_bottom",
+    "side": "hbm:block/foundry_channel_side",
+    "top": "hbm:block/foundry_channel_top",
+    "inner": "hbm:block/foundry_channel_inner"
+  },
+  "elements": [
+    { "from": [5, 0, 5], "to": [11, 2, 11], "faces": {
+      "down": { "texture": "#bottom" }, "up": { "texture": "#bottom" },
+      "north": { "texture": "#side" }, "east": { "texture": "#side" },
+      "south": { "texture": "#side" }, "west": { "texture": "#side" }
+    } }
+  ]
+}

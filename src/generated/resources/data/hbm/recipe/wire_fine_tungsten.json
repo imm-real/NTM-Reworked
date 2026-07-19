@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/tungsten"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "tungsten"
+      },
+      "minecraft:custom_model_data": 7400
+    },
+    "count": 24,
+    "id": "hbm:wire_fine"
+  }
+}

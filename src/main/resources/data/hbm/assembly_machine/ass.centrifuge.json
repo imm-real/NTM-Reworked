@@ -1,0 +1,26 @@
+{
+  "id": "hbm:ass.centrifuge",
+  "name": "ass.centrifuge",
+  "inputs": [
+    { "ingredient": { "item": "hbm:centrifuge_element" }, "count": 1 },
+    { "ingredient": { "item": "hbm:plate_polymer" }, "count": 4 },
+    { "ingredient": { "tag": "c:plates/steel" }, "count": 8 },
+    { "ingredient": { "tag": "c:plates/copper" }, "count": 4 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "analog" },
+          "minecraft:custom_model_data": 7
+        },
+        "strict": true
+      },
+      "count": 1
+    }
+  ],
+  "output": { "id": "hbm:machine_centrifuge", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

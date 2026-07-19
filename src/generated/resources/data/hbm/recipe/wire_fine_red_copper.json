@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/red_copper"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "red_copper"
+      },
+      "minecraft:custom_model_data": 31
+    },
+    "count": 24,
+    "id": "hbm:wire_fine"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "hbm:ass.multitool",
+  "name": "ass.multitool",
+  "inputs": [
+    {
+      "ingredient": {
+        "type": "neoforge:compound",
+        "children": [
+          { "tag": "c:ingots/technetium_steel" },
+          { "tag": "c:ingots/cadmium_steel" }
+        ]
+      },
+      "count": 4
+    },
+    {
+      "ingredient": { "tag": "c:plates/steel" },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:compound",
+        "children": [
+          {
+            "type": "neoforge:components",
+            "items": "hbm:wire_fine",
+            "components": {
+              "minecraft:custom_data": { "material": "gold" },
+              "minecraft:custom_model_data": 7900
+            },
+            "strict": false
+          },
+          {
+            "type": "neoforge:difference",
+            "base": { "tag": "c:wires/fine/gold" },
+            "subtracted": { "item": "hbm:wire_fine" }
+          }
+        ]
+      },
+      "count": 12
+    },
+    {
+      "ingredient": { "item": "hbm:motor" },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "capacitor_board" },
+          "minecraft:custom_model_data": 10
+        },
+        "strict": false
+      },
+      "count": 16
+    }
+  ],
+  "output": { "id": "hbm:multitool_hit", "count": 1 },
+  "duration": 100,
+  "power": 100,
+  "pools": []
+}

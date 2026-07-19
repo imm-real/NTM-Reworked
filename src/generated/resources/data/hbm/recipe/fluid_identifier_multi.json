@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "vacuum_tube"
+        },
+        "minecraft:custom_model_data": 0
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "D": {
+      "tag": "c:dyes"
+    },
+    "P": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "pattern": [
+    "D",
+    "C",
+    "P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:fluid_identifier_multi"
+  }
+}

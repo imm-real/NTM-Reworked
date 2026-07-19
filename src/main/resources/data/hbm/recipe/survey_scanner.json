@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": { "type": "advanced" },
+        "minecraft:custom_model_data": 9
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    },
+    "G": { "item": "minecraft:gold_ingot" },
+    "P": { "item": "hbm:plate_polymer" },
+    "S": { "tag": "c:plates/steel" },
+    "W": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": { "material": "gold" },
+        "minecraft:custom_model_data": 7900
+      },
+      "items": "hbm:wire_fine",
+      "strict": true
+    }
+  },
+  "pattern": [
+    "SWS",
+    " G ",
+    "PCP"
+  ],
+  "result": { "id": "hbm:survey_scanner", "count": 1 }
+}

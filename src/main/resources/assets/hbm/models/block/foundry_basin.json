@@ -1,0 +1,67 @@
+{
+  "textures": {
+    "top": "hbm:block/foundry_basin_top",
+    "side": "hbm:block/foundry_basin_side",
+    "bottom": "hbm:block/foundry_basin_bottom",
+    "inner": "hbm:block/foundry_basin_inner",
+    "particle": "hbm:block/foundry_basin_side"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 2, 16],
+      "faces": {
+        "down": {"texture": "#bottom"},
+        "up": {"texture": "#bottom"},
+        "north": {"texture": "#side"},
+        "south": {"texture": "#side"},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    },
+    {
+      "from": [0, 2, 0],
+      "to": [16, 16, 2],
+      "faces": {
+        "up": {"texture": "#top"},
+        "north": {"texture": "#side"},
+        "south": {"texture": "#inner"},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    },
+    {
+      "from": [0, 2, 14],
+      "to": [16, 16, 16],
+      "faces": {
+        "up": {"texture": "#top"},
+        "north": {"texture": "#inner"},
+        "south": {"texture": "#side"},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    },
+    {
+      "from": [0, 2, 2],
+      "to": [2, 16, 14],
+      "faces": {
+        "up": {"texture": "#top"},
+        "north": {"texture": "#side"},
+        "south": {"texture": "#side"},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#inner"}
+      }
+    },
+    {
+      "from": [14, 2, 2],
+      "to": [16, 16, 14],
+      "faces": {
+        "up": {"texture": "#top"},
+        "north": {"texture": "#side"},
+        "south": {"texture": "#side"},
+        "west": {"texture": "#inner"},
+        "east": {"texture": "#side"}
+      }
+    }
+  ]
+}

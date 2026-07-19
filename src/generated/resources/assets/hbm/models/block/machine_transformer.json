@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "hbm:block/machine_transformer_top_iron",
+    "east": "hbm:block/machine_transformer_iron",
+    "north": "hbm:block/machine_transformer_iron",
+    "particle": "hbm:block/machine_transformer_iron",
+    "south": "hbm:block/machine_transformer_iron",
+    "up": "hbm:block/machine_transformer_top_iron",
+    "west": "hbm:block/machine_transformer_iron"
+  }
+}

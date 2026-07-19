@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "hbm:catalyst_clay"
+    },
+    "F": {
+      "item": "hbm:gas_mask_filter"
+    },
+    "Z": {
+      "tag": "c:ingots/zirconium"
+    }
+  },
+  "pattern": [
+    "ZCZ",
+    "CFC",
+    "ZCZ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:gas_mask_filter_combo"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "hbm:block/foundry_channel_center",
+  "elements": [
+    { "from": [5, 2, 5], "to": [11, 8, 6], "faces": {
+      "up": { "texture": "#top" }, "north": { "texture": "#side" },
+      "east": { "texture": "#side" }, "south": { "texture": "#inner" }, "west": { "texture": "#side" }
+    } }
+  ]
+}

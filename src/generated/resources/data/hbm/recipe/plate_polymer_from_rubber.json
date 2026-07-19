@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "hbm:ingots/any_rubber"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "hbm:plate_polymer"
+  }
+}

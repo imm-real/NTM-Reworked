@@ -1,0 +1,13 @@
+{
+  "id": "hbm:ass.filtercoal",
+  "name": "ass.filtercoal",
+  "inputs": [
+    { "ingredient": { "tag": "c:dusts/coal" }, "count": 4 },
+    { "ingredient": { "item": "minecraft:string" }, "count": 2 },
+    { "ingredient": { "item": "minecraft:paper" }, "count": 1 }
+  ],
+  "output": { "id": "hbm:filter_coal", "count": 1 },
+  "duration": 50,
+  "power": 100,
+  "pools": []
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "hbm:block/therm_top",
+    "particle": "hbm:block/therm_endo",
+    "side": "hbm:block/therm_endo",
+    "top": "hbm:block/therm_top"
+  }
+}

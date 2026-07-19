@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:steel_shovel",
+    "hbm:titanium_shovel",
+    "hbm:cobalt_shovel",
+    "hbm:bismuth_pickaxe"
+  ]
+}

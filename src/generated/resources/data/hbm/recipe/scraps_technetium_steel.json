@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/steel"
+    },
+    {
+      "tag": "c:nuggets/technetium_99"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "amount": 72,
+        "material": "technetium_steel"
+      },
+      "minecraft:custom_model_data": 36
+    },
+    "count": 1,
+    "id": "hbm:scraps"
+  }
+}

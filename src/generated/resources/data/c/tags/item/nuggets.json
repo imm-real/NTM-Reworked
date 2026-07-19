@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "#c:nuggets/uranium",
+    "#c:nuggets/uranium_233",
+    "#c:nuggets/uranium_235",
+    "#c:nuggets/uranium_238",
+    "#c:nuggets/thorium_232",
+    "#c:nuggets/plutonium",
+    "#c:nuggets/technetium_99",
+    "#c:nuggets/schrabidium",
+    "#c:nuggets/silicon",
+    "#c:nuggets/zirconium",
+    "#c:nuggets/tantalum"
+  ]
+}

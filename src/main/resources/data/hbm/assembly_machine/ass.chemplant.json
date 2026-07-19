@@ -1,0 +1,38 @@
+{
+  "id": "hbm:ass.chemplant",
+  "name": "ass.chemplant",
+  "inputs": [
+    { "ingredient": { "tag": "c:ingots/steel" }, "count": 8 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:pipe",
+        "components": {
+          "minecraft:custom_data": { "material": "copper" },
+          "minecraft:custom_model_data": 2900
+        },
+        "strict": true
+      },
+      "count": 2
+    },
+    { "ingredient": { "item": "hbm:plate_polymer" }, "count": 16 },
+    { "ingredient": { "item": "hbm:motor" }, "count": 2 },
+    { "ingredient": { "item": "hbm:coil_tungsten" }, "count": 2 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "analog" },
+          "minecraft:custom_model_data": 7
+        },
+        "strict": true
+      },
+      "count": 1
+    }
+  ],
+  "output": { "id": "hbm:machine_chemical_plant", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

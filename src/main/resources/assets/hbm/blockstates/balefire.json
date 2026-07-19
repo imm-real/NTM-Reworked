@@ -1,0 +1,22 @@
+{
+  "multipart": [
+    { "apply": { "model": "hbm:block/balefire_floor" },
+      "when": { "east": "false", "north": "false", "south": "false", "up": "false", "west": "false" } },
+
+    { "apply": [ { "model": "hbm:block/balefire_side" }, { "model": "hbm:block/balefire_side_alt" } ],
+      "when": { "OR": [ { "north": "true" },
+        { "east": "false", "north": "false", "south": "false", "up": "false", "west": "false" } ] } },
+    { "apply": [ { "model": "hbm:block/balefire_side", "y": 90 }, { "model": "hbm:block/balefire_side_alt", "y": 90 } ],
+      "when": { "OR": [ { "east": "true" },
+        { "east": "false", "north": "false", "south": "false", "up": "false", "west": "false" } ] } },
+    { "apply": [ { "model": "hbm:block/balefire_side", "y": 180 }, { "model": "hbm:block/balefire_side_alt", "y": 180 } ],
+      "when": { "OR": [ { "south": "true" },
+        { "east": "false", "north": "false", "south": "false", "up": "false", "west": "false" } ] } },
+    { "apply": [ { "model": "hbm:block/balefire_side", "y": 270 }, { "model": "hbm:block/balefire_side_alt", "y": 270 } ],
+      "when": { "OR": [ { "west": "true" },
+        { "east": "false", "north": "false", "south": "false", "up": "false", "west": "false" } ] } },
+
+    { "apply": [ { "model": "hbm:block/balefire_up" }, { "model": "hbm:block/balefire_up_alt" } ],
+      "when": { "up": "true" } }
+  ]
+}

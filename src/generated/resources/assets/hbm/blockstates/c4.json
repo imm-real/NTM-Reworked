@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "unstable=false": {
+      "model": "hbm:block/c4"
+    },
+    "unstable=true": {
+      "model": "hbm:block/c4"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/graphite"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "carbon"
+      },
+      "minecraft:custom_model_data": 699
+    },
+    "count": 24,
+    "id": "hbm:wire_fine"
+  }
+}

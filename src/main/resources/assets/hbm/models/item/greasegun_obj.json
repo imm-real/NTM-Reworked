@@ -1,0 +1,16 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/item/greasegun.obj",
+  "automatic_culling": false,
+  "shade_quads": true,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "visibility": {
+    "Bullet": false,
+    "Handle": false,
+    "Magazine": false,
+    "Flap": false,
+    "Stock": false,
+    "Gun": false
+  }
+}

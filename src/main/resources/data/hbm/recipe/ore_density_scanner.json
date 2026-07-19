@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": { "type": "capacitor" },
+        "minecraft:custom_model_data": 1
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    },
+    "G": { "tag": "c:plates/gold" },
+    "S": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": { "type": "controller_chassis" },
+        "minecraft:custom_model_data": 12
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    },
+    "V": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": { "type": "vacuum_tube" },
+        "minecraft:custom_model_data": 0
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    }
+  },
+  "pattern": [
+    "VVV",
+    "CSC",
+    "GGG"
+  ],
+  "result": { "id": "hbm:ore_density_scanner", "count": 1 }
+}

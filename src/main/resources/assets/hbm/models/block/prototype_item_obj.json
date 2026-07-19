@@ -1,0 +1,12 @@
+{
+  "parent": "hbm:block/prototype_obj",
+  "display": {
+    "gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.13, 0.13, 0.13]},
+    "ground": {"scale": [0.2, 0.2, 0.2]},
+    "fixed": {"scale": [0.13, 0.13, 0.13]},
+    "firstperson_righthand": {"rotation": [0, 90, 0], "scale": [0.13, 0.13, 0.13]},
+    "firstperson_lefthand": {"rotation": [0, 90, 0], "scale": [0.13, 0.13, 0.13]},
+    "thirdperson_righthand": {"scale": [0.13, 0.13, 0.13]},
+    "thirdperson_lefthand": {"scale": [0.13, 0.13, 0.13]}
+  }
+}

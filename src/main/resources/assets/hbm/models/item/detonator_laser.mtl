@@ -1,0 +1,17 @@
+newmtl main
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.0
+illum 1
+map_Kd hbm:item/detonator_laser_model
+
+newmtl lights
+Ka 1.000000 0.000000 0.000000
+Kd 1.000000 0.000000 0.000000
+Ks 0.000000 0.000000 0.000000
+d 1.0
+illum 1
+# Geometry-bake placeholder only; LaserDetonatorItemRenderer draws this group
+# untextured through its flat position-color pass, as the 1.7.10 renderer did.
+map_Kd hbm:item/detonator_laser_model

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:steel_axe",
+    "hbm:titanium_axe",
+    "hbm:cobalt_axe"
+  ]
+}

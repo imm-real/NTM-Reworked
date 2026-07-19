@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:frozen_dirt",
+    "hbm:frozen_grass",
+    "hbm:waste_earth",
+    "hbm:waste_mycelium",
+    "hbm:waste_trinitite",
+    "hbm:waste_trinitite_red",
+    "hbm:dirt_oily",
+    "hbm:dirt_dead",
+    "hbm:sand_dirty",
+    "hbm:sand_dirty_red"
+  ]
+}

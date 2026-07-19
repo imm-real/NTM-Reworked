@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:rubble",
+    "hbm:bullet",
+    "hbm:shrapnel",
+    "hbm:flamethrower"
+  ]
+}

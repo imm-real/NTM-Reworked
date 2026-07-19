@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:gems/coke/coal",
+    "#c:gems/coke/lignite",
+    "#c:gems/coke/petroleum"
+  ]
+}

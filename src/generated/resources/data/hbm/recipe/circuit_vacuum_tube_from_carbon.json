@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "I": {
+      "item": "hbm:plate_polymer"
+    },
+    "W": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "carbon"
+        },
+        "minecraft:custom_model_data": 699
+      },
+      "items": "hbm:wire_fine",
+      "strict": true
+    }
+  },
+  "pattern": [
+    "G",
+    "W",
+    "I"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "type": "vacuum_tube"
+      },
+      "minecraft:custom_model_data": 0
+    },
+    "count": 1,
+    "id": "hbm:circuit"
+  }
+}

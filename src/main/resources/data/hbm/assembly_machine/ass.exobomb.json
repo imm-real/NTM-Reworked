@@ -1,0 +1,25 @@
+{
+  "id": "hbm:ass.exobomb",
+  "name": "ass.exobomb",
+  "inputs": [
+    { "ingredient": { "tag": "c:plates/titanium" }, "count": 12 },
+    { "ingredient": { "tag": "c:dusts/red_phosphorus" }, "count": 32 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "advanced" },
+          "minecraft:custom_model_data": 9
+        },
+        "strict": true
+      },
+      "count": 1
+    },
+    { "ingredient": { "item": "hbm:coil_gold" }, "count": 4 }
+  ],
+  "output": { "id": "hbm:therm_exo", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

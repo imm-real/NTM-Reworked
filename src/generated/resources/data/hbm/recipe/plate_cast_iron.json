@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "steel"
+        },
+        "minecraft:custom_model_data": 30
+      },
+      "items": "hbm:bolt",
+      "strict": false
+    },
+    "P": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "pattern": [
+    "BPB",
+    "BPB",
+    "BPB"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "iron"
+      },
+      "minecraft:custom_model_data": 2600
+    },
+    "count": 1,
+    "id": "hbm:plate_cast"
+  }
+}

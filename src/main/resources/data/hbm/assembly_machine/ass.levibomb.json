@@ -1,0 +1,36 @@
+{
+  "id": "hbm:ass.levibomb",
+  "name": "ass.levibomb",
+  "inputs": [
+    { "ingredient": { "tag": "c:plates/titanium" }, "count": 12 },
+    { "ingredient": { "tag": "c:nuggets/schrabidium" }, "count": 3 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": { "type": "advanced" },
+          "minecraft:custom_model_data": 9
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:wire_dense",
+        "components": {
+          "minecraft:custom_data": { "material": "gold" },
+          "minecraft:custom_model_data": 7900
+        },
+        "strict": true
+      },
+      "count": 8
+    }
+  ],
+  "output": { "id": "hbm:float_bomb", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

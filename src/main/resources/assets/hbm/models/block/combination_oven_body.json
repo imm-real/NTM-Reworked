@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/combination_oven_obj",
+  "visibility": {"Plane": true}
+}

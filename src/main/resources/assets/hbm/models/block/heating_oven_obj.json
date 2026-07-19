@@ -1,0 +1,9 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/heating_oven.obj",
+  "automatic_culling": false,
+  "shade_quads": false,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "visibility": {"Inner": false, "InnerBurning": false, "Door": false, "Main": false}
+}

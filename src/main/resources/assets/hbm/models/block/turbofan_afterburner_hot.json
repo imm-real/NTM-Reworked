@@ -1,0 +1,9 @@
+{
+  "parent": "hbm:block/turbofan_obj",
+  "textures": {
+    "texture": "hbm:block/turbofan_afterburner"
+  },
+  "visibility": {
+    "Afterburner": true
+  }
+}

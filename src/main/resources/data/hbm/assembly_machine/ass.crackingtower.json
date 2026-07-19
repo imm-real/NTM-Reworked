@@ -1,0 +1,25 @@
+{
+  "id": "hbm:ass.crackingtower",
+  "name": "ass.crackingtower",
+  "inputs": [
+    { "ingredient": { "item": "hbm:steel_scaffold" }, "count": 16 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:shell",
+        "components": {
+          "minecraft:custom_data": { "material": "steel" },
+          "minecraft:custom_model_data": 30
+        },
+        "strict": true
+      },
+      "count": 6
+    },
+    { "ingredient": { "tag": "c:ingots/desh" }, "count": 12 },
+    { "ingredient": { "tag": "c:ingots/niobium" }, "count": 4 }
+  ],
+  "output": { "id": "hbm:machine_catalytic_cracker", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

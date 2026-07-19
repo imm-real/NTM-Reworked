@@ -1,0 +1,13 @@
+{
+  "ambientocclusion": false,
+  "textures": {"particle": "#north_south"},
+  "elements": [{
+    "from": [0, 0, 4], "to": [2, 4, 12],
+    "faces": {
+      "north": {"texture": "#north_south"},
+      "south": {"texture": "#north_south"},
+      "west": {"texture": "#east_west"},
+      "east": {"texture": "#east_west"}
+    }
+  }]
+}

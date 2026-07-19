@@ -1,0 +1,31 @@
+{
+  "id": "hbm:ass.shredder",
+  "name": "ass.shredder",
+  "inputs": [
+    {
+      "ingredient": {
+        "tag": "c:plates/steel"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "tag": "c:plates/copper"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "hbm:motor"
+      },
+      "count": 2
+    }
+  ],
+  "output": {
+    "id": "hbm:machine_shredder",
+    "count": 1
+  },
+  "duration": 100,
+  "power": 100,
+  "pools": []
+}

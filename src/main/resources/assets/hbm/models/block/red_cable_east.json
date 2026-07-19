@@ -1,0 +1,6 @@
+{
+  "parent": "hbm:block/red_cable_obj",
+  "visibility": {
+    "posX": true
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "hbm:item/rod.lithium"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "hbm:item/rod_tritium"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "hbm:item/rod_co"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "hbm:item/rod_co60"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "hbm:item/rod_th232"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "hbm:item/rod_thf"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 6
+      },
+      "model": "hbm:item/rod_u235"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 7
+      },
+      "model": "hbm:item/rod_np237"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 8
+      },
+      "model": "hbm:item/rod_u238"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 9
+      },
+      "model": "hbm:item/rod_pu238"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 10
+      },
+      "model": "hbm:item/rod_pu239"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 11
+      },
+      "model": "hbm:item/rod_rgp"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 12
+      },
+      "model": "hbm:item/rod_waste"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 13
+      },
+      "model": "hbm:item/rod_lead"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 14
+      },
+      "model": "hbm:item/rod_uranium"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 15
+      },
+      "model": "hbm:item/rod_ra226"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 16
+      },
+      "model": "hbm:item/rod_ac227"
+    }
+  ]
+}

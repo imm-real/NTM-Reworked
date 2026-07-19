@@ -1,0 +1,45 @@
+{
+  "id": "hbm:ass.assembler",
+  "name": "ass.assembler",
+  "inputs": [
+    {
+      "ingredient": {
+        "tag": "c:ingots/steel"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "tag": "c:plates/copper"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "hbm:motor"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "components": {
+          "minecraft:custom_data": {
+            "type": "basic"
+          },
+          "minecraft:custom_model_data": 8
+        },
+        "items": "hbm:circuit",
+        "strict": true
+      },
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "hbm:machine_assembly_machine",
+    "count": 1
+  },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

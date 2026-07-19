@@ -1,0 +1,41 @@
+{
+  "parent": "hbm:block/sellafield_0_0",
+  "overrides": [
+    {
+      "model": "hbm:item/sellafield_0",
+      "predicate": {
+        "custom_model_data": 0
+      }
+    },
+    {
+      "model": "hbm:item/sellafield_1",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "hbm:item/sellafield_2",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "hbm:item/sellafield_3",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "hbm:item/sellafield_4",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    },
+    {
+      "model": "hbm:item/sellafield_5",
+      "predicate": {
+        "custom_model_data": 5
+      }
+    }
+  ]
+}

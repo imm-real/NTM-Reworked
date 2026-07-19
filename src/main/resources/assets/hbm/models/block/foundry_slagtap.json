@@ -1,0 +1,11 @@
+{
+  "parent": "hbm:block/foundry_outlet_template",
+  "textures": {
+    "particle": "hbm:block/foundry_slagtap_side",
+    "bottom": "hbm:block/foundry_slagtap_bottom",
+    "side": "hbm:block/foundry_slagtap_side",
+    "top": "hbm:block/foundry_slagtap_top",
+    "inner": "hbm:block/foundry_slagtap_inner",
+    "front": "hbm:block/foundry_slagtap_front"
+  }
+}

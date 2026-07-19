@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/wood_burner_obj",
+  "visibility": {"Cylinder": true}
+}

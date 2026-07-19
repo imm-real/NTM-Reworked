@@ -1,0 +1,14 @@
+{
+  "multipart": [
+    { "when": { "render_shape": "junction" }, "apply": { "model": "hbm:block/red_cable_core" } },
+    { "when": { "render_shape": "junction", "north": "true" }, "apply": { "model": "hbm:block/red_cable_north" } },
+    { "when": { "render_shape": "junction", "south": "true" }, "apply": { "model": "hbm:block/red_cable_south" } },
+    { "when": { "render_shape": "junction", "east": "true" }, "apply": { "model": "hbm:block/red_cable_east" } },
+    { "when": { "render_shape": "junction", "west": "true" }, "apply": { "model": "hbm:block/red_cable_west" } },
+    { "when": { "render_shape": "junction", "up": "true" }, "apply": { "model": "hbm:block/red_cable_up" } },
+    { "when": { "render_shape": "junction", "down": "true" }, "apply": { "model": "hbm:block/red_cable_down" } },
+    { "when": { "render_shape": "x" }, "apply": { "model": "hbm:block/red_cable_x" } },
+    { "when": { "render_shape": "y" }, "apply": { "model": "hbm:block/red_cable_y" } },
+    { "when": { "render_shape": "z" }, "apply": { "model": "hbm:block/red_cable_z" } }
+  ]
+}

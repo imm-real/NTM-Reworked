@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:stick_semtex"
+    },
+    {
+      "item": "hbm:stick_semtex"
+    },
+    {
+      "item": "hbm:stick_semtex"
+    },
+    {
+      "item": "hbm:ducttape"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:charge_semtex"
+  }
+}

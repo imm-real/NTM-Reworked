@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/fensu_obj",
+  "visibility": {"Lights": true}
+}

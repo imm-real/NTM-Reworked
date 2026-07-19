@@ -1,0 +1,59 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "pattern": [
+    "BRS",
+    "SMG"
+  ],
+  "key": {
+    "B": {
+      "type": "neoforge:components",
+      "items": "hbm:part_barrel_light",
+      "components": {
+        "minecraft:custom_data": {"material": "steel"},
+        "minecraft:custom_model_data": 30
+      },
+      "strict": true
+    },
+    "R": {
+      "type": "neoforge:components",
+      "items": "hbm:part_receiver_light",
+      "components": {
+        "minecraft:custom_data": {"material": "steel"},
+        "minecraft:custom_model_data": 30
+      },
+      "strict": true
+    },
+    "S": {
+      "type": "neoforge:components",
+      "items": "hbm:bolt",
+      "components": {
+        "minecraft:custom_data": {"material": "steel"},
+        "minecraft:custom_model_data": 30
+      },
+      "strict": true
+    },
+    "M": {
+      "type": "neoforge:components",
+      "items": "hbm:part_mechanism",
+      "components": {
+        "minecraft:custom_data": {"material": "gunmetal"},
+        "minecraft:custom_model_data": 49
+      },
+      "strict": true
+    },
+    "G": {
+      "type": "neoforge:components",
+      "items": "hbm:part_grip",
+      "components": {
+        "minecraft:custom_data": {"material": "steel"},
+        "minecraft:custom_model_data": 30
+      },
+      "strict": true
+    }
+  },
+  "result": {
+    "id": "hbm:gun_greasegun",
+    "count": 1
+  }
+}

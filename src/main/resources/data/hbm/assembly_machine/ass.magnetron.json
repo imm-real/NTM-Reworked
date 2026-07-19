@@ -1,0 +1,33 @@
+{
+  "id": "hbm:ass.magnetron",
+  "name": "ass.magnetron",
+  "inputs": [
+    {"ingredient": {"tag": "c:plates/copper"}, "count": 3},
+    {
+      "ingredient": {
+        "type": "neoforge:compound",
+        "children": [
+          {
+            "type": "neoforge:components",
+            "items": "hbm:wire_fine",
+            "components": {
+              "minecraft:custom_data": {"material": "tungsten"},
+              "minecraft:custom_model_data": 7400
+            },
+            "strict": false
+          },
+          {
+            "type": "neoforge:difference",
+            "base": {"tag": "c:wires/fine/tungsten"},
+            "subtracted": {"item": "hbm:wire_fine"}
+          }
+        ]
+      },
+      "count": 4
+    }
+  ],
+  "output": {"id": "hbm:magnetron", "count": 1},
+  "duration": 40,
+  "power": 100,
+  "pools": []
+}

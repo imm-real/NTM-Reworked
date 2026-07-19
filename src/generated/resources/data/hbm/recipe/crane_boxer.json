@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "hbm:conveyor_wand"
+    },
+    "P": {
+      "item": "hbm:part_generic"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "WPW",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:crane_boxer"
+  }
+}

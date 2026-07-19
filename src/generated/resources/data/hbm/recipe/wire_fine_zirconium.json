@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/zirconium"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "zirconium"
+      },
+      "minecraft:custom_model_data": 4000
+    },
+    "count": 24,
+    "id": "hbm:wire_fine"
+  }
+}

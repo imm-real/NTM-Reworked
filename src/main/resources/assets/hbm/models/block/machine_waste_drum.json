@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "hbm:block/waste_drum_side",
+    "down": "hbm:block/waste_drum",
+    "up": "hbm:block/waste_drum",
+    "north": "hbm:block/waste_drum_side",
+    "south": "hbm:block/waste_drum_side",
+    "west": "hbm:block/waste_drum_side",
+    "east": "hbm:block/waste_drum_side"
+  }
+}

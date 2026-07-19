@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/tungsten"
+    },
+    {
+      "tag": "c:nuggets/schrabidium"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "amount": 72,
+        "material": "magnetized_tungsten"
+      },
+      "minecraft:custom_model_data": 38
+    },
+    "count": 1,
+    "id": "hbm:scraps"
+  }
+}

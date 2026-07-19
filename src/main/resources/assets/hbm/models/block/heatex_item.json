@@ -1,0 +1,11 @@
+{
+  "parent": "hbm:block/heatex_obj",
+  "visibility": {"Cube_Cube.001": true},
+  "display": {
+    "gui": {"rotation": [30, 225, 0], "translation": [-2.298097, -1.458734, 0.3125], "scale": [0.203125, 0.203125, 0.203125]},
+    "ground": {"translation": [0, 3, 0], "scale": [0.25, 0.25, 0.25]},
+    "fixed": {"rotation": [0, 90, 0], "scale": [0.25, 0.25, 0.25]},
+    "thirdperson_righthand": {"rotation": [75, 135, 0], "translation": [0, 2.5, 0], "scale": [0.25, 0.25, 0.25]},
+    "firstperson_righthand": {"rotation": [0, 135, 0], "translation": [0, 1, 0], "scale": [0.25, 0.25, 0.25]}
+  }
+}

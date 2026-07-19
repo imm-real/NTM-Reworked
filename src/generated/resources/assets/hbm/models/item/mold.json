@@ -1,0 +1,164 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "hbm:item/mold_nugget",
+      "predicate": {
+        "custom_model_data": 0
+      }
+    },
+    {
+      "model": "hbm:item/mold_billet",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "hbm:item/mold_ingot",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "hbm:item/mold_plate",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "hbm:item/mold_wire",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    },
+    {
+      "model": "hbm:item/mold_plate_cast",
+      "predicate": {
+        "custom_model_data": 19
+      }
+    },
+    {
+      "model": "hbm:item/mold_wire_dense",
+      "predicate": {
+        "custom_model_data": 20
+      }
+    },
+    {
+      "model": "hbm:item/mold_blade",
+      "predicate": {
+        "custom_model_data": 5
+      }
+    },
+    {
+      "model": "hbm:item/mold_blades",
+      "predicate": {
+        "custom_model_data": 6
+      }
+    },
+    {
+      "model": "hbm:item/mold_stamp",
+      "predicate": {
+        "custom_model_data": 7
+      }
+    },
+    {
+      "model": "hbm:item/mold_shell",
+      "predicate": {
+        "custom_model_data": 8
+      }
+    },
+    {
+      "model": "hbm:item/mold_pipe",
+      "predicate": {
+        "custom_model_data": 9
+      }
+    },
+    {
+      "model": "hbm:item/mold_ingots",
+      "predicate": {
+        "custom_model_data": 10
+      }
+    },
+    {
+      "model": "hbm:item/mold_plates",
+      "predicate": {
+        "custom_model_data": 11
+      }
+    },
+    {
+      "model": "hbm:item/mold_plates_cast",
+      "predicate": {
+        "custom_model_data": 13
+      }
+    },
+    {
+      "model": "hbm:item/mold_wires_dense",
+      "predicate": {
+        "custom_model_data": 21
+      }
+    },
+    {
+      "model": "hbm:item/mold_block",
+      "predicate": {
+        "custom_model_data": 12
+      }
+    },
+    {
+      "model": "hbm:item/mold_c9",
+      "predicate": {
+        "custom_model_data": 16
+      }
+    },
+    {
+      "model": "hbm:item/mold_c50",
+      "predicate": {
+        "custom_model_data": 17
+      }
+    },
+    {
+      "model": "hbm:item/mold_barrel_light",
+      "predicate": {
+        "custom_model_data": 22
+      }
+    },
+    {
+      "model": "hbm:item/mold_barrel_heavy",
+      "predicate": {
+        "custom_model_data": 23
+      }
+    },
+    {
+      "model": "hbm:item/mold_receiver_light",
+      "predicate": {
+        "custom_model_data": 24
+      }
+    },
+    {
+      "model": "hbm:item/mold_receiver_heavy",
+      "predicate": {
+        "custom_model_data": 25
+      }
+    },
+    {
+      "model": "hbm:item/mold_mechanism",
+      "predicate": {
+        "custom_model_data": 26
+      }
+    },
+    {
+      "model": "hbm:item/mold_stock",
+      "predicate": {
+        "custom_model_data": 27
+      }
+    },
+    {
+      "model": "hbm:item/mold_grip",
+      "predicate": {
+        "custom_model_data": 28
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "hbm:item/mold_nugget"
+  }
+}

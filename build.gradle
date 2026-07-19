@@ -1,0 +1,148 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+sourceSets.main.resources {
+    srcDir('src/generated/resources')
+    exclude('**/*.bbmodel')
+    exclude('src/generated/**/.cache')
+}
+
+base {
+    archivesName = mod_id
+}
+
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'RyanHCode Maven'
+                url = uri('https://maven.ryanhcode.dev/releases')
+            }
+        }
+        filter {
+            includeGroup 'dev.ryanhcode.sable'
+            includeGroup 'dev.ryanhcode.sable-companion'
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Modrinth'
+                url = uri('https://api.modrinth.com/maven')
+            }
+        }
+        filter {
+            includeGroup 'maven.modrinth'
+        }
+    }
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        workingDirectory project.layout.projectDirectory.dir('run').dir(name)
+        modSource project.sourceSets.main
+    }
+
+    client {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        // Generational ZGC (Java 21): concurrent, effectively pause-free collection
+        // that trades CPU threads for zero hitching; fixed pre-touched 8G heap.
+        jvmArguments.addAll('-Xms8G', '-Xmx8G',
+                '-XX:+UseZGC', '-XX:+ZGenerational', '-XX:+AlwaysPreTouch')
+    }
+
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--nogui'
+    }
+
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    data {
+        arguments.addAll '--mod', project.mod_id,
+                '--all',
+                '--output', file('src/generated/resources/').getAbsolutePath(),
+                '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+    compileOnly "dev.ryanhcode.sable:sable-common-${minecraft_version}:${sable_version}"
+
+    // Dev-runtime performance mods (not packaged or published with the mod).
+    // Sodium 0.8.12 is installed in run/client/mods. Its upstream wrapper and
+    // inner mod are merged there so Iris can see both halves under userdev.
+    localRuntime "maven.modrinth:lithium:mc1.21.1-0.15.4-neoforge"
+    localRuntime "maven.modrinth:ferrite-core:7.0.3-neoforge"
+    localRuntime "maven.modrinth:modernfix:5.27.15+mc1.21.1"
+    localRuntime "maven.modrinth:immediatelyfast:1.6.11+1.21.1-neoforge"
+    // These two share one version number across loaders, so the maven's number
+    // lookup returns the Fabric entry; their unique NeoForge version IDs are pinned.
+    localRuntime "maven.modrinth:entityculling:5zRIon6w"     // 1.10.5 neoforge
+    localRuntime "maven.modrinth:dynamic-fps:T238FZpQ"       // 3.11.4 neoforge
+    localRuntime "maven.modrinth:spark:1.10.124-neoforge-1.21.1"
+}
+
+tasks.withType(ProcessResources).configureEach {
+    def replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = uri("${project.projectDir}/repo")
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.add('-Xlint:all,-deprecation,-this-escape,-processing')
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}

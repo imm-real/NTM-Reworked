@@ -1,0 +1,18 @@
+{
+  "parent": "hbm:block/foundry_channel_center",
+  "elements": [
+    { "from": [5, 0, 0], "to": [11, 2, 5], "faces": {
+      "down": { "texture": "#bottom" }, "up": { "texture": "#bottom" },
+      "north": { "texture": "#side" }, "east": { "texture": "#side" },
+      "south": { "texture": "#side" }, "west": { "texture": "#side" }
+    } },
+    { "from": [5, 2, 0], "to": [6, 8, 5], "faces": {
+      "up": { "texture": "#top" }, "north": { "texture": "#side" },
+      "east": { "texture": "#inner" }, "south": { "texture": "#side" }, "west": { "texture": "#side" }
+    } },
+    { "from": [10, 2, 0], "to": [11, 8, 5], "faces": {
+      "up": { "texture": "#top" }, "north": { "texture": "#side" },
+      "east": { "texture": "#side" }, "south": { "texture": "#side" }, "west": { "texture": "#inner" }
+    } }
+  ]
+}

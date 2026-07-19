@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#c:plates/iron",
+    "#c:plates/gold",
+    "#c:plates/titanium",
+    "#c:plates/aluminum",
+    "#c:plates/steel",
+    "#c:plates/lead",
+    "#c:plates/copper",
+    "#c:plates/gunmetal",
+    "#c:plates/weapon_steel",
+    "#c:plates/dura_steel"
+  ]
+}

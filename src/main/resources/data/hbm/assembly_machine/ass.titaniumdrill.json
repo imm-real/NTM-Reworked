@@ -1,0 +1,23 @@
+{
+  "id": "hbm:ass.titaniumdrill",
+  "name": "ass.titaniumdrill",
+  "inputs": [
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:plate_cast",
+        "components": {
+          "minecraft:custom_data": { "material": "dura_steel" },
+          "minecraft:custom_model_data": 33
+        },
+        "strict": true
+      },
+      "count": 1
+    },
+    { "ingredient": { "tag": "c:plates/titanium" }, "count": 8 }
+  ],
+  "output": { "id": "hbm:drill_titanium", "count": 1 },
+  "duration": 100,
+  "power": 100,
+  "pools": []
+}

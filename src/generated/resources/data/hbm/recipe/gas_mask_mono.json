@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "tag": "c:plates/iron"
+    },
+    "P": {
+      "tag": "hbm:ingots/any_rubber"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PPP",
+    " F "
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:gas_mask_mono"
+  }
+}

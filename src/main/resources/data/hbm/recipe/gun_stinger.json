@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "pattern": [
+    "BBB",
+    "PGM"
+  ],
+  "key": {
+    "B": {
+      "type": "neoforge:components",
+      "items": "hbm:part_barrel_heavy",
+      "components": {
+        "minecraft:custom_data": {"material": "weapon_steel"},
+        "minecraft:custom_model_data": 50
+      },
+      "strict": true
+    },
+    "P": {
+      "type": "neoforge:components",
+      "items": "hbm:circuit",
+      "components": {
+        "minecraft:custom_data": {"type": "advanced"},
+        "minecraft:custom_model_data": 9
+      },
+      "strict": true
+    },
+    "G": {
+      "type": "neoforge:components",
+      "items": "hbm:part_grip",
+      "components": {
+        "minecraft:custom_data": {"material": "weapon_steel"},
+        "minecraft:custom_model_data": 50
+      },
+      "strict": true
+    },
+    "M": {
+      "type": "neoforge:components",
+      "items": "hbm:part_mechanism",
+      "components": {
+        "minecraft:custom_data": {"material": "weapon_steel"},
+        "minecraft:custom_model_data": 50
+      },
+      "strict": true
+    }
+  },
+  "result": {
+    "id": "hbm:gun_stinger",
+    "count": 1
+  }
+}

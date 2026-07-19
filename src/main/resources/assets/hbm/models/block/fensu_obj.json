@@ -1,0 +1,18 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/fensu.obj",
+  "automatic_culling": false,
+  "shade_quads": true,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "textures": {
+    "particle": "hbm:block/block_steel",
+    "texture": "hbm:block/fensu"
+  },
+  "visibility": {
+    "Base": false,
+    "Wheel": false,
+    "Lights": false,
+    "Plasma": false
+  }
+}

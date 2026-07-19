@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "hbm:steel_scaffold",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "hbm:steel_scaffold",
+              "properties": ["variant"]
+            },
+            {
+              "function": "minecraft:set_components",
+              "conditions": [{"condition":"minecraft:block_state_property","block":"hbm:steel_scaffold","properties":{"variant":"steel"}}],
+              "components": {"minecraft:custom_model_data": 0}
+            },
+            {
+              "function": "minecraft:set_components",
+              "conditions": [{"condition":"minecraft:block_state_property","block":"hbm:steel_scaffold","properties":{"variant":"red"}}],
+              "components": {"minecraft:custom_model_data": 1}
+            },
+            {
+              "function": "minecraft:set_components",
+              "conditions": [{"condition":"minecraft:block_state_property","block":"hbm:steel_scaffold","properties":{"variant":"white"}}],
+              "components": {"minecraft:custom_model_data": 2}
+            },
+            {
+              "function": "minecraft:set_components",
+              "conditions": [{"condition":"minecraft:block_state_property","block":"hbm:steel_scaffold","properties":{"variant":"yellow"}}],
+              "components": {"minecraft:custom_model_data": 3}
+            }
+          ]
+        }
+      ],
+      "conditions": [{"condition":"minecraft:survives_explosion"}]
+    }
+  ],
+  "random_sequence": "hbm:blocks/steel_scaffold"
+}

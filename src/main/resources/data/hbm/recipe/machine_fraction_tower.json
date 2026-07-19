@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["H", "G", "H"],
+  "key": {
+    "H": {
+      "type": "neoforge:components",
+      "items": "hbm:plate_welded",
+      "components": {
+        "minecraft:custom_data": {"material": "steel"},
+        "minecraft:custom_model_data": 30
+      },
+      "strict": true
+    },
+    "G": {"item": "hbm:steel_grate"}
+  },
+  "result": {"id": "hbm:machine_fraction_tower", "count": 1}
+}

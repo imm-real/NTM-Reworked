@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": {
+      "item": "hbm:plate_steel"
+    },
+    "R": {
+      "item": "hbm:ingot_red_copper"
+    }
+  },
+  "pattern": [
+    "PRP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_battery_socket"
+  }
+}

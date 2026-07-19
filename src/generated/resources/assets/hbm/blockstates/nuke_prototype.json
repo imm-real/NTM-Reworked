@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "hbm:block/nuke_prototype"
+    },
+    "facing=north": {
+      "model": "hbm:block/nuke_prototype"
+    },
+    "facing=south": {
+      "model": "hbm:block/nuke_prototype"
+    },
+    "facing=west": {
+      "model": "hbm:block/nuke_prototype"
+    }
+  }
+}

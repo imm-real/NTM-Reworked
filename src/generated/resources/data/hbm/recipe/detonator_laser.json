@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:rangefinder"
+    },
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "advanced"
+        },
+        "minecraft:custom_model_data": 9
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    {
+      "tag": "c:ingots/rubber"
+    },
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "gold"
+        },
+        "minecraft:custom_model_data": 7900
+      },
+      "items": "hbm:wire_dense",
+      "strict": false
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:detonator_laser"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "feature": "hbm:ore_rare",
+  "placement": [
+    { "type": "hbm:config_ore_count", "ore": "rare_earth" },
+    { "type": "minecraft:in_square" },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": { "above_bottom": 5 },
+        "max_inclusive": { "above_bottom": 24 }
+      }
+    },
+    { "type": "minecraft:biome" }
+  ]
+}

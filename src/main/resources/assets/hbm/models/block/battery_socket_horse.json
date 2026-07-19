@@ -1,0 +1,15 @@
+{
+  "parent":"hbm:block/battery_socket_horse_obj",
+  "visibility":{
+    "Body":true,
+    "RightBackLeg":true,
+    "LeftBackLeg":true,
+    "RightFrontLeg":true,
+    "LeftFrontLeg":true,
+    "Head":true,
+    "Tail":true,
+    "HornPointy":true,
+    "NoseFemale":true,
+    "Mane":true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "hbm:block/wood_burner_obj",
+  "visibility": {"Cylinder": true},
+  "display": {
+    "gui": {"rotation": [30, 315, 0], "translation": [0, -5.185995, 1.018303], "scale": [0.21875, 0.21875, 0.21875]},
+    "ground": {"translation": [0, 2, 0], "scale": [0.18, 0.18, 0.18]},
+    "fixed": {"rotation": [0, 90, 0], "translation": [0, -1, 0], "scale": [0.22, 0.22, 0.22]},
+    "thirdperson_righthand": {"rotation": [75, 135, 0], "translation": [0, 1.5, 0], "scale": [0.18, 0.18, 0.18]},
+    "firstperson_righthand": {"rotation": [0, 135, 0], "translation": [0, 0, 0], "scale": [0.18, 0.18, 0.18]}
+  }
+}

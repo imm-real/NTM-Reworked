@@ -1,0 +1,26 @@
+{
+  "parent": "hbm:block/boiler",
+  "display": {
+    "gui": {
+      "rotation": [30, 315, 0],
+      "translation": [0, -4.359698, 1.087117],
+      "scale": [0.1875, 0.1875, 0.1875]
+    },
+    "ground": {
+      "translation": [0, 2, 0],
+      "scale": [0.1875, 0.1875, 0.1875]
+    },
+    "fixed": {
+      "rotation": [0, 180, 0],
+      "scale": [0.25, 0.25, 0.25]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 45, 0],
+      "scale": [0.2, 0.2, 0.2]
+    },
+    "thirdperson_righthand": {
+      "rotation": [75, 45, 0],
+      "scale": [0.2, 0.2, 0.2]
+    }
+  }
+}

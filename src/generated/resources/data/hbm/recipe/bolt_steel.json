@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "steel"
+      },
+      "minecraft:custom_model_data": 30
+    },
+    "count": 16,
+    "id": "hbm:bolt"
+  }
+}

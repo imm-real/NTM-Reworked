@@ -1,0 +1,1 @@
+{"parent":"hbm:block/battery_obj","textures":{"texture":"hbm:block/battery_socket"},"visibility":{"Socket":true}}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["BHB"],
+  "key": {
+    "B": {"item": "minecraft:iron_bars"},
+    "H": {
+      "type": "neoforge:components",
+      "items": "hbm:shell",
+      "components": {
+        "minecraft:custom_data": {"material": "steel"},
+        "minecraft:custom_model_data": 30
+      },
+      "strict": true
+    }
+  },
+  "result": {"id": "hbm:fraction_spacer", "count": 1}
+}

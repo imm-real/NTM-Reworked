@@ -1,0 +1,67 @@
+{
+  "id": "hbm:ass.chip",
+  "name": "ass.chip",
+  "inputs": [
+    {
+      "ingredient": {
+        "item": "hbm:plate_polymer"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "components": {
+          "minecraft:custom_data": {
+            "type": "silicon"
+          },
+          "minecraft:custom_model_data": 4
+        },
+        "items": "hbm:circuit",
+        "strict": false
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:compound",
+        "children": [
+          {
+            "type": "neoforge:components",
+            "components": {
+              "minecraft:custom_data": {
+                "material": "gold"
+              },
+              "minecraft:custom_model_data": 7900
+            },
+            "items": "hbm:wire_fine",
+            "strict": false
+          },
+          {
+            "type": "neoforge:difference",
+            "base": {
+              "tag": "c:wires/fine/gold"
+            },
+            "subtracted": {
+              "item": "hbm:wire_fine"
+            }
+          }
+        ]
+      },
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "hbm:circuit",
+    "count": 1,
+    "components": {
+      "minecraft:custom_data": {
+        "type": "chip"
+      },
+      "minecraft:custom_model_data": 5
+    }
+  },
+  "duration": 50,
+  "power": 250,
+  "pools": []
+}

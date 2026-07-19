@@ -1,0 +1,12 @@
+{
+  "id": "hbm:ass.platecopper",
+  "name": "ass.platecopper",
+  "inputs": [
+    { "ingredient": { "tag": "c:ingots/copper" }, "count": 1 }
+  ],
+  "output": { "id": "hbm:plate_copper", "count": 1 },
+  "duration": 60,
+  "power": 100,
+  "pools": ["alt.plates"],
+  "autoswitch": "autoswitch.plates"
+}

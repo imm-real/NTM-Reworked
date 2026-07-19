@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/gold"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "gold"
+      },
+      "minecraft:custom_model_data": 7900
+    },
+    "count": 24,
+    "id": "hbm:wire_fine"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "hbm:plate_steel"
+    },
+    "P": {
+      "item": "hbm:plate_polymer"
+    },
+    "R": {
+      "item": "hbm:block_copper"
+    }
+  },
+  "pattern": [
+    "IRI",
+    "PRP",
+    "IRI"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "type": "capacitor_copper",
+        "charge": 0
+      }
+    },
+    "count": 1,
+    "id": "hbm:battery_pack"
+  }
+}

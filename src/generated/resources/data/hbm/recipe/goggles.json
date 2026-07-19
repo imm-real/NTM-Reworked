@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "P P",
+    "GPG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:goggles"
+  }
+}

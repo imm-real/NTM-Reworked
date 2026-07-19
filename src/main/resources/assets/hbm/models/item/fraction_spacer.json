@@ -1,0 +1,14 @@
+{
+  "parent": "hbm:block/fraction_spacer",
+  "display": {
+    "gui": {
+      "rotation": [30, 225, 0],
+      "translation": [-2.298097, -0.592709, 0.8125],
+      "scale": [0.203125, 0.203125, 0.203125]
+    },
+    "ground": {"translation": [0, 2, 0], "scale": [0.05, 0.05, 0.05]},
+    "fixed": {"rotation": [0, 180, 0], "scale": [0.0625, 0.0625, 0.0625]},
+    "firstperson_righthand": {"rotation": [0, 180, 0], "scale": [0.0625, 0.0625, 0.0625]},
+    "thirdperson_righthand": {"rotation": [75, 180, 0], "scale": [0.0625, 0.0625, 0.0625]}
+  }
+}

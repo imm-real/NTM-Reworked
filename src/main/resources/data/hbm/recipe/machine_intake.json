@@ -1,0 +1,12 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "category":"redstone",
+  "pattern":["GGG","PMP","PTP"],
+  "key":{
+    "G":{"item":"hbm:steel_grate"},
+    "P":{"tag":"c:plates/steel"},
+    "M":{"item":"hbm:motor"},
+    "T":{"item":"hbm:tank_steel"}
+  },
+  "result":{"id":"hbm:machine_intake","count":1}
+}

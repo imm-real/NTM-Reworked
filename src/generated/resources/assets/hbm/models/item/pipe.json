@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "hbm:item/pipe_steel",
+      "predicate": {
+        "custom_model_data": 30
+      }
+    },
+    {
+      "model": "hbm:item/pipe_dura_steel",
+      "predicate": {
+        "custom_model_data": 33
+      }
+    },
+    {
+      "model": "hbm:item/pipe_copper",
+      "predicate": {
+        "custom_model_data": 2900
+      }
+    },
+    {
+      "model": "hbm:item/pipe_lead",
+      "predicate": {
+        "custom_model_data": 8200
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "hbm:item/pipe_copper"
+  }
+}

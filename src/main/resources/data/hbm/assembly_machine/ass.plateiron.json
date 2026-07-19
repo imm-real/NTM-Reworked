@@ -1,0 +1,12 @@
+{
+  "id": "hbm:ass.plateiron",
+  "name": "ass.plateiron",
+  "inputs": [
+    { "ingredient": { "tag": "c:ingots/iron" }, "count": 1 }
+  ],
+  "output": { "id": "hbm:plate_iron", "count": 1 },
+  "duration": 60,
+  "power": 100,
+  "pools": ["alt.plates"],
+  "autoswitch": "autoswitch.plates"
+}

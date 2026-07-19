@@ -1,0 +1,46 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "belt": "hbm:block/conveyor",
+    "side": "hbm:block/conveyor_side",
+    "particle": "hbm:block/conveyor"
+  },
+  "elements": [
+    {
+      "from": [4, 0, 0],
+      "to": [12, 4, 16],
+      "faces": {
+        "down": {"texture": "#belt"},
+        "up": {"texture": "#belt", "uv": [4, 0, 12, 16], "rotation": 180},
+        "north": {"texture": "#belt"},
+        "south": {"texture": "#belt", "uv": [4, 0, 12, 4], "rotation": 180},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    },
+    {
+      "from": [0, 0, 4],
+      "to": [4, 4, 12],
+      "faces": {
+        "down": {"texture": "#belt"},
+        "up": {"texture": "#belt", "uv": [12, 4, 16, 12], "rotation": 180},
+        "north": {"texture": "#belt"},
+        "south": {"texture": "#belt", "uv": [12, 0, 16, 4], "rotation": 180},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    },
+    {
+      "from": [12, 0, 4],
+      "to": [16, 4, 12],
+      "faces": {
+        "down": {"texture": "#belt"},
+        "up": {"texture": "#belt", "uv": [0, 4, 4, 12], "rotation": 180},
+        "north": {"texture": "#belt"},
+        "south": {"texture": "#belt", "uv": [0, 0, 4, 4], "rotation": 180},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    }
+  ]
+}

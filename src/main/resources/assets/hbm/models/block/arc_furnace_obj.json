@@ -1,0 +1,33 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/arc_furnace.obj",
+  "automatic_culling": false,
+  "shade_quads": true,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "textures": {
+    "particle": "hbm:block/arc_furnace",
+    "texture": "hbm:block/arc_furnace"
+  },
+  "visibility": {
+    "Furnace": false,
+    "ContentsCold": false,
+    "ContentsHot": false,
+    "Lid": false,
+    "Ring1": false,
+    "Ring2": false,
+    "Ring3": false,
+    "Electrode1": false,
+    "Electrode2": false,
+    "Electrode3": false,
+    "Electrode1Hot": false,
+    "Electrode2Hot": false,
+    "Electrode3Hot": false,
+    "Electrode1Short": false,
+    "Electrode2Short": false,
+    "Electrode3Short": false,
+    "Cable1": false,
+    "Cable2": false,
+    "Cable3": false
+  }
+}

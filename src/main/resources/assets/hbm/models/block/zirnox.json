@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/zirnox_obj",
+  "visibility": {"Plane": true}
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "hbm:block/nuke_tsar_obj",
+  "display": {
+    "gui": {"rotation": [30, 225, 0], "translation": [-3.977475, -2.218964, 2.629257], "scale": [0.140625, 0.140625, 0.140625]},
+    "ground": {"translation": [3, 0, 0], "scale": [0.375, 0.375, 0.375]},
+    "fixed": {"translation": [3, 0, 0], "scale": [0.25, 0.25, 0.25]},
+    "firstperson_righthand": {"rotation": [0, 90, 0], "translation": [3, 0, 0], "scale": [0.25, 0.25, 0.25]},
+    "firstperson_lefthand": {"rotation": [0, 90, 0], "translation": [3, 0, 0], "scale": [0.25, 0.25, 0.25]},
+    "thirdperson_righthand": {"translation": [3, 0, 0], "scale": [0.25, 0.25, 0.25]},
+    "thirdperson_lefthand": {"translation": [3, 0, 0], "scale": [0.25, 0.25, 0.25]}
+  }
+}

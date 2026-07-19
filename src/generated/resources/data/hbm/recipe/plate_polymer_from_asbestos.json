@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "hbm:ingot_asbestos"
+    }
+  },
+  "pattern": [
+    "BB"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:plate_polymer"
+  }
+}

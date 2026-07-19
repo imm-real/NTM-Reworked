@@ -1,0 +1,5 @@
+{
+  "parent": "hbm:block/radgen_obj",
+  "textures": {"texture": "hbm:block/scaffold_white"},
+  "visibility": {"Light": true}
+}

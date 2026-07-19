@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "part=0": { "model": "hbm:block/research_reactor_particle" },
+    "part=1": { "model": "hbm:block/research_reactor_particle" },
+    "part=2": { "model": "hbm:block/research_reactor_particle" }
+  }
+}

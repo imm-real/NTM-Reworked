@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#c:billets/uranium",
+    "#c:billets/uranium_233",
+    "#c:billets/uranium_235",
+    "#c:billets/uranium_238",
+    "#c:billets/thorium_232",
+    "#c:billets/plutonium",
+    "#c:billets/technetium_99",
+    "#c:billets/schrabidium",
+    "#c:billets/silicon"
+  ]
+}

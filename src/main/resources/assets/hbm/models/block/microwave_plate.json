@@ -1,0 +1,8 @@
+{
+  "parent": "hbm:block/microwave_obj",
+  "visibility": {
+    "plate_Cylinder": true,
+    "window_Cube.002": false,
+    "mainbody_Cube.001": false
+  }
+}

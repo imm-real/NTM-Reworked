@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "unstable=false": {
+      "model": "hbm:block/tnt_ntm"
+    },
+    "unstable=true": {
+      "model": "hbm:block/tnt_ntm"
+    }
+  }
+}

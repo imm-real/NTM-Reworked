@@ -1,0 +1,5 @@
+{
+  "parent": "hbm:block/fensu_obj",
+  "textures": {"texture": "hbm:block/fensu_plasma_sparkle"},
+  "visibility": {"Plasma": true}
+}

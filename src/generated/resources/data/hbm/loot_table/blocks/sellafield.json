@@ -1,0 +1,120 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "block": "hbm:sellafield",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "level"
+              ]
+            },
+            {
+              "components": {
+                "minecraft:custom_model_data": 0
+              },
+              "conditions": [
+                {
+                  "block": "hbm:sellafield",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "level": "0"
+                  }
+                }
+              ],
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:custom_model_data": 1
+              },
+              "conditions": [
+                {
+                  "block": "hbm:sellafield",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "level": "1"
+                  }
+                }
+              ],
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:custom_model_data": 2
+              },
+              "conditions": [
+                {
+                  "block": "hbm:sellafield",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "level": "2"
+                  }
+                }
+              ],
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:custom_model_data": 3
+              },
+              "conditions": [
+                {
+                  "block": "hbm:sellafield",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "level": "3"
+                  }
+                }
+              ],
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:custom_model_data": 4
+              },
+              "conditions": [
+                {
+                  "block": "hbm:sellafield",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "level": "4"
+                  }
+                }
+              ],
+              "function": "minecraft:set_components"
+            },
+            {
+              "components": {
+                "minecraft:custom_model_data": 5
+              },
+              "conditions": [
+                {
+                  "block": "hbm:sellafield",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "level": "5"
+                  }
+                }
+              ],
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "hbm:sellafield"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "hbm:blocks/sellafield"
+}

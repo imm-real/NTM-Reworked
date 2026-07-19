@@ -1,0 +1,19 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/electric_heater.obj",
+  "automatic_culling": false,
+  "shade_quads": false,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "textures": {"particle": "hbm:block/electric_heater"},
+  "transform": {"translation": [-0.5, 0, 0]},
+  "display": {
+    "gui": {"rotation": [30, 225, 0], "translation": [-2.12132, -0.700962, 0.75], "scale": [0.1875, 0.1875, 0.1875]},
+    "ground": {"rotation": [0, 90, 0], "scale": [0.375, 0.375, 0.375]},
+    "fixed": {"rotation": [0, 90, 0], "scale": [0.25, 0.25, 0.25]},
+    "firstperson_righthand": {"rotation": [0, 90, 0], "translation": [8, 4, 0], "scale": [0.25, 0.25, 0.25]},
+    "firstperson_lefthand": {"rotation": [0, 90, 0], "translation": [8, 4, 0], "scale": [0.25, 0.25, 0.25]},
+    "thirdperson_righthand": {"translation": [8, 4, 0], "scale": [0.25, 0.25, 0.25]},
+    "thirdperson_lefthand": {"translation": [8, 4, 0], "scale": [0.25, 0.25, 0.25]}
+  }
+}

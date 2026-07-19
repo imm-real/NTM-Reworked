@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT/issues"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+displayURL="https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT"
+credits="Original HBM NTM contributors; NeoForge migration in progress"
+authors="HbMinecraft and contributors"
+description='''
+An in-progress port of HBM's Nuclear Tech Mod from Minecraft 1.7.10 to NeoForge 1.21.1.
+This early build contains only systems explicitly migrated to the modern engine.
+'''
+
+[[mixins]]
+config="hbm.mixins.json"
+
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="[${neo_version},)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="sable"
+type="optional"
+versionRange="[2.0.0,3.0.0)"
+ordering="AFTER"
+side="BOTH"

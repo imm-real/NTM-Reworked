@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "part=lower": {
+      "model": "hbm:block/machine_press"
+    },
+    "part=middle": {
+      "model": "hbm:block/machine_press"
+    },
+    "part=upper": {
+      "model": "hbm:block/machine_press"
+    }
+  }
+}

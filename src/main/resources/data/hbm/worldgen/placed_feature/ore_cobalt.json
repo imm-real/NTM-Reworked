@@ -1,0 +1,16 @@
+{
+  "feature": "hbm:ore_cobalt",
+  "placement": [
+    { "type": "hbm:config_ore_count", "ore": "cobalt" },
+    { "type": "minecraft:in_square" },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": { "above_bottom": 4 },
+        "max_inclusive": { "above_bottom": 11 }
+      }
+    },
+    { "type": "minecraft:biome" }
+  ]
+}

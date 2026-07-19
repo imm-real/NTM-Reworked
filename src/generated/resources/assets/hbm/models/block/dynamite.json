@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "hbm:block/dynamite_bottom",
+    "east": "hbm:block/dynamite_side",
+    "north": "hbm:block/dynamite_side",
+    "particle": "hbm:block/dynamite_side",
+    "south": "hbm:block/dynamite_side",
+    "up": "hbm:block/dynamite_top",
+    "west": "hbm:block/dynamite_side"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "hbm:motor"
+    },
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "I": {
+      "item": "hbm:plate_polymer"
+    },
+    "M": {
+      "item": "hbm:magnetron"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "III",
+    "SGM",
+    "IDI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_microwave"
+  }
+}

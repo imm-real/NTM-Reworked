@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "tag": "c:ingots/rubber"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "pattern": [
+    "R R",
+    "T T"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:envsuit_boots"
+  }
+}

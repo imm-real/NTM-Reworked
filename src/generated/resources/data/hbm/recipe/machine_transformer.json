@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "capacitor"
+        },
+        "minecraft:custom_model_data": 1
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "D": {
+      "tag": "c:ingots/mingrade"
+    },
+    "M": {
+      "item": "hbm:coil_copper"
+    },
+    "S": {
+      "tag": "c:ingots/iron"
+    }
+  },
+  "pattern": [
+    "SCS",
+    "MDM",
+    "SCS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_transformer"
+  }
+}

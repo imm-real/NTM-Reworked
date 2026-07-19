@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "unstable=false": {
+      "model": "hbm:block/semtex"
+    },
+    "unstable=true": {
+      "model": "hbm:block/semtex"
+    }
+  }
+}

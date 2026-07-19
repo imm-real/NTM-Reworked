@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:dusts/aluminum"
+    },
+    "I": {
+      "item": "hbm:plate_polymer"
+    },
+    "W": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "copper"
+        },
+        "minecraft:custom_model_data": 2900
+      },
+      "items": "hbm:wire_fine",
+      "strict": true
+    }
+  },
+  "pattern": [
+    "IAI",
+    "W W"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "type": "capacitor"
+      },
+      "minecraft:custom_model_data": 1
+    },
+    "count": 2,
+    "id": "hbm:circuit"
+  }
+}

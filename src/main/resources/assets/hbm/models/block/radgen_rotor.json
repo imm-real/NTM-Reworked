@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/radgen_obj",
+  "visibility": {"Rotor": true}
+}

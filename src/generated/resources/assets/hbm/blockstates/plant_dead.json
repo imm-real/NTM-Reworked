@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "variant=0": {
+      "model": "hbm:block/plant_dead_0"
+    },
+    "variant=1": {
+      "model": "hbm:block/plant_dead_1"
+    },
+    "variant=2": {
+      "model": "hbm:block/plant_dead_2"
+    },
+    "variant=3": {
+      "model": "hbm:block/plant_dead_3"
+    },
+    "variant=4": {
+      "model": "hbm:block/plant_dead_4"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:radiation",
+    "hbm:blender",
+    "hbm:laser",
+    "hbm:bang",
+    "hbm:blackhole",
+    "hbm:monoxide",
+    "hbm:mku",
+    "hbm:ams",
+    "hbm:ams_core",
+    "hbm:hard_landing"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "hbm:block/conveyor_triple",
+  "display": {
+    "gui": {
+      "rotation": [30, 315, 0],
+      "translation": [0, 2.165064, 1.25],
+      "scale": [0.625, 0.625, 0.625]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 6.0,
+  "ingredient": {
+    "item": "hbm:ore_tungsten"
+  },
+  "result": {
+    "id": "hbm:ingot_tungsten"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:storage_blocks/coke/coal",
+    "#c:storage_blocks/coke/lignite",
+    "#c:storage_blocks/coke/petroleum"
+  ]
+}

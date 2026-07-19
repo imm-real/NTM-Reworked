@@ -1,0 +1,49 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:ingots/graphite"
+    },
+    "T": {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "type": "neoforge:components",
+          "components": {
+            "minecraft:custom_data": {
+              "material": "steel"
+            },
+            "minecraft:custom_model_data": 30
+          },
+          "items": "hbm:bolt",
+          "strict": false
+        },
+        {
+          "type": "neoforge:difference",
+          "base": {
+            "tag": "c:bolts/steel"
+          },
+          "subtracted": {
+            "item": "hbm:bolt"
+          }
+        }
+      ]
+    }
+  },
+  "pattern": [
+    "C",
+    "T",
+    "C"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "type": "graphite"
+      },
+      "minecraft:custom_model_data": 0
+    },
+    "count": 1,
+    "id": "hbm:arc_electrode"
+  }
+}

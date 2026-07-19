@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 3.0,
+  "ingredient": {
+    "item": "hbm:gravel_diamond"
+  },
+  "result": {
+    "id": "minecraft:diamond"
+  }
+}

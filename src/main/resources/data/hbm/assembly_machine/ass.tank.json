@@ -1,0 +1,36 @@
+{
+  "id": "hbm:ass.tank",
+  "name": "ass.tank",
+  "inputs": [
+    { "ingredient": { "tag": "c:plates/steel" }, "count": 8 },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:shell",
+        "components": {
+          "minecraft:custom_data": { "material": "steel" },
+          "minecraft:custom_model_data": 30
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:plate_welded",
+        "components": {
+          "minecraft:custom_data": { "material": "steel" },
+          "minecraft:custom_model_data": 30
+        },
+        "strict": true
+      },
+      "count": 4
+    },
+    { "ingredient": { "item": "hbm:oil_tar" }, "count": 16 }
+  ],
+  "output": { "id": "hbm:machine_fluidtank", "count": 1 },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

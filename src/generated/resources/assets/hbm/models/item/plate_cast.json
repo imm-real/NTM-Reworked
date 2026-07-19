@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "hbm:item/plate_cast_steel",
+      "predicate": {
+        "custom_model_data": 30
+      }
+    },
+    {
+      "model": "hbm:item/plate_cast_dura_steel",
+      "predicate": {
+        "custom_model_data": 33
+      }
+    },
+    {
+      "model": "hbm:item/plate_cast_titanium",
+      "predicate": {
+        "custom_model_data": 2200
+      }
+    },
+    {
+      "model": "hbm:item/plate_cast_iron",
+      "predicate": {
+        "custom_model_data": 2600
+      }
+    },
+    {
+      "model": "hbm:item/plate_cast_copper",
+      "predicate": {
+        "custom_model_data": 2900
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "hbm:item/plate_cast_iron"
+  }
+}

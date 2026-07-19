@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "titanium"
+        },
+        "minecraft:custom_model_data": 2200
+      },
+      "items": "hbm:plate_cast",
+      "strict": false
+    },
+    "R": {
+      "tag": "c:ingots/rubber"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "pattern": [
+    "TCT",
+    "R R",
+    "T T"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:envsuit_legs"
+  }
+}

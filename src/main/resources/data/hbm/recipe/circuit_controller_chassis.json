@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": { "type": "pcb" },
+        "minecraft:custom_model_data": 3
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    },
+    "C": { "item": "hbm:crt_display" },
+    "P": { "item": "hbm:plate_polymer" }
+  },
+  "pattern": [
+    "PPP",
+    "CBB",
+    "PPP"
+  ],
+  "result": {
+    "id": "hbm:circuit",
+    "count": 1,
+    "components": {
+      "minecraft:custom_data": { "type": "controller_chassis" },
+      "minecraft:custom_model_data": 12
+    }
+  }
+}

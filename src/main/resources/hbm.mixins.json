@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hbm.ntm.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "com.hbm.ntm.mixin.HbmMixinPlugin",
+  "mixins": [
+    "ServerGamePacketListenerImplAccessor",
+    "compat.sable.TurbofanSableMixin",
+    "compat.sable.BombImpactFuseSableMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

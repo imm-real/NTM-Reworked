@@ -1,0 +1,6 @@
+{
+  "parent": "hbm:block/turbofan_obj",
+  "visibility": {
+    "Body": true
+  }
+}

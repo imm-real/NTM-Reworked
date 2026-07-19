@@ -1,0 +1,11 @@
+{
+  "render_type":"cutout",
+  "textures":{"concrete":"hbm:block/concrete","belt":"hbm:block/conveyor","side":"hbm:block/conveyor_side","particle":"hbm:block/concrete"},
+  "elements":[
+    {"from":[1,0,5],"to":[3,8,11],"faces":{"north":{"texture":"#concrete"},"south":{"texture":"#concrete"},"west":{"texture":"#concrete"},"east":{"texture":"#concrete"},"up":{"texture":"#concrete"},"down":{"texture":"#concrete"}}},
+    {"from":[13,0,5],"to":[15,8,11],"faces":{"north":{"texture":"#concrete"},"south":{"texture":"#concrete"},"west":{"texture":"#concrete"},"east":{"texture":"#concrete"},"up":{"texture":"#concrete"},"down":{"texture":"#concrete"}}},
+    {"from":[3,0,7],"to":[13,8,9],"faces":{"north":{"texture":"#belt"},"south":{"texture":"#belt"},"west":{"texture":"#side"},"east":{"texture":"#side"},"up":{"texture":"#side"},"down":{"texture":"#side"}}},
+    {"from":[0,0,4],"to":[16,2,6],"faces":{"north":{"texture":"#concrete"},"south":{"texture":"#concrete"},"west":{"texture":"#concrete"},"east":{"texture":"#concrete"},"up":{"texture":"#concrete"},"down":{"texture":"#concrete"}}},
+    {"from":[0,6,4],"to":[16,8,6],"faces":{"north":{"texture":"#concrete"},"south":{"texture":"#concrete"},"west":{"texture":"#concrete"},"east":{"texture":"#concrete"},"up":{"texture":"#concrete"},"down":{"texture":"#concrete"}}}
+  ]
+}

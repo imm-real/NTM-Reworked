@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:geiger_counter"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:geiger"
+  }
+}

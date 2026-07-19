@@ -1,0 +1,178 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "render_shape": "isolated"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_isolated"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "x"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_x"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "y"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_y"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "z"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_z"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "north": "true"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_north"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "south": "true"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_south"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "east": "true"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_east"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "west": "true"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_west"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "up": "true"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_up"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "down": "true"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_down"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "east": "false",
+        "up": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_ppn"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "east": "false",
+        "up": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_ppp"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "west": "false",
+        "up": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_npn"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "west": "false",
+        "up": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_npp"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "east": "false",
+        "down": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_pnn"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "east": "false",
+        "down": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_pnp"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "west": "false",
+        "down": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_nnn"
+      }
+    },
+    {
+      "when": {
+        "render_shape": "junction",
+        "west": "false",
+        "down": "false",
+        "north": "false"
+      },
+      "apply": {
+        "model": "hbm:block/fluid_duct_nnp"
+      }
+    }
+  ]
+}

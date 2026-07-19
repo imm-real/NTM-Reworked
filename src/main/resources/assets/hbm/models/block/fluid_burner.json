@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/fluid_burner_obj",
+  "visibility": {"Plane": true}
+}

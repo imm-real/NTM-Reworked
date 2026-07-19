@@ -1,0 +1,65 @@
+{
+  "id": "hbm:ass.arcfurnace",
+  "name": "ass.arcfurnace",
+  "inputs": [
+    {
+      "ingredient": {
+        "tag": "hbm:any_concrete"
+      },
+      "count": 12
+    },
+    {
+      "ingredient": {
+        "item": "hbm:plate_polymer"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "hbm:ingot_firebrick"
+      },
+      "count": 16
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:plate_cast",
+        "components": {
+          "minecraft:custom_data": {
+            "material": "steel"
+          },
+          "minecraft:custom_model_data": 30
+        },
+        "strict": true
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "hbm:machine_transformer"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "type": "neoforge:components",
+        "items": "hbm:circuit",
+        "components": {
+          "minecraft:custom_data": {
+            "type": "analog"
+          },
+          "minecraft:custom_model_data": 7
+        },
+        "strict": true
+      },
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "hbm:machine_arc_furnace",
+    "count": 1
+  },
+  "duration": 200,
+  "power": 100,
+  "pools": []
+}

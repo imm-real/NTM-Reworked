@@ -1,0 +1,1 @@
+{"loader":"neoforge:obj","model":"hbm:models/block/anvil_steel.obj","automatic_culling":false,"shade_quads":true,"flip_v":true,"emissive_ambient":false,"textures":{"particle":"hbm:block/anvil_steel"},"transform":{"translation":[0.5,0,0.5]}}

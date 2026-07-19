@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/aluminum"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "material": "aluminium"
+      },
+      "minecraft:custom_model_data": 1300
+    },
+    "count": 24,
+    "id": "hbm:wire_fine"
+  }
+}

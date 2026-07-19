@@ -1,0 +1,4 @@
+{
+  "parent": "hbm:block/furnace_steel_obj",
+  "visibility": {"Plane": true}
+}

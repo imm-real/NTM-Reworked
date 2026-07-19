@@ -1,0 +1,26 @@
+{
+  "parent": "hbm:block/chemical_plant",
+  "display": {
+    "gui": {
+      "rotation": [30, 315, 0],
+      "translation": [0, -4.113395, 1.535507],
+      "scale": [0.2109375, 0.2109375, 0.2109375]
+    },
+    "ground": {
+      "translation": [0, 2, 0],
+      "scale": [0.1875, 0.1875, 0.1875]
+    },
+    "fixed": {
+      "rotation": [0, 90, 0],
+      "scale": [0.1875, 0.1875, 0.1875]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 135, 0],
+      "scale": [0.1875, 0.1875, 0.1875]
+    },
+    "thirdperson_righthand": {
+      "rotation": [75, 135, 0],
+      "scale": [0.1875, 0.1875, 0.1875]
+    }
+  }
+}

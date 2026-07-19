@@ -1,0 +1,22 @@
+{
+  "parent": "hbm:block/charge_dynamite",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        -90
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ],
+      "translation": [
+        -2.65165,
+        -1.325825,
+        2.296397
+      ]
+    }
+  }
+}

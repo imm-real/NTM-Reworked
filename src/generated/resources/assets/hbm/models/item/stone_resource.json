@@ -1,0 +1,41 @@
+{
+  "parent": "hbm:block/stone_resource_hematite",
+  "overrides": [
+    {
+      "model": "hbm:item/stone_resource_sulfur",
+      "predicate": {
+        "custom_model_data": 0
+      }
+    },
+    {
+      "model": "hbm:item/stone_resource_asbestos",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "hbm:item/stone_resource_hematite",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "hbm:item/stone_resource_malachite",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "hbm:item/stone_resource_limestone",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    },
+    {
+      "model": "hbm:item/stone_resource_bauxite",
+      "predicate": {
+        "custom_model_data": 5
+      }
+    }
+  ]
+}
