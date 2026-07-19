@@ -9,6 +9,9 @@ import com.hbm.ntm.item.ZirnoxRodItem;
 import com.hbm.ntm.registry.ModBlockEntities;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
+import com.hbm.ntm.ror.RorFunctionException;
+import com.hbm.ntm.ror.RorInteractive;
+import com.hbm.ntm.ror.RorValueProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -42,7 +45,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.Nullable;
 
 /** Gas-cooled ZIRNOX reactor. Eggs go in, consequences come out. */
-public final class ZirnoxBlockEntity extends BlockEntity implements WorldlyContainer, MenuProvider {
+public final class ZirnoxBlockEntity extends BlockEntity implements WorldlyContainer, MenuProvider, RorValueProvider, RorInteractive {
     public static final int FUEL_SLOTS = 24;
     public static final int CO2_INPUT = 24;
     public static final int WATER_INPUT = 25;
@@ -303,6 +306,32 @@ public final class ZirnoxBlockEntity extends BlockEntity implements WorldlyConta
     public int heat() { return heat; }
     public int pressure() { return pressure; }
     public boolean isOn() { return on; }
+
+    @Override public String[] rorInfo() {
+        return new String[]{VALUE_PREFIX + "heat", VALUE_PREFIX + "pressure", VALUE_PREFIX + "water",
+                VALUE_PREFIX + "steam", VALUE_PREFIX + "co2", VALUE_PREFIX + "state",
+                FUNCTION_PREFIX + "setstate!active (0 or 1)", FUNCTION_PREFIX + "ventco2"};
+    }
+
+    @Override public String provideRorValue(String name) {
+        if ((VALUE_PREFIX + "heat").equals(name)) return Integer.toString((int) Math.round(heat * 0.0078D + 20D));
+        if ((VALUE_PREFIX + "pressure").equals(name)) return Integer.toString((int) Math.round(pressure * 0.0003D));
+        if ((VALUE_PREFIX + "water").equals(name)) return Integer.toString(water.getFluidAmount());
+        if ((VALUE_PREFIX + "steam").equals(name)) return Integer.toString(steam.getFluidAmount());
+        if ((VALUE_PREFIX + "co2").equals(name)) return Integer.toString(carbonDioxide.getFluidAmount());
+        if ((VALUE_PREFIX + "state").equals(name)) return on ? "1" : "0";
+        return null;
+    }
+
+    @Override public void runRorFunction(String name, String[] parameters) throws RorFunctionException {
+        if ((FUNCTION_PREFIX + "setstate").equals(name)) {
+            if (parameters.length == 0 || redstone) return;
+            on = RorInteractive.integer(parameters[0], 0, 1) == 1;
+            setChanged();
+        } else if ((FUNCTION_PREFIX + "ventco2").equals(name)) {
+            vent();
+        }
+    }
     private int activeRodCount() { int count = 0; for (int i = 0; i < FUEL_SLOTS; i++)
         if (items.get(i).getItem() instanceof ZirnoxRodItem) count++; return count; }
     public AABB renderBounds() { return new AABB(worldPosition).inflate(4, 1, 4).expandTowards(0, 6, 0); }

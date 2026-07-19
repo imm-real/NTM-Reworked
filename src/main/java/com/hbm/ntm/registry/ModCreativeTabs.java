@@ -413,6 +413,12 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.MACHINE_WOOD_BURNER_ITEM.get());
                         output.accept(ModItems.MACHINE_MICROWAVE_ITEM.get());
                         output.accept(ModItems.MACHINE_WELL_ITEM.get());
+                        output.accept(ModItems.RADIO_TORCH_SENDER_ITEM.get());
+                        output.accept(ModItems.RADIO_TORCH_RECEIVER_ITEM.get());
+                        output.accept(ModItems.RADIO_TORCH_COUNTER_ITEM.get());
+                        output.accept(ModItems.RADIO_TORCH_LOGIC_ITEM.get());
+                        output.accept(ModItems.RADIO_TORCH_READER_ITEM.get());
+                        output.accept(ModItems.RADIO_TORCH_CONTROLLER_ITEM.get());
                         output.accept(ModItems.MACHINE_DIESEL_ITEM.get());
                         output.accept(ModItems.DFC_CORE_ITEM.get());
                         output.accept(ModItems.DFC_EMITTER_ITEM.get());

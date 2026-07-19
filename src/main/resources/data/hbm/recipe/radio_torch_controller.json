@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " G ",
+    "IRI"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "R": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "chip"
+        },
+        "minecraft:custom_model_data": 5
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    }
+  },
+  "result": {
+    "id": "hbm:radio_torch_controller",
+    "count": 4
+  }
+}

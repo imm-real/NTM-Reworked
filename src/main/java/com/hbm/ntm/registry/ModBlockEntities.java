@@ -86,6 +86,7 @@ import com.hbm.ntm.blockentity.PumpBlockEntity;
 import com.hbm.ntm.blockentity.PumpProxyBlockEntity;
 import com.hbm.ntm.blockentity.RadGenBlockEntity;
 import com.hbm.ntm.blockentity.RadGenProxyBlockEntity;
+import com.hbm.ntm.blockentity.RadioTorchBlockEntity;
 import com.hbm.ntm.blockentity.RefineryBlockEntity;
 import com.hbm.ntm.blockentity.RefineryProxyBlockEntity;
 import com.hbm.ntm.blockentity.ResearchReactorBlockEntity;
@@ -623,6 +624,12 @@ public final class ModBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GeigerCounterBlockEntity>> GEIGER =
             BLOCK_ENTITY_TYPES.register("geiger",
                     () -> BlockEntityType.Builder.of(GeigerCounterBlockEntity::new, ModBlocks.GEIGER.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RadioTorchBlockEntity>> RADIO_TORCH =
+            BLOCK_ENTITY_TYPES.register("radio_torch", () -> BlockEntityType.Builder.of(RadioTorchBlockEntity::new,
+                    ModBlocks.RADIO_TORCH_SENDER.get(), ModBlocks.RADIO_TORCH_RECEIVER.get(),
+                    ModBlocks.RADIO_TORCH_COUNTER.get(), ModBlocks.RADIO_TORCH_LOGIC.get(),
+                    ModBlocks.RADIO_TORCH_READER.get(), ModBlocks.RADIO_TORCH_CONTROLLER.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ConveyorBoxerBlockEntity>> CRANE_BOXER =
             BLOCK_ENTITY_TYPES.register("crane_boxer",

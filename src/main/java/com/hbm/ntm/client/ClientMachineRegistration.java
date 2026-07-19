@@ -121,6 +121,7 @@ import com.hbm.ntm.client.screen.NukeCustomScreen;
 import com.hbm.ntm.client.screen.NukeFstbmbScreen;
 import com.hbm.ntm.client.screen.OilDerrickScreen;
 import com.hbm.ntm.client.screen.RefineryScreen;
+import com.hbm.ntm.client.screen.RadioTorchScreen;
 import com.hbm.ntm.client.screen.RadGenScreen;
 import com.hbm.ntm.client.screen.ResearchReactorScreen;
 import com.hbm.ntm.client.screen.SolderingStationScreen;
@@ -219,6 +220,7 @@ public final class ClientMachineRegistration {
         event.register(ModMenus.CRANE_BOXER.get(), ConveyorBoxerScreen::new);
         event.register(ModMenus.CRANE_EXTRACTOR.get(), CraneExtractorScreen::new);
         event.register(ModMenus.CRANE_INSERTER.get(), CraneInserterScreen::new);
+        event.register(ModMenus.RADIO_TORCH.get(), RadioTorchScreen::new);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {

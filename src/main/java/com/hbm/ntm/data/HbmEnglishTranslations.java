@@ -77,6 +77,18 @@ final class HbmEnglishTranslations {
         language.addProperty("container.reactorResearch", "Research Reactor");
         language.addProperty("block.hbm.machine_radgen", "Radiation-Powered Engine");
         language.addProperty("container.radGen", "Radiation-Powered Engine");
+        language.addProperty("block.hbm.radio_torch_sender", "Redstone-over-Radio Transmitter");
+        language.addProperty("block.hbm.radio_torch_receiver", "Redstone-over-Radio Receiver");
+        language.addProperty("block.hbm.radio_torch_counter", "Redstone-over-Radio Item Counter");
+        language.addProperty("block.hbm.radio_torch_logic", "Redstone-over-Radio Logic Receiver");
+        language.addProperty("block.hbm.radio_torch_reader", "Redstone-over-Radio Reader");
+        language.addProperty("block.hbm.radio_torch_controller", "Redstone-over-Radio Controller");
+        language.addProperty("container.rttySender", "RoR Transmitter");
+        language.addProperty("container.rttyReceiver", "RoR Receiver");
+        language.addProperty("container.rttyCounter", "RoR Item Counter");
+        language.addProperty("container.rttyLogic", "RoR Logic Receiver");
+        language.addProperty("container.rttyReader", "RoR Reader");
+        language.addProperty("container.rttyController", "RoR Controller");
         language.addProperty("item.hbm.nuclear_waste_long", "Long-Lived Nuclear Waste");
         language.addProperty("item.hbm.nuclear_waste_long_tiny", "Tiny Pile of Long-Lived Nuclear Waste");
         language.addProperty("item.hbm.nuclear_waste_long_depleted", "Decayed Long-Lived Nuclear Waste");

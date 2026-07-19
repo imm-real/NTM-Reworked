@@ -80,6 +80,11 @@ public final class ModNetwork {
                 FluidStorageTankModePayload.STREAM_CODEC,
                 FluidStorageTankModePayload::handle
         );
+        registrar.playToServer(
+                RadioTorchConfigPayload.TYPE,
+                RadioTorchConfigPayload.STREAM_CODEC,
+                RadioTorchConfigPayload::handle
+        );
         registrar.playToClient(
                 VomitPayload.TYPE,
                 VomitPayload.STREAM_CODEC,

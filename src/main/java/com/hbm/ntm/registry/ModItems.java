@@ -203,6 +203,12 @@ public final class ModItems {
     public static final DeferredItem<Item> GAS_EMPTY;
     public static final DeferredItem<SourceFluidContainerItem> GAS_FULL;
     public static final DeferredItem<OilDerrickBlockItem> MACHINE_WELL_ITEM;
+    public static final DeferredItem<BlockItem> RADIO_TORCH_SENDER_ITEM;
+    public static final DeferredItem<BlockItem> RADIO_TORCH_RECEIVER_ITEM;
+    public static final DeferredItem<BlockItem> RADIO_TORCH_COUNTER_ITEM;
+    public static final DeferredItem<BlockItem> RADIO_TORCH_LOGIC_ITEM;
+    public static final DeferredItem<BlockItem> RADIO_TORCH_READER_ITEM;
+    public static final DeferredItem<BlockItem> RADIO_TORCH_CONTROLLER_ITEM;
     public static final DeferredItem<BlockItem> RED_CABLE_ITEM;
     public static final DeferredItem<BlockItem> MACHINE_PRESS_ITEM;
     public static final DeferredItem<BlockItem> PRESS_PREHEATER_ITEM;
@@ -766,6 +772,12 @@ public final class ModItems {
                         GAS_EMPTY::get));
         MACHINE_WELL_ITEM = ITEMS.register("machine_well",
                 () -> new OilDerrickBlockItem(ModBlocks.MACHINE_WELL.get(), new Item.Properties()));
+        RADIO_TORCH_SENDER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_sender", ModBlocks.RADIO_TORCH_SENDER);
+        RADIO_TORCH_RECEIVER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_receiver", ModBlocks.RADIO_TORCH_RECEIVER);
+        RADIO_TORCH_COUNTER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_counter", ModBlocks.RADIO_TORCH_COUNTER);
+        RADIO_TORCH_LOGIC_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_logic", ModBlocks.RADIO_TORCH_LOGIC);
+        RADIO_TORCH_READER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_reader", ModBlocks.RADIO_TORCH_READER);
+        RADIO_TORCH_CONTROLLER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_controller", ModBlocks.RADIO_TORCH_CONTROLLER);
         DFC_CORE_ITEM = ITEMS.registerSimpleBlockItem("dfc_core", ModBlocks.DFC_CORE);
         DFC_EMITTER_ITEM = ITEMS.registerSimpleBlockItem("dfc_emitter", ModBlocks.DFC_EMITTER);
         DFC_INJECTOR_ITEM = ITEMS.registerSimpleBlockItem("dfc_injector", ModBlocks.DFC_INJECTOR);

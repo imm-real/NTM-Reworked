@@ -87,6 +87,7 @@ import com.hbm.ntm.block.ElectricHeaterBlock;
 import com.hbm.ntm.block.ElectricFurnaceBlock;
 import com.hbm.ntm.block.RadioactiveBlock;
 import com.hbm.ntm.block.RadGenBlock;
+import com.hbm.ntm.block.RadioTorchBlock;
 import com.hbm.ntm.block.RadonGasBlock;
 import com.hbm.ntm.block.RefineryBlock;
 import com.hbm.ntm.block.ResearchReactorBlock;
@@ -168,6 +169,12 @@ public final class ModBlocks {
     public static final DeferredBlock<SellafieldBlock> SELLAFIELD;
     public static final DeferredBlock<Block> SELLAFIELD_SLAKED;
     public static final DeferredBlock<OilDerrickBlock> MACHINE_WELL;
+    public static final DeferredBlock<RadioTorchBlock> RADIO_TORCH_SENDER;
+    public static final DeferredBlock<RadioTorchBlock> RADIO_TORCH_RECEIVER;
+    public static final DeferredBlock<RadioTorchBlock> RADIO_TORCH_COUNTER;
+    public static final DeferredBlock<RadioTorchBlock> RADIO_TORCH_LOGIC;
+    public static final DeferredBlock<RadioTorchBlock> RADIO_TORCH_READER;
+    public static final DeferredBlock<RadioTorchBlock> RADIO_TORCH_CONTROLLER;
     public static final DeferredBlock<DieselGeneratorBlock> MACHINE_DIESEL;
     public static final DeferredBlock<DfcCoreBlock> DFC_CORE;
     public static final DeferredBlock<DfcComponentBlock> DFC_EMITTER;
@@ -471,6 +478,12 @@ public final class ModBlocks {
         MACHINE_WELL = BLOCKS.register("machine_well", () -> new OilDerrickBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.METAL).strength(5.0F, 12.0F).sound(SoundType.METAL)
                 .requiresCorrectToolForDrops().noOcclusion()));
+        RADIO_TORCH_SENDER = radioTorch("radio_torch_sender", RadioTorchBlock.Kind.SENDER);
+        RADIO_TORCH_RECEIVER = radioTorch("radio_torch_receiver", RadioTorchBlock.Kind.RECEIVER);
+        RADIO_TORCH_COUNTER = radioTorch("radio_torch_counter", RadioTorchBlock.Kind.COUNTER);
+        RADIO_TORCH_LOGIC = radioTorch("radio_torch_logic", RadioTorchBlock.Kind.LOGIC);
+        RADIO_TORCH_READER = radioTorch("radio_torch_reader", RadioTorchBlock.Kind.READER);
+        RADIO_TORCH_CONTROLLER = radioTorch("radio_torch_controller", RadioTorchBlock.Kind.CONTROLLER);
         MACHINE_DIESEL = BLOCKS.register("machine_diesel", () -> new DieselGeneratorBlock(
                 BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F, 6.0F)
                         .sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
@@ -1109,5 +1122,11 @@ public final class ModBlocks {
 
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
+    }
+
+    private static DeferredBlock<RadioTorchBlock> radioTorch(String id, RadioTorchBlock.Kind kind) {
+        return BLOCKS.register(id, () -> new RadioTorchBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.METAL).strength(0.1F, 6.0F).sound(SoundType.METAL)
+                .noCollission().noOcclusion(), kind));
     }
 }

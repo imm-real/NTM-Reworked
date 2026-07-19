@@ -1,0 +1,1 @@
+{"loader":"neoforge:obj","model":"hbm:models/block/rtty.obj","textures":{"texture":"hbm:block/rtty_sender_on","particle":"hbm:block/rtty_sender_on"},"automatic_culling":false,"shade_quads":true,"flip_v":true}

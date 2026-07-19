@@ -3,13 +3,14 @@ package com.hbm.ntm.blockentity;
 import com.hbm.ntm.radiation.ChunkRadiationData;
 import com.hbm.ntm.radiation.RadiationClicker;
 import com.hbm.ntm.registry.ModBlockEntities;
+import com.hbm.ntm.ror.RorValueProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public final class GeigerCounterBlockEntity extends BlockEntity {
+public final class GeigerCounterBlockEntity extends BlockEntity implements RorValueProvider {
     private int timer;
     private float lastRadiation;
 
@@ -39,5 +40,10 @@ public final class GeigerCounterBlockEntity extends BlockEntity {
         return level instanceof ServerLevel serverLevel
                 ? ChunkRadiationData.get(serverLevel).get(worldPosition)
                 : lastRadiation;
+    }
+
+    @Override public String[] rorInfo() { return new String[]{VALUE_PREFIX + "rad"}; }
+    @Override public String provideRorValue(String name) {
+        return (VALUE_PREFIX + "rad").equals(name) ? Integer.toString((int) Math.ceil(check())) : null;
     }
 }

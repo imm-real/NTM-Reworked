@@ -25,6 +25,7 @@ import com.hbm.ntm.pollution.PollutionEvents;
 import com.hbm.ntm.block.TankLadderEvents;
 import com.hbm.ntm.radiation.RadiationEvents;
 import com.hbm.ntm.recipe.AssemblyRecipes;
+import com.hbm.ntm.ror.RttySystem;
 import com.hbm.ntm.registry.ModArmorMaterials;
 import com.hbm.ntm.registry.ModAttachments;
 import com.hbm.ntm.registry.ModBlockEntities;
@@ -109,6 +110,7 @@ public final class HbmNtm {
         DntArmorEvents.register();
         BombImpactFuseEvents.register();
         HeEnergyEvents.register();
+        RttySystem.register();
         RadiationEvents.register();
         PollutionEvents.register();
         TankLadderEvents.register();

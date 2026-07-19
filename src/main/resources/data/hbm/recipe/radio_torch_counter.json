@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "G",
+    "R",
+    "I"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "R": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "vacuum_tube"
+        },
+        "minecraft:custom_model_data": 0
+      },
+      "items": "hbm:circuit",
+      "strict": true
+    }
+  },
+  "result": {
+    "id": "hbm:radio_torch_counter",
+    "count": 4
+  }
+}
