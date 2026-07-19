@@ -92,13 +92,21 @@ public final class BatterySocketGameTests {
         BlockPos core = socket.getBlockPos();
         Direction facing = socket.getBlockState().getValue(BatterySocketBlock.FACING);
         BlockPos[] parts = BatterySocketBlock.partPositions(core, facing);
-        helper.assertTrue(parts.length == 4, "Battery Socket must expose four port positions");
+        helper.assertTrue(parts.length == 8, "Battery Socket must occupy a full 2x2x2 box");
         for (int i = 0; i < parts.length; i++) {
             helper.assertTrue(helper.getLevel().getBlockState(parts[i]).is(ModBlocks.MACHINE_BATTERY_SOCKET.get()),
-                    "Every 2x2 Battery Socket position must contain the shared block identity");
-            if (i > 0) {
+                    "Every 2x2x2 Battery Socket position must contain the shared block identity");
+            AABB hitbox = helper.getLevel().getBlockState(parts[i])
+                    .getShape(helper.getLevel(), parts[i]).bounds();
+            helper.assertTrue(hitbox.minX == 0.0D && hitbox.minY == 0.0D && hitbox.minZ == 0.0D
+                            && hitbox.maxX == 1.0D && hitbox.maxY == 1.0D && hitbox.maxZ == 1.0D,
+                    "Every Battery Socket part must have a full-block hitbox");
+            if (i > 0 && i < 4) {
                 helper.assertTrue(helper.getLevel().getBlockEntity(parts[i]) instanceof BatterySocketProxyBlockEntity,
-                        "Non-core socket positions must expose inventory and HE connector proxies");
+                        "Lower non-core socket positions must expose inventory and HE connector proxies");
+            } else if (i >= 4) {
+                helper.assertTrue(helper.getLevel().getBlockEntity(parts[i]) == null,
+                        "Upper socket hitbox positions must not invent extra HE ports");
             }
         }
         helper.succeed();
@@ -125,7 +133,7 @@ public final class BatterySocketGameTests {
         BatterySocketBlockEntity socket = placeSocket(helper, new BlockPos(3, 1, 3));
         helper.assertTrue(socket.relevantMode() == BatterySocketBlockEntity.MODE_INPUT,
                 "Unpowered Battery Socket mode must default to input");
-        helper.getLevel().setBlock(socket.getBlockPos().above(), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
+        helper.getLevel().setBlock(socket.getBlockPos().above(2), Blocks.REDSTONE_BLOCK.defaultBlockState(), 3);
         helper.assertTrue(socket.relevantMode() == BatterySocketBlockEntity.MODE_OUTPUT,
                 "A signal on any socket port must select the default output high mode");
         socket.cycleHighMode();
@@ -155,7 +163,7 @@ public final class BatterySocketGameTests {
                 BatteryPackItem.BatteryType.BATTERY_LEAD, true);
         socket.setItem(0, battery);
         BlockPos[] parts = BatterySocketBlock.partPositions(socket.getBlockPos(), Direction.NORTH);
-        helper.getLevel().destroyBlock(parts[3], true);
+        helper.getLevel().destroyBlock(parts[7], true);
 
         int batteryDrops = 0;
         for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class,
@@ -166,7 +174,7 @@ public final class BatterySocketGameTests {
                 "Breaking a proxy must dismantle the multiblock without duplicating its battery inventory");
         for (BlockPos part : parts) {
             helper.assertTrue(helper.getLevel().getBlockState(part).isAir(),
-                    "Breaking any Battery Socket part must remove all four positions");
+                    "Breaking any Battery Socket part must remove all eight positions");
         }
         helper.succeed();
     }

@@ -54,6 +54,7 @@ public final class RadGenRenderer implements BlockEntityRenderer<RadGenBlockEnti
     public void render(RadGenBlockEntity radGen, float partialTick, PoseStack poses,
                        MultiBufferSource buffers, int packedLight, int packedOverlay) {
         poses.pushPose();
+        poses.translate(0.0D, -1.0D / 16.0D, 0.0D);
         poses.translate(0.5D, 0.0D, 0.5D);
         poses.mulPose(Axis.YP.rotationDegrees(facingRotation(
                 radGen.getBlockState().getValue(RadGenBlock.FACING))));

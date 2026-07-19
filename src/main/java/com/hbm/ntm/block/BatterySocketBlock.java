@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +40,8 @@ public final class BatterySocketBlock extends BaseEntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty BACK = IntegerProperty.create("back", 0, 1);
     public static final IntegerProperty SIDE = IntegerProperty.create("side", 0, 1);
-    private static final VoxelShape SHAPE = box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
+    public static final IntegerProperty Y = IntegerProperty.create("part_y", 0, 1);
+    private static final VoxelShape SHAPE = Shapes.block();
     private static final ThreadLocal<Boolean> REMOVING = ThreadLocal.withInitial(() -> false);
 
     public BatterySocketBlock(Properties properties) {
@@ -47,7 +49,8 @@ public final class BatterySocketBlock extends BaseEntityBlock {
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(BACK, 0)
-                .setValue(SIDE, 0));
+                .setValue(SIDE, 0)
+                .setValue(Y, 0));
     }
 
     @Override
@@ -151,9 +154,8 @@ public final class BatterySocketBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos position, BlockState state) {
-        return isCore(state)
-                ? new BatterySocketBlockEntity(position, state)
-                : new BatterySocketProxyBlockEntity(position, state);
+        if (isCore(state)) return new BatterySocketBlockEntity(position, state);
+        return isPort(state) ? new BatterySocketProxyBlockEntity(position, state) : null;
     }
 
     @Nullable
@@ -167,32 +169,36 @@ public final class BatterySocketBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, BACK, SIDE);
+        builder.add(FACING, BACK, SIDE, Y);
     }
 
     public static boolean isCore(BlockState state) {
-        return state.getValue(BACK) == 0 && state.getValue(SIDE) == 0;
+        return state.getValue(Y) == 0 && state.getValue(BACK) == 0 && state.getValue(SIDE) == 0;
+    }
+
+    public static boolean isPort(BlockState state) {
+        return state.getValue(Y) == 0;
     }
 
     public static BlockPos corePosition(BlockPos position, BlockState state) {
         Direction facing = state.getValue(FACING);
         Direction clockwise = facing.getClockWise();
         return position.relative(facing, state.getValue(BACK))
-                .relative(clockwise.getOpposite(), state.getValue(SIDE));
+                .relative(clockwise.getOpposite(), state.getValue(SIDE))
+                .below(state.getValue(Y));
     }
 
     public static BlockPos[] partPositions(BlockPos core, Direction facing) {
         Direction clockwise = facing.getClockWise();
-        return new BlockPos[]{
-                core,
-                core.relative(facing.getOpposite()),
-                core.relative(clockwise),
-                core.relative(facing.getOpposite()).relative(clockwise)
-        };
+        BlockPos back = core.relative(facing.getOpposite());
+        BlockPos side = core.relative(clockwise);
+        BlockPos backSide = back.relative(clockwise);
+        return new BlockPos[]{core, back, side, backSide,
+                core.above(), back.above(), side.above(), backSide.above()};
     }
 
     public static boolean canConnectAt(BlockState state, Direction side) {
-        if (!side.getAxis().isHorizontal()) {
+        if (state.getValue(Y) != 0 || !side.getAxis().isHorizontal()) {
             return false;
         }
         Direction facing = state.getValue(FACING);
@@ -205,6 +211,12 @@ public final class BatterySocketBlock extends BaseEntityBlock {
         Direction clockwise = facing.getClockWise();
         int back = part.equals(core) || part.equals(core.relative(clockwise)) ? 0 : 1;
         int side = part.equals(core) || part.equals(core.relative(facing.getOpposite())) ? 0 : 1;
-        return defaultBlockState().setValue(FACING, facing).setValue(BACK, back).setValue(SIDE, side);
+        if (part.getY() != core.getY()) {
+            BlockPos lower = part.below();
+            back = lower.equals(core) || lower.equals(core.relative(clockwise)) ? 0 : 1;
+            side = lower.equals(core) || lower.equals(core.relative(facing.getOpposite())) ? 0 : 1;
+        }
+        return defaultBlockState().setValue(FACING, facing).setValue(BACK, back)
+                .setValue(SIDE, side).setValue(Y, part.getY() - core.getY());
     }
 }
