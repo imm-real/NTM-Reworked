@@ -1,12 +1,14 @@
 package com.hbm.ntm.machine;
 
 import com.hbm.ntm.HbmNtm;
+import com.hbm.ntm.block.RadioactiveBlock;
 import com.hbm.ntm.hazard.HazardCarrier;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.item.ZirnoxRodItem;
 import com.hbm.ntm.nuclear.CustomNukeExplosion;
 import com.hbm.ntm.recipe.BreederRecipes;
 import com.hbm.ntm.recipe.ShredderRecipes;
+import com.hbm.ntm.registry.ModBlocks;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -176,10 +178,16 @@ public final class CoreProgressionRecipeGameTests {
         List<ZirnoxLoad> loads = List.of(
                 new ZirnoxLoad("natural_uranium_fuel", "billet_uranium",
                         ModItems.ROD_ZIRNOX_NATURAL_URANIUM_FUEL.get(), ZirnoxRodItem.Type.NATURAL_URANIUM_FUEL),
+                new ZirnoxLoad("uranium_fuel", "billet_uranium_fuel",
+                        ModItems.ROD_ZIRNOX_URANIUM_FUEL.get(), ZirnoxRodItem.Type.URANIUM_FUEL),
                 new ZirnoxLoad("th232", "billet_th232",
                         ModItems.ROD_ZIRNOX_TH232.get(), ZirnoxRodItem.Type.TH232),
                 new ZirnoxLoad("thorium_fuel", "billet_thorium_fuel",
                         ModItems.ROD_ZIRNOX_THORIUM_FUEL.get(), ZirnoxRodItem.Type.THORIUM_FUEL),
+                new ZirnoxLoad("mox_fuel", "billet_mox_fuel",
+                        ModItems.ROD_ZIRNOX_MOX_FUEL.get(), ZirnoxRodItem.Type.MOX_FUEL),
+                new ZirnoxLoad("plutonium_fuel", "billet_plutonium_fuel",
+                        ModItems.ROD_ZIRNOX_PLUTONIUM_FUEL.get(), ZirnoxRodItem.Type.PLUTONIUM_FUEL),
                 new ZirnoxLoad("u233_fuel", "billet_u233",
                         ModItems.ROD_ZIRNOX_U233_FUEL.get(), ZirnoxRodItem.Type.U233_FUEL),
                 new ZirnoxLoad("u235_fuel", "billet_u235",
@@ -194,6 +202,45 @@ public final class CoreProgressionRecipeGameTests {
             check(helper, result.getItem() instanceof ZirnoxRodItem rod && rod.type() == load.type(),
                     "ZIRNOX " + load.recipeSuffix() + " must keep its source fuel identity");
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void ordinaryReactorFuelBlendsKeepTheirSourceRatios(GameTestHelper helper) {
+        Item u238Billet = ModItems.get("billet_u238").get();
+        Item u235Billet = ModItems.get("billet_u235").get();
+        Item uraniumFuelBillet = ModItems.get("billet_uranium_fuel").get();
+        craftShapeless(helper, "billet_uranium_fuel_from_billets", uraniumFuelBillet, 6,
+                new ItemStack(u238Billet), new ItemStack(u238Billet), new ItemStack(u238Billet),
+                new ItemStack(u238Billet), new ItemStack(u238Billet), new ItemStack(u235Billet));
+        craftShapeless(helper, "billet_uranium_fuel_from_nuggets", uraniumFuelBillet, 1,
+                item("nugget_u238"), item("nugget_u238"), item("nugget_u238"),
+                item("nugget_u238"), item("nugget_u238"), item("nugget_u235"));
+
+        Item plutoniumFuelBillet = ModItems.get("billet_plutonium_fuel").get();
+        craftShapeless(helper, "billet_plutonium_fuel_from_billets", plutoniumFuelBillet, 3,
+                new ItemStack(u238Billet), new ItemStack(u238Billet), item("billet_pu_mix"));
+        craftShapeless(helper, "billet_plutonium_fuel_from_nuggets", plutoniumFuelBillet, 1,
+                item("nugget_pu_mix"), item("nugget_pu_mix"), item("nugget_u238"),
+                item("nugget_u238"), item("nugget_u238"), item("nugget_u238"));
+
+        Item moxBillet = ModItems.get("billet_mox_fuel").get();
+        craftShapeless(helper, "billet_mox_fuel_from_billets", moxBillet, 3,
+                new ItemStack(uraniumFuelBillet), new ItemStack(uraniumFuelBillet), item("billet_pu239"));
+        craftShapeless(helper, "billet_mox_fuel_from_nuggets", moxBillet, 1,
+                item("nugget_pu239"), item("nugget_pu239"), item("nugget_uranium_fuel"),
+                item("nugget_uranium_fuel"), item("nugget_uranium_fuel"), item("nugget_uranium_fuel"));
+
+        assertFuelHazards(helper, "uranium_fuel", 0.5F);
+        assertFuelHazards(helper, "plutonium_fuel", 4.25F);
+        assertFuelHazards(helper, "mox_fuel", 2.5F);
+        assertFuelEconomy(helper, "uranium_fuel");
+        assertFuelEconomy(helper, "plutonium_fuel");
+        assertFuelEconomy(helper, "mox_fuel");
+        check(helper, !((RadioactiveBlock) ModBlocks.get("block_uranium_fuel").get()).radiationFog()
+                        && ((RadioactiveBlock) ModBlocks.get("block_plutonium_fuel").get()).radiationFog()
+                        && ((RadioactiveBlock) ModBlocks.get("block_mox_fuel").get()).radiationFog(),
+                "Only Plutonium and MOX fuel blocks must keep the source RADFOG display effect");
         helper.succeed();
     }
 
@@ -380,6 +427,40 @@ public final class CoreProgressionRecipeGameTests {
         check(helper, item instanceof HazardCarrier carrier
                         && Math.abs(carrier.hbm$getHazards(new ItemStack(item)).radiation() - radiation) < 0.0001F,
                 "hbm:" + itemId + " must retain source radiation " + radiation);
+    }
+
+    private static void assertFuelHazards(GameTestHelper helper, String fuel, float radiation) {
+        assertRadiation(helper, "ingot_" + fuel, radiation);
+        assertRadiation(helper, "billet_" + fuel, radiation * 0.5F);
+        assertRadiation(helper, "nugget_" + fuel, radiation * 0.1F);
+        assertRadiation(helper, "block_" + fuel, radiation * 10F);
+    }
+
+    private static void assertFuelEconomy(GameTestHelper helper, String fuel) {
+        Item ingot = ModItems.get("ingot_" + fuel).get();
+        Item billet = ModItems.get("billet_" + fuel).get();
+        Item nugget = ModItems.get("nugget_" + fuel).get();
+        Item block = ModItems.getBlockItem("block_" + fuel).get();
+        craft(helper, "ingot_" + fuel + "_from_nugget_" + fuel, ingot, 1,
+                Map.of('N', new ItemStack(nugget)), "NNN", "NNN", "NNN");
+        craft(helper, "nugget_" + fuel + "_from_ingot_" + fuel, nugget, 9,
+                Map.of('I', new ItemStack(ingot)), "I");
+        craft(helper, "billet_" + fuel + "_from_nugget_" + fuel, billet, 1,
+                Map.of('N', new ItemStack(nugget)), "NNN", "NNN");
+        craft(helper, "nugget_" + fuel + "_from_billet_" + fuel, nugget, 6,
+                Map.of('B', new ItemStack(billet)), "B");
+        craft(helper, "ingot_" + fuel + "_from_billet_" + fuel, ingot, 2,
+                Map.of('B', new ItemStack(billet)), "BBB");
+        craft(helper, "billet_" + fuel + "_from_ingot_" + fuel, billet, 3,
+                Map.of('I', new ItemStack(ingot)), "II");
+        craft(helper, fuel + "_block", block, 1,
+                Map.of('I', new ItemStack(ingot)), "III", "III", "III");
+        craft(helper, "ingot_" + fuel + "_from_block_" + fuel, ingot, 9,
+                Map.of('B', new ItemStack(block)), "B");
+    }
+
+    private static ItemStack item(String id) {
+        return new ItemStack(ModItems.get(id).get());
     }
 
     private static ResourceLocation id(String path) {

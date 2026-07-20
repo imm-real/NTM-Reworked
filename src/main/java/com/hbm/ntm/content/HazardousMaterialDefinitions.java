@@ -92,8 +92,14 @@ public final class HazardousMaterialDefinitions {
                 HazardProfile.NONE.withRadiation(0.25F));
         addMineralSet(items, "thorium_232", "Thorium-232", "ingot_th232", "billet_th232", "nugget_th232",
                 HazardProfile.NONE.withRadiation(0.1F));
-        addMineralSet(items, "thorium_fuel", "Thorium Fuel", "ingot_thorium_fuel", "billet_thorium_fuel",
+        addFuelSet(items, "thorium_fuel", "Thorium Fuel", "ingot_thorium_fuel", "billet_thorium_fuel",
                 "nugget_thorium_fuel", HazardProfile.NONE.withRadiation(1.75F));
+        addFuelSet(items, "uranium_fuel", "Uranium Fuel", "ingot_uranium_fuel", "billet_uranium_fuel",
+                "nugget_uranium_fuel", HazardProfile.NONE.withRadiation(0.5F));
+        addFuelSet(items, "plutonium_fuel", "Plutonium Fuel", "ingot_plutonium_fuel", "billet_plutonium_fuel",
+                "nugget_plutonium_fuel", HazardProfile.NONE.withRadiation(4.25F));
+        addFuelSet(items, "mox_fuel", "MOX Fuel", "ingot_mox_fuel", "billet_mox_fuel",
+                "nugget_mox_fuel", HazardProfile.NONE.withRadiation(2.5F));
         addMineralSet(items, "plutonium", "Plutonium", "ingot_plutonium", "billet_plutonium", "nugget_plutonium",
                 HazardProfile.NONE.withRadiation(7.5F));
         addMineralSet(items, "plutonium_238", "Plutonium-238", "ingot_pu238", "billet_pu238", "nugget_pu238",
@@ -141,9 +147,7 @@ public final class HazardousMaterialDefinitions {
         addMineralSet(items, "actinium_227", "Actinium-227", "ingot_actinium", "billet_actinium", "nugget_actinium",
                 HazardProfile.NONE.withRadiation(30.0F));
 
-        // Fuel forms without the matching family photo.
-        add(items, "ingot_mox_fuel", "Ingot of MOX Fuel", Form.INGOT, "mox_fuel",
-                HazardProfile.NONE.withRadiation(2.5F));
+        // One-off forms that do not belong to a complete material family yet.
         add(items, "billet_ra226be", "Ra226Be Billet", Form.BILLET, null,
                 HazardProfile.NONE.withRadiation(11.25F));
         add(items, "billet_pu238be", "Pu238Be Billet", Form.BILLET, null,
@@ -210,6 +214,9 @@ public final class HazardousMaterialDefinitions {
                 "ingot_u238", "billet_u238", "nugget_u238",
                 "ingot_th232", "billet_th232", "nugget_th232", "powder_thorium",
                 "ingot_thorium_fuel", "billet_thorium_fuel", "nugget_thorium_fuel",
+                "ingot_uranium_fuel", "billet_uranium_fuel", "nugget_uranium_fuel",
+                "ingot_plutonium_fuel", "billet_plutonium_fuel", "nugget_plutonium_fuel",
+                "ingot_mox_fuel", "billet_mox_fuel", "nugget_mox_fuel",
                 "ingot_plutonium", "billet_plutonium", "nugget_plutonium", "powder_plutonium",
                 "ingot_pu238", "billet_pu238", "nugget_pu238",
                 "ingot_pu239", "billet_pu239", "nugget_pu239",
@@ -221,7 +228,7 @@ public final class HazardousMaterialDefinitions {
                 "ingot_co60", "billet_co60", "nugget_co60", "powder_co60",
                 "ingot_ra226", "billet_ra226", "nugget_ra226", "powder_ra226",
                 "ingot_actinium", "billet_actinium", "nugget_actinium",
-                "ingot_mox_fuel", "billet_ra226be", "billet_pu238be",
+                "billet_ra226be", "billet_pu238be",
                 "ingot_mud",
                 "powder_coal",
                 "powder_coal_tiny",
@@ -252,6 +259,12 @@ public final class HazardousMaterialDefinitions {
         blocks.add(radioactiveBlock("block_thorium", "Block of Thorium-232", "thorium_232", "ingot_th232", HazardProfile.NONE.withRadiation(1.0F), 50, false, 0));
         blocks.add(radioactiveBlock("block_thorium_fuel", "Block of Thorium Fuel", "thorium_fuel",
                 "ingot_thorium_fuel", HazardProfile.NONE.withRadiation(17.5F), 50, false, 0));
+        blocks.add(radioactiveBlock("block_uranium_fuel", "Block of Uranium Fuel", "uranium_fuel",
+                "ingot_uranium_fuel", HazardProfile.NONE.withRadiation(5.0F), 50, false, 0));
+        blocks.add(radioactiveBlock("block_plutonium_fuel", "Block of Plutonium Fuel", "plutonium_fuel",
+                "ingot_plutonium_fuel", HazardProfile.NONE.withRadiation(42.5F), 50, true, 0));
+        blocks.add(radioactiveBlock("block_mox_fuel", "Block of MOX Fuel", "mox_fuel",
+                "ingot_mox_fuel", HazardProfile.NONE.withRadiation(25.0F), 50, true, 0));
         blocks.add(hazardBlock("block_lithium", "Block of Lithium", "lithium", "lithium",
                 HazardProfile.NONE.withHydroactive(10.0F), 10, MapColor.METAL, SoundType.METAL, 15, 0));
         blocks.add(hazardBlock("block_white_phosphorus", "Block of White Phosphorus", "white_phosphorus", "ingot_phosphorus",
@@ -261,6 +274,7 @@ public final class HazardousMaterialDefinitions {
         CATALOG_BLOCKS = Collections.unmodifiableList(blocks);
         Set<String> activeBlocks = Set.of(
                 "block_uranium", "block_u233", "block_u235", "block_u238", "block_thorium", "block_thorium_fuel",
+                "block_uranium_fuel", "block_plutonium_fuel", "block_mox_fuel",
                 "block_plutonium", "block_neptunium", "block_pu238", "block_pu239", "block_pu_mix",
                 "block_lithium", "block_white_phosphorus", "block_ra226", "block_actinium"
         );
@@ -284,6 +298,23 @@ public final class HazardousMaterialDefinitions {
         items.add(new ItemDefinition(ingot, name + " Ingot", ingot, Form.INGOT, material, ingotHazards, true, CreativeGroup.PARTS));
         items.add(new ItemDefinition(billet, name + " Billet", billet, Form.BILLET, material, ingotHazards.scale(0.5F), true, CreativeGroup.PARTS));
         items.add(new ItemDefinition(nugget, name + " Nugget", nugget, Form.NUGGET, material, ingotHazards.scale(0.1F), true, CreativeGroup.PARTS));
+    }
+
+    private static void addFuelSet(
+            List<ItemDefinition> items,
+            String material,
+            String name,
+            String ingot,
+            String billet,
+            String nugget,
+            HazardProfile ingotHazards
+    ) {
+        items.add(new ItemDefinition(ingot, "Ingot of " + name, ingot, Form.INGOT, material,
+                ingotHazards, true, CreativeGroup.PARTS));
+        items.add(new ItemDefinition(billet, name + " Billet", billet, Form.BILLET, material,
+                ingotHazards.scale(0.5F), true, CreativeGroup.PARTS));
+        items.add(new ItemDefinition(nugget, "Nugget of " + name, nugget, Form.NUGGET, material,
+                ingotHazards.scale(0.1F), true, CreativeGroup.PARTS));
     }
 
     private static void add(List<ItemDefinition> items, String id, String name, Form form, String material, HazardProfile hazards) {

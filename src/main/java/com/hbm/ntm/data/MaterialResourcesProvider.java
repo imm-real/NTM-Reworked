@@ -4544,13 +4544,13 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "R", itemIngredient("hbm:rod_quad_empty")), "hbm:machine_waste_drum"),
                 recipes, hbm("machine_waste_drum")));
 
-        addThoriumFuelRecipes(writes, output);
+        addReactorFuelBlendRecipes(writes, output);
         addZirnoxRodRecipes(writes, output);
         addBreedingRodRecipes(writes, output);
         addTritiumCellRecipes(writes, output);
     }
 
-    private void addThoriumFuelRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+    private void addReactorFuelBlendRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
         List<JsonObject> billetBlend = new ArrayList<>();
         for (int i = 0; i < 5; i++) billetBlend.add(itemIngredient("hbm:billet_th232"));
         billetBlend.add(itemIngredient("hbm:billet_u233"));
@@ -4562,6 +4562,53 @@ public final class MaterialResourcesProvider implements DataProvider {
         nuggetBlend.add(tagIngredient("c:nuggets/uranium_233"));
         writes.add(save(output, shapelessItemRecipe(nuggetBlend, "hbm:billet_thorium_fuel", 1),
                 recipes, hbm("billet_thorium_fuel_from_nuggets")));
+
+        addSixPartFuelBlend(writes, output, "uranium_fuel", "billet_u238", "billet_u235",
+                "c:nuggets/uranium_238", "c:nuggets/uranium_235");
+
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:billet_u238"), itemIngredient("hbm:billet_u238"),
+                itemIngredient("hbm:billet_pu_mix")), "hbm:billet_plutonium_fuel", 3),
+                recipes, hbm("billet_plutonium_fuel_from_billets")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                tagIngredient("c:nuggets/plutonium_rg"), tagIngredient("c:nuggets/plutonium_rg"),
+                tagIngredient("c:nuggets/uranium_238"), tagIngredient("c:nuggets/uranium_238"),
+                tagIngredient("c:nuggets/uranium_238"), tagIngredient("c:nuggets/uranium_238")),
+                "hbm:billet_plutonium_fuel", 1),
+                recipes, hbm("billet_plutonium_fuel_from_nuggets")));
+
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:billet_uranium_fuel"), itemIngredient("hbm:billet_uranium_fuel"),
+                tagIngredient("c:billets/plutonium_239")), "hbm:billet_mox_fuel", 3),
+                recipes, hbm("billet_mox_fuel_from_billets")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                tagIngredient("c:nuggets/plutonium_239"), tagIngredient("c:nuggets/plutonium_239"),
+                itemIngredient("hbm:nugget_uranium_fuel"), itemIngredient("hbm:nugget_uranium_fuel"),
+                itemIngredient("hbm:nugget_uranium_fuel"), itemIngredient("hbm:nugget_uranium_fuel")),
+                "hbm:billet_mox_fuel", 1),
+                recipes, hbm("billet_mox_fuel_from_nuggets")));
+    }
+
+    private void addSixPartFuelBlend(
+            List<CompletableFuture<?>> writes,
+            CachedOutput output,
+            String fuel,
+            String majorityBillet,
+            String fissileBillet,
+            String majorityNuggetTag,
+            String fissileNuggetTag
+    ) {
+        List<JsonObject> billets = new ArrayList<>();
+        for (int i = 0; i < 5; i++) billets.add(itemIngredient("hbm:" + majorityBillet));
+        billets.add(itemIngredient("hbm:" + fissileBillet));
+        writes.add(save(output, shapelessItemRecipe(billets, "hbm:billet_" + fuel, 6),
+                recipes, hbm("billet_" + fuel + "_from_billets")));
+
+        List<JsonObject> nuggets = new ArrayList<>();
+        for (int i = 0; i < 5; i++) nuggets.add(tagIngredient(majorityNuggetTag));
+        nuggets.add(tagIngredient(fissileNuggetTag));
+        writes.add(save(output, shapelessItemRecipe(nuggets, "hbm:billet_" + fuel, 1),
+                recipes, hbm("billet_" + fuel + "_from_nuggets")));
     }
 
     private void addZirnoxRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
@@ -4571,8 +4618,11 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("rod_zirnox_empty")));
 
         addZirnoxFuelRodRecipe(writes, output, "natural_uranium_fuel", "c:billets/uranium");
+        addZirnoxFuelRodRecipe(writes, output, "uranium_fuel", "c:billets/uranium_fuel");
         addZirnoxFuelRodRecipe(writes, output, "th232", "c:billets/thorium_232");
         addZirnoxFuelRodRecipe(writes, output, "thorium_fuel", "c:billets/thorium_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "mox_fuel", "c:billets/mox_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "plutonium_fuel", "c:billets/plutonium_fuel");
         addZirnoxFuelRodRecipe(writes, output, "u233_fuel", "c:billets/uranium_233");
         addZirnoxFuelRodRecipe(writes, output, "u235_fuel", "c:billets/uranium_235");
 
