@@ -9,6 +9,7 @@
     "hbm:block_plutonium",
     "hbm:block_pu238",
     "hbm:block_pu239",
+    "hbm:block_pu_mix",
     "hbm:block_thorium",
     "hbm:block_lithium",
     "hbm:block_white_phosphorus",

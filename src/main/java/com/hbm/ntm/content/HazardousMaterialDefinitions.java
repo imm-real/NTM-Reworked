@@ -104,6 +104,14 @@ public final class HazardousMaterialDefinitions {
                 HazardProfile.NONE.withRadiation(25.0F));
         addMineralSet(items, "plutonium_rg", "Reactor Grade Plutonium", "ingot_pu_mix", "billet_pu_mix", "nugget_pu_mix",
                 HazardProfile.NONE.withRadiation(6.25F));
+        items.add(new ItemDefinition("nuclear_waste", "Nuclear Waste", "nuclear_waste", Form.INGOT,
+                "nuclear_waste", HazardProfile.NONE.withRadiation(15.0F), true, CreativeGroup.PARTS));
+        items.add(new ItemDefinition("billet_nuclear_waste", "Nuclear Waste Billet", "billet_nuclear_waste",
+                Form.BILLET, "nuclear_waste", HazardProfile.NONE.withRadiation(7.5F), true,
+                CreativeGroup.PARTS));
+        items.add(new ItemDefinition("nuclear_waste_tiny", "Tiny Pile of Nuclear Waste", "nuclear_waste_tiny",
+                Form.NUGGET, "nuclear_waste", HazardProfile.NONE.withRadiation(1.5F), true,
+                CreativeGroup.PARTS));
         addMineralSet(items, "americium_241", "Americium-241", "ingot_am241", "billet_am241", "nugget_am241",
                 HazardProfile.NONE.withRadiation(8.5F));
         addMineralSet(items, "americium_242", "Americium-242", "ingot_am242", "billet_am242", "nugget_am242",
@@ -202,6 +210,8 @@ public final class HazardousMaterialDefinitions {
                 "ingot_plutonium", "billet_plutonium", "nugget_plutonium", "powder_plutonium",
                 "ingot_pu238", "billet_pu238", "nugget_pu238",
                 "ingot_pu239", "billet_pu239", "nugget_pu239",
+                "ingot_pu_mix", "billet_pu_mix", "nugget_pu_mix",
+                "nuclear_waste", "billet_nuclear_waste", "nuclear_waste_tiny",
                 "ingot_neptunium", "billet_neptunium", "nugget_neptunium", "powder_neptunium",
                 "ingot_technetium", "billet_technetium", "nugget_technetium",
                 "ingot_schrabidium", "billet_schrabidium", "nugget_schrabidium", "powder_schrabidium",
@@ -244,7 +254,7 @@ public final class HazardousMaterialDefinitions {
         CATALOG_BLOCKS = Collections.unmodifiableList(blocks);
         Set<String> activeBlocks = Set.of(
                 "block_uranium", "block_u233", "block_u235", "block_u238", "block_thorium",
-                "block_plutonium", "block_neptunium", "block_pu238", "block_pu239",
+                "block_plutonium", "block_neptunium", "block_pu238", "block_pu239", "block_pu_mix",
                 "block_lithium", "block_white_phosphorus"
         );
         BLOCKS = CATALOG_BLOCKS.stream()

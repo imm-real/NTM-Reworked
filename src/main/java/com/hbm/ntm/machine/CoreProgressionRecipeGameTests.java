@@ -90,6 +90,8 @@ public final class CoreProgressionRecipeGameTests {
                 new RodMaterial(BreedingRodItem.Type.U238, "billet_u238"),
                 new RodMaterial(BreedingRodItem.Type.PU238, "billet_pu238"),
                 new RodMaterial(BreedingRodItem.Type.PU239, "billet_pu239"),
+                new RodMaterial(BreedingRodItem.Type.RGP, "billet_pu_mix"),
+                new RodMaterial(BreedingRodItem.Type.WASTE, "billet_nuclear_waste"),
                 new RodMaterial(BreedingRodItem.Type.URANIUM, "billet_uranium")
         );
 

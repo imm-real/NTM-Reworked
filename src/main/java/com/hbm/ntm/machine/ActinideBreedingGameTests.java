@@ -2,6 +2,7 @@ package com.hbm.ntm.machine;
 
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.block.RadioactiveBlock;
+import com.hbm.ntm.foundry.FoundryMaterial;
 import com.hbm.ntm.hazard.HazardCarrier;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.nuclear.CustomNukeExplosion;
@@ -34,6 +35,9 @@ public final class ActinideBreedingGameTests {
         assertBreedingStep(helper, BreedingRodItem.Type.U235, BreedingRodItem.Type.NP237, 300);
         assertBreedingStep(helper, BreedingRodItem.Type.NP237, BreedingRodItem.Type.PU238, 200);
         assertBreedingStep(helper, BreedingRodItem.Type.PU238, BreedingRodItem.Type.PU239, 1_000);
+        assertBreedingStep(helper, BreedingRodItem.Type.U238, BreedingRodItem.Type.RGP, 300);
+        assertBreedingStep(helper, BreedingRodItem.Type.URANIUM, BreedingRodItem.Type.RGP, 200);
+        assertBreedingStep(helper, BreedingRodItem.Type.RGP, BreedingRodItem.Type.WASTE, 200);
         helper.succeed();
     }
 
@@ -118,6 +122,41 @@ public final class ActinideBreedingGameTests {
         assertNukeEntry(helper, "powder_neptunium", CustomNukeExplosion.EntryType.ADD, 30F);
         assertNukeEntry(helper, "ingot_pu238", CustomNukeExplosion.EntryType.MULT, 1.15F);
         assertNukeEntry(helper, "nugget_pu238", CustomNukeExplosion.EntryType.MULT, 1.015F);
+        CustomNukeExplosion.Entry waste = CustomNukeExplosion.entries().get(item("nuclear_waste"));
+        check(helper, waste != null && waste.type() == CustomNukeExplosion.BombType.DIRTY
+                        && waste.entry() == CustomNukeExplosion.EntryType.MULT && close(waste.value(), 1.025F),
+                "Nuclear Waste must keep its source x1.025 dirty-stage multiplier");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void reactorGradePlutoniumAndWasteKeepTheirMaterialEconomy(GameTestHelper helper) {
+        assertRecipe(helper, "nuclear_waste_from_nuclear_waste_tiny", "nuclear_waste", 1);
+        assertRecipe(helper, "nuclear_waste_tiny_from_nuclear_waste", "nuclear_waste_tiny", 9);
+        assertRecipe(helper, "billet_nuclear_waste_from_nuclear_waste_tiny", "billet_nuclear_waste", 1);
+        assertRecipe(helper, "nuclear_waste_tiny_from_billet_nuclear_waste", "nuclear_waste_tiny", 6);
+        assertRecipe(helper, "nuclear_waste_from_billet_nuclear_waste", "nuclear_waste", 2);
+        assertRecipe(helper, "billet_nuclear_waste_from_nuclear_waste", "billet_nuclear_waste", 3);
+        assertRecipe(helper, "waste_block", "block_waste", 1);
+        assertRecipe(helper, "nuclear_waste_from_block_waste", "nuclear_waste", 9);
+
+        assertHazards(helper, "ingot_pu_mix", 6.25F, 0F);
+        assertHazards(helper, "billet_pu_mix", 3.125F, 0F);
+        assertHazards(helper, "nugget_pu_mix", 0.625F, 0F);
+        assertHazards(helper, "block_pu_mix", 62.5F, 0F);
+        assertHazards(helper, "nuclear_waste", 15F, 0F);
+        assertHazards(helper, "billet_nuclear_waste", 7.5F, 0F);
+        assertHazards(helper, "nuclear_waste_tiny", 1.5F, 0F);
+
+        check(helper, FoundryMaterial.fromItem(new ItemStack(item("ingot_pu_mix"))).material()
+                        == FoundryMaterial.REACTOR_GRADE_PLUTONIUM,
+                "The Crucible must recognize Reactor-Grade Plutonium");
+        check(helper, FoundryMaterial.REACTOR_GRADE_PLUTONIUM.ingot().is(item("ingot_pu_mix"))
+                        && FoundryMaterial.REACTOR_GRADE_PLUTONIUM.billet().is(item("billet_pu_mix"))
+                        && FoundryMaterial.REACTOR_GRADE_PLUTONIUM.nugget().is(item("nugget_pu_mix"))
+                        && FoundryMaterial.REACTOR_GRADE_PLUTONIUM.output(
+                                com.hbm.ntm.item.FoundryMoldItem.Mold.BLOCK).is(ModBlocks.get("block_pu_mix").get().asItem()),
+                "The Foundry must pour every source Reactor-Grade Plutonium form");
         helper.succeed();
     }
 
@@ -127,7 +166,9 @@ public final class ActinideBreedingGameTests {
             new Material("pu238", "ingot_pu238", "billet_pu238", "nugget_pu238",
                     "block_pu238", "pu238_block"),
             new Material("pu239", "ingot_pu239", "billet_pu239", "nugget_pu239",
-                    "block_pu239", "pu239_block")
+                    "block_pu239", "pu239_block"),
+            new Material("pu_mix", "ingot_pu_mix", "billet_pu_mix", "nugget_pu_mix",
+                    "block_pu_mix", "pu_mix_block")
     };
 
     private static void assertBreedingStep(

@@ -105,8 +105,9 @@ public final class CustomNukeExplosion {
         mult(map, item("nugget_pu238"), BombType.NUKE, 1.015F);
         mult(map, item("powder_uranium"), BombType.NUKE, 1.05F);
         mult(map, item("powder_plutonium"), BombType.NUKE, 1.15F);
+        mult(map, item("nuclear_waste"), BombType.DIRTY, 1.025F);
         mult(map, ModItems.BLOCK_WASTE_ITEM.get(), BombType.DIRTY, 1.25F);
-        // ingot_pu240, the nuclear-waste item and yellow_barrel are not registered yet.
+        // ingot_pu240 and yellow_barrel are not registered yet.
 
         return map;
     }

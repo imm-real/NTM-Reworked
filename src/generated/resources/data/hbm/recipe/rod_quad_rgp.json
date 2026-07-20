@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:rod_quad_empty"
+    },
+    {
+      "tag": "c:billets/plutonium_rg"
+    },
+    {
+      "tag": "c:billets/plutonium_rg"
+    },
+    {
+      "tag": "c:billets/plutonium_rg"
+    },
+    {
+      "tag": "c:billets/plutonium_rg"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:custom_data": {
+        "hbmBreedingRodType": "rgp"
+      },
+      "minecraft:custom_model_data": 11
+    },
+    "count": 1,
+    "id": "hbm:rod_quad"
+  }
+}

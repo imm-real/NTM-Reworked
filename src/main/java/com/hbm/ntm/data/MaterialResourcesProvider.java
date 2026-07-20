@@ -825,6 +825,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("powder_lithium")));
         writes.add(save(output, decompressionRecipe("powder_lithium", "powder_lithium_tiny"),
                 recipes, hbm("powder_lithium_tiny_from_powder")));
+        writes.add(save(output, compressionRecipe("nuclear_waste", "block_waste"),
+                recipes, hbm("waste_block")));
+        writes.add(save(output, decompressionRecipe("block_waste", "nuclear_waste"),
+                recipes, hbm("nuclear_waste_from_block_waste")));
         writes.add(save(output, compressionRecipe("nugget_zirconium", "ingot_zirconium"),
                 recipes, hbm("ingot_zirconium_from_nugget")));
         writes.add(save(output, decompressionRecipe("ingot_zirconium", "nugget_zirconium"),
@@ -4583,6 +4587,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                         "c:billets/plutonium_238", "hbm:billet_pu238"),
                 new BreedingRodMaterial(BreedingRodItem.Type.PU239,
                         "c:billets/plutonium_239", "hbm:billet_pu239"),
+                new BreedingRodMaterial(BreedingRodItem.Type.RGP,
+                        "c:billets/plutonium_rg", "hbm:billet_pu_mix"),
+                new BreedingRodMaterial(BreedingRodItem.Type.WASTE,
+                        "c:billets/nuclear_waste", "hbm:billet_nuclear_waste"),
                 new BreedingRodMaterial(BreedingRodItem.Type.URANIUM,
                         "c:billets/uranium", "hbm:billet_uranium")
         );
