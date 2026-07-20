@@ -9,8 +9,10 @@
     "#c:nuggets/plutonium",
     "#c:nuggets/technetium_99",
     "#c:nuggets/schrabidium",
+    "#c:nuggets/cobalt_60",
     "#c:nuggets/silicon",
     "#c:nuggets/zirconium",
-    "#c:nuggets/tantalum"
+    "#c:nuggets/tantalum",
+    "#c:nuggets/cobalt"
   ]
 }

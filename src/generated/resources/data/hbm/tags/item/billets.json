@@ -9,6 +9,8 @@
     "#c:billets/plutonium",
     "#c:billets/technetium_99",
     "#c:billets/schrabidium",
-    "#c:billets/silicon"
+    "#c:billets/cobalt_60",
+    "#c:billets/silicon",
+    "#c:billets/cobalt"
   ]
 }

@@ -99,7 +99,15 @@ public final class MaterialResourcesProvider implements DataProvider {
                         "c",
                         definition.form().commonTagFolder() + "/" + definition.commonMaterial()
                 );
-                writes.add(save(output, tag(definition.id()), itemTags, tag));
+                if (definition.id().equals("nugget_cobalt")) {
+                    // Both were nuggetCobalt in 1.7.10. The fragment is still the cave's cheap version.
+                    JsonArray cobaltNuggets = new JsonArray();
+                    cobaltNuggets.add("hbm:nugget_cobalt");
+                    cobaltNuggets.add("hbm:fragment_cobalt");
+                    writes.add(save(output, tag(cobaltNuggets), itemTags, tag));
+                } else {
+                    writes.add(save(output, tag(definition.id()), itemTags, tag));
+                }
 
                 JsonArray aggregate = switch (definition.form()) {
                     case INGOT -> aggregateIngots;
@@ -730,6 +738,8 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("ingot_tungsten_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_cobalt", "hbm:ingot_cobalt", 1.0F),
                 recipes, hbm("ingot_cobalt_from_powder")));
+        writes.add(save(output, smeltingRecipe("hbm:powder_co60", "hbm:ingot_co60", 1.0F),
+                recipes, hbm("ingot_co60_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_niobium", "hbm:ingot_niobium", 1.0F),
                 recipes, hbm("ingot_niobium_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_tantalium", "hbm:ingot_tantalium", 1.0F),
@@ -808,6 +818,7 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("powder_cobalt")));
         writes.add(save(output, decompressionRecipe("powder_cobalt", "powder_cobalt_tiny"),
                 recipes, hbm("powder_cobalt_tiny_from_powder")));
+        addCobaltBilletRecipes(writes, output);
         writes.add(save(output, compressionRecipe("powder_lithium_tiny", "powder_lithium"),
                 recipes, hbm("powder_lithium")));
         writes.add(save(output, decompressionRecipe("powder_lithium", "powder_lithium_tiny"),
@@ -4554,6 +4565,10 @@ public final class MaterialResourcesProvider implements DataProvider {
         List<BreedingRodMaterial> materials = List.of(
                 new BreedingRodMaterial(BreedingRodItem.Type.LITHIUM,
                         "c:ingots/lithium", "hbm:lithium"),
+                new BreedingRodMaterial(BreedingRodItem.Type.CO,
+                        "c:billets/cobalt", "hbm:billet_cobalt"),
+                new BreedingRodMaterial(BreedingRodItem.Type.CO60,
+                        "c:billets/cobalt_60", "hbm:billet_co60"),
                 new BreedingRodMaterial(BreedingRodItem.Type.TH232,
                         "c:billets/thorium_232", "hbm:billet_th232"),
                 new BreedingRodMaterial(BreedingRodItem.Type.U235,
@@ -4593,6 +4608,21 @@ public final class MaterialResourcesProvider implements DataProvider {
                                 + "_from_rod" + formSuffix)));
             }
         }
+    }
+
+    private void addCobaltBilletRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        writes.add(save(output, compressionRecipe("nugget_cobalt", "ingot_cobalt"),
+                recipes, hbm("ingot_cobalt_from_nugget_cobalt")));
+        writes.add(save(output, decompressionRecipe("ingot_cobalt", "nugget_cobalt"),
+                recipes, hbm("nugget_cobalt_from_ingot_cobalt")));
+        writes.add(save(output, shapedRecipe(List.of("###", "###"), "nugget_cobalt", "billet_cobalt", 1),
+                recipes, hbm("billet_cobalt_from_nugget_cobalt")));
+        writes.add(save(output, shapelessRecipe(List.of("billet_cobalt"), "nugget_cobalt", 6),
+                recipes, hbm("nugget_cobalt_from_billet_cobalt")));
+        writes.add(save(output, shapelessRecipe(List.of("billet_cobalt", "billet_cobalt", "billet_cobalt"),
+                "ingot_cobalt", 2), recipes, hbm("ingot_cobalt_from_billet_cobalt")));
+        writes.add(save(output, shapedRecipe(List.of("##"), "ingot_cobalt", "billet_cobalt", 3),
+                recipes, hbm("billet_cobalt_from_ingot_cobalt")));
     }
 
     private JsonObject shapelessRecipe(List<JsonObject> inputs, JsonObject result) {

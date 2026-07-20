@@ -114,6 +114,7 @@ public final class ShredderRecipes {
         generatedHbm(recipes, "ingot_cadmium", "powder_cadmium", 1);
         generatedHbm(recipes, "ingot_beryllium", "powder_beryllium", 1);
         generatedHbm(recipes, "ingot_cobalt", "powder_cobalt", 1);
+        generatedHbm(recipes, "ingot_co60", "powder_co60", 1);
         generatedHbm(recipes, "fragment_coltan", "powder_coltan_ore", 1);
 
         generatedHbm(recipes, "plate_iron", "powder_iron", 1);

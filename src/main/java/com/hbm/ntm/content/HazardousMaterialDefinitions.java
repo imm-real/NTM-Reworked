@@ -203,6 +203,7 @@ public final class HazardousMaterialDefinitions {
                 "ingot_pu239",
                 "ingot_technetium", "billet_technetium", "nugget_technetium",
                 "ingot_schrabidium", "billet_schrabidium", "nugget_schrabidium", "powder_schrabidium",
+                "ingot_co60", "billet_co60", "nugget_co60", "powder_co60",
                 "ingot_mox_fuel", "billet_ra226be", "billet_pu238be",
                 "ingot_mud",
                 "powder_coal",

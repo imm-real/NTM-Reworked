@@ -1,8 +1,11 @@
 package com.hbm.ntm.machine;
 
 import com.hbm.ntm.HbmNtm;
+import com.hbm.ntm.hazard.HazardCarrier;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.nuclear.CustomNukeExplosion;
+import com.hbm.ntm.recipe.BreederRecipes;
+import com.hbm.ntm.recipe.ShredderRecipes;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.gametest.framework.GameTest;
@@ -79,6 +82,8 @@ public final class CoreProgressionRecipeGameTests {
     public static void activeBreedingRodsKeepSourceLoadingAndUnloading(GameTestHelper helper) {
         List<RodMaterial> materials = List.of(
                 new RodMaterial(BreedingRodItem.Type.LITHIUM, "lithium"),
+                new RodMaterial(BreedingRodItem.Type.CO, "billet_cobalt"),
+                new RodMaterial(BreedingRodItem.Type.CO60, "billet_co60"),
                 new RodMaterial(BreedingRodItem.Type.TH232, "billet_th232"),
                 new RodMaterial(BreedingRodItem.Type.U235, "billet_u235"),
                 new RodMaterial(BreedingRodItem.Type.U238, "billet_u238"),
@@ -129,6 +134,59 @@ public final class CoreProgressionRecipeGameTests {
                         "Unloading must return the matching empty " + form.id());
             }
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void cobaltBreedingClosesTheSourceMaterialLoop(GameTestHelper helper) {
+        Item cobaltIngot = ModItems.get("ingot_cobalt").get();
+        Item cobaltBillet = ModItems.get("billet_cobalt").get();
+        Item cobaltNugget = ModItems.get("nugget_cobalt").get();
+        craft(helper, "billet_cobalt_from_ingot_cobalt", cobaltBillet, 3,
+                Map.of('I', new ItemStack(cobaltIngot)), "II");
+        craft(helper, "ingot_cobalt_from_billet_cobalt", cobaltIngot, 2,
+                Map.of('B', new ItemStack(cobaltBillet)), "BBB");
+        craft(helper, "billet_cobalt_from_nugget_cobalt", cobaltBillet, 1,
+                Map.of('N', new ItemStack(cobaltNugget)), "NNN", "NNN");
+        craft(helper, "nugget_cobalt_from_billet_cobalt", cobaltNugget, 6,
+                Map.of('B', new ItemStack(cobaltBillet)), "B");
+        craft(helper, "ingot_cobalt_from_nugget_cobalt", cobaltIngot, 1,
+                Map.of('N', new ItemStack(cobaltNugget)), "NNN", "NNN", "NNN");
+        craft(helper, "nugget_cobalt_from_ingot_cobalt", cobaltNugget, 9,
+                Map.of('I', new ItemStack(cobaltIngot)), "I");
+
+        BreederRecipes.Recipe bred = BreederRecipes.get(
+                BreedingRodItem.stack(ModItems.ROD.get(), BreedingRodItem.Type.CO, 1));
+        check(helper, bred != null && bred.flux() == 100
+                        && BreedingRodItem.type(bred.output()) == BreedingRodItem.Type.CO60,
+                "A Cobalt Rod must breed into Cobalt-60 at the source 100-flux threshold");
+
+        Item co60Ingot = ModItems.get("ingot_co60").get();
+        Item co60Billet = ModItems.get("billet_co60").get();
+        Item co60Nugget = ModItems.get("nugget_co60").get();
+        craft(helper, "billet_co60_from_ingot_co60", co60Billet, 3,
+                Map.of('I', new ItemStack(co60Ingot)), "II");
+        craft(helper, "ingot_co60_from_billet_co60", co60Ingot, 2,
+                Map.of('B', new ItemStack(co60Billet)), "BBB");
+        craft(helper, "ingot_co60_from_nugget_co60", co60Ingot, 1,
+                Map.of('N', new ItemStack(co60Nugget)), "NNN", "NNN", "NNN");
+
+        ItemStack powder = ShredderRecipes.getResult(new ItemStack(co60Ingot));
+        check(helper, powder.is(ModItems.get("powder_co60").get()) && powder.getCount() == 1,
+                "The Shredder must retain the source Cobalt-60 dust conversion");
+        var smeltingInput = new net.minecraft.world.item.crafting.SingleRecipeInput(powder);
+        var smelting = helper.getLevel().getRecipeManager().getRecipeFor(
+                RecipeType.SMELTING, smeltingInput, helper.getLevel()).orElseThrow();
+        ItemStack remelted = smelting.value().assemble(smeltingInput, helper.getLevel().registryAccess());
+        check(helper, smelting.id().equals(id("ingot_co60_from_powder")) && remelted.is(co60Ingot),
+                "Cobalt-60 Powder must smelt back into its ingot");
+        check(helper, co60Ingot instanceof HazardCarrier ingotHazard
+                        && ingotHazard.hbm$getHazards(new ItemStack(co60Ingot)).radiation() == 30F
+                        && ingotHazard.hbm$getHazards(new ItemStack(co60Ingot)).heat() == 1F
+                        && powder.getItem() instanceof HazardCarrier powderHazard
+                        && powderHazard.hbm$getHazards(powder).radiation() == 90F
+                        && powderHazard.hbm$getHazards(powder).heat() == 3F,
+                "Cobalt-60 forms must keep their source radiation, heat, and dust multipliers");
         helper.succeed();
     }
 
