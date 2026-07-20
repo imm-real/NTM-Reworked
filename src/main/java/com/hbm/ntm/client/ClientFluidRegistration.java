@@ -35,6 +35,24 @@ public class ClientFluidRegistration {
     private static void registerExtensions(RegisterClientExtensionsEvent event) {
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
+            public ResourceLocation getStillTexture() {return LIQUID_STILL; }
+            @Override
+            public ResourceLocation getFlowingTexture() {return LIQUID_FLOW; }
+            @Override
+            public int getTintColor() {return 0x96FFDADA; }
+        }, ModFluids.AIR_TYPE.get());
+
+        event.registerFluidType(new IClientFluidTypeExtensions() {
+            @Override
+            public ResourceLocation getStillTexture() {return LIQUID_STILL; }
+            @Override
+            public ResourceLocation getFlowingTexture() {return LIQUID_FLOW; }
+            @Override
+            public int getTintColor() {return 0x966e6e6e; }
+        }, ModFluids.SMOKE_TYPE.get());
+
+        event.registerFluidType(new IClientFluidTypeExtensions() {
+            @Override
             public ResourceLocation getStillTexture() {return WATER_STILL; }
             @Override
             public ResourceLocation getFlowingTexture() {return WATER_FLOW; }
@@ -291,7 +309,7 @@ public class ClientFluidRegistration {
             @Override
             public ResourceLocation getFlowingTexture() {return WATER_FLOW; }
             @Override
-            public int getTintColor() {return 0x445772; }
+            public int getTintColor() {return 0xFF445772; }
         }, ModFluids.SPENTSTEAM_TYPE.get());
 
         event.registerFluidType(new IClientFluidTypeExtensions() {
