@@ -148,6 +148,64 @@ public final class CoreProgressionRecipeGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void leadRodsKeepTheirOddSourceNuggetCounts(GameTestHelper helper) {
+        Item leadIngot = ModItems.get("ingot_lead").get();
+        Item leadNugget = ModItems.get("nugget_lead").get();
+        craft(helper, "ingot_lead_from_nugget_lead", leadIngot, 1,
+                Map.of('N', new ItemStack(leadNugget)), "NNN", "NNN", "NNN");
+        craft(helper, "nugget_lead_from_ingot_lead", leadNugget, 9,
+                Map.of('I', new ItemStack(leadIngot)), "I");
+
+        for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+            int ingots = switch (form) {
+                case SINGLE -> 0;
+                case DUAL -> 1;
+                case QUAD -> 2;
+            };
+            int nuggets = switch (form) {
+                case SINGLE, QUAD -> 6;
+                case DUAL -> 3;
+            };
+            int returnedNuggets = switch (form) {
+                case SINGLE -> 6;
+                case DUAL -> 12;
+                case QUAD -> 24;
+            };
+
+            List<ItemStack> loadingInputs = new ArrayList<>();
+            loadingInputs.add(new ItemStack(emptyRod(form)));
+            for (int i = 0; i < ingots; i++) loadingInputs.add(new ItemStack(leadIngot));
+            for (int i = 0; i < nuggets; i++) loadingInputs.add(new ItemStack(leadNugget));
+            CraftingInput loading = craftingInput(loadingInputs);
+            var loadingRecipe = helper.getLevel().getRecipeManager().getRecipeFor(
+                    RecipeType.CRAFTING, loading, helper.getLevel()).orElseThrow();
+            check(helper, loadingRecipe.id().equals(id(form.id() + "_lead")),
+                    "Lead loading must use the source " + form.id() + " recipe");
+            ItemStack filled = loadingRecipe.value().assemble(loading, helper.getLevel().registryAccess());
+            check(helper, filled.is(loadedRod(form)) && BreedingRodItem.type(filled) == BreedingRodItem.Type.LEAD,
+                    "Lead loading must preserve its rod type");
+
+            CraftingInput unloading = craftingInput(List.of(filled.copy()));
+            var unloadingRecipe = helper.getLevel().getRecipeManager().getRecipeFor(
+                    RecipeType.CRAFTING, unloading, helper.getLevel()).orElseThrow();
+            String suffix = switch (form) {
+                case SINGLE -> "";
+                case DUAL -> "_dual";
+                case QUAD -> "_quad";
+            };
+            check(helper, unloadingRecipe.id().equals(id("nugget_lead_from_rod" + suffix)),
+                    "Lead unloading must keep the source " + form.id() + " recipe");
+            ItemStack returned = unloadingRecipe.value().assemble(unloading, helper.getLevel().registryAccess());
+            check(helper, returned.is(leadNugget) && returned.getCount() == returnedNuggets,
+                    "Lead unloading must return exactly " + returnedNuggets + " nuggets");
+            List<ItemStack> remainders = unloadingRecipe.value().getRemainingItems(unloading);
+            check(helper, remainders.size() == 1 && remainders.getFirst().is(emptyRod(form)),
+                    "Lead unloading must return the matching empty " + form.id());
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void thoriumFuelKeepsItsSourceBlendAndHazards(GameTestHelper helper) {
         Item th232Billet = ModItems.get("billet_th232").get();
         Item u233Billet = ModItems.get("billet_u233").get();

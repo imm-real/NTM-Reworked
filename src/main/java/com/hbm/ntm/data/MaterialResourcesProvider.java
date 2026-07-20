@@ -839,6 +839,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("ingot_tantalium_from_nugget")));
         writes.add(save(output, decompressionRecipe("ingot_tantalium", "nugget_tantalium"),
                 recipes, hbm("nugget_tantalium_from_ingot")));
+        writes.add(save(output, compressionRecipe("nugget_lead", "ingot_lead"),
+                recipes, hbm("ingot_lead_from_nugget_lead")));
+        writes.add(save(output, decompressionRecipe("ingot_lead", "nugget_lead"),
+                recipes, hbm("nugget_lead_from_ingot_lead")));
 
         for (HazardousMaterialDefinitions.ItemDefinition ingot : HazardousMaterialDefinitions.ITEMS) {
             if (ingot.form() != HazardousMaterialDefinitions.Form.INGOT) {
@@ -4547,6 +4551,7 @@ public final class MaterialResourcesProvider implements DataProvider {
         addReactorFuelBlendRecipes(writes, output);
         addZirnoxRodRecipes(writes, output);
         addBreedingRodRecipes(writes, output);
+        addLeadBreedingRodRecipes(writes, output);
         addTritiumCellRecipes(writes, output);
     }
 
@@ -4729,6 +4734,49 @@ public final class MaterialResourcesProvider implements DataProvider {
                         recipes, hbm(material.returnedItem().substring("hbm:".length())
                                 + "_from_rod" + formSuffix)));
             }
+        }
+    }
+
+    private void addLeadBreedingRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        List<JsonObject> single = new ArrayList<>();
+        single.add(itemIngredient("hbm:rod_empty"));
+        for (int i = 0; i < 6; i++) single.add(tagIngredient("c:nuggets/lead"));
+        writes.add(save(output, shapelessRecipe(single,
+                        breedingRodResult(BreedingRodItem.Form.SINGLE, BreedingRodItem.Type.LEAD)),
+                recipes, hbm("rod_lead")));
+
+        List<JsonObject> dual = new ArrayList<>();
+        dual.add(itemIngredient("hbm:rod_dual_empty"));
+        dual.add(tagIngredient("c:ingots/lead"));
+        for (int i = 0; i < 3; i++) dual.add(tagIngredient("c:nuggets/lead"));
+        writes.add(save(output, shapelessRecipe(dual,
+                        breedingRodResult(BreedingRodItem.Form.DUAL, BreedingRodItem.Type.LEAD)),
+                recipes, hbm("rod_dual_lead")));
+
+        List<JsonObject> quad = new ArrayList<>();
+        quad.add(itemIngredient("hbm:rod_quad_empty"));
+        quad.add(tagIngredient("c:ingots/lead"));
+        quad.add(tagIngredient("c:ingots/lead"));
+        for (int i = 0; i < 6; i++) quad.add(tagIngredient("c:nuggets/lead"));
+        writes.add(save(output, shapelessRecipe(quad,
+                        breedingRodResult(BreedingRodItem.Form.QUAD, BreedingRodItem.Type.LEAD)),
+                recipes, hbm("rod_quad_lead")));
+
+        for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+            int nuggets = switch (form) {
+                case SINGLE -> 6;
+                case DUAL -> 12;
+                case QUAD -> 24;
+            };
+            String suffix = switch (form) {
+                case SINGLE -> "";
+                case DUAL -> "_dual";
+                case QUAD -> "_quad";
+            };
+            writes.add(save(output, shapelessRecipe(
+                            List.of(breedingRodIngredient(form, BreedingRodItem.Type.LEAD)),
+                            recipeResult("hbm:nugget_lead", nuggets)),
+                    recipes, hbm("nugget_lead_from_rod" + suffix)));
         }
     }
 

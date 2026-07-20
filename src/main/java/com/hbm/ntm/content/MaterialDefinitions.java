@@ -72,6 +72,7 @@ public final class MaterialDefinitions {
             new ItemDefinition("ingot_arsenic_bronze", "Arsenic Bronze Ingot", ItemForm.INGOT, "arsenic_bronze"),
             new ItemDefinition("ingot_bscco", "BSCCO Ingot", ItemForm.INGOT, "bscco"),
             new ItemDefinition("ingot_lead", "Lead Ingot", ItemForm.INGOT, "lead"),
+            new ItemDefinition("nugget_lead", "Lead Nugget", ItemForm.NUGGET, "lead"),
             new ItemDefinition("ingot_bismuth", "Bismuth Ingot", ItemForm.INGOT, "bismuth"),
             new ItemDefinition("ingot_arsenic", "Arsenic Ingot", ItemForm.INGOT, "arsenic"),
             new ItemDefinition("ingot_calcium", "Calcium Ingot", ItemForm.INGOT, "calcium"),

@@ -1,6 +1,7 @@
 package com.hbm.ntm.blockentity;
 
 import com.hbm.ntm.inventory.NukePrototypeMenu;
+import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -44,25 +45,37 @@ public final class NukePrototypeBlockEntity extends BlockEntity implements World
      *   <li>slots 4, 5, 8, 9   = {@code rod_quad} of {@code BreedingRodType.LEAD}</li>
      *   <li>slots 6, 7         = {@code rod_quad} of {@code BreedingRodType.NP237}</li>
      * </ul>
-     * <p>{@code cell_sas3} (the reactor-cell family) and
-     * {@code rod_quad} and its acquisition chain do not exist yet. Until they do, the
-     * bomb cannot arm in survival. Restore rod-type checks for slots 2..11 with those items.
+     * <p>{@code cell_sas3} is still absent, so the bomb cannot arm in survival yet.
      */
     public boolean isReady() {
         Item cell = resolve("cell_sas3");
-        Item rod = resolve("rod_quad");
-        if (cell == null || rod == null) return false;
+        if (cell == null) return false;
         for (ItemStack stack : items) {
             if (stack.isEmpty()) return false;
         }
-        // Cells match by item; rods eventually need URANIUM/LEAD/NP237 checks too.
         return items.get(0).is(cell) && items.get(1).is(cell)
                 && items.get(12).is(cell) && items.get(13).is(cell)
-                && items.get(2).is(rod) && items.get(3).is(rod)
-                && items.get(4).is(rod) && items.get(5).is(rod)
-                && items.get(6).is(rod) && items.get(7).is(rod)
-                && items.get(8).is(rod) && items.get(9).is(rod)
-                && items.get(10).is(rod) && items.get(11).is(rod);
+                && hasCorrectRodLayout();
+    }
+
+    public boolean hasCorrectRodLayout() {
+        Item rod = resolve("rod_quad");
+        if (rod == null) return false;
+        return isRod(2, rod, BreedingRodItem.Type.URANIUM)
+                && isRod(3, rod, BreedingRodItem.Type.URANIUM)
+                && isRod(4, rod, BreedingRodItem.Type.LEAD)
+                && isRod(5, rod, BreedingRodItem.Type.LEAD)
+                && isRod(6, rod, BreedingRodItem.Type.NP237)
+                && isRod(7, rod, BreedingRodItem.Type.NP237)
+                && isRod(8, rod, BreedingRodItem.Type.LEAD)
+                && isRod(9, rod, BreedingRodItem.Type.LEAD)
+                && isRod(10, rod, BreedingRodItem.Type.URANIUM)
+                && isRod(11, rod, BreedingRodItem.Type.URANIUM);
+    }
+
+    private boolean isRod(int slot, Item rod, BreedingRodItem.Type type) {
+        ItemStack stack = items.get(slot);
+        return stack.is(rod) && BreedingRodItem.type(stack) == type;
     }
 
     @Nullable
