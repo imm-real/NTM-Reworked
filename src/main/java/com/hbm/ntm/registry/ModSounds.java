@@ -168,6 +168,13 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> TURBINE_LARGE_LOOP = SOUNDS.register(
             "block.turbine_large_loop", () -> SoundEvent.createFixedRangeEvent(
                     ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "block.turbine_large_loop"), 20F));
+    public static final DeferredHolder<SoundEvent, SoundEvent> TURBINE_GAS_STARTUP =
+            register("block.turbinegas_startup");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TURBINE_GAS_RUNNING = SOUNDS.register(
+            "block.turbinegas_running", () -> SoundEvent.createFixedRangeEvent(
+                    ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "block.turbinegas_running"), 20F));
+    public static final DeferredHolder<SoundEvent, SoundEvent> TURBINE_GAS_SHUTDOWN =
+            register("block.turbinegas_shutdown");
     public static final DeferredHolder<SoundEvent, SoundEvent> TURBOFAN_OPERATE = SOUNDS.register(
             "block.turbofanoperate", () -> SoundEvent.createFixedRangeEvent(
                     ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "block.turbofanoperate"), 50F));

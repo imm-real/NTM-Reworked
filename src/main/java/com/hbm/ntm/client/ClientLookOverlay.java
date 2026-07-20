@@ -6,6 +6,7 @@ import com.hbm.ntm.block.HeatBoilerBlock;
 import com.hbm.ntm.block.HeatExchangerBlock;
 import com.hbm.ntm.block.FluidBurnerBlock;
 import com.hbm.ntm.block.FluidStorageTankBlock;
+import com.hbm.ntm.block.GasTurbineBlock;
 import com.hbm.ntm.block.IndustrialTurbineBlock;
 import com.hbm.ntm.block.SteamEngineBlock;
 import com.hbm.ntm.block.PumpBlock;
@@ -18,6 +19,7 @@ import com.hbm.ntm.blockentity.FluidBurnerBlockEntity;
 import com.hbm.ntm.blockentity.FluidDuctBlockEntity;
 import com.hbm.ntm.blockentity.FoundryOutletBlockEntity;
 import com.hbm.ntm.blockentity.FluidStorageTankBlockEntity;
+import com.hbm.ntm.blockentity.GasTurbineBlockEntity;
 import com.hbm.ntm.blockentity.IndustrialTurbineBlockEntity;
 import com.hbm.ntm.blockentity.SteamEngineBlockEntity;
 import com.hbm.ntm.blockentity.SteamCondenserBlockEntity;
@@ -109,6 +111,14 @@ public final class ClientLookOverlay {
             var core = IndustrialTurbineBlock.corePosition(hit.getBlockPos(), state);
             if (minecraft.level.getBlockEntity(core) instanceof IndustrialTurbineBlockEntity turbine) {
                 renderIndustrialTurbine(event.getGuiGraphics(), minecraft, turbine);
+            }
+            return;
+        }
+        if (state.is(ModBlocks.MACHINE_TURBINE_GAS.get())) {
+            var core = GasTurbineBlock.corePosition(hit.getBlockPos(), state);
+            if (minecraft.level.getBlockEntity(core) instanceof GasTurbineBlockEntity turbine) {
+                renderGasTurbinePort(event.getGuiGraphics(), minecraft, turbine,
+                        GasTurbineBlock.port(state));
             }
             return;
         }
@@ -354,6 +364,41 @@ public final class ClientLookOverlay {
                         .withStyle(style -> style.withColor(spinColor)))
                 .append(Component.literal(")").withStyle(ChatFormatting.WHITE));
         graphics.drawString(minecraft.font, power, x, y, 0xFFFFFF, true);
+    }
+
+    private static void renderGasTurbinePort(GuiGraphics graphics, Minecraft minecraft,
+                                             GasTurbineBlockEntity turbine, GasTurbineBlock.Port port) {
+        if (port == GasTurbineBlock.Port.NONE) return;
+        int x = graphics.guiWidth() / 2 + 8;
+        int y = graphics.guiHeight() / 2;
+        String title = Component.translatable("block.hbm.machine_turbinegas").getString();
+        graphics.drawString(minecraft.font, title, x + 1, y - 9, 0x404000, false);
+        graphics.drawString(minecraft.font, title, x, y - 10, 0xFFFF00, false);
+        switch (port) {
+            case FUEL_LUBE -> {
+                drawPortLine(graphics, minecraft, x, y, true, "hbmfluid.gas",
+                        turbine.fuelAmount(), GasTurbineBlockEntity.FUEL_CAPACITY);
+                drawPortLine(graphics, minecraft, x, y + 10, true, "hbmfluid.lubricant",
+                        turbine.lubricantAmount(), GasTurbineBlockEntity.LUBRICANT_CAPACITY);
+            }
+            case WATER -> drawPortLine(graphics, minecraft, x, y, true, "block.minecraft.water",
+                    turbine.waterAmount(), GasTurbineBlockEntity.WATER_CAPACITY);
+            case STEAM -> drawPortLine(graphics, minecraft, x, y, false, "hbmfluid.hotsteam",
+                    turbine.steamAmount(), GasTurbineBlockEntity.STEAM_CAPACITY);
+            case POWER -> graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                    "<- Power: %,d / %,dHE", turbine.getPower(), GasTurbineBlockEntity.MAX_POWER),
+                    x, y, 0xFF5555, true);
+            default -> { }
+        }
+    }
+
+    private static void drawPortLine(GuiGraphics graphics, Minecraft minecraft, int x, int y,
+                                     boolean input, String fluidKey, int amount, int capacity) {
+        String marker = input ? "-> " : "<- ";
+        int color = input ? 0x55FF55 : 0xFF5555;
+        graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                "%s%s: %,d / %,dmB", marker, Component.translatable(fluidKey).getString(), amount, capacity),
+                x, y, color, true);
     }
 
     private static void renderPump(GuiGraphics graphics, Minecraft minecraft, PumpBlockEntity pump) {

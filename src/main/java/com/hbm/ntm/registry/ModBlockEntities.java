@@ -65,6 +65,8 @@ import com.hbm.ntm.blockentity.HeatBoilerProxyBlockEntity;
 import com.hbm.ntm.blockentity.HeatExchangerBlockEntity;
 import com.hbm.ntm.blockentity.HeatExchangerProxyBlockEntity;
 import com.hbm.ntm.blockentity.IndustrialTurbineBlockEntity;
+import com.hbm.ntm.blockentity.GasTurbineBlockEntity;
+import com.hbm.ntm.blockentity.GasTurbineProxyBlockEntity;
 import com.hbm.ntm.blockentity.IndustrialTurbineProxyBlockEntity;
 import com.hbm.ntm.blockentity.TurbofanBlockEntity;
 import com.hbm.ntm.blockentity.TurbofanProxyBlockEntity;
@@ -276,6 +278,16 @@ public final class ModBlockEntities {
             BLOCK_ENTITY_TYPES.register("machine_industrial_turbine_proxy",
                     () -> BlockEntityType.Builder.of(IndustrialTurbineProxyBlockEntity::new,
                             ModBlocks.MACHINE_INDUSTRIAL_TURBINE.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GasTurbineBlockEntity>> MACHINE_TURBINE_GAS =
+            BLOCK_ENTITY_TYPES.register("machine_turbinegas",
+                    () -> BlockEntityType.Builder.of(GasTurbineBlockEntity::new,
+                            ModBlocks.MACHINE_TURBINE_GAS.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GasTurbineProxyBlockEntity>> MACHINE_TURBINE_GAS_PROXY =
+            BLOCK_ENTITY_TYPES.register("machine_turbinegas_proxy",
+                    () -> BlockEntityType.Builder.of(GasTurbineProxyBlockEntity::new,
+                            ModBlocks.MACHINE_TURBINE_GAS.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbofanBlockEntity>> MACHINE_TURBOFAN =
             BLOCK_ENTITY_TYPES.register("machine_turbofan",

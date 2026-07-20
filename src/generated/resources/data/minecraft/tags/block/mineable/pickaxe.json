@@ -88,6 +88,7 @@
     "hbm:machine_sawmill",
     "hbm:machine_steam_engine",
     "hbm:machine_industrial_turbine",
+    "hbm:machine_turbinegas",
     "hbm:machine_turbofan",
     "hbm:machine_turbine",
     "hbm:pump_steam",

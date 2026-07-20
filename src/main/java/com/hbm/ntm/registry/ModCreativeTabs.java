@@ -377,6 +377,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.MACHINE_SAWMILL_ITEM.get());
                         output.accept(ModItems.MACHINE_STEAM_ENGINE_ITEM.get());
                         output.accept(ModItems.MACHINE_INDUSTRIAL_TURBINE_ITEM.get());
+                        output.accept(ModItems.MACHINE_TURBINE_GAS_ITEM.get());
                         output.accept(ModItems.MACHINE_TURBOFAN_ITEM.get());
                         output.accept(ModItems.MACHINE_TURBINE_ITEM.get());
                         output.accept(ModItems.REACTOR_ZIRNOX_ITEM.get());

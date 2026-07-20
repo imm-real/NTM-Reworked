@@ -40,6 +40,8 @@ import com.hbm.ntm.client.render.HeatExchangerRenderer;
 import com.hbm.ntm.client.render.HeatingOvenRenderer;
 import com.hbm.ntm.client.render.IndustrialTurbineItemRenderer;
 import com.hbm.ntm.client.render.IndustrialTurbineRenderer;
+import com.hbm.ntm.client.render.GasTurbineItemRenderer;
+import com.hbm.ntm.client.render.GasTurbineRenderer;
 import com.hbm.ntm.client.render.MachinePressRenderer;
 import com.hbm.ntm.client.render.MicrowaveRenderer;
 import com.hbm.ntm.client.render.MovingConveyorItemRenderer;
@@ -103,6 +105,7 @@ import com.hbm.ntm.client.screen.DfcScreen;
 import com.hbm.ntm.client.screen.ElectricFurnaceScreen;
 import com.hbm.ntm.client.screen.FireboxScreen;
 import com.hbm.ntm.client.screen.FensuScreen;
+import com.hbm.ntm.client.screen.GasTurbineScreen;
 import com.hbm.ntm.client.screen.FluidIdentifierScreen;
 import com.hbm.ntm.client.screen.FluidBurnerScreen;
 import com.hbm.ntm.client.screen.FluidStorageTankScreen;
@@ -210,6 +213,7 @@ public final class ClientMachineRegistration {
         event.register(ModMenus.FLUID_IDENTIFIER.get(), FluidIdentifierScreen::new);
         event.register(ModMenus.MACHINE_WELL.get(), OilDerrickScreen::new);
         event.register(ModMenus.MACHINE_DIESEL.get(), DieselGeneratorScreen::new);
+        event.register(ModMenus.MACHINE_TURBINE_GAS.get(), GasTurbineScreen::new);
         event.register(ModMenus.MACHINE_TURBINE.get(), SteamTurbineScreen::new);
         event.register(ModMenus.MACHINE_TURBOFAN.get(), TurbofanScreen::new);
         event.register(ModMenus.REACTOR_ZIRNOX.get(), ZirnoxScreen::new);
@@ -257,6 +261,7 @@ public final class ClientMachineRegistration {
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_RADGEN.get(), RadGenRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_INDUSTRIAL_TURBINE.get(),
                 IndustrialTurbineRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_TURBINE_GAS.get(), GasTurbineRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_TURBOFAN.get(), TurbofanRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PUMP.get(), PumpRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_INTAKE.get(), AirIntakeRenderer::new);
@@ -349,6 +354,7 @@ public final class ClientMachineRegistration {
         event.register(IndustrialTurbineRenderer.BASE);
         event.register(IndustrialTurbineRenderer.GAUGE);
         event.register(IndustrialTurbineRenderer.FLYWHEEL);
+        event.register(GasTurbineRenderer.MODEL);
         event.register(TurbofanRenderer.BODY);
         event.register(TurbofanRenderer.BLADES);
         event.register(TurbofanRenderer.AFTERBURNER_BACK);
@@ -552,6 +558,11 @@ public final class ClientMachineRegistration {
 
             @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() { return renderer; }
         }, ModItems.MACHINE_INDUSTRIAL_TURBINE_ITEM.get());
+        event.registerItem(new IClientItemExtensions() {
+            private final GasTurbineItemRenderer renderer = new GasTurbineItemRenderer();
+
+            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() { return renderer; }
+        }, ModItems.MACHINE_TURBINE_GAS_ITEM.get());
         event.registerItem(new IClientItemExtensions() {
             private final TurbofanItemRenderer renderer = new TurbofanItemRenderer();
 

@@ -246,6 +246,7 @@ public final class ModItems {
     public static final DeferredItem<SawmillMachineBlockItem> MACHINE_SAWMILL_ITEM;
     public static final DeferredItem<DescriptionBlockItem> MACHINE_STEAM_ENGINE_ITEM;
     public static final DeferredItem<DescriptionBlockItem> MACHINE_INDUSTRIAL_TURBINE_ITEM;
+    public static final DeferredItem<DescriptionBlockItem> MACHINE_TURBINE_GAS_ITEM;
     public static final DeferredItem<TurbofanBlockItem> MACHINE_TURBOFAN_ITEM;
     public static final DeferredItem<DescriptionBlockItem> MACHINE_TURBINE_ITEM;
     public static final DeferredItem<DescriptionBlockItem> REACTOR_ZIRNOX_ITEM;
@@ -866,6 +867,8 @@ public final class ModItems {
         MACHINE_INDUSTRIAL_TURBINE_ITEM = ITEMS.register("machine_industrial_turbine",
                 () -> new DescriptionBlockItem(ModBlocks.MACHINE_INDUSTRIAL_TURBINE.get(), new Item.Properties(),
                         "block.hbm.machine_industrial_turbine.desc.0"));
+        MACHINE_TURBINE_GAS_ITEM = ITEMS.register("machine_turbinegas",
+                () -> new DescriptionBlockItem(ModBlocks.MACHINE_TURBINE_GAS.get(), new Item.Properties()));
         MACHINE_TURBOFAN_ITEM = ITEMS.register("machine_turbofan",
                 () -> new TurbofanBlockItem(ModBlocks.MACHINE_TURBOFAN.get(), new Item.Properties()));
         MACHINE_TURBINE_ITEM = ITEMS.register("machine_turbine",

@@ -397,6 +397,18 @@
     "category": "block",
     "sounds": [{"name": "hbm:block/large_turbine", "stream": false}]
   },
+  "block.turbinegas_startup": {
+    "category": "block",
+    "sounds": [{"name": "hbm:block/turbinegas_startup", "stream": false}]
+  },
+  "block.turbinegas_running": {
+    "category": "block",
+    "sounds": [{"name": "hbm:block/turbinegas_running", "stream": true}]
+  },
+  "block.turbinegas_shutdown": {
+    "category": "block",
+    "sounds": [{"name": "hbm:block/turbinegas_shutdown", "stream": false}]
+  },
   "block.turbofanoperate": {
     "category": "block",
     "sounds": [{"name": "hbm:block/turbofanoperate", "stream": true}]

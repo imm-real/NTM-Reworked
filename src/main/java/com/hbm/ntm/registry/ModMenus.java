@@ -24,6 +24,7 @@ import com.hbm.ntm.inventory.DfcMenu;
 import com.hbm.ntm.inventory.ElectricFurnaceMenu;
 import com.hbm.ntm.inventory.FireboxMenu;
 import com.hbm.ntm.inventory.FensuMenu;
+import com.hbm.ntm.inventory.GasTurbineMenu;
 import com.hbm.ntm.inventory.FluidIdentifierMenu;
 import com.hbm.ntm.inventory.FluidStorageTankMenu;
 import com.hbm.ntm.inventory.FluidBurnerMenu;
@@ -190,6 +191,9 @@ public final class ModMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<TurbofanMenu>> MACHINE_TURBOFAN = MENUS.register(
             "machine_turbofan", () -> IMenuTypeExtension.create(TurbofanMenu::new));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<GasTurbineMenu>> MACHINE_TURBINE_GAS = MENUS.register(
+            "machine_turbinegas", () -> IMenuTypeExtension.create(GasTurbineMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<SteamTurbineMenu>> MACHINE_TURBINE = MENUS.register(
             "machine_turbine", () -> IMenuTypeExtension.create(SteamTurbineMenu::new));

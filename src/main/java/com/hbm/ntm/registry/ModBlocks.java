@@ -36,6 +36,7 @@ import com.hbm.ntm.block.FireboxBlock;
 import com.hbm.ntm.block.FensuBlock;
 import com.hbm.ntm.block.FractionTowerBlock;
 import com.hbm.ntm.block.FractionTowerSeparatorBlock;
+import com.hbm.ntm.block.GasTurbineBlock;
 import com.hbm.ntm.block.FluidDuctBlock;
 import com.hbm.ntm.block.FluidBurnerBlock;
 import com.hbm.ntm.block.FluidStorageTankBlock;
@@ -197,6 +198,7 @@ public final class ModBlocks {
     public static final DeferredBlock<SawmillBlock> MACHINE_SAWMILL;
     public static final DeferredBlock<SteamEngineBlock> MACHINE_STEAM_ENGINE;
     public static final DeferredBlock<IndustrialTurbineBlock> MACHINE_INDUSTRIAL_TURBINE;
+    public static final DeferredBlock<GasTurbineBlock> MACHINE_TURBINE_GAS;
     public static final DeferredBlock<TurbofanBlock> MACHINE_TURBOFAN;
     public static final DeferredBlock<SteamTurbineBlock> MACHINE_TURBINE;
     public static final DeferredBlock<ZirnoxBlock> REACTOR_ZIRNOX;
@@ -611,6 +613,12 @@ public final class ModBlocks {
         MACHINE_INDUSTRIAL_TURBINE = BLOCKS.register(
                 "machine_industrial_turbine",
                 () -> new IndustrialTurbineBlock(BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL).strength(5.0F, 10.0F)
+                        .sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion())
+        );
+        MACHINE_TURBINE_GAS = BLOCKS.register(
+                "machine_turbinegas",
+                () -> new GasTurbineBlock(BlockBehaviour.Properties.of()
                         .mapColor(MapColor.METAL).strength(5.0F, 10.0F)
                         .sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion())
         );
