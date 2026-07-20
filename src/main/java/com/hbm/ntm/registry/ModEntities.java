@@ -6,6 +6,7 @@ import com.hbm.ntm.entity.B93BeamEntity;
 import com.hbm.ntm.entity.BlackHoleEntity;
 import com.hbm.ntm.entity.BulletEntity;
 import com.hbm.ntm.entity.BuildingEntity;
+import com.hbm.ntm.entity.FlattenedMobEntity;
 import com.hbm.ntm.entity.FortyMillimeterProjectileEntity;
 import com.hbm.ntm.entity.FlameProjectileEntity;
 import com.hbm.ntm.entity.LingeringFireEntity;
@@ -107,6 +108,12 @@ public final class ModEntities {
                     () -> EntityType.Builder.<PowerFistRubbleEntity>of(PowerFistRubbleEntity::new, MobCategory.MISC)
                             .sized(0.25F, 0.25F).clientTrackingRange(63).updateInterval(1)
                             .build("hbm:entity_rubble"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FlattenedMobEntity>> FLATTENED_MOB =
+            ENTITY_TYPES.register("entity_flattened_mob",
+                    () -> EntityType.Builder.<FlattenedMobEntity>of(FlattenedMobEntity::new, MobCategory.MISC)
+                            .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(10)
+                            .build("hbm:entity_flattened_mob"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<BlackHoleEntity>> BLACK_HOLE = ENTITY_TYPES.register(
             "entity_black_hole",

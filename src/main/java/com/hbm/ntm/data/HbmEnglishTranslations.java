@@ -927,6 +927,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.multitool_mega", "Power Fist (Super Punch)");
         language.addProperty("item.hbm.multitool_joule", "Power Fist (Giga Joule)");
         language.addProperty("item.hbm.multitool_decon", "Power Fist (Decontaminator)");
+        language.addProperty("item.hbm.multitool_pane", "Power Fist (Pane Punch)");
         language.addProperty("item.hbm.multitool_dig.desc.0", "Breaks blocks extremely fast");
         language.addProperty("item.hbm.multitool_dig.desc.1", "Extra drops for ores");
         language.addProperty("item.hbm.multitool_silk.desc.0", "Breaks blocks extremely fast");
@@ -947,6 +948,9 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.multitool_joule.desc.1", "These blocks will be flung up as rubble");
         language.addProperty("item.hbm.multitool_decon.desc.0", "Right click will remove radiation effect from blocks");
         language.addProperty("item.hbm.multitool_decon.desc.1", "Blocks like nuclear waste turn into lead");
+        language.addProperty("item.hbm.multitool_pane.desc.0", "Punched mobs are flattened into a 2D pane of themselves");
+        language.addProperty("item.hbm.multitool_pane.desc.1", "Works wonders on arrogant clan heirs");
+        language.addProperty("entity.hbm.entity_flattened_mob", "Flattened Mob");
         language.addProperty("entity.hbm.entity_beam_bomb", "B92 Beam");
         language.addProperty("entity.hbm.entity_mod_beam", "B93 Beam");
         language.addProperty("entity.hbm.entity_black_hole", "Black Hole");

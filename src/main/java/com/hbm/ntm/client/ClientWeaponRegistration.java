@@ -27,6 +27,7 @@ import com.hbm.ntm.client.render.HenryItemRenderer;
 import com.hbm.ntm.client.render.HangmanItemRenderer;
 import com.hbm.ntm.client.render.HeavyRevolverItemRenderer;
 import com.hbm.ntm.client.render.LaserDetonatorItemRenderer;
+import com.hbm.ntm.client.render.FlattenedMobRenderer;
 import com.hbm.ntm.client.render.LagPistolItemRenderer;
 import com.hbm.ntm.client.render.LiberatorItemRenderer;
 import com.hbm.ntm.client.render.MaresLegItemRenderer;
@@ -138,6 +139,7 @@ public final class ClientWeaponRegistration {
         event.registerEntityRenderer(ModEntities.POWER_FIST_MINER_BEAM.get(),
                 context -> new PowerFistBeamRenderer(context, PowerFistBeamRenderer.Kind.MINER));
         event.registerEntityRenderer(ModEntities.POWER_FIST_RUBBLE.get(), PowerFistRubbleRenderer::new);
+        event.registerEntityRenderer(ModEntities.FLATTENED_MOB.get(), FlattenedMobRenderer::new);
         event.registerEntityRenderer(ModEntities.SHREDDER_BEAM.get(), ShredderBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.SHREDDER_SUBMUNITION.get(), ShredderSubmunitionRenderer::new);
     }
@@ -280,7 +282,8 @@ public final class ClientWeaponRegistration {
                 ModItems.MULTITOOL_EXT.get(), ModItems.MULTITOOL_MINER.get(),
                 ModItems.MULTITOOL_HIT.get(), ModItems.MULTITOOL_BEAM.get(),
                 ModItems.MULTITOOL_SKY.get(), ModItems.MULTITOOL_MEGA.get(),
-                ModItems.MULTITOOL_JOULE.get(), ModItems.MULTITOOL_DECON.get());
+                ModItems.MULTITOOL_JOULE.get(), ModItems.MULTITOOL_DECON.get(),
+                ModItems.MULTITOOL_PANE.get());
 
         event.registerItem(new IClientItemExtensions() {
             private LaserDetonatorItemRenderer renderer;

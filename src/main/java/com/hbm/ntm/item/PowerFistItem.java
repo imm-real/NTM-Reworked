@@ -2,6 +2,7 @@ package com.hbm.ntm.item;
 
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.block.SellafieldBlock;
+import com.hbm.ntm.entity.FlattenedMobEntity;
 import com.hbm.ntm.entity.PowerFistBeamEntity;
 import com.hbm.ntm.entity.PowerFistRubbleEntity;
 import com.hbm.ntm.registry.ModBlocks;
@@ -11,10 +12,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -50,7 +54,7 @@ import java.util.List;
 import java.util.function.IntUnaryOperator;
 import java.util.function.Supplier;
 
-/** Ten Power Fists wearing one class in a trench coat. */
+/** Eleven Power Fists wearing one class in a trench coat. */
 public final class PowerFistItem extends Item {
     private static final int MAX_DAMAGE = 5_000;
     private static final float TOOL_SPEED = 25.0F;
@@ -317,6 +321,7 @@ public final class PowerFistItem extends Item {
             case MEGA -> ModItems.MULTITOOL_MEGA;
             case JOULE -> ModItems.MULTITOOL_JOULE;
             case DECON -> ModItems.MULTITOOL_DECON;
+            case PANE -> ModItems.MULTITOOL_PANE;
         };
         return item.get();
     }
@@ -347,7 +352,29 @@ public final class PowerFistItem extends Item {
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (mode == Mode.PANE) {
+            if (target.level() instanceof ServerLevel server && !(target instanceof Player)) {
+                flattenIntoPane(server, target, attacker);
+            }
+            return true;
+        }
         return mode.isTool();
+    }
+
+    /** The Naoya treatment: the victim stops being an entity and starts being wall decor. */
+    private static void flattenIntoPane(ServerLevel level, LivingEntity target, LivingEntity attacker) {
+        Vec3 center = target.position().add(0.0D, target.getBbHeight() * 0.5D, 0.0D);
+        double spreadXZ = target.getBbWidth() * 0.5D;
+        double spreadY = target.getBbHeight() * 0.25D;
+
+        FlattenedMobEntity pane = FlattenedMobEntity.of(level, target, attacker);
+        target.discard();
+        level.addFreshEntity(pane);
+
+        level.playSound(null, center.x, center.y, center.z,
+                SoundEvents.GLASS_PLACE, SoundSource.PLAYERS, 1.0F, 0.8F);
+        level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.GLASS.defaultBlockState()),
+                center.x, center.y, center.z, 20, spreadXZ, spreadY, spreadXZ, 0.05D);
     }
 
     @Override
@@ -374,7 +401,9 @@ public final class PowerFistItem extends Item {
         SKY("sky", 5.0D, false, true, false),
         MEGA("mega", 12.0D, false, false, true),
         JOULE("joule", 12.0D, false, false, true),
-        DECON("decon", 5.0D, false, false, true);
+        DECON("decon", 5.0D, false, false, true),
+        // Custom non-source mode: flattens whatever it punches into a glass pane.
+        PANE("pane", 10.0D, false, false, false);
 
         private final String id;
         private final double attackDamage;

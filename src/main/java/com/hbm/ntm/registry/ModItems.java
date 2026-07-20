@@ -464,6 +464,7 @@ public final class ModItems {
     public static final DeferredItem<PowerFistItem> MULTITOOL_MEGA;
     public static final DeferredItem<PowerFistItem> MULTITOOL_JOULE;
     public static final DeferredItem<PowerFistItem> MULTITOOL_DECON;
+    public static final DeferredItem<PowerFistItem> MULTITOOL_PANE;
     public static final DeferredItem<GeigerCounterItem> GEIGER_COUNTER;
     public static final DeferredItem<GuideBookItem> BOOK_GUIDE;
     public static final DeferredItem<DosimeterItem> DOSIMETER;
@@ -1240,6 +1241,8 @@ public final class ModItems {
                 () -> new PowerFistItem(PowerFistItem.Mode.JOULE));
         MULTITOOL_DECON = ITEMS.register("multitool_decon",
                 () -> new PowerFistItem(PowerFistItem.Mode.DECON));
+        MULTITOOL_PANE = ITEMS.register("multitool_pane",
+                () -> new PowerFistItem(PowerFistItem.Mode.PANE));
         GEIGER_COUNTER = ITEMS.register("geiger_counter", GeigerCounterItem::new);
         BOOK_GUIDE = ITEMS.register("book_guide", GuideBookItem::new);
         DOSIMETER = ITEMS.register("dosimeter", DosimeterItem::new);
