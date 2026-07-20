@@ -714,6 +714,8 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, canisterFullModel(), itemModels, hbm("canister_full")));
         writes.add(save(output, generatedItemModel("gas_empty"), itemModels, hbm("gas_empty")));
         writes.add(save(output, gasFullModel(), itemModels, hbm("gas_full")));
+        writes.add(save(output, generatedItemModel("cell_empty"), itemModels, hbm("cell_empty")));
+        writes.add(save(output, generatedItemModel("cell_tritium"), itemModels, hbm("cell_tritium")));
         writes.add(save(output, sourceContainerRecipe(true), recipes, hbm("canister_empty")));
         writes.add(save(output, sourceContainerRecipe(false), recipes, hbm("gas_empty")));
         writes.add(save(output, smeltingRecipe("hbm:ore_titanium", "hbm:ingot_titanium", 3.0F),
@@ -4491,6 +4493,10 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, shapedItemRecipe(List.of("GGG", "GGG"), Map.of(
                 "G", itemIngredient("hbm:reinforced_glass")), "hbm:reinforced_glass_pane", 16),
                 recipes, hbm("reinforced_glass_pane")));
+        writes.add(save(output, shapedItemRecipe(List.of(" S ", "G G", " S "), Map.of(
+                "S", tagIngredient("c:plates/steel"),
+                "G", tagIngredient("c:glass_panes")), "hbm:cell_empty", 6),
+                recipes, hbm("cell_empty")));
 
         writes.add(save(output, shapedItemRecipe(List.of("SSS", "L L", "SSS"), Map.of(
                 "S", tagIngredient("c:plates/steel"),
@@ -4520,6 +4526,28 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("machine_waste_drum")));
 
         addBreedingRodRecipes(writes, output);
+        addTritiumCellRecipes(writes, output);
+    }
+
+    private void addTritiumCellRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+            int amount = switch (form) {
+                case SINGLE -> 1;
+                case DUAL -> 2;
+                case QUAD -> 4;
+            };
+            String formSuffix = switch (form) {
+                case SINGLE -> "";
+                case DUAL -> "_dual";
+                case QUAD -> "_quad";
+            };
+            List<JsonObject> inputs = new ArrayList<>();
+            inputs.add(breedingRodIngredient(form, BreedingRodItem.Type.TRITIUM));
+            for (int i = 0; i < amount; i++) inputs.add(itemIngredient("hbm:cell_empty"));
+            writes.add(save(output,
+                    shapelessRecipe(inputs, recipeResult("hbm:cell_tritium", amount)),
+                    recipes, hbm("cell_tritium_from_rod" + formSuffix)));
+        }
     }
 
     private void addBreedingRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {

@@ -218,6 +218,8 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.ROD_EMPTY.get());
                         output.accept(ModItems.ROD_DUAL_EMPTY.get());
                         output.accept(ModItems.ROD_QUAD_EMPTY.get());
+                        output.accept(ModItems.CELL_EMPTY.get());
+                        output.accept(ModItems.CELL_TRITIUM.get());
                         addWasteVariants(output, ModItems.NUCLEAR_WASTE_LONG.get());
                         addWasteVariants(output, ModItems.NUCLEAR_WASTE_LONG_TINY.get());
                         addWasteVariants(output, ModItems.NUCLEAR_WASTE_SHORT.get());

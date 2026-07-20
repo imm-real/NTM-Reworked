@@ -71,6 +71,7 @@ import com.hbm.ntm.item.FoundryPartItem;
 import com.hbm.ntm.item.FoundryIngotItem;
 import com.hbm.ntm.item.FoundryScrapsItem;
 import com.hbm.ntm.item.FluidDuctItem;
+import com.hbm.ntm.item.FluidCellItem;
 import com.hbm.ntm.item.ConveyorWandItem;
 import com.hbm.ntm.item.FluidIdentifierItem;
 import com.hbm.ntm.item.FensuBlockItem;
@@ -205,6 +206,8 @@ public final class ModItems {
     public static final DeferredItem<SourceFluidContainerItem> CANISTER_FULL;
     public static final DeferredItem<Item> GAS_EMPTY;
     public static final DeferredItem<SourceFluidContainerItem> GAS_FULL;
+    public static final DeferredItem<Item> CELL_EMPTY;
+    public static final DeferredItem<FluidCellItem> CELL_TRITIUM;
     public static final DeferredItem<OilDerrickBlockItem> MACHINE_WELL_ITEM;
     public static final DeferredItem<BlockItem> RADIO_TORCH_SENDER_ITEM;
     public static final DeferredItem<BlockItem> RADIO_TORCH_RECEIVER_ITEM;
@@ -791,6 +794,9 @@ public final class ModItems {
         GAS_FULL = ITEMS.register("gas_full",
                 () -> new SourceFluidContainerItem(SourceFluidContainerItem.ContainedFluid.GAS,
                         GAS_EMPTY::get));
+        CELL_EMPTY = ITEMS.registerSimpleItem("cell_empty", new Item.Properties());
+        CELL_TRITIUM = ITEMS.register("cell_tritium", () -> new FluidCellItem(
+                new Item.Properties(), HazardProfile.radiation(0.001F), CELL_EMPTY::get));
         MACHINE_WELL_ITEM = ITEMS.register("machine_well",
                 () -> new OilDerrickBlockItem(ModBlocks.MACHINE_WELL.get(), new Item.Properties()));
         RADIO_TORCH_SENDER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_sender", ModBlocks.RADIO_TORCH_SENDER);

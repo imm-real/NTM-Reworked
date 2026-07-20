@@ -66,7 +66,8 @@ public final class CustomNukeExplosion {
         add(map, ModItems.CUSTOM_NUKE.get(), BombType.NUKE, 30F);
 
         // === HYDROGEN (ADD) ===
-        // cell_deuterium, cell_tritium and custom_hydro are not registered yet.
+        // cell_deuterium and custom_hydro are not registered yet.
+        add(map, ModItems.CELL_TRITIUM.get(), BombType.HYDRO, 30F);
         add(map, item("lithium"), BombType.HYDRO, 20F);
 
         // === ANTIMATTER (ADD) === waiting on cell_antimatter, custom_amat and Balefire eggs.

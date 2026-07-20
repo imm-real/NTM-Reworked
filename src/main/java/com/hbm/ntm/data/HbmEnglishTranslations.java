@@ -115,6 +115,8 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.rod_empty", "Empty Rod");
         language.addProperty("item.hbm.rod_dual_empty", "Empty Dual Rod");
         language.addProperty("item.hbm.rod_quad_empty", "Empty Quad Rod");
+        language.addProperty("item.hbm.cell_empty", "Empty Cell");
+        language.addProperty("item.hbm.cell_tritium", "Tritium Cell");
         Map.ofEntries(
                 Map.entry("lithium", "Lithium"), Map.entry("tritium", "Tritium"),
                 Map.entry("co", "Cobalt"), Map.entry("co60", "Cobalt-60"),

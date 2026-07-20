@@ -903,6 +903,8 @@
   "item.hbm.casing.small": "Small Gunmetal Casing",
   "item.hbm.casing.small_steel": "Small Weapon Steel Casing",
   "item.hbm.catalyst_clay": "Clay Catalyst",
+  "item.hbm.cell_empty": "Empty Cell",
+  "item.hbm.cell_tritium": "Tritium Cell",
   "item.hbm.centrifuge_element": "Centrifuge Element",
   "item.hbm.cheese": "Cheese",
   "item.hbm.chunk_ore.malachite": "Malachite Chunk",
