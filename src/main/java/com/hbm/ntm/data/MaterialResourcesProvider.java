@@ -4544,8 +4544,56 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "R", itemIngredient("hbm:rod_quad_empty")), "hbm:machine_waste_drum"),
                 recipes, hbm("machine_waste_drum")));
 
+        addThoriumFuelRecipes(writes, output);
+        addZirnoxRodRecipes(writes, output);
         addBreedingRodRecipes(writes, output);
         addTritiumCellRecipes(writes, output);
+    }
+
+    private void addThoriumFuelRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        List<JsonObject> billetBlend = new ArrayList<>();
+        for (int i = 0; i < 5; i++) billetBlend.add(itemIngredient("hbm:billet_th232"));
+        billetBlend.add(itemIngredient("hbm:billet_u233"));
+        writes.add(save(output, shapelessItemRecipe(billetBlend, "hbm:billet_thorium_fuel", 6),
+                recipes, hbm("billet_thorium_fuel_from_billets")));
+
+        List<JsonObject> nuggetBlend = new ArrayList<>();
+        for (int i = 0; i < 5; i++) nuggetBlend.add(tagIngredient("c:nuggets/thorium_232"));
+        nuggetBlend.add(tagIngredient("c:nuggets/uranium_233"));
+        writes.add(save(output, shapelessItemRecipe(nuggetBlend, "hbm:billet_thorium_fuel", 1),
+                recipes, hbm("billet_thorium_fuel_from_nuggets")));
+    }
+
+    private void addZirnoxRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        writes.add(save(output, shapedItemRecipe(List.of("Z Z", "ZBZ", "Z Z"), Map.of(
+                "Z", tagIngredient("c:nuggets/zirconium"),
+                "B", tagIngredient("c:ingots/beryllium")), "hbm:rod_zirnox_empty", 4),
+                recipes, hbm("rod_zirnox_empty")));
+
+        addZirnoxFuelRodRecipe(writes, output, "natural_uranium_fuel", "c:billets/uranium");
+        addZirnoxFuelRodRecipe(writes, output, "th232", "c:billets/thorium_232");
+        addZirnoxFuelRodRecipe(writes, output, "thorium_fuel", "c:billets/thorium_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "u233_fuel", "c:billets/uranium_233");
+        addZirnoxFuelRodRecipe(writes, output, "u235_fuel", "c:billets/uranium_235");
+
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_zirnox_empty"),
+                tagIngredient("c:ingots/lithium"),
+                tagIngredient("c:ingots/lithium")), "hbm:rod_zirnox_lithium", 1),
+                recipes, hbm("rod_zirnox_lithium")));
+    }
+
+    private void addZirnoxFuelRodRecipe(
+            List<CompletableFuture<?>> writes,
+            CachedOutput output,
+            String rod,
+            String billetTag
+    ) {
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_zirnox_empty"),
+                tagIngredient(billetTag),
+                tagIngredient(billetTag)), "hbm:rod_zirnox_" + rod, 1),
+                recipes, hbm("rod_zirnox_" + rod)));
     }
 
     private void addTritiumCellRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
@@ -4583,6 +4631,8 @@ public final class MaterialResourcesProvider implements DataProvider {
                         "c:billets/actinium_227", "hbm:billet_actinium"),
                 new BreedingRodMaterial(BreedingRodItem.Type.TH232,
                         "c:billets/thorium_232", "hbm:billet_th232"),
+                new BreedingRodMaterial(BreedingRodItem.Type.THF,
+                        "c:billets/thorium_fuel", "hbm:billet_thorium_fuel"),
                 new BreedingRodMaterial(BreedingRodItem.Type.U235,
                         "c:billets/uranium_235", "hbm:billet_u235"),
                 new BreedingRodMaterial(BreedingRodItem.Type.NP237,

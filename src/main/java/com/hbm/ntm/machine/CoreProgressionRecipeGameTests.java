@@ -3,11 +3,13 @@ package com.hbm.ntm.machine;
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.hazard.HazardCarrier;
 import com.hbm.ntm.item.BreedingRodItem;
+import com.hbm.ntm.item.ZirnoxRodItem;
 import com.hbm.ntm.nuclear.CustomNukeExplosion;
 import com.hbm.ntm.recipe.BreederRecipes;
 import com.hbm.ntm.recipe.ShredderRecipes;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -85,6 +87,7 @@ public final class CoreProgressionRecipeGameTests {
                 new RodMaterial(BreedingRodItem.Type.CO, "billet_cobalt"),
                 new RodMaterial(BreedingRodItem.Type.CO60, "billet_co60"),
                 new RodMaterial(BreedingRodItem.Type.TH232, "billet_th232"),
+                new RodMaterial(BreedingRodItem.Type.THF, "billet_thorium_fuel"),
                 new RodMaterial(BreedingRodItem.Type.U235, "billet_u235"),
                 new RodMaterial(BreedingRodItem.Type.NP237, "billet_neptunium"),
                 new RodMaterial(BreedingRodItem.Type.U238, "billet_u238"),
@@ -138,6 +141,58 @@ public final class CoreProgressionRecipeGameTests {
                 check(helper, remainders.size() == 1 && remainders.getFirst().is(emptyRod),
                         "Unloading must return the matching empty " + form.id());
             }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void thoriumFuelKeepsItsSourceBlendAndHazards(GameTestHelper helper) {
+        Item th232Billet = ModItems.get("billet_th232").get();
+        Item u233Billet = ModItems.get("billet_u233").get();
+        Item thoriumFuelBillet = ModItems.get("billet_thorium_fuel").get();
+        craftShapeless(helper, "billet_thorium_fuel_from_billets", thoriumFuelBillet, 6,
+                new ItemStack(th232Billet), new ItemStack(th232Billet), new ItemStack(th232Billet),
+                new ItemStack(th232Billet), new ItemStack(th232Billet), new ItemStack(u233Billet));
+
+        Item th232Nugget = ModItems.get("nugget_th232").get();
+        Item u233Nugget = ModItems.get("nugget_u233").get();
+        craftShapeless(helper, "billet_thorium_fuel_from_nuggets", thoriumFuelBillet, 1,
+                new ItemStack(th232Nugget), new ItemStack(th232Nugget), new ItemStack(th232Nugget),
+                new ItemStack(th232Nugget), new ItemStack(th232Nugget), new ItemStack(u233Nugget));
+
+        assertRadiation(helper, "ingot_thorium_fuel", 1.75F);
+        assertRadiation(helper, "billet_thorium_fuel", 0.875F);
+        assertRadiation(helper, "nugget_thorium_fuel", 0.175F);
+        assertRadiation(helper, "block_thorium_fuel", 17.5F);
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void reachableZirnoxRodsUseTheirOldLoadingRecipes(GameTestHelper helper) {
+        craft(helper, "rod_zirnox_empty", ModItems.ROD_ZIRNOX_EMPTY.get(), 4, Map.of(
+                'Z', new ItemStack(ModItems.get("nugget_zirconium").get()),
+                'B', new ItemStack(ModItems.get("ingot_beryllium").get())), "Z Z", "ZBZ", "Z Z");
+
+        List<ZirnoxLoad> loads = List.of(
+                new ZirnoxLoad("natural_uranium_fuel", "billet_uranium",
+                        ModItems.ROD_ZIRNOX_NATURAL_URANIUM_FUEL.get(), ZirnoxRodItem.Type.NATURAL_URANIUM_FUEL),
+                new ZirnoxLoad("th232", "billet_th232",
+                        ModItems.ROD_ZIRNOX_TH232.get(), ZirnoxRodItem.Type.TH232),
+                new ZirnoxLoad("thorium_fuel", "billet_thorium_fuel",
+                        ModItems.ROD_ZIRNOX_THORIUM_FUEL.get(), ZirnoxRodItem.Type.THORIUM_FUEL),
+                new ZirnoxLoad("u233_fuel", "billet_u233",
+                        ModItems.ROD_ZIRNOX_U233_FUEL.get(), ZirnoxRodItem.Type.U233_FUEL),
+                new ZirnoxLoad("u235_fuel", "billet_u235",
+                        ModItems.ROD_ZIRNOX_U235_FUEL.get(), ZirnoxRodItem.Type.U235_FUEL),
+                new ZirnoxLoad("lithium", "lithium",
+                        ModItems.ROD_ZIRNOX_LITHIUM.get(), ZirnoxRodItem.Type.LITHIUM)
+        );
+        for (ZirnoxLoad load : loads) {
+            ItemStack result = craftShapeless(helper, "rod_zirnox_" + load.recipeSuffix(),
+                    load.output(), 1, new ItemStack(ModItems.ROD_ZIRNOX_EMPTY.get()),
+                    new ItemStack(ModItems.get(load.fuel()).get()), new ItemStack(ModItems.get(load.fuel()).get()));
+            check(helper, result.getItem() instanceof ZirnoxRodItem rod && rod.type() == load.type(),
+                    "ZIRNOX " + load.recipeSuffix() + " must keep its source fuel identity");
         }
         helper.succeed();
     }
@@ -303,6 +358,30 @@ public final class CoreProgressionRecipeGameTests {
         return output;
     }
 
+    private static ItemStack craftShapeless(
+            GameTestHelper helper,
+            String recipeName,
+            Item expected,
+            int count,
+            ItemStack... ingredients
+    ) {
+        CraftingInput input = craftingInput(List.of(ingredients));
+        var recipe = helper.getLevel().getRecipeManager().getRecipeFor(
+                RecipeType.CRAFTING, input, helper.getLevel()).orElseThrow();
+        check(helper, recipe.id().equals(id(recipeName)), "Crafting grid must resolve to hbm:" + recipeName);
+        ItemStack output = recipe.value().assemble(input, helper.getLevel().registryAccess());
+        check(helper, output.is(expected) && output.getCount() == count,
+                "hbm:" + recipeName + " must produce " + count + " source item(s)");
+        return output;
+    }
+
+    private static void assertRadiation(GameTestHelper helper, String itemId, float radiation) {
+        Item item = BuiltInRegistries.ITEM.get(id(itemId));
+        check(helper, item instanceof HazardCarrier carrier
+                        && Math.abs(carrier.hbm$getHazards(new ItemStack(item)).radiation() - radiation) < 0.0001F,
+                "hbm:" + itemId + " must retain source radiation " + radiation);
+    }
+
     private static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, path);
     }
@@ -312,4 +391,5 @@ public final class CoreProgressionRecipeGameTests {
     }
 
     private record RodMaterial(BreedingRodItem.Type type, String itemId) { }
+    private record ZirnoxLoad(String recipeSuffix, String fuel, Item output, ZirnoxRodItem.Type type) { }
 }

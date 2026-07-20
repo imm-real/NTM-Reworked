@@ -6,6 +6,7 @@
     "#c:billets/uranium_235",
     "#c:billets/uranium_238",
     "#c:billets/thorium_232",
+    "#c:billets/thorium_fuel",
     "#c:billets/plutonium",
     "#c:billets/plutonium_238",
     "#c:billets/plutonium_239",

@@ -92,6 +92,8 @@ public final class HazardousMaterialDefinitions {
                 HazardProfile.NONE.withRadiation(0.25F));
         addMineralSet(items, "thorium_232", "Thorium-232", "ingot_th232", "billet_th232", "nugget_th232",
                 HazardProfile.NONE.withRadiation(0.1F));
+        addMineralSet(items, "thorium_fuel", "Thorium Fuel", "ingot_thorium_fuel", "billet_thorium_fuel",
+                "nugget_thorium_fuel", HazardProfile.NONE.withRadiation(1.75F));
         addMineralSet(items, "plutonium", "Plutonium", "ingot_plutonium", "billet_plutonium", "nugget_plutonium",
                 HazardProfile.NONE.withRadiation(7.5F));
         addMineralSet(items, "plutonium_238", "Plutonium-238", "ingot_pu238", "billet_pu238", "nugget_pu238",
@@ -207,6 +209,7 @@ public final class HazardousMaterialDefinitions {
                 "ingot_u235", "billet_u235", "nugget_u235",
                 "ingot_u238", "billet_u238", "nugget_u238",
                 "ingot_th232", "billet_th232", "nugget_th232", "powder_thorium",
+                "ingot_thorium_fuel", "billet_thorium_fuel", "nugget_thorium_fuel",
                 "ingot_plutonium", "billet_plutonium", "nugget_plutonium", "powder_plutonium",
                 "ingot_pu238", "billet_pu238", "nugget_pu238",
                 "ingot_pu239", "billet_pu239", "nugget_pu239",
@@ -247,6 +250,8 @@ public final class HazardousMaterialDefinitions {
         blocks.add(radioactiveBlock("block_pu240", "Block of Plutonium-240", "plutonium_240", "ingot_pu240", HazardProfile.NONE.withRadiation(75.0F), 50, true, 0));
         blocks.add(radioactiveBlock("block_pu_mix", "Block of Reactor Grade Plutonium", "plutonium_rg", "ingot_pu_mix", HazardProfile.NONE.withRadiation(62.5F), 50, true, 0));
         blocks.add(radioactiveBlock("block_thorium", "Block of Thorium-232", "thorium_232", "ingot_th232", HazardProfile.NONE.withRadiation(1.0F), 50, false, 0));
+        blocks.add(radioactiveBlock("block_thorium_fuel", "Block of Thorium Fuel", "thorium_fuel",
+                "ingot_thorium_fuel", HazardProfile.NONE.withRadiation(17.5F), 50, false, 0));
         blocks.add(hazardBlock("block_lithium", "Block of Lithium", "lithium", "lithium",
                 HazardProfile.NONE.withHydroactive(10.0F), 10, MapColor.METAL, SoundType.METAL, 15, 0));
         blocks.add(hazardBlock("block_white_phosphorus", "Block of White Phosphorus", "white_phosphorus", "ingot_phosphorus",
@@ -255,7 +260,7 @@ public final class HazardousMaterialDefinitions {
         blocks.add(radioactiveBlock("block_actinium", "Block of Actinium", "actinium_227", "ingot_actinium", HazardProfile.NONE.withRadiation(300.0F), 10, false, 0));
         CATALOG_BLOCKS = Collections.unmodifiableList(blocks);
         Set<String> activeBlocks = Set.of(
-                "block_uranium", "block_u233", "block_u235", "block_u238", "block_thorium",
+                "block_uranium", "block_u233", "block_u235", "block_u238", "block_thorium", "block_thorium_fuel",
                 "block_plutonium", "block_neptunium", "block_pu238", "block_pu239", "block_pu_mix",
                 "block_lithium", "block_white_phosphorus", "block_ra226", "block_actinium"
         );
