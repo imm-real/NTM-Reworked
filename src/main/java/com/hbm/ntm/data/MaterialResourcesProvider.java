@@ -740,6 +740,8 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("ingot_cobalt_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_co60", "hbm:ingot_co60", 1.0F),
                 recipes, hbm("ingot_co60_from_powder")));
+        writes.add(save(output, smeltingRecipe("hbm:powder_neptunium", "hbm:ingot_neptunium", 1.0F),
+                recipes, hbm("ingot_neptunium_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_niobium", "hbm:ingot_niobium", 1.0F),
                 recipes, hbm("ingot_niobium_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_tantalium", "hbm:ingot_tantalium", 1.0F),
@@ -4573,8 +4575,14 @@ public final class MaterialResourcesProvider implements DataProvider {
                         "c:billets/thorium_232", "hbm:billet_th232"),
                 new BreedingRodMaterial(BreedingRodItem.Type.U235,
                         "c:billets/uranium_235", "hbm:billet_u235"),
+                new BreedingRodMaterial(BreedingRodItem.Type.NP237,
+                        "c:billets/neptunium_237", "hbm:billet_neptunium"),
                 new BreedingRodMaterial(BreedingRodItem.Type.U238,
                         "c:billets/uranium_238", "hbm:billet_u238"),
+                new BreedingRodMaterial(BreedingRodItem.Type.PU238,
+                        "c:billets/plutonium_238", "hbm:billet_pu238"),
+                new BreedingRodMaterial(BreedingRodItem.Type.PU239,
+                        "c:billets/plutonium_239", "hbm:billet_pu239"),
                 new BreedingRodMaterial(BreedingRodItem.Type.URANIUM,
                         "c:billets/uranium", "hbm:billet_uranium")
         );
