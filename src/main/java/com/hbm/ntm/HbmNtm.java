@@ -3,13 +3,7 @@ package com.hbm.ntm;
 import com.hbm.ntm.armor.ArmorModEvents;
 import com.hbm.ntm.armor.EnvsuitArmorEvents;
 import com.hbm.ntm.armor.DntArmorEvents;
-import com.hbm.ntm.client.ClientMachineRegistration;
-import com.hbm.ntm.client.ClientMoonEvents;
-import com.hbm.ntm.client.ClientSunEvents;
-import com.hbm.ntm.client.GuideBookClient;
-import com.hbm.ntm.client.ClientParticleRegistration;
-import com.hbm.ntm.client.ClientRadiationRegistration;
-import com.hbm.ntm.client.ClientWeaponRegistration;
+import com.hbm.ntm.client.*;
 import com.hbm.ntm.config.HbmClientConfig;
 import com.hbm.ntm.config.HbmConfig;
 import com.hbm.ntm.compat.BombImpactFuseEvents;
@@ -90,6 +84,7 @@ public final class HbmNtm {
         ModCreativeTabs.register(modEventBus);
         ModStats.register(modEventBus);
         if (FMLEnvironment.dist == Dist.CLIENT) {
+            ClientFluidRegistration.register(modEventBus);
             ClientParticleRegistration.register(modEventBus);
             ClientMachineRegistration.register(modEventBus);
             ClientRadiationRegistration.register(modEventBus);
