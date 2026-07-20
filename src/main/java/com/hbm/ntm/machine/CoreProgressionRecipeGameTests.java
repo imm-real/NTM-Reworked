@@ -1,6 +1,7 @@
 package com.hbm.ntm.machine;
 
 import com.hbm.ntm.HbmNtm;
+import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -14,6 +15,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @GameTestHolder(HbmNtm.MOD_ID)
@@ -57,6 +59,87 @@ public final class CoreProgressionRecipeGameTests {
         helper.succeed();
     }
 
+    @GameTest(template = "empty")
+    public static void activeBreedingRodsKeepSourceLoadingAndUnloading(GameTestHelper helper) {
+        List<RodMaterial> materials = List.of(
+                new RodMaterial(BreedingRodItem.Type.LITHIUM, "lithium"),
+                new RodMaterial(BreedingRodItem.Type.TH232, "billet_th232"),
+                new RodMaterial(BreedingRodItem.Type.U235, "billet_u235"),
+                new RodMaterial(BreedingRodItem.Type.U238, "billet_u238"),
+                new RodMaterial(BreedingRodItem.Type.URANIUM, "billet_uranium")
+        );
+
+        for (RodMaterial material : materials) {
+            for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+                int amount = switch (form) {
+                    case SINGLE -> 1;
+                    case DUAL -> 2;
+                    case QUAD -> 4;
+                };
+                Item emptyRod = emptyRod(form);
+                Item loadedRod = loadedRod(form);
+                Item filling = ModItems.get(material.itemId()).get();
+
+                List<ItemStack> loadingInputs = new ArrayList<>();
+                loadingInputs.add(new ItemStack(emptyRod));
+                for (int i = 0; i < amount; i++) loadingInputs.add(new ItemStack(filling));
+                CraftingInput loading = craftingInput(loadingInputs);
+                var loadingRecipe = helper.getLevel().getRecipeManager().getRecipeFor(
+                        RecipeType.CRAFTING, loading, helper.getLevel()).orElseThrow();
+                check(helper, loadingRecipe.id().equals(id(form.id() + "_" + material.type().id())),
+                        "Loading recipe must keep the source rod/form identity");
+                ItemStack filled = loadingRecipe.value().assemble(loading, helper.getLevel().registryAccess());
+                check(helper, filled.is(loadedRod) && BreedingRodItem.type(filled) == material.type(),
+                        "Loading must preserve " + material.type().id() + " in the " + form.id());
+                check(helper, loadingRecipe.value().getRemainingItems(loading).stream().allMatch(ItemStack::isEmpty),
+                        "Loading an empty rod must not duplicate its shell");
+
+                CraftingInput unloading = craftingInput(List.of(filled.copy()));
+                var unloadingRecipe = helper.getLevel().getRecipeManager().getRecipeFor(
+                        RecipeType.CRAFTING, unloading, helper.getLevel()).orElseThrow();
+                String formSuffix = switch (form) {
+                    case SINGLE -> "";
+                    case DUAL -> "_dual";
+                    case QUAD -> "_quad";
+                };
+                check(helper, unloadingRecipe.id().equals(id(material.itemId() + "_from_rod" + formSuffix)),
+                        "Unloading recipe must keep the source material/form identity");
+                ItemStack returned = unloadingRecipe.value().assemble(
+                        unloading, helper.getLevel().registryAccess());
+                check(helper, returned.is(filling) && returned.getCount() == amount,
+                        "Unloading must return exactly " + amount + " source material item(s)");
+                List<ItemStack> remainders = unloadingRecipe.value().getRemainingItems(unloading);
+                check(helper, remainders.size() == 1 && remainders.getFirst().is(emptyRod),
+                        "Unloading must return the matching empty " + form.id());
+            }
+        }
+        helper.succeed();
+    }
+
+    private static CraftingInput craftingInput(List<ItemStack> ingredients) {
+        int width = Math.min(3, ingredients.size());
+        int height = (ingredients.size() + width - 1) / width;
+        List<ItemStack> slots = new ArrayList<>(ingredients);
+        while (slots.size() < width * height) slots.add(ItemStack.EMPTY);
+        return CraftingInput.of(width, height, slots);
+    }
+
+    private static Item emptyRod(BreedingRodItem.Form form) {
+        return switch (form) {
+            case SINGLE -> ModItems.ROD_EMPTY.get();
+            case DUAL -> ModItems.ROD_DUAL_EMPTY.get();
+            case QUAD -> ModItems.ROD_QUAD_EMPTY.get();
+        };
+    }
+
+    private static Item loadedRod(BreedingRodItem.Form form) {
+        return switch (form) {
+            case SINGLE -> ModItems.ROD.get();
+            case DUAL -> ModItems.ROD_DUAL.get();
+            case QUAD -> ModItems.ROD_QUAD.get();
+        };
+    }
+
     private static ItemStack craft(GameTestHelper helper, String recipeName, Item expected, int count,
                                    Map<Character, ItemStack> key, String... pattern) {
         int width = pattern[0].length();
@@ -85,4 +168,6 @@ public final class CoreProgressionRecipeGameTests {
     private static void check(GameTestHelper helper, boolean condition, String message) {
         if (!condition) helper.fail(message);
     }
+
+    private record RodMaterial(BreedingRodItem.Type type, String itemId) { }
 }

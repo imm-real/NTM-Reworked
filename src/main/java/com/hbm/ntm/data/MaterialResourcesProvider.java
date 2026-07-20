@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.content.HazardousMaterialDefinitions;
 import com.hbm.ntm.content.MaterialDefinitions;
+import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.item.FoundryMoldItem;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -4388,7 +4389,93 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "B", itemIngredient("minecraft:iron_bars"),
                 "R", itemIngredient("hbm:rod_quad_empty")), "hbm:machine_waste_drum"),
                 recipes, hbm("machine_waste_drum")));
+
+        addBreedingRodRecipes(writes, output);
     }
+
+    private void addBreedingRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        List<BreedingRodMaterial> materials = List.of(
+                new BreedingRodMaterial(BreedingRodItem.Type.LITHIUM,
+                        "c:ingots/lithium", "hbm:lithium"),
+                new BreedingRodMaterial(BreedingRodItem.Type.TH232,
+                        "c:billets/thorium_232", "hbm:billet_th232"),
+                new BreedingRodMaterial(BreedingRodItem.Type.U235,
+                        "c:billets/uranium_235", "hbm:billet_u235"),
+                new BreedingRodMaterial(BreedingRodItem.Type.U238,
+                        "c:billets/uranium_238", "hbm:billet_u238"),
+                new BreedingRodMaterial(BreedingRodItem.Type.URANIUM,
+                        "c:billets/uranium", "hbm:billet_uranium")
+        );
+
+        for (BreedingRodMaterial material : materials) {
+            for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+                int amount = switch (form) {
+                    case SINGLE -> 1;
+                    case DUAL -> 2;
+                    case QUAD -> 4;
+                };
+                String formSuffix = switch (form) {
+                    case SINGLE -> "";
+                    case DUAL -> "_dual";
+                    case QUAD -> "_quad";
+                };
+
+                List<JsonObject> loadingInputs = new ArrayList<>();
+                loadingInputs.add(itemIngredient(form.emptyId().toString()));
+                for (int i = 0; i < amount; i++) {
+                    loadingInputs.add(tagIngredient(material.ingredientTag()));
+                }
+                writes.add(save(output,
+                        shapelessRecipe(loadingInputs, breedingRodResult(form, material.type())),
+                        recipes, hbm(form.id() + "_" + material.type().id())));
+
+                writes.add(save(output,
+                        shapelessRecipe(List.of(breedingRodIngredient(form, material.type())),
+                                recipeResult(material.returnedItem(), amount)),
+                        recipes, hbm(material.returnedItem().substring("hbm:".length())
+                                + "_from_rod" + formSuffix)));
+            }
+        }
+    }
+
+    private JsonObject shapelessRecipe(List<JsonObject> inputs, JsonObject result) {
+        JsonObject recipe = new JsonObject();
+        recipe.addProperty("type", "minecraft:crafting_shapeless");
+        recipe.addProperty("category", "misc");
+        JsonArray ingredients = new JsonArray();
+        inputs.forEach(ingredients::add);
+        recipe.add("ingredients", ingredients);
+        recipe.add("result", result);
+        return recipe;
+    }
+
+    private JsonObject breedingRodResult(BreedingRodItem.Form form, BreedingRodItem.Type type) {
+        JsonObject customData = new JsonObject();
+        customData.addProperty("hbmBreedingRodType", type.id());
+        JsonObject components = new JsonObject();
+        components.add("minecraft:custom_data", customData);
+        components.addProperty("minecraft:custom_model_data", type.ordinal());
+        JsonObject result = recipeResult("hbm:" + form.id(), 1);
+        result.add("components", components);
+        return result;
+    }
+
+    private JsonObject breedingRodIngredient(BreedingRodItem.Form form, BreedingRodItem.Type type) {
+        JsonObject customData = new JsonObject();
+        customData.addProperty("hbmBreedingRodType", type.id());
+        JsonObject components = new JsonObject();
+        components.add("minecraft:custom_data", customData);
+        components.addProperty("minecraft:custom_model_data", type.ordinal());
+        JsonObject ingredient = new JsonObject();
+        ingredient.addProperty("type", "neoforge:components");
+        ingredient.addProperty("items", "hbm:" + form.id());
+        ingredient.add("components", components);
+        ingredient.addProperty("strict", false);
+        return ingredient;
+    }
+
+    private record BreedingRodMaterial(BreedingRodItem.Type type, String ingredientTag,
+                                       String returnedItem) { }
 
     private JsonObject craftedPartRecipe(boolean stock, JsonObject ingredient, String material, int metadata) {
         JsonObject recipe = shapedBase(stock ? List.of("WWW", "  W") : List.of("W ", " W", " W"));
