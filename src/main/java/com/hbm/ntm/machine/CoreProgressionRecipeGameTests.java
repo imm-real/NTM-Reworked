@@ -32,6 +32,16 @@ public final class CoreProgressionRecipeGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void reinforcedGlassFamilyMatchesTheSourceRecipes(GameTestHelper helper) {
+        ItemStack glass = craft(helper, "reinforced_glass", ModItems.REINFORCED_GLASS_ITEM.get(), 4, Map.of(
+                'F', new ItemStack(Items.IRON_BARS),
+                'B', new ItemStack(Items.GLASS)), "FBF", "BFB", "FBF");
+        craft(helper, "reinforced_glass_pane", ModItems.REINFORCED_GLASS_PANE_ITEM.get(), 16,
+                Map.of('G', glass.copyWithCount(1)), "GGG", "GGG");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void emptyBreedingRodsKeepEverySourceConversion(GameTestHelper helper) {
         ItemStack single = craft(helper, "rod_empty", ModItems.ROD_EMPTY.get(), 16, Map.of(
                 'S', new ItemStack(ModItems.get("plate_steel").get()),

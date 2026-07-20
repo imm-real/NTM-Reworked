@@ -318,6 +318,8 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> MACHINE_CONDENSER_POWERED_ITEM;
     public static final DeferredItem<BlockItem> MACHINE_BOILER_ITEM;
     public static final DeferredItem<BlockItem> REINFORCED_STONE_ITEM;
+    public static final DeferredItem<BlastInfoBlockItem> REINFORCED_GLASS_ITEM;
+    public static final DeferredItem<BlastInfoBlockItem> REINFORCED_GLASS_PANE_ITEM;
     public static final DeferredItem<BlockItem> GNEISS_TILE_ITEM;
     public static final DeferredItem<BlockItem> GNEISS_BRICK_ITEM;
     public static final DeferredItem<BlockItem> GNEISS_CHISELED_ITEM;
@@ -560,6 +562,7 @@ public final class ModItems {
     public static final DeferredItem<FluidIdentifierItem> FLUID_IDENTIFIER_MULTI;
     public static final DeferredItem<CircuitItem> CIRCUIT;
     public static final DeferredItem<Item> CRT_DISPLAY;
+    public static final DeferredItem<Item> REACTOR_CORE;
     public static final DeferredItem<Item> COIL_COPPER;
     public static final DeferredItem<Item> COIL_COPPER_TORUS;
     public static final DeferredItem<Item> COIL_GOLD;
@@ -995,6 +998,10 @@ public final class ModItems {
         MACHINE_CONDENSER_POWERED_ITEM = ITEMS.registerSimpleBlockItem(
                 "machine_condenser_powered", ModBlocks.MACHINE_CONDENSER_POWERED);
         REINFORCED_STONE_ITEM = ITEMS.registerSimpleBlockItem("reinforced_stone", ModBlocks.REINFORCED_STONE);
+        REINFORCED_GLASS_ITEM = ITEMS.register("reinforced_glass",
+                () -> new BlastInfoBlockItem(ModBlocks.REINFORCED_GLASS.get(), new Item.Properties(), 15.0F));
+        REINFORCED_GLASS_PANE_ITEM = ITEMS.register("reinforced_glass_pane",
+                () -> new BlastInfoBlockItem(ModBlocks.REINFORCED_GLASS_PANE.get(), new Item.Properties(), 15.0F));
         GNEISS_TILE_ITEM = ITEMS.registerSimpleBlockItem("gneiss_tile", ModBlocks.GNEISS_TILE);
         GNEISS_BRICK_ITEM = ITEMS.registerSimpleBlockItem("gneiss_brick", ModBlocks.GNEISS_BRICK);
         GNEISS_CHISELED_ITEM = ITEMS.registerSimpleBlockItem("gneiss_chiseled", ModBlocks.GNEISS_CHISELED);
@@ -1397,6 +1404,7 @@ public final class ModItems {
         FLUID_IDENTIFIER_MULTI = ITEMS.register("fluid_identifier_multi", FluidIdentifierItem::new);
         CIRCUIT = ITEMS.register("circuit", CircuitItem::new);
         CRT_DISPLAY = ITEMS.registerSimpleItem("crt_display", new Item.Properties());
+        REACTOR_CORE = ITEMS.registerSimpleItem("reactor_core", new Item.Properties());
         COIL_COPPER = ITEMS.registerSimpleItem("coil_copper", new Item.Properties());
         COIL_COPPER_TORUS = ITEMS.registerSimpleItem("coil_copper_torus", new Item.Properties());
         COIL_GOLD = ITEMS.registerSimpleItem("coil_gold", new Item.Properties());

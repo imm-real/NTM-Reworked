@@ -392,6 +392,30 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "depth_nether_tiles")) {
             writes.add(save(output, cubeAllBlockModel(block), blockModels, hbm(block)));
         }
+        writes.add(save(output, cutoutCubeAllBlockModel("reinforced_glass"), blockModels,
+                hbm("reinforced_glass")));
+        for (String part : List.of("post", "side", "side_alt", "noside", "noside_alt")) {
+            writes.add(save(output, reinforcedGlassPaneModel(part), blockModels,
+                    hbm("reinforced_glass_pane_" + part)));
+        }
+        writes.add(save(output, legacyStandardBlockItemModel("reinforced_glass"), itemModels,
+                hbm("reinforced_glass")));
+        writes.add(save(output, generatedItemModel("reinforced_glass_pane", true), itemModels,
+                hbm("reinforced_glass_pane")));
+        writes.add(save(output, simpleBlockState("reinforced_glass"), blockStates,
+                hbm("reinforced_glass")));
+        writes.add(save(output, reinforcedGlassPaneBlockState(), blockStates,
+                hbm("reinforced_glass_pane")));
+        writes.add(save(output, silkOnlyLoot("reinforced_glass"), lootTables,
+                hbm("reinforced_glass")));
+        writes.add(save(output, silkOnlyLoot("reinforced_glass_pane"), lootTables,
+                hbm("reinforced_glass_pane")));
+        writes.add(save(output, tag("reinforced_glass"), itemTags,
+                ResourceLocation.fromNamespaceAndPath("c", "glass_blocks")));
+        writes.add(save(output, tag("reinforced_glass_pane"), itemTags,
+                ResourceLocation.fromNamespaceAndPath("c", "glass_panes")));
+        mineableBlocks.add("hbm:reinforced_glass");
+        mineableBlocks.add("hbm:reinforced_glass_pane");
         writes.add(save(output, cubeColumnBlockModel("gneiss_chiseled", "gneiss_chiseled",
                 "gneiss_tile"), blockModels, hbm("gneiss_chiseled")));
         for (String block : List.of("gneiss_tile", "gneiss_brick", "gneiss_chiseled",
@@ -1362,6 +1386,7 @@ public final class MaterialResourcesProvider implements DataProvider {
                 hbm("plate_cast_titanium")));
         writes.add(save(output, generatedItemModel("plate_cast_steel"), itemModels, hbm("plate_cast_steel")));
         writes.add(save(output, generatedItemModel("plate_cast_copper"), itemModels, hbm("plate_cast_copper")));
+        writes.add(save(output, generatedItemModel("plate_cast_lead"), itemModels, hbm("plate_cast_lead")));
         writes.add(save(output, generatedItemModel("plate_cast_dura_steel"), itemModels, hbm("plate_cast_dura_steel")));
         writes.add(save(output, generatedItemModel("plate_cast_technetium_steel"), itemModels,
                 hbm("plate_cast_technetium_steel")));
@@ -2767,6 +2792,23 @@ public final class MaterialResourcesProvider implements DataProvider {
         return root;
     }
 
+    private JsonObject cutoutCubeAllBlockModel(String id) {
+        JsonObject root = cubeAllBlockModel(id);
+        root.addProperty("render_type", "cutout");
+        return root;
+    }
+
+    private JsonObject reinforcedGlassPaneModel(String part) {
+        JsonObject root = new JsonObject();
+        root.addProperty("parent", "minecraft:block/template_glass_pane_" + part);
+        root.addProperty("render_type", "cutout");
+        JsonObject textures = new JsonObject();
+        textures.addProperty("pane", "hbm:block/reinforced_glass_pane");
+        textures.addProperty("edge", "hbm:block/reinforced_glass_pane_edge");
+        root.add("textures", textures);
+        return root;
+    }
+
     private JsonObject translucentCubeAllBlockModel(String id) {
         JsonObject root = cubeAllBlockModel(id);
         root.addProperty("render_type", "translucent");
@@ -3210,6 +3252,42 @@ public final class MaterialResourcesProvider implements DataProvider {
         return root;
     }
 
+    private JsonObject reinforcedGlassPaneBlockState() {
+        JsonObject root = new JsonObject();
+        JsonArray multipart = new JsonArray();
+        JsonObject post = new JsonObject();
+        JsonObject postModel = new JsonObject();
+        postModel.addProperty("model", "hbm:block/reinforced_glass_pane_post");
+        post.add("apply", postModel);
+        multipart.add(post);
+
+        addPaneStatePart(multipart, "north", true, "side", 0);
+        addPaneStatePart(multipart, "east", true, "side", 90);
+        addPaneStatePart(multipart, "south", true, "side_alt", 0);
+        addPaneStatePart(multipart, "west", true, "side_alt", 90);
+        addPaneStatePart(multipart, "north", false, "noside", 0);
+        addPaneStatePart(multipart, "east", false, "noside_alt", 0);
+        addPaneStatePart(multipart, "south", false, "noside_alt", 90);
+        addPaneStatePart(multipart, "west", false, "noside", 270);
+        root.add("multipart", multipart);
+        return root;
+    }
+
+    private void addPaneStatePart(JsonArray multipart, String direction, boolean connected,
+                                  String modelPart, int rotation) {
+        JsonObject part = new JsonObject();
+        JsonObject when = new JsonObject();
+        when.addProperty(direction, Boolean.toString(connected));
+        part.add("when", when);
+        JsonObject apply = new JsonObject();
+        apply.addProperty("model", "hbm:block/reinforced_glass_pane_" + modelPart);
+        if (rotation != 0) {
+            apply.addProperty("y", rotation);
+        }
+        part.add("apply", apply);
+        multipart.add(part);
+    }
+
     private JsonObject selfDropLoot(String id) {
         JsonObject root = new JsonObject();
         root.addProperty("type", "minecraft:block");
@@ -3234,6 +3312,50 @@ public final class MaterialResourcesProvider implements DataProvider {
         pools.add(pool);
         root.add("pools", pools);
         root.addProperty("random_sequence", "hbm:blocks/" + id);
+        return root;
+    }
+
+    private JsonObject silkOnlyLoot(String block) {
+        JsonObject entry = new JsonObject();
+        entry.addProperty("type", "minecraft:item");
+        entry.addProperty("name", "hbm:" + block);
+
+        JsonObject enchantment = new JsonObject();
+        enchantment.addProperty("enchantments", "minecraft:silk_touch");
+        JsonObject levels = new JsonObject();
+        levels.addProperty("min", 1);
+        enchantment.add("levels", levels);
+        JsonArray enchantments = new JsonArray();
+        enchantments.add(enchantment);
+        JsonObject predicates = new JsonObject();
+        predicates.add("minecraft:enchantments", enchantments);
+        JsonObject predicate = new JsonObject();
+        predicate.add("predicates", predicates);
+        JsonObject matchTool = new JsonObject();
+        matchTool.addProperty("condition", "minecraft:match_tool");
+        matchTool.add("predicate", predicate);
+        JsonArray entryConditions = new JsonArray();
+        entryConditions.add(matchTool);
+        entry.add("conditions", entryConditions);
+
+        JsonArray entries = new JsonArray();
+        entries.add(entry);
+        JsonObject survives = new JsonObject();
+        survives.addProperty("condition", "minecraft:survives_explosion");
+        JsonArray poolConditions = new JsonArray();
+        poolConditions.add(survives);
+        JsonObject pool = new JsonObject();
+        pool.addProperty("rolls", 1.0F);
+        pool.addProperty("bonus_rolls", 0.0F);
+        pool.add("conditions", poolConditions);
+        pool.add("entries", entries);
+        JsonArray pools = new JsonArray();
+        pools.add(pool);
+
+        JsonObject root = new JsonObject();
+        root.addProperty("type", "minecraft:block");
+        root.add("pools", pools);
+        root.addProperty("random_sequence", "hbm:blocks/" + block);
         return root;
     }
 
@@ -4362,6 +4484,13 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "F", itemIngredient("minecraft:cobblestone"),
                 "B", itemIngredient("minecraft:stone")), "hbm:reinforced_stone", 4),
                 recipes, hbm("reinforced_stone")));
+        writes.add(save(output, shapedItemRecipe(List.of("FBF", "BFB", "FBF"), Map.of(
+                "F", itemIngredient("minecraft:iron_bars"),
+                "B", itemIngredient("minecraft:glass")), "hbm:reinforced_glass", 4),
+                recipes, hbm("reinforced_glass")));
+        writes.add(save(output, shapedItemRecipe(List.of("GGG", "GGG"), Map.of(
+                "G", itemIngredient("hbm:reinforced_glass")), "hbm:reinforced_glass_pane", 16),
+                recipes, hbm("reinforced_glass_pane")));
 
         writes.add(save(output, shapedItemRecipe(List.of("SSS", "L L", "SSS"), Map.of(
                 "S", tagIngredient("c:plates/steel"),
@@ -4779,9 +4908,9 @@ public final class MaterialResourcesProvider implements DataProvider {
     private JsonObject castPlateModel() {
         JsonObject root = generatedItemModel("plate_cast_iron");
         JsonArray overrides = new JsonArray();
-        int[] metadata = {30, 33, 36, 43, 2200, 2600, 2900};
+        int[] metadata = {30, 33, 36, 43, 2200, 2600, 2900, 8200};
         String[] materials = {"steel", "dura_steel", "technetium_steel", "cadmium_steel",
-                "titanium", "iron", "copper"};
+                "titanium", "iron", "copper", "lead"};
         for (int i = 0; i < metadata.length; i++) {
             JsonObject override = new JsonObject();
             JsonObject predicate = new JsonObject(); predicate.addProperty("custom_model_data", metadata[i]);

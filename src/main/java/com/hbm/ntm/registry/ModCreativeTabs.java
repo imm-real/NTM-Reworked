@@ -123,6 +123,8 @@ public final class ModCreativeTabs {
                         output.accept(CastPlateItem.create(ModItems.PLATE_CAST.get(),
                                 CastPlateItem.CastPlateMaterial.COPPER, 1));
                         output.accept(CastPlateItem.create(ModItems.PLATE_CAST.get(),
+                                CastPlateItem.CastPlateMaterial.LEAD, 1));
+                        output.accept(CastPlateItem.create(ModItems.PLATE_CAST.get(),
                                 CastPlateItem.CastPlateMaterial.STEEL, 1));
                         output.accept(CastPlateItem.create(ModItems.PLATE_CAST.get(),
                                 CastPlateItem.CastPlateMaterial.DURA_STEEL, 1));
@@ -167,6 +169,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.DRILL_TITANIUM.get());
                         output.accept(ModItems.CENTRIFUGE_ELEMENT.get());
                         output.accept(ModItems.CRT_DISPLAY.get());
+                        output.accept(ModItems.REACTOR_CORE.get());
                         output.accept(ModItems.OIL_TAR.get());
                         output.accept(ModItems.COKE_COAL.get());
                         output.accept(ModItems.COKE_LIGNITE.get());
@@ -747,6 +750,8 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.SAND_DIRTY_RED_ITEM.get());
                         output.accept(ModItems.STONE_CRACKED_ITEM.get());
                         output.accept(ModItems.REINFORCED_STONE_ITEM.get());
+                        output.accept(ModItems.REINFORCED_GLASS_ITEM.get());
+                        output.accept(ModItems.REINFORCED_GLASS_PANE_ITEM.get());
                         output.accept(ModItems.GNEISS_TILE_ITEM.get());
                         output.accept(ModItems.GNEISS_BRICK_ITEM.get());
                         output.accept(ModItems.GNEISS_CHISELED_ITEM.get());
