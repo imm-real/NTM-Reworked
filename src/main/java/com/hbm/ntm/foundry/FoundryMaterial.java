@@ -230,6 +230,7 @@ public enum FoundryMaterial {
         }
         if (stack.is(ModItems.get("billet_schrabidium").get())) return new MaterialAmount(SCHRABIDIUM, NUGGET * 6);
         if (stack.is(ModItems.get("nugget_schrabidium").get())) return new MaterialAmount(SCHRABIDIUM, NUGGET);
+        if (stack.is(ModItems.getBlockItem("block_schrabidium").get())) return new MaterialAmount(SCHRABIDIUM, BLOCK);
 
         if (stack.is(ModItems.get("ingot_technetium").get())) return new MaterialAmount(TECHNETIUM, INGOT);
         if (stack.is(ModItems.get("billet_technetium").get())) return new MaterialAmount(TECHNETIUM, NUGGET * 6);
@@ -544,6 +545,7 @@ public enum FoundryMaterial {
             case URANIUM -> new ItemStack(ModItems.getBlockItem("block_uranium").get());
             case URANIUM_238 -> new ItemStack(ModItems.getBlockItem("block_u238").get());
             case REACTOR_GRADE_PLUTONIUM -> new ItemStack(ModItems.getBlockItem("block_pu_mix").get());
+            case SCHRABIDIUM -> new ItemStack(ModItems.getBlockItem("block_schrabidium").get());
             case CADMIUM -> new ItemStack(ModItems.getBlockItem("block_cadmium").get());
             case BISMUTH -> new ItemStack(ModItems.getBlockItem("block_bismuth").get());
             case RED_COPPER -> new ItemStack(ModItems.getBlockItem("block_red_copper").get());

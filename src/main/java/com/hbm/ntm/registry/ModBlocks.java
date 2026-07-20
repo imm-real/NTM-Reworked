@@ -345,8 +345,10 @@ public final class ModBlocks {
                         if (definition.adjacentWaterExplosion() > 0.0F) {
                             return new HydroactiveBlock(properties, definition.adjacentWaterExplosion());
                         }
-                        if (definition.placedEmission() > 0.0F || definition.radiationFog()) {
-                            return new RadioactiveBlock(properties, definition.placedEmission(), definition.radiationFog());
+                        if (definition.placedEmission() > 0.0F || definition.radiationFog()
+                                || definition.schrabidiumFog()) {
+                            return new RadioactiveBlock(properties, definition.placedEmission(),
+                                    definition.radiationFog(), definition.schrabidiumFog());
                         }
                         return new Block(properties);
                     }

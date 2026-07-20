@@ -54,6 +54,7 @@ public final class HazardousMaterialDefinitions {
             String compressedItemId,
             HazardProfile hazards,
             boolean radiationFog,
+            boolean schrabidiumFog,
             float hardness,
             float legacyResistance,
             MapColor mapColor,
@@ -271,12 +272,15 @@ public final class HazardousMaterialDefinitions {
                 HazardProfile.NONE.withHeat(50.0F), 10, MapColor.STONE, SoundType.STONE, 0, 0));
         blocks.add(radioactiveBlock("block_ra226", "Block of Radium-226", "radium_226", "ingot_ra226", HazardProfile.NONE.withRadiation(75.0F), 10, false, 0));
         blocks.add(radioactiveBlock("block_actinium", "Block of Actinium", "actinium_227", "ingot_actinium", HazardProfile.NONE.withRadiation(300.0F), 10, false, 0));
+        blocks.add(new BlockDefinition("block_schrabidium", "Block of Schrabidium", "schrabidium",
+                "ingot_schrabidium", HazardProfile.NONE.withRadiation(150.0F).withBlinding(500.0F),
+                false, true, 5.0F, 600.0F, MapColor.METAL, SoundType.METAL, 0, 0));
         CATALOG_BLOCKS = Collections.unmodifiableList(blocks);
         Set<String> activeBlocks = Set.of(
                 "block_uranium", "block_u233", "block_u235", "block_u238", "block_thorium", "block_thorium_fuel",
                 "block_uranium_fuel", "block_plutonium_fuel", "block_mox_fuel",
                 "block_plutonium", "block_neptunium", "block_pu238", "block_pu239", "block_pu_mix",
-                "block_lithium", "block_white_phosphorus", "block_ra226", "block_actinium"
+                "block_lithium", "block_white_phosphorus", "block_ra226", "block_actinium", "block_schrabidium"
         );
         BLOCKS = CATALOG_BLOCKS.stream()
                 .filter(definition -> activeBlocks.contains(definition.id()))
@@ -335,7 +339,7 @@ public final class HazardousMaterialDefinitions {
             boolean radiationFog,
             int lightLevel
     ) {
-        return new BlockDefinition(id, name, material, compressedItem, hazards, radiationFog,
+        return new BlockDefinition(id, name, material, compressedItem, hazards, radiationFog, false,
                 5.0F, resistance, MapColor.METAL, SoundType.METAL, 0, lightLevel);
     }
 
@@ -351,7 +355,7 @@ public final class HazardousMaterialDefinitions {
             float adjacentWaterExplosion,
             int lightLevel
     ) {
-        return new BlockDefinition(id, name, material, compressedItem, hazards, false,
+        return new BlockDefinition(id, name, material, compressedItem, hazards, false, false,
                 5.0F, resistance, mapColor, sound, adjacentWaterExplosion, lightLevel);
     }
 }

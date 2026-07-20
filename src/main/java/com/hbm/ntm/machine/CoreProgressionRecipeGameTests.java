@@ -2,6 +2,7 @@ package com.hbm.ntm.machine;
 
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.block.RadioactiveBlock;
+import com.hbm.ntm.foundry.FoundryMaterial;
 import com.hbm.ntm.hazard.HazardCarrier;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.item.ZirnoxRodItem;
@@ -434,6 +435,42 @@ public final class CoreProgressionRecipeGameTests {
                 new ItemStack(ModItems.CELL_SAS3.get())));
         check(helper, yields.schrab() == 7.5F,
                 "One SAS3 Cell must contribute the source 7.5 schrabidium-stage points");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void schrabidiumBlockKeepsAllTenIngotsWorthOfBadIdeas(GameTestHelper helper) {
+        Item ingot = ModItems.get("ingot_schrabidium").get();
+        Item blockItem = ModItems.getBlockItem("block_schrabidium").get();
+        craft(helper, "schrabidium_block", blockItem, 1,
+                Map.of('S', new ItemStack(ingot)), "SSS", "SSS", "SSS");
+        craft(helper, "ingot_schrabidium_from_block_schrabidium", ingot, 9,
+                Map.of('B', new ItemStack(blockItem)), "B");
+
+        ItemStack stack = new ItemStack(blockItem);
+        check(helper, blockItem instanceof HazardCarrier carrier
+                        && carrier.hbm$getHazards(stack).radiation() == 150.0F
+                        && carrier.hbm$getHazards(stack).blinding() == 500.0F,
+                "A Schrabidium block must retain ten ingots of radiation and blinding");
+        RadioactiveBlock block = (RadioactiveBlock) ModBlocks.get("block_schrabidium").get();
+        check(helper, !block.radiationFog() && block.schrabidiumFog(),
+                "Schrabidium must use cyan source fog instead of ordinary RADFOG");
+        check(helper, block.defaultDestroyTime() == 5.0F && block.getExplosionResistance() == 360.0F,
+                "Schrabidium must keep source hardness 5 and converted resistance 360");
+
+        ItemStack dust = ShredderRecipes.getResult(stack);
+        check(helper, dust.is(ModItems.get("powder_schrabidium").get()) && dust.getCount() == 9,
+                "The Shredder must recover all nine Schrabidium powders from the block");
+        check(helper, FoundryMaterial.fromItem(stack)
+                        .equals(new FoundryMaterial.MaterialAmount(FoundryMaterial.SCHRABIDIUM, 648))
+                        && FoundryMaterial.SCHRABIDIUM.output(
+                        com.hbm.ntm.item.FoundryMoldItem.Mold.BLOCK).is(blockItem),
+                "The Foundry must melt and cast the Schrabidium block as nine ingots");
+
+        CustomNukeExplosion.Entry nuke = CustomNukeExplosion.entries().get(blockItem);
+        check(helper, nuke != null && nuke.type() == CustomNukeExplosion.BombType.SCHRAB
+                        && nuke.entry() == CustomNukeExplosion.EntryType.ADD && nuke.value() == 50.0F,
+                "One Schrabidium block must contribute the source 50 schrabidium-stage points");
         helper.succeed();
     }
 

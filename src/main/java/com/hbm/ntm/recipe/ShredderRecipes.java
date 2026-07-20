@@ -168,6 +168,7 @@ public final class ShredderRecipes {
         storageHbm(recipes, "block_coltan", "powder_coltan_ore", 9);
         storageHbm(recipes, "block_neptunium", "powder_neptunium", 9);
         storageHbm(recipes, "block_ra226", "powder_ra226", 9);
+        storageHbm(recipes, "block_schrabidium", "powder_schrabidium", 9);
 
         exact(recipes, () -> ModItems.get("powder_steel_tiny").get(), item("dust_tiny"));
         exact(recipes, () -> ModItems.get("powder_coltan_ore").get(), item("dust"));
