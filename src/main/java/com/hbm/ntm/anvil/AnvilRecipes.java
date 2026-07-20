@@ -10,6 +10,7 @@ import com.hbm.ntm.item.DenseWireItem;
 import com.hbm.ntm.item.StirlingMachineBlockItem;
 import com.hbm.ntm.item.PipeItem;
 import com.hbm.ntm.item.ShellItem;
+import com.hbm.ntm.item.SirenTrackItem;
 import com.hbm.ntm.item.WireFineItem;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.registries.Registries;
@@ -189,6 +190,13 @@ public final class AnvilRecipes {
         add("pipe_lead", 1, Overlay.NONE,
                 List.of(tag("c:plates/lead", 3, itemStack("plate_lead"))),
                 List.of(new Output(() -> PipeItem.lead(ModItems.PIPE.get(), 1), 1F)));
+        for (SirenTrackItem.Track track : SirenTrackItem.Track.values()) {
+            if (track == SirenTrackItem.Track.NONE) continue;
+            add("siren_track_" + track.id(), 2, Overlay.CONSTRUCTION,
+                    List.of(tag("c:plates/steel", 1, itemStack("plate_steel")),
+                            item(ModItems.PLATE_POLYMER, 1)),
+                    List.of(new Output(() -> SirenTrackItem.create(ModItems.SIREN_TRACK.get(), track), 1F)));
+        }
         add("shell_steel", 1, Overlay.NONE,
                 List.of(tag("c:plates/steel", 4, itemStack("plate_steel"))),
                 List.of(new Output(() -> ShellItem.steel(ModItems.SHELL.get(), 1), 1F)));

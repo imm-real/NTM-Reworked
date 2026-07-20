@@ -49,6 +49,7 @@ import com.hbm.ntm.inventory.RadGenMenu;
 import com.hbm.ntm.inventory.ResearchReactorMenu;
 import com.hbm.ntm.inventory.SteelFurnaceMenu;
 import com.hbm.ntm.inventory.SteamTurbineMenu;
+import com.hbm.ntm.inventory.SirenMenu;
 import com.hbm.ntm.inventory.TurbofanMenu;
 import com.hbm.ntm.inventory.WoodBurnerMenu;
 import com.hbm.ntm.inventory.WasteDrumMenu;
@@ -216,6 +217,9 @@ public final class ModMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<WasteDrumMenu>> MACHINE_WASTE_DRUM = MENUS.register(
             "machine_waste_drum", () -> IMenuTypeExtension.create(WasteDrumMenu::new));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<SirenMenu>> MACHINE_SIREN = MENUS.register(
+            "machine_siren", () -> IMenuTypeExtension.create(SirenMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<FluidStorageTankMenu>> MACHINE_FLUIDTANK = MENUS.register(
             "machine_fluidtank", () -> IMenuTypeExtension.create(FluidStorageTankMenu::new));

@@ -99,6 +99,7 @@ import com.hbm.ntm.blockentity.StirlingBlockEntity;
 import com.hbm.ntm.blockentity.SawmillBlockEntity;
 import com.hbm.ntm.blockentity.SteamEngineBlockEntity;
 import com.hbm.ntm.blockentity.SteamEngineProxyBlockEntity;
+import com.hbm.ntm.blockentity.SirenBlockEntity;
 import com.hbm.ntm.blockentity.SteamTurbineBlockEntity;
 import com.hbm.ntm.blockentity.SteamCondenserBlockEntity;
 import com.hbm.ntm.blockentity.SteelFurnaceBlockEntity;
@@ -355,6 +356,11 @@ public final class ModBlockEntities {
             BLOCK_ENTITY_TYPES.register("machine_waste_drum",
                     () -> BlockEntityType.Builder.of(WasteDrumBlockEntity::new,
                             ModBlocks.MACHINE_WASTE_DRUM.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SirenBlockEntity>> MACHINE_SIREN =
+            BLOCK_ENTITY_TYPES.register("machine_siren",
+                    () -> BlockEntityType.Builder.of(SirenBlockEntity::new,
+                            ModBlocks.MACHINE_SIREN.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PumpBlockEntity>> PUMP =
             BLOCK_ENTITY_TYPES.register("pump",

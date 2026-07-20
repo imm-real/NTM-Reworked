@@ -842,6 +842,7 @@ public final class MaterialResourcesProvider implements DataProvider {
         mineableBlocks.add("hbm:machine_combustion_engine");
         mineableBlocks.add("hbm:machine_turbofan");
         mineableBlocks.add("hbm:machine_turbine");
+        mineableBlocks.add("hbm:machine_siren");
         mineableBlocks.add("hbm:pump_steam");
         mineableBlocks.add("hbm:pump_electric");
         mineableBlocks.add("hbm:machine_intake");
@@ -978,6 +979,14 @@ public final class MaterialResourcesProvider implements DataProvider {
                 hbm("machine_combustion_engine")));
         writes.add(save(output, selfDropLoot("machine_combustion_engine"), lootTables,
                 hbm("machine_combustion_engine")));
+        writes.add(save(output, cubeBottomTopBlockModel("machine_siren", "machine_siren",
+                "block_steel", "block_steel"), blockModels, hbm("machine_siren")));
+        writes.add(save(output, simpleBlockState("machine_siren"), blockStates, hbm("machine_siren")));
+        writes.add(save(output, legacyStandardBlockItemModel("machine_siren"), itemModels,
+                hbm("machine_siren")));
+        writes.add(save(output, selfDropLoot("machine_siren"), lootTables, hbm("machine_siren")));
+        writes.add(save(output, machineSirenRecipe(), recipes, hbm("machine_siren")));
+        writes.add(save(output, sirenTrackItemModel(), itemModels, hbm("siren_track")));
         writes.add(save(output, emptyModel("block_steel"), blockModels,
                 hbm("machine_turbofan")));
         writes.add(save(output, unconditionalMultipartState("machine_turbofan"), blockStates,
@@ -2582,6 +2591,16 @@ public final class MaterialResourcesProvider implements DataProvider {
         return root;
     }
 
+    private JsonObject sirenTrackItemModel() {
+        JsonObject root = new JsonObject();
+        root.addProperty("parent", "minecraft:item/generated");
+        JsonObject textures = new JsonObject();
+        textures.addProperty("layer0", "hbm:item/cassette");
+        textures.addProperty("layer1", "hbm:item/cassette_overlay");
+        root.add("textures", textures);
+        return root;
+    }
+
     private JsonObject guideBookRecipe() {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "minecraft:crafting_shapeless");
@@ -4017,6 +4036,25 @@ public final class MaterialResourcesProvider implements DataProvider {
         result.addProperty("id", "hbm:machine_press");
         root.add("result", result);
         return root;
+    }
+
+    private JsonObject machineSirenRecipe() {
+        JsonObject recipe = new JsonObject();
+        recipe.addProperty("type", "minecraft:crafting_shaped");
+        recipe.addProperty("category", "redstone");
+        JsonArray pattern = new JsonArray();
+        pattern.add("SIS");
+        pattern.add("ICI");
+        pattern.add("SRS");
+        recipe.add("pattern", pattern);
+        JsonObject key = new JsonObject();
+        key.add("S", tagIngredient("c:plates/steel"));
+        key.add("I", tagIngredient("hbm:ingots/any_rubber"));
+        key.add("C", customComponentIngredient("hbm:circuit", "type", "vacuum_tube", 0));
+        key.add("R", itemIngredient("minecraft:redstone"));
+        recipe.add("key", key);
+        recipe.add("result", recipeResult("hbm:machine_siren", 1));
+        return recipe;
     }
 
     private JsonObject pressPreheaterRecipe() {

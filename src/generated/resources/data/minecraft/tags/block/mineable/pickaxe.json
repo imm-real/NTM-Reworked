@@ -92,6 +92,7 @@
     "hbm:machine_combustion_engine",
     "hbm:machine_turbofan",
     "hbm:machine_turbine",
+    "hbm:machine_siren",
     "hbm:pump_steam",
     "hbm:pump_electric",
     "hbm:machine_intake",

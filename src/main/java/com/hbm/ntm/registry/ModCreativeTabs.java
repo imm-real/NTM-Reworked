@@ -193,6 +193,13 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.BLADE_TUNGSTEN.get());
                         output.accept(ModItems.TURBINE_TUNGSTEN.get());
                         output.accept(ModItems.FLAME_PONY.get());
+                        for (com.hbm.ntm.item.SirenTrackItem.Track track :
+                                com.hbm.ntm.item.SirenTrackItem.Track.values()) {
+                            if (track != com.hbm.ntm.item.SirenTrackItem.Track.NONE) {
+                                output.accept(com.hbm.ntm.item.SirenTrackItem.create(
+                                        ModItems.SIREN_TRACK.get(), track));
+                            }
+                        }
                         output.accept(ModItems.ROD_EMPTY.get());
                         output.accept(ModItems.ROD_DUAL_EMPTY.get());
                         output.accept(ModItems.ROD_QUAD_EMPTY.get());
@@ -390,6 +397,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.REACTOR_RESEARCH_ITEM.get());
                         output.accept(ModItems.MACHINE_RADGEN_ITEM.get());
                         output.accept(ModItems.MACHINE_WASTE_DRUM_ITEM.get());
+                        output.accept(ModItems.MACHINE_SIREN_ITEM.get());
                         output.accept(ModItems.ROD_ZIRNOX_EMPTY.get());
                         output.accept(ModItems.ROD_ZIRNOX_NATURAL_URANIUM_FUEL.get());
                         output.accept(ModItems.ROD_ZIRNOX_URANIUM_FUEL.get());

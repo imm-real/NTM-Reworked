@@ -114,6 +114,7 @@ import com.hbm.ntm.item.PowerFistItem;
 import com.hbm.ntm.item.ShredderBladeItem;
 import com.hbm.ntm.item.ScrewdriverItem;
 import com.hbm.ntm.item.SellafieldBlockItem;
+import com.hbm.ntm.item.SirenTrackItem;
 import com.hbm.ntm.conveyor.ConveyorType;
 import com.hbm.ntm.item.ScaffoldBlockItem;
 import com.hbm.ntm.item.ShellItem;
@@ -256,6 +257,8 @@ public final class ModItems {
     public static final DeferredItem<ResearchReactorBlockItem> REACTOR_RESEARCH_ITEM;
     public static final DeferredItem<BlockItem> MACHINE_RADGEN_ITEM;
     public static final DeferredItem<BlockItem> MACHINE_WASTE_DRUM_ITEM;
+    public static final DeferredItem<BlockItem> MACHINE_SIREN_ITEM;
+    public static final DeferredItem<SirenTrackItem> SIREN_TRACK;
     public static final DeferredItem<NuclearWasteItem> NUCLEAR_WASTE_LONG;
     public static final DeferredItem<NuclearWasteItem> NUCLEAR_WASTE_LONG_TINY;
     public static final DeferredItem<NuclearWasteItem> NUCLEAR_WASTE_SHORT;
@@ -890,6 +893,8 @@ public final class ModItems {
                 () -> new ResearchReactorBlockItem(ModBlocks.REACTOR_RESEARCH.get(), new Item.Properties()));
         MACHINE_RADGEN_ITEM = ITEMS.registerSimpleBlockItem("machine_radgen", ModBlocks.MACHINE_RADGEN);
         MACHINE_WASTE_DRUM_ITEM = ITEMS.registerSimpleBlockItem("machine_waste_drum", ModBlocks.MACHINE_WASTE_DRUM);
+        MACHINE_SIREN_ITEM = ITEMS.registerSimpleBlockItem("machine_siren", ModBlocks.MACHINE_SIREN);
+        SIREN_TRACK = ITEMS.register("siren_track", SirenTrackItem::new);
         NUCLEAR_WASTE_LONG = ITEMS.register("nuclear_waste_long", () -> new NuclearWasteItem(
                 new Item.Properties(), NuclearWasteItem.Family.LONG, false, false));
         NUCLEAR_WASTE_LONG_TINY = ITEMS.register("nuclear_waste_long_tiny", () -> new NuclearWasteItem(

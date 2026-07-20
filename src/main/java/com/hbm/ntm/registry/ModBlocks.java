@@ -100,6 +100,7 @@ import com.hbm.ntm.block.SteelGrateBlock;
 import com.hbm.ntm.block.StirlingBlock;
 import com.hbm.ntm.block.SawmillBlock;
 import com.hbm.ntm.block.SellafieldBlock;
+import com.hbm.ntm.block.SirenBlock;
 import com.hbm.ntm.block.SteamEngineBlock;
 import com.hbm.ntm.block.SteamTurbineBlock;
 import com.hbm.ntm.block.SteamCondenserBlock;
@@ -209,6 +210,7 @@ public final class ModBlocks {
     public static final DeferredBlock<ResearchReactorBlock> REACTOR_RESEARCH;
     public static final DeferredBlock<RadGenBlock> MACHINE_RADGEN;
     public static final DeferredBlock<WasteDrumBlock> MACHINE_WASTE_DRUM;
+    public static final DeferredBlock<SirenBlock> MACHINE_SIREN;
     public static final DeferredBlock<PumpBlock> PUMP_STEAM;
     public static final DeferredBlock<PumpBlock> PUMP_ELECTRIC;
     public static final DeferredBlock<AirIntakeBlock> MACHINE_INTAKE;
@@ -675,6 +677,9 @@ public final class ModBlocks {
                         .mapColor(MapColor.METAL).strength(5.0F, 6.0F)
                         .sound(SoundType.METAL))
         );
+        MACHINE_SIREN = BLOCKS.register("machine_siren", () -> new SirenBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F, 6.0F)
+                        .sound(SoundType.METAL)));
         PUMP_STEAM = BLOCKS.register(
                 "pump_steam",
                 () -> new PumpBlock(BlockBehaviour.Properties.of()

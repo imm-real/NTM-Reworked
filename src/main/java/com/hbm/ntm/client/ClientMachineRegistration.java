@@ -136,9 +136,12 @@ import com.hbm.ntm.client.screen.SteamTurbineScreen;
 import com.hbm.ntm.client.screen.TurbofanScreen;
 import com.hbm.ntm.client.screen.WoodBurnerScreen;
 import com.hbm.ntm.client.screen.WasteDrumScreen;
+import com.hbm.ntm.client.screen.SirenScreen;
 import com.hbm.ntm.client.screen.ZirnoxScreen;
 import com.hbm.ntm.client.sound.TurbofanSoundInstance;
+import com.hbm.ntm.client.sound.SirenSoundInstance;
 import com.hbm.ntm.blockentity.TurbofanBlockEntity;
+import com.hbm.ntm.blockentity.SirenBlockEntity;
 import com.hbm.ntm.block.FluidDuctBlock;
 import com.hbm.ntm.registry.ModBlockEntities;
 import com.hbm.ntm.registry.ModBlocks;
@@ -160,6 +163,7 @@ public final class ClientMachineRegistration {
 
     public static void register(IEventBus modEventBus) {
         TurbofanBlockEntity.installClientEffectTick(TurbofanSoundInstance::tick);
+        SirenBlockEntity.installClientEffectTick(SirenSoundInstance::tick);
         ClientLookOverlay.register();
         ClientNuclearFlash.register();
         ClientArmorModEvents.register();
@@ -225,6 +229,7 @@ public final class ClientMachineRegistration {
         event.register(ModMenus.REACTOR_RESEARCH.get(), ResearchReactorScreen::new);
         event.register(ModMenus.MACHINE_RADGEN.get(), RadGenScreen::new);
         event.register(ModMenus.MACHINE_WASTE_DRUM.get(), WasteDrumScreen::new);
+        event.register(ModMenus.MACHINE_SIREN.get(), SirenScreen::new);
         event.register(ModMenus.CRANE_BOXER.get(), ConveyorBoxerScreen::new);
         event.register(ModMenus.CRANE_EXTRACTOR.get(), CraneExtractorScreen::new);
         event.register(ModMenus.CRANE_INSERTER.get(), CraneInserterScreen::new);
@@ -481,6 +486,9 @@ public final class ClientMachineRegistration {
                         : tintIndex == 2
                         ? opaque(com.hbm.ntm.item.SourceFluidContainerItem.fluid(stack).labelColor()) : -1,
                 ModItems.GAS_FULL.get());
+        event.register((stack, tintIndex) -> tintIndex == 1
+                        ? opaque(com.hbm.ntm.item.SirenTrackItem.track(stack).color()) : -1,
+                ModItems.SIREN_TRACK.get());
     }
 
     /** ItemColor wants ARGB; fluid definitions contain only the lower 24 RGB bits. */

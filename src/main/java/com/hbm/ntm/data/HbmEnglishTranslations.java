@@ -103,6 +103,9 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gem_rad", "Radioactive Gem");
         language.addProperty("block.hbm.machine_waste_drum", "Spent Fuel Pool Drum");
         language.addProperty("container.wasteDrum", "Spent Fuel Pool Drum");
+        language.addProperty("block.hbm.machine_siren", "Siren");
+        language.addProperty("container.siren", "Siren");
+        language.addProperty("item.hbm.siren_track", "Siren Track");
         language.addProperty("desc.item.wasteCooling", "Cool in a Spent Fuel Pool Drum");
         language.addProperty("item.hbm.rod_empty", "Empty Rod");
         language.addProperty("item.hbm.rod_dual_empty", "Empty Dual Rod");

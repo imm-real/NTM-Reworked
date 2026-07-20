@@ -185,6 +185,26 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> ASSEMBLER_STOP = register("block.assemblerstop");
     public static final DeferredHolder<SoundEvent, SoundEvent> ASSEMBLER_STRIKE_1 = register("block.assemblerstrike1");
     public static final DeferredHolder<SoundEvent, SoundEvent> ASSEMBLER_STRIKE_2 = register("block.assemblerstrike2");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_HATCH = register("alarm.hatch");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_AUTOPILOT = register("alarm.autopilot");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_AMS = register("alarm.ams_siren");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_BLAST_DOOR = register("alarm.blast_door");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_APC_LOOP = register("alarm.apc_loop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_KLAXON = register("alarm.klaxon");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_KLAXON_A = register("alarm.klaxon_a");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_KLAXON_B = register("alarm.klaxon_b");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_REGULAR = register("alarm.regular_siren");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_CLASSIC = register("alarm.classic");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_BANK = register("alarm.bank_alarm");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_BEEP = register("alarm.beep_siren");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_CONTAINER = register("alarm.container_alarm");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_SWEEP = register("alarm.sweep_siren");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_STRIDER = register("alarm.strider_siren");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_AIR_RAID = register("alarm.air_raid");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_NOSTROMO = register("alarm.nostromo_siren");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_EAS = register("alarm.eas_alarm");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_APC_PASS = register("alarm.apc_pass");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SIREN_RAZORTRAIN = register("alarm.razortrain_horn");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> UPGRADE_PLUG = SOUNDS.register(
             "item.upgrade_plug",

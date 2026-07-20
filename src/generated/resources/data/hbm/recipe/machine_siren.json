@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "vacuum_tube"
+        },
+        "minecraft:custom_model_data": 0
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "I": {
+      "tag": "hbm:ingots/any_rubber"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "SIS",
+    "ICI",
+    "SRS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_siren"
+  }
+}

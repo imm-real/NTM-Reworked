@@ -513,5 +513,85 @@
   "block.rbmk_az5_cover": {
     "category": "block",
     "sounds": [{"name": "hbm:block/rbmk_az5_cover", "stream": false}]
+  },
+  "alarm.hatch": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/lpfhaiwg", "stream": false}]
+  },
+  "alarm.autopilot": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/boeing707autopilotdisconnected", "stream": false}]
+  },
+  "alarm.ams_siren": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/amssiren", "stream": false}]
+  },
+  "alarm.blast_door": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/blastdooralarm", "stream": false}]
+  },
+  "alarm.apc_loop": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/apcloop", "stream": false}]
+  },
+  "alarm.klaxon": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/klaxon", "stream": false}]
+  },
+  "alarm.klaxon_a": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/foklaxona", "stream": false}]
+  },
+  "alarm.klaxon_b": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/foklaxonb", "stream": false}]
+  },
+  "alarm.regular_siren": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/regularsiren", "stream": false}]
+  },
+  "alarm.classic": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/classicsiren", "stream": false}]
+  },
+  "alarm.bank_alarm": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/bankalarm", "stream": false}]
+  },
+  "alarm.beep_siren": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/beepsiren", "stream": false}]
+  },
+  "alarm.container_alarm": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/containeralarm", "stream": false}]
+  },
+  "alarm.sweep_siren": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/sweepsiren", "stream": false}]
+  },
+  "alarm.strider_siren": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/stridersiren", "stream": false}]
+  },
+  "alarm.air_raid": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/airraid", "stream": false}]
+  },
+  "alarm.nostromo_siren": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/nostromosiren", "stream": false}]
+  },
+  "alarm.eas_alarm": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/easalarm", "stream": false}]
+  },
+  "alarm.apc_pass": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/apcpass", "stream": false}]
+  },
+  "alarm.razortrain_horn": {
+    "category": "record",
+    "sounds": [{"name": "hbm:alarm/razortrainhorn", "stream": false}]
   }
 }
