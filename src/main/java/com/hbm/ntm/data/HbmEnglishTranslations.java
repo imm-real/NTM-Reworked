@@ -48,6 +48,7 @@ final class HbmEnglishTranslations {
         language.addProperty("block.hbm.machine_turbine.desc.0", "Efficiency: 85%");
         language.addProperty("container.machineTurbine", "Steam Turbine");
         language.addProperty("block.hbm.machine_zirnox", "ZIRNOX Nuclear Reactor");
+        language.addProperty("block.hbm.concrete_smooth", "Concrete");
         language.addProperty("block.hbm.machine_zirnox.desc.0", "Gas-cooled graphite reactor");
         language.addProperty("block.hbm.machine_zirnox.desc.1", "Requires CO₂ and water; outputs superheated steam");
         language.addProperty("container.reactorZirnox", "ZIRNOX Nuclear Reactor");

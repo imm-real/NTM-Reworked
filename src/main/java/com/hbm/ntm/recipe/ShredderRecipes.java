@@ -1,6 +1,8 @@
 package com.hbm.ntm.recipe;
 
 import com.hbm.ntm.content.MaterialDefinitions;
+import com.hbm.ntm.block.StoneResourceBlock;
+import com.hbm.ntm.item.StoneResourceBlockItem;
 import com.hbm.ntm.item.OreChunkItem;
 import com.hbm.ntm.registry.ModBlocks;
 import com.hbm.ntm.registry.ModItems;
@@ -60,6 +62,11 @@ public final class ShredderRecipes {
         exact(recipes, () -> Blocks.NETHER_QUARTZ_ORE, item("powder_quartz", 2));
         exact(recipes, () -> ModItems.get("fragment_cobalt").get(), item("powder_cobalt_tiny"));
         exact(recipes, () -> ModBlocks.ORE_RARE.get(), item("powder_desh_mix"));
+        recipes.add(new ShredderRecipe(
+                stack -> stack.is(ModItems.STONE_RESOURCE_ITEM.get())
+                        && StoneResourceBlockItem.type(stack) == StoneResourceBlock.Type.LIMESTONE,
+                item("powder_limestone", 4)
+        ));
         recipes.add(new ShredderRecipe(
                 stack -> stack.is(ModItems.CHUNK_ORE.get())
                         && OreChunkItem.type(stack) == OreChunkItem.ChunkType.RARE,

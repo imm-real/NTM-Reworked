@@ -308,6 +308,7 @@ public final class ModBlocks {
     public static final DeferredBlock<FoundryOutletBlock> FOUNDRY_OUTLET;
     public static final DeferredBlock<FoundryOutletBlock> FOUNDRY_SLAGTAP;
     public static final DeferredBlock<DynamicSlagBlock> DYNAMIC_SLAG;
+    public static final DeferredBlock<Block> CONCRETE_SMOOTH;
     public static final DeferredBlock<ScaffoldBlock> STEEL_SCAFFOLD;
     public static final DeferredBlock<SteelBeamBlock> STEEL_BEAM;
     public static final DeferredBlock<SteelGrateBlock> STEEL_GRATE;
@@ -960,6 +961,11 @@ public final class ModBlocks {
         DYNAMIC_SLAG = BLOCKS.register("slag",
                 () -> new DynamicSlagBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
                         .strength(5.0F, 10.0F).sound(SoundType.STONE).noOcclusion().dynamicShape()));
+        CONCRETE_SMOOTH = BLOCKS.register("concrete_smooth",
+                () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                        .strength(15.0F, 84.0F).sound(SoundType.STONE)
+                        .requiresCorrectToolForDrops()
+                        .isValidSpawn((state, level, pos, entityType) -> false)));
         STEEL_SCAFFOLD = BLOCKS.register("steel_scaffold",
                 () -> new ScaffoldBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                         .strength(5.0F, 9.0F).sound(SoundType.STONE)

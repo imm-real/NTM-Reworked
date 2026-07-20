@@ -787,6 +787,7 @@ public final class ModCreativeTabs {
                         MaterialDefinitions.BLOCKS.forEach(
                                 definition -> output.accept(ModItems.getBlockItem(definition.id()).get())
                         );
+                        output.accept(ModItems.CONCRETE_SMOOTH_ITEM.get());
                         output.accept(ModItems.BLOCK_INSULATOR_ITEM.get());
                         output.accept(ModItems.SANDBAGS_ITEM.get());
                         output.accept(ModItems.GRAVEL_OBSIDIAN_ITEM.get());

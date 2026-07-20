@@ -134,7 +134,7 @@ public final class ArcFurnaceGameTests {
                         && recipe.inputs().size() == 6,
                 "ass.arcfurnace must output the Electric Arc Furnace in 200 ticks at 100 HE/t");
         check(helper, recipe.inputs().get(0).count() == 12
-                        && recipe.inputs().get(0).matches(new ItemStack(Blocks.GRAY_CONCRETE, 12))
+                        && recipe.inputs().get(0).matches(new ItemStack(ModItems.CONCRETE_SMOOTH_ITEM.get(), 12))
                         && recipe.inputs().get(1).matches(new ItemStack(ModItems.PLATE_POLYMER.get(), 8))
                         && recipe.inputs().get(2).matches(new ItemStack(ModItems.get("ingot_firebrick").get(), 16))
                         && recipe.inputs().get(3).matches(CastPlateItem.create(ModItems.PLATE_CAST.get(),

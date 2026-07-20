@@ -8,6 +8,7 @@ import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,6 +36,7 @@ public final class ChemicalPlantRecipes {
     public static final ResourceLocation HEAVY_LUBE = id("chem.heavylube");
     public static final ResourceLocation COBBLE = id("chem.cobble");
     public static final ResourceLocation AGGREGATE = id("chem.aggregate");
+    public static final ResourceLocation CONCRETE = id("chem.concrete");
     public static final ResourceLocation BATTERY_LEAD = id("chem.batterylead");
     public static final ResourceLocation OIL_ELECTRODES = id("chem.oilelectrodes");
     public static final ResourceLocation LUBE_ELECTRODES = id("chem.lubeelectrodes");
@@ -72,6 +74,13 @@ public final class ChemicalPlantRecipes {
                     List.of(new ItemInput(Ingredient.of(Items.COBBLESTONE), 16)), List.of(),
                     List.of(new ItemStack(Items.GRAVEL, 8), new ItemStack(Items.SAND, 8)), List.of(),
                     List.of("discover..stone")),
+            new ChemicalRecipe(CONCRETE, "chem.concrete", 100, 100,
+                    List.of(
+                            new ItemInput(Ingredient.of(ModItems.get("powder_cement").get()), 1),
+                            new ItemInput(Ingredient.of(Items.GRAVEL), 8),
+                            new ItemInput(Ingredient.of(ItemTags.SAND), 8)),
+                    List.of(new FluidInput(() -> net.minecraft.world.level.material.Fluids.WATER, 2_000)),
+                    List.of(new ItemStack(ModItems.CONCRETE_SMOOTH_ITEM.get(), 16)), List.of(), List.of()),
             new ChemicalRecipe(BATTERY_LEAD, "chem.batterylead", 100, 100,
                     List.of(
                             new ItemInput(Ingredient.of(TagKey.create(Registries.ITEM,
@@ -219,6 +228,7 @@ public final class ChemicalPlantRecipes {
             if (id.equals(RUBBER)) return 0x2A2927;
             if (id.equals(COAL_LUBE) || id.equals(HEAVY_LUBE)) return 0x8C7B57;
             if (id.equals(COBBLE) || id.equals(AGGREGATE)) return 0x777777;
+            if (id.equals(CONCRETE)) return 0xB8B8B8;
             if (id.equals(BATTERY_LEAD)) return 0x626C78;
             if (id.equals(CORDITE)) return 0x8A6541;
             if (id.equals(DYNAMITE)) return 0xD2B27A;

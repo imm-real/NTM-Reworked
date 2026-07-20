@@ -635,6 +635,7 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> FOUNDRY_TANK_ITEM;
     public static final DeferredItem<BlockItem> FOUNDRY_OUTLET_ITEM;
     public static final DeferredItem<BlockItem> FOUNDRY_SLAGTAP_ITEM;
+    public static final DeferredItem<BlockItem> CONCRETE_SMOOTH_ITEM;
     public static final DeferredItem<ScaffoldBlockItem> STEEL_SCAFFOLD_ITEM;
     public static final DeferredItem<BlockItem> STEEL_BEAM_ITEM;
     public static final DeferredItem<BlockItem> STEEL_GRATE_ITEM;
@@ -676,6 +677,9 @@ public final class ModItems {
             } else if (definition.id().equals("ingot_combine_steel")) {
                 items.put(definition.id(), ITEMS.register(definition.id(),
                         () -> new CustomLoreItem("item.hbm.ingot_combine_steel.desc")));
+            } else if (definition.id().equals("powder_cement")) {
+                items.put(definition.id(), ITEMS.registerSimpleItem(definition.id(), new Item.Properties().food(
+                        new FoodProperties.Builder().nutrition(2).saturationModifier(0.5F).build())));
             } else {
                 Item.Properties properties = new Item.Properties();
                 if (definition.id().equals("powder_niobium")) {
@@ -1504,6 +1508,7 @@ public final class ModItems {
         FOUNDRY_TANK_ITEM = ITEMS.registerSimpleBlockItem("foundry_tank", ModBlocks.FOUNDRY_TANK);
         FOUNDRY_OUTLET_ITEM = ITEMS.registerSimpleBlockItem("foundry_outlet", ModBlocks.FOUNDRY_OUTLET);
         FOUNDRY_SLAGTAP_ITEM = ITEMS.registerSimpleBlockItem("foundry_slagtap", ModBlocks.FOUNDRY_SLAGTAP);
+        CONCRETE_SMOOTH_ITEM = ITEMS.registerSimpleBlockItem("concrete_smooth", ModBlocks.CONCRETE_SMOOTH);
         STEEL_SCAFFOLD_ITEM = ITEMS.register("steel_scaffold",
                 () -> new ScaffoldBlockItem(ModBlocks.STEEL_SCAFFOLD.get(), new Item.Properties()));
         STEEL_BEAM_ITEM = ITEMS.registerSimpleBlockItem("steel_beam", ModBlocks.STEEL_BEAM);

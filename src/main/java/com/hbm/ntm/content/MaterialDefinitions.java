@@ -129,6 +129,8 @@ public final class MaterialDefinitions {
             new ItemDefinition("powder_tcalloy", "Technetium Steel Powder", ItemForm.DUST, "technetium_steel"),
             new ItemDefinition("powder_bismuth", "Bismuth Powder", ItemForm.DUST, "bismuth"),
             new ItemDefinition("powder_calcium", "Calcium Powder", ItemForm.DUST, "calcium"),
+            new ItemDefinition("powder_limestone", "Limestone Powder", ItemForm.DUST, "limestone"),
+            new ItemDefinition("powder_cement", "Cement", ItemForm.MISC, null),
             new ItemDefinition("powder_cadmium", "Cadmium Powder", ItemForm.DUST, "cadmium"),
             new ItemDefinition("powder_tantalium", "Tantalium Powder", ItemForm.DUST, "tantalum"),
             new ItemDefinition("powder_beryllium", "Beryllium Powder", ItemForm.DUST, "beryllium"),

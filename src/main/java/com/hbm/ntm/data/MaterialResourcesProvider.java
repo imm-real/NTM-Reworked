@@ -314,6 +314,19 @@ public final class MaterialResourcesProvider implements DataProvider {
             }
         }
 
+        writes.add(save(output, cubeAllBlockModel("concrete_smooth", "concrete"),
+                blockModels, hbm("concrete_smooth")));
+        writes.add(save(output, blockItemModel("concrete_smooth"), itemModels,
+                hbm("concrete_smooth")));
+        writes.add(save(output, simpleBlockState("concrete_smooth"), blockStates,
+                hbm("concrete_smooth")));
+        writes.add(save(output, selfDropLoot("concrete_smooth"), lootTables,
+                hbm("concrete_smooth")));
+        writes.add(save(output, tag("concrete_smooth"), itemTags, hbm("any_concrete")));
+        writes.add(save(output, tag("concrete_smooth"), blockTags, hbm("any_concrete")));
+        writes.add(save(output, cementRecipe(), recipes, hbm("powder_cement")));
+        mineableBlocks.add("hbm:concrete_smooth");
+
         for (String ore : List.of("ore_titanium", "ore_tungsten", "ore_cobalt", "ore_rare", "ore_coltan")) {
             ResourceLocation id = hbm(ore);
             writes.add(save(output, cubeAllBlockModel(ore), blockModels, id));
@@ -4013,6 +4026,20 @@ public final class MaterialResourcesProvider implements DataProvider {
         resultObject.addProperty("count", count);
         resultObject.addProperty("id", "hbm:" + result);
         root.add("result", resultObject);
+        return root;
+    }
+
+    private JsonObject cementRecipe() {
+        JsonObject root = new JsonObject();
+        root.addProperty("type", "minecraft:crafting_shapeless");
+        root.addProperty("category", "misc");
+        JsonArray ingredients = new JsonArray();
+        ingredients.add(itemIngredient("hbm:powder_limestone"));
+        ingredients.add(itemIngredient("minecraft:clay_ball"));
+        ingredients.add(itemIngredient("minecraft:clay_ball"));
+        ingredients.add(itemIngredient("minecraft:clay_ball"));
+        root.add("ingredients", ingredients);
+        root.add("result", recipeResult("hbm:powder_cement", 4));
         return root;
     }
 

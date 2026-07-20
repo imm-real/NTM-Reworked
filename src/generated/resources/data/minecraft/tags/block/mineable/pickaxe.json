@@ -36,6 +36,7 @@
     "hbm:block_bakelite",
     "hbm:block_rubber",
     "hbm:block_lanthanium",
+    "hbm:concrete_smooth",
     "hbm:ore_titanium",
     "hbm:ore_tungsten",
     "hbm:ore_cobalt",
