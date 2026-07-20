@@ -1078,6 +1078,14 @@ final class HbmEnglishTranslations {
         language.addProperty("desc.gui.upgrade.power", " * §1Power-Saving§r: Stacks to level 3");
         language.addProperty("desc.gui.upgrade.afterburner", " * §dAfterburner§r: Stacks to level 3");
         language.addProperty("gui.hbm.press.operations_left", "%s operations left");
+        language.addProperty("jei.hbm.anvil", "NTM Anvil");
+        language.addProperty("jei.hbm.assembly", "Assembly Machine");
+        language.addProperty("jei.hbm.press", "Burner Press");
+        language.addProperty("jei.hbm.anvil.tier", "Anvil tier: %s");
+        language.addProperty("jei.hbm.anvil.tier_range", "Anvil tiers: %s-%s");
+        language.addProperty("jei.hbm.chance", "Chance: %s%%");
+        language.addProperty("jei.hbm.power", "%s HE/t");
+        language.addProperty("jei.hbm.time", "%s ticks");
         language.addProperty("trait.radioactive.bracketed", "[Radioactive]");
         language.addProperty("tooltip.hbm.radiation.stack", "Stack: %sRAD/s");
         language.addProperty("death.attack.radiation", "%s succumbed to radiation poisoning");

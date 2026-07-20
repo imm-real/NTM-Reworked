@@ -22,6 +22,10 @@ base {
 }
 
 repositories {
+    maven {
+        name = 'Jared Maven'
+        url = uri('https://maven.blamejared.com')
+    }
     exclusiveContent {
         forRepository {
             maven {
@@ -89,6 +93,8 @@ configurations {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     compileOnly "dev.ryanhcode.sable:sable-common-${minecraft_version}:${sable_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
 
     // Dev-runtime performance mods (not packaged or published with the mod).
     // Sodium 0.8.12 is installed in run/client/mods. Its upstream wrapper and

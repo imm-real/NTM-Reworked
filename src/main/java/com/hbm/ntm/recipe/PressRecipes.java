@@ -71,6 +71,10 @@ public final class PressRecipes {
         return RECIPES.size();
     }
 
+    public static List<PressRecipe> all() {
+        return RECIPES;
+    }
+
     private static PressRecipe recipe(StampItem.StampType type, Ingredient input, Supplier<ItemStack> output) {
         return new PressRecipe(type, input, output);
     }

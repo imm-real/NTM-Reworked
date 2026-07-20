@@ -2048,22 +2048,31 @@ public final class MaterialResourcesProvider implements DataProvider {
     }
 
     private JsonObject shapedItemRecipe(List<String> rows, Map<String, JsonObject> keys, String resultId) {
+        return shapedItemRecipe(rows, keys, resultId, 1);
+    }
+
+    private JsonObject shapedItemRecipe(List<String> rows, Map<String, JsonObject> keys, String resultId,
+                                        int count) {
         JsonObject recipe = shapedBase(rows);
         JsonObject key = new JsonObject();
         keys.forEach(key::add);
         recipe.add("key", key);
-        recipe.add("result", simpleItemResult(resultId));
+        recipe.add("result", recipeResult(resultId, count));
         return recipe;
     }
 
     private JsonObject shapelessItemRecipe(List<JsonObject> inputs, String resultId) {
+        return shapelessItemRecipe(inputs, resultId, 1);
+    }
+
+    private JsonObject shapelessItemRecipe(List<JsonObject> inputs, String resultId, int count) {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "minecraft:crafting_shapeless");
         recipe.addProperty("category", "misc");
         JsonArray ingredients = new JsonArray();
         inputs.forEach(ingredients::add);
         recipe.add("ingredients", ingredients);
-        recipe.add("result", simpleItemResult(resultId));
+        recipe.add("result", recipeResult(resultId, count));
         return recipe;
     }
 
@@ -4343,7 +4352,42 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, deshMotorRecipe(), recipes, hbm("motor_desh")));
         writes.add(save(output, deshBladesRecipe(), recipes, hbm("blades_desh")));
         addUnlockedWeaponRecipes(writes, output);
+        addCoreProgressionRecipes(writes, output);
         writes.add(save(output, coilBatterySocketRecipe(), recipes, hbm("machine_battery_socket_from_coil")));
+    }
+
+    private void addCoreProgressionRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        writes.add(save(output, shapedItemRecipe(List.of("FBF", "BFB", "FBF"), Map.of(
+                "F", itemIngredient("minecraft:cobblestone"),
+                "B", itemIngredient("minecraft:stone")), "hbm:reinforced_stone", 4),
+                recipes, hbm("reinforced_stone")));
+
+        writes.add(save(output, shapedItemRecipe(List.of("SSS", "L L", "SSS"), Map.of(
+                "S", tagIngredient("c:plates/steel"),
+                "L", tagIngredient("c:plates/lead")), "hbm:rod_empty", 16),
+                recipes, hbm("rod_empty")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_dual_empty")), "hbm:rod_empty", 2),
+                recipes, hbm("rod_empty_from_dual")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_empty"), itemIngredient("hbm:rod_empty")),
+                "hbm:rod_dual_empty"), recipes, hbm("rod_dual_empty_from_rods")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_quad_empty")), "hbm:rod_empty", 4),
+                recipes, hbm("rod_empty_from_quad")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_empty"), itemIngredient("hbm:rod_empty"),
+                itemIngredient("hbm:rod_empty"), itemIngredient("hbm:rod_empty")),
+                "hbm:rod_quad_empty"), recipes, hbm("rod_quad_empty_from_rods")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_dual_empty"), itemIngredient("hbm:rod_dual_empty")),
+                "hbm:rod_quad_empty"), recipes, hbm("rod_quad_empty_from_duals")));
+
+        writes.add(save(output, shapedItemRecipe(List.of("LRL", "BRB", "LRL"), Map.of(
+                "L", tagIngredient("c:ingots/lead"),
+                "B", itemIngredient("minecraft:iron_bars"),
+                "R", itemIngredient("hbm:rod_quad_empty")), "hbm:machine_waste_drum"),
+                recipes, hbm("machine_waste_drum")));
     }
 
     private JsonObject craftedPartRecipe(boolean stock, JsonObject ingredient, String material, int metadata) {
