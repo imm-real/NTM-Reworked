@@ -32,6 +32,7 @@ import com.hbm.ntm.weapon.FiftyCalAmmoType;
 import com.hbm.ntm.weapon.FollyAmmoType;
 import com.hbm.ntm.weapon.PepperboxAmmoType;
 import com.hbm.ntm.weapon.Shotgun12GaugeAmmoType;
+import com.hbm.ntm.weapon.Shotgun10GaugeAmmoType;
 import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import com.hbm.ntm.weapon.TwentyTwoAmmoType;
 import com.hbm.ntm.weapon.FlamerFuelType;
@@ -626,6 +627,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_FATMAN.get());
                         output.accept(ModItems.GUN_BOLTER.get());
                         output.accept(ModItems.GUN_FOLLY.get());
+                        output.accept(ModItems.GUN_DOUBLE_BARREL.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());
@@ -653,6 +655,9 @@ public final class ModCreativeTabs {
                             output.accept(type.createStack(ModItems.AMMO_SECRET.get(), 1));
                         }
                         for (Shotgun12GaugeAmmoType type : Shotgun12GaugeAmmoType.values()) {
+                            output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
+                        }
+                        for (Shotgun10GaugeAmmoType type : Shotgun10GaugeAmmoType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
                         }
                         for (FortyMillimeterAmmoType type : FortyMillimeterAmmoType.values()) {

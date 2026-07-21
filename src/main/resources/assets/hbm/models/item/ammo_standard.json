@@ -79,8 +79,13 @@
     {"predicate": {"custom_model_data": 75}, "model": "hbm:item/ammo_standard_nuke_high"},
     {"predicate": {"custom_model_data": 76}, "model": "hbm:item/ammo_standard_nuke_tots"},
     {"predicate": {"custom_model_data": 77}, "model": "hbm:item/ammo_standard_nuke_hive"},
+    {"predicate": {"custom_model_data": 78}, "model": "hbm:item/ammo_standard_g10"},
+    {"predicate": {"custom_model_data": 79}, "model": "hbm:item/ammo_standard_g10_shrapnel"},
+    {"predicate": {"custom_model_data": 80}, "model": "hbm:item/ammo_standard_g10_du"},
+    {"predicate": {"custom_model_data": 81}, "model": "hbm:item/ammo_standard_g10_slug"},
     {"predicate": {"custom_model_data": 82}, "model": "hbm:item/ammo_standard_r762_he"},
     {"predicate": {"custom_model_data": 83}, "model": "hbm:item/ammo_standard_bmg50_he"},
+    {"predicate": {"custom_model_data": 84}, "model": "hbm:item/ammo_standard_g10_explosive"},
     {"predicate": {"custom_model_data": 93}, "model": "hbm:item/ammo_standard_nuke_balefire"},
     {"predicate": {"custom_model_data": 94}, "model": "hbm:item/ammo_standard_bmg50_sm"}
   ]

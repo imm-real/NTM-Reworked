@@ -37,6 +37,9 @@ public final class StandardAmmoTypes {
             for (Shotgun12GaugeAmmoType type : Shotgun12GaugeAmmoType.values()) {
                 if (type.serializedName().equals(name)) return type;
             }
+            for (Shotgun10GaugeAmmoType type : Shotgun10GaugeAmmoType.values()) {
+                if (type.serializedName().equals(name)) return type;
+            }
             for (FortyMillimeterAmmoType type : FortyMillimeterAmmoType.values()) {
                 if (type.serializedName().equals(name)) return type;
             }
@@ -89,6 +92,9 @@ public final class StandardAmmoTypes {
         }
         if (metadata >= 58 && metadata <= 62) return RocketAmmoType.fromLegacyMetadata(metadata);
         if (metadata >= 41 && metadata <= 49) return Shotgun12GaugeAmmoType.fromLegacyMetadata(metadata);
+        if (metadata >= 78 && metadata <= 81 || metadata == 84) {
+            return Shotgun10GaugeAmmoType.fromLegacyMetadata(metadata);
+        }
         if (metadata == 50 || metadata >= 53 && metadata <= 57) {
             return FortyMillimeterAmmoType.fromLegacyMetadata(metadata);
         }

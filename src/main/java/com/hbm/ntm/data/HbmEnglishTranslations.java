@@ -893,6 +893,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_fatman", "Fat Man");
         language.addProperty("item.hbm.gun_bolter", "Bolter");
         language.addProperty("item.hbm.gun_folly", "Folly");
+        language.addProperty("item.hbm.gun_double_barrel", "An Old Classic");
         language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
         language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
         language.addProperty("item.hbm.ammo_standard.capacitor_ir", "Capacitor (Low Wavelength)");
@@ -908,6 +909,11 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.ammo_standard.b75", ".75 Bolt");
         language.addProperty("item.hbm.ammo_standard.b75_inc", ".75 Bolt (Incendiary)");
         language.addProperty("item.hbm.ammo_standard.b75_exp", ".75 Bolt (Explosive)");
+        language.addProperty("item.hbm.ammo_standard.g10", "10 Gauge Buckshot");
+        language.addProperty("item.hbm.ammo_standard.g10_du", "10 Gauge Uranium Buckshot");
+        language.addProperty("item.hbm.ammo_standard.g10_explosive", "10 Gauge Explosive Buckshot");
+        language.addProperty("item.hbm.ammo_standard.g10_shrapnel", "10 Gauge Shrapnel Buckshot");
+        language.addProperty("item.hbm.ammo_standard.g10_slug", "10 Gauge Slug");
         language.addProperty("entity.hbm.entity_bullet_mini_nuke", "Mini Nuke");
         language.addProperty("entity.hbm.entity_tesla_beam", "Tesla Beam");
         language.addProperty("entity.hbm.entity_tesla_impact", "Tesla Impact");
