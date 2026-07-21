@@ -165,7 +165,7 @@ public final class NI4NIItemRenderer extends BlockEntityWithoutLevelRenderer {
                 poses.scale(1.0F, -1.0F, -1.0F);
                 poses.mulPose(Axis.ZP.rotationDegrees(225.0F));
                 poses.mulPose(Axis.YP.rotationDegrees(90.0F));
-                poses.scale(0.3125F, 0.3125F, 0.3125F);
+                poses.scale(2.5F / 16.0F, 2.5F / 16.0F, 2.5F / 16.0F);
                 poses.mulPose(Axis.XP.rotationDegrees(25.0F));
                 poses.mulPose(Axis.YP.rotationDegrees(45.0F));
             }
