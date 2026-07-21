@@ -887,6 +887,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_lasrifle", "Laser Rifle");
         language.addProperty("item.hbm.gun_tau", "Tau Cannon");
         language.addProperty("item.hbm.gun_coilgun", "Coilgun");
+        language.addProperty("item.hbm.gun_n_i_4_n_i", "N I 4 N I");
         language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
         language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
         language.addProperty("item.hbm.ammo_standard.capacitor_ir", "Capacitor (Low Wavelength)");

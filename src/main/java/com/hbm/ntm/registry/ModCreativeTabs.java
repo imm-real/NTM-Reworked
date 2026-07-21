@@ -617,6 +617,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_LASRIFLE.get());
                         output.accept(ModItems.GUN_TAU.get());
                         output.accept(ModItems.GUN_COILGUN.get());
+                        output.accept(ModItems.GUN_N_I_4_N_I.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());

@@ -11,6 +11,8 @@ import com.hbm.ntm.entity.FortyMillimeterProjectileEntity;
 import com.hbm.ntm.entity.FlameProjectileEntity;
 import com.hbm.ntm.entity.LingeringFireEntity;
 import com.hbm.ntm.entity.LaserPistolBeamEntity;
+import com.hbm.ntm.entity.NI4NIBeamEntity;
+import com.hbm.ntm.entity.NI4NICoinEntity;
 import com.hbm.ntm.entity.RocketProjectileEntity;
 import com.hbm.ntm.entity.CogEntity;
 import com.hbm.ntm.entity.ChlorineCloudEntity;
@@ -267,6 +269,18 @@ public final class ModEntities {
                     () -> EntityType.Builder.<TauBeamEntity>of(TauBeamEntity::new, MobCategory.MISC)
                             .sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(1).noSave()
                             .build("hbm:entity_tau_beam"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<NI4NIBeamEntity>> NI4NI_BEAM =
+            ENTITY_TYPES.register("entity_ni4ni_beam",
+                    () -> EntityType.Builder.<NI4NIBeamEntity>of(NI4NIBeamEntity::new, MobCategory.MISC)
+                            .sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(1).noSave()
+                            .build("hbm:entity_ni4ni_beam"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<NI4NICoinEntity>> NI4NI_COIN =
+            ENTITY_TYPES.register("entity_coin",
+                    () -> EntityType.Builder.<NI4NICoinEntity>of(NI4NICoinEntity::new, MobCategory.MISC)
+                            .sized(1.0F, 1.0F).clientTrackingRange(63).updateInterval(1)
+                            .build("hbm:entity_coin"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<CogEntity>> COG = ENTITY_TYPES.register(
             "cog",

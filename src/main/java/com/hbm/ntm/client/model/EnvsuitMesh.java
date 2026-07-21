@@ -124,6 +124,23 @@ public final class EnvsuitMesh {
         }
     }
 
+    public void renderSolid(String group, PoseStack.Pose pose, VertexConsumer consumer,
+                            float scale, int color) {
+        List<Vertex> vertices = group(group);
+        for (int index = 0; index < vertices.size(); index += 3) {
+            emitSolid(vertices.get(index), pose, consumer, scale, color);
+            emitSolid(vertices.get(index + 1), pose, consumer, scale, color);
+            emitSolid(vertices.get(index + 2), pose, consumer, scale, color);
+            emitSolid(vertices.get(index + 2), pose, consumer, scale, color);
+        }
+    }
+
+    private static void emitSolid(Vertex vertex, PoseStack.Pose pose, VertexConsumer consumer,
+                                  float scale, int color) {
+        consumer.addVertex(pose, vertex.x() * scale, vertex.y() * scale, vertex.z() * scale)
+                .setColor(color);
+    }
+
     private static void emit(Vertex vertex, PoseStack.Pose pose, VertexConsumer consumer,
                              float scale, int packedLight, int packedOverlay, int color) {
         emitWithUv(vertex, pose, consumer, scale, packedLight, packedOverlay, color,
