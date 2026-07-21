@@ -8,7 +8,6 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 
-/** Long-lived source ash fleck left behind by energy-weapon disintegration. */
 public final class AshParticle extends TextureSheetParticle {
     private final float rollMomentum;
 

@@ -10,7 +10,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-/** Shared source ConfettiUtil path for lethal energy-weapon damage. */
 public final class WeaponDeathEffects {
     private static final String DISINTEGRATED = "hbm_disintegrated";
 

@@ -38,7 +38,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-/** Client half of the source AshesCreator + SkeletonCreator death presentation. */
 public final class ClientDisintegrationEffects {
     private static final ResourceLocation MODEL = id("models/effect/skeleton.obj");
     private static final ResourceLocation SKELETON = id("textures/particle/skeleton.png");

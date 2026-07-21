@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Set;
 
-/** Source grouped Lasrifle with its built-in scope and hand-authored Sedna buses. */
 public final class LasrifleItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation MODEL = id("models/weapons/lasrifle.obj");
     private static final ResourceLocation TEXTURE = id("textures/models/weapons/lasrifle.png");

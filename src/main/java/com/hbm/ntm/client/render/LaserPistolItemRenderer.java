@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Set;
 
-/** Source grouped Laser Pistol with its hand-authored Sedna animation buses. */
 public final class LaserPistolItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation MODEL = id("models/weapons/laser_pistol.obj");
     private static final ResourceLocation TEXTURE = id("textures/models/weapons/laser_pistol.png");

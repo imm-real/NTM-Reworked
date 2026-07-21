@@ -31,7 +31,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.List;
 import java.util.Locale;
 
-/** Source {@code XFactoryEnergy} ordinary, B-side, and legendary Laser Pistols. */
 public final class LaserPistolItem extends SednaGunItem {
     public static final int DURABILITY = 500;
     public static final int CAPACITY = 30;
@@ -480,6 +479,5 @@ public final class LaserPistolItem extends SednaGunItem {
 
     public enum GunState { DRAWING, IDLE, COOLDOWN, RELOADING, JAMMED }
 
-    /** Enum order is part of the item animation protocol. */
     public enum GunAnimation { CYCLE, CYCLE_DRY, EQUIP, RELOAD, JAMMED, INSPECT }
 }

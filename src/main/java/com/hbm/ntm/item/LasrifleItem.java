@@ -32,7 +32,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.List;
 import java.util.Locale;
 
-/** Source {@code XFactoryEnergy} Lasrifle with its unmodified receiver. */
 public final class LasrifleItem extends SednaGunItem {
     public static final int DURABILITY = 2_000;
     public static final int CAPACITY = 24;
@@ -377,6 +376,5 @@ public final class LasrifleItem extends SednaGunItem {
 
     public enum GunState { DRAWING, IDLE, COOLDOWN, RELOADING, JAMMED }
 
-    /** Enum order is part of the item animation protocol. */
     public enum GunAnimation { CYCLE, CYCLE_DRY, EQUIP, RELOAD, JAMMED, INSPECT }
 }

@@ -34,7 +34,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-/** Five-tick beam shared by the Laser Pistol family's capacitor profiles. */
 public final class LaserPistolBeamEntity extends Projectile {
     public static final double RANGE = 250.0D;
     public static final int LIFETIME = 5;

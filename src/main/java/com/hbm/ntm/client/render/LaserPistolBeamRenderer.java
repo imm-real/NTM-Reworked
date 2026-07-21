@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
-/** Source four-layer, fullbright red or emerald Laser Pistol beam. */
 public final class LaserPistolBeamRenderer extends EntityRenderer<LaserPistolBeamEntity> {
     private static final RenderType TYPE = RenderType.create(
             "hbm_laser_pistol_beam", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 2048,

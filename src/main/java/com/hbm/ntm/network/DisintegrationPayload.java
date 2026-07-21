@@ -10,7 +10,6 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.function.BiConsumer;
 
-/** Tells nearby clients to replace a dead victim with the old ash-and-bones effect. */
 public record DisintegrationPayload(int entityId, boolean cremate) implements CustomPacketPayload {
     private static BiConsumer<Integer, Boolean> clientHandler = (entityId, cremate) -> { };
     public static final Type<DisintegrationPayload> TYPE = new Type<>(
