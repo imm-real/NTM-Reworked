@@ -10,6 +10,7 @@ import com.hbm.ntm.item.WeldedPlateItem;
 import com.hbm.ntm.recipe.ArcWelderRecipes;
 import com.hbm.ntm.recipe.AssemblyRecipes;
 import com.hbm.ntm.recipe.ChemicalPlantRecipes;
+import com.hbm.ntm.recipe.ShredderRecipes;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,6 +18,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -173,6 +175,39 @@ public final class DeshDependencyGameTests {
         ItemStack cast = FoundryMaterial.DESH.output(FoundryMoldItem.Mold.BLOCK);
         check(helper, cast.is(block.asItem()) && cast.getCount() == 1,
                 "The Foundry must cast 648mB of Desh back into a Reinforced Block of Desh");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void deshPowderMatchesSource(GameTestHelper helper) {
+        var powder = ModItems.get("powder_desh").get();
+        check(helper, powder != null, "powder_desh must be registered");
+        check(helper, new ItemStack(powder).is(ItemTags.create(
+                        ResourceLocation.fromNamespaceAndPath("c", "dusts/desh"))),
+                "powder_desh must carry the c:dusts/desh common tag");
+
+        ItemStack fromIngot = ShredderRecipes.getResult(new ItemStack(ModItems.get("ingot_desh").get()));
+        check(helper, fromIngot.is(powder) && fromIngot.getCount() == 1,
+                "Shredding a Desh Ingot must yield one Desh Powder");
+
+        ItemStack fromBlock = ShredderRecipes.getResult(new ItemStack(ModItems.getBlockItem("block_desh").get()));
+        check(helper, fromBlock.is(powder) && fromBlock.getCount() == 9,
+                "Shredding a Reinforced Block of Desh must yield nine Desh Powder");
+
+        ItemStack fromPowder = ShredderRecipes.getResult(new ItemStack(powder));
+        check(helper, fromPowder.is(ModItems.get("dust").get()),
+                "Desh Powder must itself shred to scrap dust like every dust");
+
+        var smelt = helper.getLevel().getRecipeManager().byKey(id("ingot_desh_from_powder"));
+        ItemStack smelted = smelt.map(r -> r.value()
+                .getResultItem(helper.getLevel().registryAccess())).orElse(ItemStack.EMPTY);
+        check(helper, smelted.is(ModItems.get("ingot_desh").get()),
+                "Desh Powder must smelt back into a Desh Ingot");
+
+        FoundryMaterial.MaterialAmount melt = FoundryMaterial.fromItem(new ItemStack(powder));
+        check(helper, melt != null && melt.material() == FoundryMaterial.DESH
+                        && melt.amount() == FoundryMaterial.INGOT,
+                "Desh Powder must melt in the Foundry as one Desh ingot quantum");
         helper.succeed();
     }
 

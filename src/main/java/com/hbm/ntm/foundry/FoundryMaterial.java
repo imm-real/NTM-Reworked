@@ -309,7 +309,8 @@ public enum FoundryMaterial {
                 && CastPlateItem.material(stack) == CastPlateItem.CastPlateMaterial.DURA_STEEL) {
             return new MaterialAmount(DURA_STEEL, CAST_PLATE);
         }
-        if (stack.is(ModItems.get("ingot_desh").get())) return new MaterialAmount(DESH, INGOT);
+        if (stack.is(ModItems.get("ingot_desh").get())
+                || stack.is(ModItems.get("powder_desh").get())) return new MaterialAmount(DESH, INGOT);
         if (stack.is(ModItems.getBlockItem("block_desh").get())) return new MaterialAmount(DESH, BLOCK);
         if (stack.is(ModItems.get("ingot_ferrouranium").get())) return new MaterialAmount(FERROURANIUM, INGOT);
         if (stack.is(ModItems.get("ingot_tcalloy").get())

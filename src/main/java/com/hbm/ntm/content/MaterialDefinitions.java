@@ -140,6 +140,7 @@ public final class MaterialDefinitions {
             new ItemDefinition("powder_cobalt", "Cobalt Powder", ItemForm.DUST, "cobalt"),
             new ItemDefinition("powder_cobalt_tiny", "Tiny Pile of Cobalt Powder", ItemForm.MISC, null),
             new ItemDefinition("powder_niobium", "Niobium Powder", ItemForm.DUST, "niobium"),
+            new ItemDefinition("powder_desh", "Desh Powder", ItemForm.DUST, "desh"),
             new ItemDefinition("powder_desh_mix", "Desh Blend", ItemForm.MISC, null),
             new ItemDefinition("powder_polymer", "Polymer Powder", ItemForm.DUST, "polymer"),
             new ItemDefinition("powder_magnetized_tungsten", "Magnetized Tungsten Powder", ItemForm.DUST, "magnetized_tungsten"),
