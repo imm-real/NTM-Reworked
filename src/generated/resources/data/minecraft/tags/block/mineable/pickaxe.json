@@ -43,6 +43,7 @@
     "hbm:block_niobium",
     "hbm:block_zirconium",
     "hbm:block_boron",
+    "hbm:block_desh",
     "hbm:block_polymer",
     "hbm:block_bakelite",
     "hbm:block_rubber",

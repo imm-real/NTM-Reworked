@@ -187,6 +187,7 @@ public final class MaterialDefinitions {
             block("block_niobium", "Block of Niobium", SoundType.METAL, 5.0F, 50.0F, "ingot_niobium", "niobium"),
             block("block_zirconium", "Block of Zirconium", SoundType.METAL, 5.0F, 30.0F, "ingot_zirconium", "zirconium"),
             block("block_boron", "Block of Boron", SoundType.METAL, 5.0F, 10.0F, "ingot_boron", "boron"),
+            block("block_desh", "Reinforced Block of Desh", SoundType.METAL, 5.0F, 300.0F, "ingot_desh", "desh"),
             rockBlock("block_polymer", "Block of Polymer", 3.0F, 10.0F, "ingot_polymer", "polymer"),
             rockBlock("block_bakelite", "Block of Bakelite", 3.0F, 5.0F, null, "bakelite"),
             rockBlock("block_rubber", "Block of Rubber", 3.0F, 15.0F, "ingot_rubber", "rubber"),

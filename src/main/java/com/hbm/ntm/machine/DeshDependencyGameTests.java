@@ -5,16 +5,23 @@ import com.hbm.ntm.anvil.AnvilRecipes;
 import com.hbm.ntm.foundry.FoundryMaterial;
 import com.hbm.ntm.item.CastPlateItem;
 import com.hbm.ntm.item.DenseWireItem;
+import com.hbm.ntm.item.FoundryMoldItem;
 import com.hbm.ntm.item.WeldedPlateItem;
 import com.hbm.ntm.recipe.ArcWelderRecipes;
 import com.hbm.ntm.recipe.AssemblyRecipes;
 import com.hbm.ntm.recipe.ChemicalPlantRecipes;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -131,6 +138,41 @@ public final class DeshDependencyGameTests {
                             .getResultItem(helper.getLevel().registryAccess()).isEmpty(),
                     "Generated source recipe hbm:" + name + " must load");
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void deshStorageBlockMatchesSource(GameTestHelper helper) {
+        Block block = BuiltInRegistries.BLOCK.get(id("block_desh"));
+        check(helper, block != Blocks.AIR, "block_desh must be registered");
+        BlockState state = block.defaultBlockState();
+        check(helper, block.defaultDestroyTime() == 5.0F, "block_desh hardness must be the source 5.0");
+        check(helper, Math.abs(block.getExplosionResistance() - 180.0F) < 0.01F,
+                "block_desh must keep the modern 180 resistance (legacy 300)");
+        check(helper, state.getSoundType() == SoundType.METAL, "block_desh must keep the metal step sound");
+        check(helper, state.is(BlockTags.BEACON_BASE_BLOCKS),
+                "block_desh must remain a beacon base, matching the source BlockBeaconable");
+
+        var compress = helper.getLevel().getRecipeManager().byKey(id("desh_block"));
+        ItemStack compressed = compress.map(r -> r.value()
+                .getResultItem(helper.getLevel().registryAccess())).orElse(ItemStack.EMPTY);
+        check(helper, compressed.is(block.asItem()) && compressed.getCount() == 1,
+                "Nine Desh Ingots must craft one Reinforced Block of Desh");
+
+        var decompress = helper.getLevel().getRecipeManager().byKey(id("ingot_desh_from_block_desh"));
+        ItemStack loose = decompress.map(r -> r.value()
+                .getResultItem(helper.getLevel().registryAccess())).orElse(ItemStack.EMPTY);
+        check(helper, loose.is(ModItems.get("ingot_desh").get()) && loose.getCount() == 9,
+                "One Reinforced Block of Desh must uncraft into nine Desh Ingots");
+
+        FoundryMaterial.MaterialAmount melt = FoundryMaterial.fromItem(new ItemStack(block.asItem()));
+        check(helper, melt != null && melt.material() == FoundryMaterial.DESH
+                        && melt.amount() == FoundryMaterial.BLOCK && FoundryMaterial.BLOCK == 648,
+                "block_desh must melt as 648mB of Desh");
+
+        ItemStack cast = FoundryMaterial.DESH.output(FoundryMoldItem.Mold.BLOCK);
+        check(helper, cast.is(block.asItem()) && cast.getCount() == 1,
+                "The Foundry must cast 648mB of Desh back into a Reinforced Block of Desh");
         helper.succeed();
     }
 

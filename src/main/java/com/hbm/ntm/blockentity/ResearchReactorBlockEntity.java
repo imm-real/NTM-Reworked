@@ -220,6 +220,11 @@ public final class ResearchReactorBlockEntity extends BlockEntity
     private boolean blocksRadiation(BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getFluidState().is(FluidTags.WATER) && state.getFluidState().isSource()) return true;
+        return isRadiationShieldingBlock(state);
+    }
+
+    /** The source shielding whitelist plus the resistance fallback, minus the source-water case. */
+    public static boolean isRadiationShieldingBlock(BlockState state) {
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
         if (id.equals(BLOCK_LEAD) || id.equals(BLOCK_DESH) || id.equals(ResearchReactorBlock.BLOCK_ID)
                 || id.equals(BREEDER)) return true;

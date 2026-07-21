@@ -310,6 +310,7 @@ public enum FoundryMaterial {
             return new MaterialAmount(DURA_STEEL, CAST_PLATE);
         }
         if (stack.is(ModItems.get("ingot_desh").get())) return new MaterialAmount(DESH, INGOT);
+        if (stack.is(ModItems.getBlockItem("block_desh").get())) return new MaterialAmount(DESH, BLOCK);
         if (stack.is(ModItems.get("ingot_ferrouranium").get())) return new MaterialAmount(FERROURANIUM, INGOT);
         if (stack.is(ModItems.get("ingot_tcalloy").get())
                 || stack.is(ModItems.get("powder_tcalloy").get())) {
@@ -550,6 +551,7 @@ public enum FoundryMaterial {
             case BISMUTH -> new ItemStack(ModItems.getBlockItem("block_bismuth").get());
             case RED_COPPER -> new ItemStack(ModItems.getBlockItem("block_red_copper").get());
             case STEEL -> new ItemStack(ModItems.getBlockItem("block_steel").get());
+            case DESH -> new ItemStack(ModItems.getBlockItem("block_desh").get());
             case TECHNETIUM_STEEL -> new ItemStack(ModItems.getBlockItem("block_tcalloy").get());
             case CADMIUM_STEEL -> new ItemStack(ModItems.getBlockItem("block_cdalloy").get());
             case MAGNETIZED_TUNGSTEN -> new ItemStack(ModItems.getBlockItem("block_magnetized_tungsten").get());
