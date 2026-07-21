@@ -24,6 +24,8 @@ public final class CrackingRecipes {
 
     public static int recipeCount() { return RECIPES.size(); }
 
+    public static List<CrackingRecipe> all() { return RECIPES; }
+
     public record CrackingRecipe(Supplier<? extends Fluid> input, int inputAmount,
                                  Supplier<? extends Fluid> outputLeft, int outputLeftAmount,
                                  Supplier<? extends Fluid> outputRight, int outputRightAmount) { }

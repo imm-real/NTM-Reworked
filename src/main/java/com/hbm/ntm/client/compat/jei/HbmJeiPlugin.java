@@ -13,6 +13,10 @@ import com.hbm.ntm.recipe.CentrifugeRecipes;
 import com.hbm.ntm.recipe.CentrifugeRecipes.CentrifugeRecipe;
 import com.hbm.ntm.recipe.ChemicalPlantRecipes;
 import com.hbm.ntm.recipe.ChemicalPlantRecipes.ChemicalRecipe;
+import com.hbm.ntm.recipe.CrackingRecipes;
+import com.hbm.ntm.recipe.CrackingRecipes.CrackingRecipe;
+import com.hbm.ntm.recipe.FractionRecipes;
+import com.hbm.ntm.recipe.FractionRecipes.FractionRecipe;
 import com.hbm.ntm.recipe.PressRecipes;
 import com.hbm.ntm.recipe.ShredderRecipes;
 import com.hbm.ntm.recipe.ShredderRecipes.ShredderRecipe;
@@ -43,6 +47,12 @@ public final class HbmJeiPlugin implements IModPlugin {
             RecipeType.create(HbmNtm.MOD_ID, "centrifuge", CentrifugeRecipe.class);
     public static final RecipeType<ShredderRecipe> SHREDDER =
             RecipeType.create(HbmNtm.MOD_ID, "shredder", ShredderRecipe.class);
+    public static final RecipeType<CrackingRecipe> CRACKING =
+            RecipeType.create(HbmNtm.MOD_ID, "cracking", CrackingRecipe.class);
+    public static final RecipeType<FractionRecipe> FRACTION =
+            RecipeType.create(HbmNtm.MOD_ID, "fraction", FractionRecipe.class);
+    public static final RecipeType<RefineryJeiRecipe> REFINERY =
+            RecipeType.create(HbmNtm.MOD_ID, "refinery", RefineryJeiRecipe.class);
 
     private static final ResourceLocation UID =
             ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "jei");
@@ -64,7 +74,10 @@ public final class HbmJeiPlugin implements IModPlugin {
                 new PressRecipeCategory(gui),
                 new ChemicalPlantRecipeCategory(gui),
                 new CentrifugeRecipeCategory(gui),
-                new ShredderRecipeCategory(gui));
+                new ShredderRecipeCategory(gui),
+                new CrackingRecipeCategory(gui),
+                new FractionRecipeCategory(gui),
+                new RefineryRecipeCategory(gui));
     }
 
     @Override
@@ -74,6 +87,9 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipes(CHEMICAL_PLANT, ChemicalPlantRecipes.all());
         registration.addRecipes(CENTRIFUGE, CentrifugeRecipes.all());
         registration.addRecipes(SHREDDER, ShredderRecipes.all());
+        registration.addRecipes(CRACKING, CrackingRecipes.all());
+        registration.addRecipes(FRACTION, FractionRecipes.all());
+        registration.addRecipes(REFINERY, RefineryJeiRecipe.all());
         registeredAssemblyRecipes = AssemblyClientRecipes.all();
         registration.addRecipes(ASSEMBLY, registeredAssemblyRecipes);
     }
@@ -92,6 +108,9 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(CHEMICAL_PLANT, ModItems.MACHINE_CHEMICAL_PLANT_ITEM.get());
         registration.addRecipeCatalysts(CENTRIFUGE, ModItems.MACHINE_CENTRIFUGE_ITEM.get());
         registration.addRecipeCatalysts(SHREDDER, ModItems.MACHINE_SHREDDER_ITEM.get());
+        registration.addRecipeCatalysts(CRACKING, ModItems.MACHINE_CATALYTIC_CRACKER_ITEM.get());
+        registration.addRecipeCatalysts(FRACTION, ModItems.MACHINE_FRACTION_TOWER_ITEM.get());
+        registration.addRecipeCatalysts(REFINERY, ModItems.MACHINE_REFINERY_ITEM.get());
     }
 
     @Override
