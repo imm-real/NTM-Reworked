@@ -891,6 +891,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_coilgun", "Coilgun");
         language.addProperty("item.hbm.gun_n_i_4_n_i", "N I 4 N I");
         language.addProperty("item.hbm.gun_fatman", "Fat Man");
+        language.addProperty("item.hbm.gun_bolter", "Bolter");
         language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
         language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
         language.addProperty("item.hbm.ammo_standard.capacitor_ir", "Capacitor (Low Wavelength)");
@@ -903,6 +904,9 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.ammo_standard.nuke_tots", "Mini Nuke, Tiny Tots");
         language.addProperty("item.hbm.ammo_standard.nuke_hive", "Rocket Hive");
         language.addProperty("item.hbm.ammo_standard.nuke_balefire", "Mini Nuke, Balefire Egg");
+        language.addProperty("item.hbm.ammo_standard.b75", ".75 Bolt");
+        language.addProperty("item.hbm.ammo_standard.b75_inc", ".75 Bolt (Incendiary)");
+        language.addProperty("item.hbm.ammo_standard.b75_exp", ".75 Bolt (Explosive)");
         language.addProperty("entity.hbm.entity_bullet_mini_nuke", "Mini Nuke");
         language.addProperty("entity.hbm.entity_tesla_beam", "Tesla Beam");
         language.addProperty("entity.hbm.entity_tesla_impact", "Tesla Impact");

@@ -207,9 +207,17 @@ public final class BulletEntity extends Projectile {
                     discardWithFinalTeleport();
                     return;
                 }
+                if (ammoType().impactExplosionRadius() > 0.0F
+                        && ammoType().explodesBeforeDirectHit()
+                        && !(nearest.entity() == getOwner()
+                        && ammoType().tinyImpactExplosion() && tickCount < 3)) {
+                    explodeAt(nearest.location(), null);
+                    return;
+                }
                 hitEntity(nearest.entity(), nearest.location());
-                if (ammoType().impactExplosionRadius() > 0.0F) {
-                    explodeAt(nearest.location());
+                if (ammoType().impactExplosionRadius() > 0.0F
+                        && !ammoType().explodesBeforeDirectHit()) {
+                    explodeAt(nearest.location(), null);
                     return;
                 }
                 if (nearest.entity() instanceof LivingEntity) {
@@ -228,7 +236,7 @@ public final class BulletEntity extends Projectile {
                 return;
             }
             if (ammoType().impactExplosionRadius() > 0.0F) {
-                explodeAt(blockHit.getLocation());
+                explodeAt(blockHit.getLocation(), blockHit.getDirection());
                 return;
             }
             hitBlock(blockHit, movement);
@@ -306,11 +314,14 @@ public final class BulletEntity extends Projectile {
 
         float healthBefore = living.getHealth();
         Vec3 previousMotion = living.getDeltaMovement();
+        int phosphorusTicks = incendiary() ? 300 : ammoType().phosphorusTicks();
+        if (phosphorusTicks > 0 && ammoType().phosphorusOnImpact()) {
+            WeaponStatusEvents.applyPhosphorus(living, phosphorusTicks);
+        }
         living.invulnerableTime = 0;
         boolean hurt = living.hurt(source, appliedDamage);
         living.setDeltaMovement(previousMotion);
-        int phosphorusTicks = incendiary() ? 300 : ammoType().phosphorusTicks();
-        if (hurt && phosphorusTicks > 0) {
+        if (hurt && phosphorusTicks > 0 && !ammoType().phosphorusOnImpact()) {
             WeaponStatusEvents.applyPhosphorus(living, phosphorusTicks);
         }
         if (hurt && owner != null) {
@@ -361,14 +372,18 @@ public final class BulletEntity extends Projectile {
         return (low + high) * 0.5F;
     }
 
-    /** Range-two meat explosion; blocks are innocent this time. */
-    private void explodeAt(Vec3 center) {
+    private void explodeAt(Vec3 center, Direction impactFace) {
         if (!(level() instanceof ServerLevel level)) {
             discardWithFinalTeleport();
             return;
         }
         SednaAmmoType ammo = ammoType();
-        double range = ammo.impactExplosionRadius() * 2.0D;
+        if (ammo.tinyImpactExplosion() && impactFace != null) {
+            center = center.add(Vec3.atLowerCornerOf(impactFace.getNormal()).scale(0.25D));
+        }
+        double range = ammo.impactExplosionRange();
+        double nodeDistance = ammo.tinyImpactExplosion() ? 0.5D : 1.0D;
+        double knockback = ammo.tinyImpactExplosion() ? 0.25D : 1.0D;
         Entity owner = getOwner();
         var source = level.damageSources().explosion(this, owner);
         AABB area = new AABB(center, center).inflate(range + 1.0D);
@@ -379,7 +394,7 @@ public final class BulletEntity extends Projectile {
             double closestZ = Mth.clamp(center.z, bounds.minZ, bounds.maxZ);
             double distance = center.distanceTo(new Vec3(closestX, closestY, closestZ));
             double scaled = distance / range;
-            float density = exposure(center, target);
+            float density = exposure(center, target, nodeDistance);
             if (scaled > 1.0D || density < 0.125F) continue;
 
             float amount = (float) (damage() * (1.0D - scaled));
@@ -394,22 +409,33 @@ public final class BulletEntity extends Projectile {
                 Vec3 push = target.getEyePosition().subtract(center);
                 if (push.lengthSqr() > 1.0E-6D) {
                     target.setDeltaMovement(target.getDeltaMovement().add(
-                            push.normalize().scale((1.0D - scaled) * density)));
+                            push.normalize().scale((1.0D - scaled) * density * knockback)));
                 }
             }
         }
-        PacketDistributor.sendToPlayersNear(level, null, center.x, center.y, center.z, 200.0D,
-                new ChargeBlastPayload(center.x, center.y, center.z, false));
+        if (ammo.tinyImpactExplosion()) {
+            level.playSound(null, center.x, center.y, center.z, ModSounds.GUN_EXPLOSION_TINY.get(),
+                    SoundSource.PLAYERS, 15.0F, 1.0F);
+            level.sendParticles(ParticleTypes.EXPLOSION, center.x, center.y, center.z,
+                    1, 0.0D, 0.0D, 0.0D, 0.0D);
+        } else {
+            PacketDistributor.sendToPlayersNear(level, null, center.x, center.y, center.z, 200.0D,
+                    new ChargeBlastPayload(center.x, center.y, center.z, false));
+        }
         setPos(center);
         discardWithFinalTeleport();
     }
 
     private static float exposure(Vec3 center, Entity target) {
+        return exposure(center, target, 1.0D);
+    }
+
+    private static float exposure(Vec3 center, Entity target, double distance) {
         Vec3[] nodes = {
                 center,
-                center.add(1.0D, 0.0D, 0.0D), center.add(-1.0D, 0.0D, 0.0D),
-                center.add(0.0D, 1.0D, 0.0D), center.add(0.0D, -1.0D, 0.0D),
-                center.add(0.0D, 0.0D, 1.0D), center.add(0.0D, 0.0D, -1.0D)
+                center.add(distance, 0.0D, 0.0D), center.add(-distance, 0.0D, 0.0D),
+                center.add(0.0D, distance, 0.0D), center.add(0.0D, -distance, 0.0D),
+                center.add(0.0D, 0.0D, distance), center.add(0.0D, 0.0D, -distance)
         };
         float density = 0.0F;
         for (Vec3 node : nodes) {

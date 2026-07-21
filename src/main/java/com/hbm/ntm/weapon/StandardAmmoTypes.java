@@ -49,6 +49,9 @@ public final class StandardAmmoTypes {
             for (FiftyCalAmmoType type : FiftyCalAmmoType.values()) {
                 if (type.serializedName().equals(name)) return type;
             }
+            for (Bolt75AmmoType type : Bolt75AmmoType.values()) {
+                if (type.serializedName().equals(name)) return type;
+            }
             for (EnergyAmmoType type : EnergyAmmoType.values()) {
                 if (type.serializedName().equals(name)) return type;
             }
@@ -76,6 +79,7 @@ public final class StandardAmmoTypes {
             return FiftyCalAmmoType.fromLegacyMetadata(metadata);
         }
         if (metadata == 104 || metadata == 106) return FiftyCalAmmoType.fromLegacyBulletConfig(metadata);
+        if (metadata >= 38 && metadata <= 40) return Bolt75AmmoType.fromLegacyMetadata(metadata);
         if (metadata >= 63 && metadata <= 66) return FlamerFuelType.fromLegacyMetadata(metadata);
         if (metadata >= 67 && metadata <= 69) return EnergyAmmoType.fromLegacyMetadata(metadata);
         if (metadata == 70) return TauAmmoType.fromLegacyMetadata(metadata);

@@ -56,6 +56,8 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> NUCLEAR_EXPLOSION = register("weapon.nuclear_explosion");
     // Source Landmine mine_fat blast: hbm:weapon.mukeExplosion (the mini-nuke "muke" report).
     public static final DeferredHolder<SoundEvent, SoundEvent> MUKE_EXPLOSION = register("weapon.muke_explosion");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_EXPLOSION_TINY =
+            register("weapon.explosion_tiny");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_POWDER_FIRE = register("weapon.fire.blackpowder");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_PISTOL_FIRE = register("weapon.fire.pistol");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_RIFLE_FIRE = register("weapon.fire.rifle");

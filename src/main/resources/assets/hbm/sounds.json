@@ -115,6 +115,13 @@
     "category": "block",
     "sounds": [{"name": "hbm:weapon/muke_explosion", "stream": false}]
   },
+  "weapon.explosion_tiny": {
+    "category": "player",
+    "sounds": [
+      {"name": "hbm:weapon/explosion_tiny1", "stream": false},
+      {"name": "hbm:weapon/explosion_tiny2", "stream": false}
+    ]
+  },
   "weapon.fire.fatman": {
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/fatman", "stream": false}]

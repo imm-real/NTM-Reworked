@@ -28,7 +28,11 @@ public interface SednaAmmoType {
     default float wear() { return 1.0F; }
     default boolean blackPowder() { return false; }
     default float impactExplosionRadius() { return 0.0F; }
+    default double impactExplosionRange() { return impactExplosionRadius() * 2.0D; }
+    default boolean explodesBeforeDirectHit() { return false; }
+    default boolean tinyImpactExplosion() { return false; }
     default int phosphorusTicks() { return 0; }
+    default boolean phosphorusOnImpact() { return false; }
     default boolean spectral() { return false; }
     default double projectileSpeed() { return 10.0D; }
     default int projectileLifetime() { return 30; }

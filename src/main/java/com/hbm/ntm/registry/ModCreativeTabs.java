@@ -23,6 +23,7 @@ import com.hbm.ntm.item.WireFineItem;
 import com.hbm.ntm.item.WeldedPlateItem;
 import com.hbm.ntm.item.CircuitItem;
 import com.hbm.ntm.weapon.Magnum357AmmoType;
+import com.hbm.ntm.weapon.Bolt75AmmoType;
 import com.hbm.ntm.weapon.Magnum44AmmoType;
 import com.hbm.ntm.weapon.NineMillimeterAmmoType;
 import com.hbm.ntm.weapon.FortyMillimeterAmmoType;
@@ -622,6 +623,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_COILGUN.get());
                         output.accept(ModItems.GUN_N_I_4_N_I.get());
                         output.accept(ModItems.GUN_FATMAN.get());
+                        output.accept(ModItems.GUN_BOLTER.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());
@@ -673,6 +675,9 @@ public final class ModCreativeTabs {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
                         }
                         for (MiniNukeAmmoType type : MiniNukeAmmoType.values()) {
+                            output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
+                        }
+                        for (Bolt75AmmoType type : Bolt75AmmoType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
                         }
                     })

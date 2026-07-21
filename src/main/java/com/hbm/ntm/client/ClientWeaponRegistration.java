@@ -10,6 +10,7 @@ import com.hbm.ntm.client.render.B92ItemRenderer;
 import com.hbm.ntm.client.render.B93BeamRenderer;
 import com.hbm.ntm.client.render.B93ItemRenderer;
 import com.hbm.ntm.client.render.BlackHoleRenderer;
+import com.hbm.ntm.client.render.BolterItemRenderer;
 import com.hbm.ntm.client.render.BreakActionRevolverItemRenderer;
 import com.hbm.ntm.client.render.BrokenMaresLegItemRenderer;
 import com.hbm.ntm.client.render.BulletRenderer;
@@ -592,6 +593,7 @@ public final class ClientWeaponRegistration {
         event.registerItem(weaponExtension(new CoilgunItemRenderer()), ModItems.GUN_COILGUN.get());
         event.registerItem(weaponExtension(new NI4NIItemRenderer()), ModItems.GUN_N_I_4_N_I.get());
         event.registerItem(weaponExtension(new FatManItemRenderer()), ModItems.GUN_FATMAN.get());
+        event.registerItem(weaponExtension(new BolterItemRenderer()), ModItems.GUN_BOLTER.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(ResourceLocation.fromNamespaceAndPath(
                 "hbm", "textures/models/weapons/amat_subtlety.png"))), ModItems.GUN_AMAT_SUBTLETY.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(PenanceItem.PENANCE_TEXTURE, true)),
