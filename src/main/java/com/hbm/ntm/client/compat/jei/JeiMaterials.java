@@ -7,6 +7,9 @@ import com.hbm.ntm.registry.ModItems;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Maps a Crucible {@link FoundryMaterial.MaterialAmount} to the item a player actually feeds, so the
  * JEI page shows clickable icons. Most materials use {@link FoundryMaterial#ingot()}/{@code nugget()};
@@ -56,17 +59,17 @@ final class JeiMaterials {
                 Math.max(1, amount / FoundryMaterial.INGOT));
     }
 
-    /** The exact crucible amount in the machine's own units, e.g. "2I", "5N", "1I 3N". */
-    static String compactAmount(int amount) {
+    /** The exact crucible amount in the machine's own words, matching the Crucible GUI tooltip. */
+    static String friendlyAmount(int amount) {
         int ingots = amount / FoundryMaterial.INGOT;
         amount -= ingots * FoundryMaterial.INGOT;
         int nuggets = amount / FoundryMaterial.NUGGET;
         amount -= nuggets * FoundryMaterial.NUGGET;
-        StringBuilder builder = new StringBuilder();
-        if (ingots > 0) builder.append(ingots).append('I');
-        if (nuggets > 0) builder.append(builder.isEmpty() ? "" : " ").append(nuggets).append('N');
-        if (amount > 0) builder.append(builder.isEmpty() ? "" : " ").append(amount).append('Q');
-        return builder.isEmpty() ? "0" : builder.toString();
+        List<String> parts = new ArrayList<>();
+        if (ingots > 0) parts.add(ingots + (ingots == 1 ? " Ingot" : " Ingots"));
+        if (nuggets > 0) parts.add(nuggets + (nuggets == 1 ? " Nugget" : " Nuggets"));
+        if (amount > 0) parts.add(amount + (amount == 1 ? " Quantum" : " Quanta"));
+        return parts.isEmpty() ? "0" : String.join(", ", parts);
     }
 }
 

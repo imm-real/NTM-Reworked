@@ -5,12 +5,14 @@ import com.hbm.ntm.foundry.FoundryMaterial;
 import com.hbm.ntm.recipe.CrucibleRecipes.Recipe;
 import com.hbm.ntm.registry.ModItems;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -20,10 +22,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public final class CrucibleRecipeCategory implements IRecipeCategory<Recipe> {
-    private static final int[] INPUT_X = {6, 24, 6, 24};
-    private static final int[] INPUT_Y = {4, 4, 34, 34};
-    private static final int[] OUTPUT_X = {96, 96};
-    private static final int[] OUTPUT_Y = {4, 34};
+    // Three-column input grid on the left, output grid on the right, matching the 1.7.10 NEI handler.
+    private static final int[] INPUT_X = {6, 24, 42, 6};
+    private static final int[] INPUT_Y = {4, 4, 4, 22};
+    private static final int[] OUTPUT_X = {100, 118};
+    private static final int[] OUTPUT_Y = {4, 4};
 
     private final IDrawable icon;
     private final IDrawable arrow;
@@ -45,12 +48,12 @@ public final class CrucibleRecipeCategory implements IRecipeCategory<Recipe> {
 
     @Override
     public int getWidth() {
-        return 172;
+        return 180;
     }
 
     @Override
     public int getHeight() {
-        return 78;
+        return 58;
     }
 
     @Override
@@ -60,37 +63,35 @@ public final class CrucibleRecipeCategory implements IRecipeCategory<Recipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, Recipe recipe, IFocusGroup focuses) {
-        List<FoundryMaterial.MaterialAmount> inputs = recipe.inputs();
-        for (int i = 0; i < inputs.size() && i < INPUT_X.length; i++) {
-            ItemStack stack = JeiMaterials.crucibleStack(inputs.get(i));
+        place(builder, recipe.inputs(), true, INPUT_X, INPUT_Y);
+        place(builder, recipe.outputs(), false, OUTPUT_X, OUTPUT_Y);
+    }
+
+    private static void place(IRecipeLayoutBuilder builder, List<FoundryMaterial.MaterialAmount> amounts,
+                              boolean input, int[] xs, int[] ys) {
+        for (int i = 0; i < amounts.size() && i < xs.length; i++) {
+            ItemStack stack = JeiMaterials.crucibleStack(amounts.get(i));
             if (stack.isEmpty()) continue;
-            builder.addInputSlot(INPUT_X[i], INPUT_Y[i]).setStandardSlotBackground().addItemStack(stack);
-        }
-        List<FoundryMaterial.MaterialAmount> outputs = recipe.outputs();
-        for (int i = 0; i < outputs.size() && i < OUTPUT_X.length; i++) {
-            ItemStack stack = JeiMaterials.crucibleStack(outputs.get(i));
-            if (stack.isEmpty()) continue;
-            builder.addOutputSlot(OUTPUT_X[i], OUTPUT_Y[i]).setOutputSlotBackground().addItemStack(stack);
+            String amount = JeiMaterials.friendlyAmount(amounts.get(i).amount());
+            IRecipeSlotBuilder slot = input ? builder.addInputSlot(xs[i], ys[i])
+                    : builder.addOutputSlot(xs[i], ys[i]);
+            if (input) {
+                slot.setStandardSlotBackground();
+            } else {
+                slot.setOutputSlotBackground();
+            }
+            slot.addItemStack(stack);
+            slot.addRichTooltipCallback((view, tooltip) ->
+                    tooltip.add(Component.literal(amount).withStyle(ChatFormatting.GRAY)));
         }
     }
 
     @Override
     public void draw(Recipe recipe, IRecipeSlotsView slots, GuiGraphics graphics,
                      double mouseX, double mouseY) {
-        arrow.draw(graphics, 50, 18);
+        arrow.draw(graphics, 66, 6);
         var font = Minecraft.getInstance().font;
-        List<FoundryMaterial.MaterialAmount> inputs = recipe.inputs();
-        for (int i = 0; i < inputs.size() && i < INPUT_X.length; i++) {
-            graphics.drawString(font, JeiMaterials.compactAmount(inputs.get(i).amount()),
-                    INPUT_X[i], INPUT_Y[i] + 18, 0x606060, false);
-        }
-        List<FoundryMaterial.MaterialAmount> outputs = recipe.outputs();
-        for (int i = 0; i < outputs.size() && i < OUTPUT_X.length; i++) {
-            graphics.drawString(font, JeiMaterials.compactAmount(outputs.get(i).amount()),
-                    OUTPUT_X[i], OUTPUT_Y[i] + 18, 0x606060, false);
-        }
-        Component name = Component.translatable(recipe.translationKey());
-        graphics.drawString(font, name, 6, 68, 0x404040, false);
+        graphics.drawString(font, Component.translatable(recipe.translationKey()), 6, 44, 0x404040, false);
     }
 
     @Override
