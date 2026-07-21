@@ -23,6 +23,7 @@ import com.hbm.ntm.item.BoltItem;
 import com.hbm.ntm.item.BolterItem;
 import com.hbm.ntm.item.FollyItem;
 import com.hbm.ntm.item.DoubleBarrelItem;
+import com.hbm.ntm.item.EyesOfTheTempestItem;
 import com.hbm.ntm.item.BreakActionRevolverItem;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.item.ChargeBlockItem;
@@ -479,6 +480,7 @@ public final class ModItems {
     public static final DeferredItem<BolterItem> GUN_BOLTER;
     public static final DeferredItem<FollyItem> GUN_FOLLY;
     public static final DeferredItem<DoubleBarrelItem> GUN_DOUBLE_BARREL;
+    public static final DeferredItem<EyesOfTheTempestItem> GUN_ABERRATOR_EOTT;
     public static final DeferredItem<AmatItem> GUN_AMAT;
     public static final DeferredItem<SubtletyItem> GUN_AMAT_SUBTLETY;
     public static final DeferredItem<PenanceItem> GUN_AMAT_PENANCE;
@@ -1282,6 +1284,7 @@ public final class ModItems {
         GUN_BOLTER = ITEMS.register("gun_bolter", BolterItem::new);
         GUN_FOLLY = ITEMS.register("gun_folly", FollyItem::new);
         GUN_DOUBLE_BARREL = ITEMS.register("gun_double_barrel", DoubleBarrelItem::new);
+        GUN_ABERRATOR_EOTT = ITEMS.register("gun_aberrator_eott", EyesOfTheTempestItem::new);
         WEAPONIZED_STARBLASTER_CELL = ITEMS.register(
                 "weaponized_starblaster_cell", WeaponizedStarblasterCellItem::new);
         MULTITOOL_DIG = ITEMS.register("multitool_dig",

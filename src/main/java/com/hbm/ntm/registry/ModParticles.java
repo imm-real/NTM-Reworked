@@ -38,6 +38,8 @@ public final class ModParticles {
             PARTICLES.register("flamethrower_fire", () -> new SimpleParticleType(true));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FLAMETHROWER_BALEFIRE =
             PARTICLES.register("flamethrower_balefire", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FLAMETHROWER_BLACK =
+            PARTICLES.register("flamethrower_black", () -> new SimpleParticleType(true));
 
     private ModParticles() {
     }

@@ -894,6 +894,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_bolter", "Bolter");
         language.addProperty("item.hbm.gun_folly", "Folly");
         language.addProperty("item.hbm.gun_double_barrel", "An Old Classic");
+        language.addProperty("item.hbm.gun_aberrator_eott", "Eyes Of The Tempest");
         language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
         language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
         language.addProperty("item.hbm.ammo_standard.capacitor_ir", "Capacitor (Low Wavelength)");
@@ -942,6 +943,9 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.ammo_secret.bmg50_black", ".50 BMG Bypass Round");
         language.addProperty("item.hbm.ammo_secret.folly_sm", "Silver Bullet");
         language.addProperty("item.hbm.ammo_secret.folly_nuke", "Silver Bullet, Nuclear");
+        language.addProperty("item.hbm.ammo_secret.p35_800", ".35-800 V9");
+        language.addProperty("item.hbm.ammo_secret.p35_800_bl", ".35-800 V9 (Black Lightning)");
+        language.addProperty("entity.hbm.entity_aberrator_beam", "Aberrator Beam");
         language.addProperty("item.hbm.ammo_standard.r762_sp", "7.62mm Round (Soft Point)");
         language.addProperty("item.hbm.ammo_standard.r762_fmj", "7.62mm Round (Full Metal Jacket)");
         language.addProperty("item.hbm.ammo_standard.r762_jhp", "7.62mm Round (Jacketed Hollow Point)");

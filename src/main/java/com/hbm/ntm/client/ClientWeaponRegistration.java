@@ -5,6 +5,7 @@ import com.hbm.ntm.client.model.B93Model;
 import com.hbm.ntm.client.model.PowerFistModel;
 import com.hbm.ntm.client.model.PowerFistRubbleModel;
 import com.hbm.ntm.client.render.AutoShotgunItemRenderer;
+import com.hbm.ntm.client.render.AberratorBeamRenderer;
 import com.hbm.ntm.client.render.B92BeamRenderer;
 import com.hbm.ntm.client.render.B92ItemRenderer;
 import com.hbm.ntm.client.render.B93BeamRenderer;
@@ -12,6 +13,7 @@ import com.hbm.ntm.client.render.B93ItemRenderer;
 import com.hbm.ntm.client.render.BlackHoleRenderer;
 import com.hbm.ntm.client.render.BolterItemRenderer;
 import com.hbm.ntm.client.render.DoubleBarrelItemRenderer;
+import com.hbm.ntm.client.render.EyesOfTheTempestItemRenderer;
 import com.hbm.ntm.client.render.BreakActionRevolverItemRenderer;
 import com.hbm.ntm.client.render.BrokenMaresLegItemRenderer;
 import com.hbm.ntm.client.render.BulletRenderer;
@@ -164,6 +166,7 @@ public final class ClientWeaponRegistration {
         event.registerEntityRenderer(ModEntities.TESLA_BEAM.get(), TeslaBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.TESLA_IMPACT.get(), TeslaImpactRenderer::new);
         event.registerEntityRenderer(ModEntities.LASER_PISTOL_BEAM.get(), LaserPistolBeamRenderer::new);
+        event.registerEntityRenderer(ModEntities.ABERRATOR_BEAM.get(), AberratorBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.TAU_BEAM.get(), TauBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.NI4NI_BEAM.get(), NI4NIBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.NI4NI_COIN.get(), NI4NICoinRenderer::new);
@@ -602,6 +605,8 @@ public final class ClientWeaponRegistration {
         event.registerItem(weaponExtension(new BolterItemRenderer()), ModItems.GUN_BOLTER.get());
         event.registerItem(weaponExtension(new FollyItemRenderer()), ModItems.GUN_FOLLY.get());
         event.registerItem(weaponExtension(new DoubleBarrelItemRenderer()), ModItems.GUN_DOUBLE_BARREL.get());
+        event.registerItem(weaponExtension(new EyesOfTheTempestItemRenderer()),
+                ModItems.GUN_ABERRATOR_EOTT.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(ResourceLocation.fromNamespaceAndPath(
                 "hbm", "textures/models/weapons/amat_subtlety.png"))), ModItems.GUN_AMAT_SUBTLETY.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(PenanceItem.PENANCE_TEXTURE, true)),

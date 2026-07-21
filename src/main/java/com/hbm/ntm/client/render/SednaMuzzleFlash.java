@@ -60,6 +60,26 @@ final class SednaMuzzleFlash {
         vertex(consumer, pose, 0.1F, -length + inset, -width, 1, 0);
     }
 
+    static void renderFireball(PoseStack poses, MultiBufferSource buffers, float progress) {
+        float fire = Math.max(0.0F, Math.min(progress, 1.0F));
+        float height = 5.0F * fire;
+        float length = 10.0F * fire;
+        float offset = fire;
+        float side = 1.125F;
+        VertexConsumer consumer = buffers.getBuffer(TYPE);
+        PoseStack.Pose pose = poses.last();
+
+        vertex(consumer, pose, height, -offset, 0.0F, 0.0F, 1.0F);
+        vertex(consumer, pose, -height, -offset, 0.0F, 1.0F, 1.0F);
+        vertex(consumer, pose, -height, -offset + length, side, 1.0F, 0.0F);
+        vertex(consumer, pose, height, -offset + length, side, 0.0F, 0.0F);
+
+        vertex(consumer, pose, height, -offset, 0.0F, 0.0F, 1.0F);
+        vertex(consumer, pose, -height, -offset, 0.0F, 1.0F, 1.0F);
+        vertex(consumer, pose, -height, -offset + length, -side, 1.0F, 0.0F);
+        vertex(consumer, pose, height, -offset + length, -side, 0.0F, 0.0F);
+    }
+
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose,
                                float x, float y, float z, float u, float v) {
         consumer.addVertex(pose, x, y, z).setColor(-1).setUv(u, v)

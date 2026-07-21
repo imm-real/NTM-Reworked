@@ -2,6 +2,7 @@ package com.hbm.ntm.client.render;
 
 import com.hbm.ntm.item.DualMaresLegItem;
 import com.hbm.ntm.item.DualUziItem;
+import com.hbm.ntm.item.EyesOfTheTempestItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.PlayerModel;
@@ -33,7 +34,8 @@ public final class DualUziAkimboLayer
         ItemStack stack = player.getMainHandItem();
         // ItemRenderUziAkimbo and ItemRenderMareslegAkimbo both answered isAkimbo() == true.
         if (!(stack.getItem() instanceof DualUziItem)
-                && !(stack.getItem() instanceof DualMaresLegItem)) return;
+                && !(stack.getItem() instanceof DualMaresLegItem)
+                && !(stack.getItem() instanceof EyesOfTheTempestItem)) return;
 
         poses.pushPose();
         PlayerModel<AbstractClientPlayer> model = getParentModel();

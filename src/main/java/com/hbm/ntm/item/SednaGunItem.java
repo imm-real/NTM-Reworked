@@ -48,6 +48,7 @@ public abstract class SednaGunItem extends Item {
     public int gunMirroredCapacity() { return 0; }
     public float gunMirroredWear(ItemStack stack) { return 0.0F; }
     public float gunMirroredDurability() { return 1.0F; }
+    public boolean gunShowMirroredDurability() { return true; }
     public ItemStack gunMirroredAmmoIcon(ItemStack stack) { return ItemStack.EMPTY; }
     public abstract float recoilVertical();
     /** Auto Shotgun adds randomized vertical suffering. */

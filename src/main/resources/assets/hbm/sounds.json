@@ -134,6 +134,10 @@
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/loudest_noise_on_earth", "stream": false}]
   },
+  "weapon.fire.aberrator": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/aberrator", "stream": false}]
+  },
   "weapon.fire.vstar": {
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/vstar", "stream": false}]

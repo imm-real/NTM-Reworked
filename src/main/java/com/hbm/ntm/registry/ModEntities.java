@@ -2,6 +2,7 @@ package com.hbm.ntm.registry;
 
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.entity.B92BeamEntity;
+import com.hbm.ntm.entity.AberratorBeamEntity;
 import com.hbm.ntm.entity.B93BeamEntity;
 import com.hbm.ntm.entity.BlackHoleEntity;
 import com.hbm.ntm.entity.BulletEntity;
@@ -280,6 +281,12 @@ public final class ModEntities {
                     () -> EntityType.Builder.<LaserPistolBeamEntity>of(LaserPistolBeamEntity::new, MobCategory.MISC)
                             .sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(1).noSave()
                             .build("hbm:entity_laser_pistol_beam"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<AberratorBeamEntity>> ABERRATOR_BEAM =
+            ENTITY_TYPES.register("entity_aberrator_beam",
+                    () -> EntityType.Builder.<AberratorBeamEntity>of(AberratorBeamEntity::new, MobCategory.MISC)
+                            .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(1).noSave()
+                            .build("hbm:entity_aberrator_beam"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<TauBeamEntity>> TAU_BEAM =
             ENTITY_TYPES.register("entity_tau_beam",

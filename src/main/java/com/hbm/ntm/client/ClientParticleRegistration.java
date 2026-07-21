@@ -77,6 +77,8 @@ public final class ClientParticleRegistration {
                 sprites -> new FlamethrowerParticle.Provider(sprites, false));
         event.registerSpriteSet(ModParticles.FLAMETHROWER_BALEFIRE.get(),
                 sprites -> new FlamethrowerParticle.Provider(sprites, true));
+        event.registerSpriteSet(ModParticles.FLAMETHROWER_BLACK.get(),
+                sprites -> new FlamethrowerParticle.Provider(sprites, false, true));
     }
 
     private static Particle createVomitParticle(

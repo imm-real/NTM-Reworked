@@ -113,6 +113,8 @@ public final class ModSounds {
             register("weapon.reload.screw");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FOLLY_INSERT =
             register("weapon.reload.insert_rocket");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_ABERRATOR_FIRE =
+            register("weapon.fire.aberrator");
     public static final DeferredHolder<SoundEvent, SoundEvent> DISINTEGRATION =
             register("weapon.fire.disintegration");
     public static final DeferredHolder<SoundEvent, SoundEvent> TESLA_BLAST = register("entity.ufo_blast");

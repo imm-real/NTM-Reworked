@@ -299,11 +299,13 @@ public final class ClientWeaponEvents {
                     gun.gunMirroredRounds(stack) + " / " + gun.gunMirroredCapacity(),
                     mirroredX + 17, ammoY + 6, 0xFFFFFF, false);
 
-            int mirroredUsed = (int) (50.0F * gun.gunMirroredWear(stack)
-                    / gun.gunMirroredDurability());
-            graphics.blit(OVERLAY, mirroredX, barY, 94.0F, 0.0F, 52, 3, 256, 256);
-            graphics.blit(OVERLAY, mirroredX + 1, barY, 95.0F, 3.0F,
-                    50 - mirroredUsed, 3, 256, 256);
+            if (gun.gunShowMirroredDurability()) {
+                int mirroredUsed = (int) (50.0F * gun.gunMirroredWear(stack)
+                        / gun.gunMirroredDurability());
+                graphics.blit(OVERLAY, mirroredX, barY, 94.0F, 0.0F, 52, 3, 256, 256);
+                graphics.blit(OVERLAY, mirroredX + 1, barY, 95.0F, 3.0F,
+                        50 - mirroredUsed, 3, 256, 256);
+            }
         }
     }
 

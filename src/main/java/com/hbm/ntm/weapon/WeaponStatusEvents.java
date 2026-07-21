@@ -16,6 +16,7 @@ public final class WeaponStatusEvents {
     private static final String PHOSPHORUS = "hbm_phosphorus";
     private static final String FIRE = "hbm_flamer_fire";
     private static final String BALEFIRE = "hbm_flamer_balefire";
+    private static final String BLACK_FIRE = "hbm_black_fire";
 
     private WeaponStatusEvents() { }
 
@@ -53,12 +54,28 @@ public final class WeaponStatusEvents {
         return Math.max(0, entity.getPersistentData().getInt(BALEFIRE));
     }
 
+    public static void addBlackFire(LivingEntity entity, int ticks) {
+        if (ticks <= 0) return;
+        entity.getPersistentData().putInt(BLACK_FIRE,
+                Math.max(0, entity.getPersistentData().getInt(BLACK_FIRE)) + ticks);
+    }
+
+    public static void applyBlackFireArea(LivingEntity entity) {
+        int ticks = blackFireTicks(entity);
+        entity.getPersistentData().putInt(BLACK_FIRE, ticks < 200 ? 200 : ticks + 5);
+    }
+
+    public static int blackFireTicks(LivingEntity entity) {
+        return Math.max(0, entity.getPersistentData().getInt(BLACK_FIRE));
+    }
+
     private static void onEntityTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity living)
                 || !(living.level() instanceof ServerLevel level)) return;
         tickPhosphorus(living, level);
         tickFire(living, level);
         tickBalefire(living, level);
+        tickBlackFire(living, level);
     }
 
     private static void tickPhosphorus(LivingEntity living, ServerLevel level) {
@@ -102,6 +119,25 @@ public final class WeaponStatusEvents {
         damageWithoutKnockback(living, 20, 5.0F);
         level.sendParticles(ModParticles.FLAMETHROWER_BALEFIRE.get(), particleX(living), particleY(living), particleZ(living),
                 1, 0.0D, 0.0D, 0.0D, 0.0D);
+    }
+
+    private static void tickBlackFire(LivingEntity living, ServerLevel level) {
+        int ticks = blackFireTicks(living);
+        if (ticks <= 0) return;
+        if (!living.isAlive()) {
+            living.getPersistentData().remove(BLACK_FIRE);
+            return;
+        }
+        living.getPersistentData().putInt(BLACK_FIRE, ticks - 1);
+        RadiationSystem.contaminate(living, 5.0F, true);
+        if ((living.tickCount + living.getId()) % 10 == 0) {
+            level.playSound(null, living.getX(), living.getY() + living.getBbHeight() * 0.5D,
+                    living.getZ(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS,
+                    1.0F, 1.5F + living.getRandom().nextFloat() * 0.5F);
+        }
+        damageWithoutKnockback(living, 10, 10.0F);
+        level.sendParticles(ModParticles.FLAMETHROWER_BLACK.get(), particleX(living),
+                particleY(living), particleZ(living), 1, 0.0D, 0.0D, 0.0D, 0.0D);
     }
 
     private static void fizzle(LivingEntity living, ServerLevel level) {

@@ -19,10 +19,14 @@ public final class SecretAmmoTypes {
             for (FiftyCalAmmoType type : FiftyCalAmmoType.values()) {
                 if (type.secret() && type.serializedName().equals(name)) return type;
             }
+            for (AberratorAmmoType type : AberratorAmmoType.values()) {
+                if (type.serializedName().equals(name)) return type;
+            }
         }
         CustomModelData modelData = stack.get(DataComponents.CUSTOM_MODEL_DATA);
         int metadata = modelData == null ? 0 : modelData.value();
         if (metadata == 0 || metadata == 1) return FollyAmmoType.fromLegacyMetadata(metadata);
+        if (metadata == 5 || metadata == 7) return AberratorAmmoType.fromLegacyMetadata(metadata);
         return FiftyCalAmmoType.fromLegacyMetadata(metadata);
     }
 }

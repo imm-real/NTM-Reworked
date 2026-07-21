@@ -59,6 +59,7 @@ public final class LingeringFireEntity extends Entity {
             if (entity instanceof LivingEntity living) {
                 if (kind == Kind.PHOSPHORUS) WeaponStatusEvents.applyPhosphorus(living, 300);
                 else if (kind == Kind.BALEFIRE) WeaponStatusEvents.applyBalefire(living, 100);
+                else if (kind == Kind.BLACK) WeaponStatusEvents.applyBlackFireArea(living);
                 else WeaponStatusEvents.applyFire(living, 60);
             } else {
                 entity.setRemainingFireTicks(Math.max(entity.getRemainingFireTicks(), 80));
@@ -73,6 +74,8 @@ public final class LingeringFireEntity extends Entity {
             double pz = getZ() + Math.sin(angle) * particleRadius;
             level.sendParticles(kind == Kind.BALEFIRE
                             ? com.hbm.ntm.registry.ModParticles.FLAMETHROWER_BALEFIRE.get()
+                            : kind == Kind.BLACK
+                            ? com.hbm.ntm.registry.ModParticles.FLAMETHROWER_BLACK.get()
                             : kind == Kind.FIRE
                             ? com.hbm.ntm.registry.ModParticles.FLAMETHROWER_FIRE.get()
                             : ParticleTypes.FLAME,
@@ -97,5 +100,10 @@ public final class LingeringFireEntity extends Entity {
         tag.putInt("Kind", kind.ordinal());
     }
 
-    public enum Kind { FIRE, PHOSPHORUS, BALEFIRE }
+    public int remainingDuration() { return Math.max(duration - tickCount, 0); }
+    public double areaWidth() { return width; }
+    public double areaHeight() { return height; }
+    public Kind kind() { return kind; }
+
+    public enum Kind { FIRE, PHOSPHORUS, BALEFIRE, BLACK }
 }
