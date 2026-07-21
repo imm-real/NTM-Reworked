@@ -602,6 +602,10 @@
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/laserpistol", "stream": false}]
   },
+  "weapon.fire.laser": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/laser", "stream": false}]
+  },
   "weapon.fire.disintegration": {
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/disintegration", "stream": false}]

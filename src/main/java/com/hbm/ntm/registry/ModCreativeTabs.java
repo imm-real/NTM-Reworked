@@ -611,6 +611,8 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_LASER_PISTOL_PEW_PEW.get());
                         // TODO Pedestal, Morning Glory flower, and Selenium Steel secret materials
                         output.accept(ModItems.GUN_LASER_PISTOL_MORNING_GLORY.get());
+                        // TODO weapon-mod scope plus the unported Bismoid Bronze weapon parts
+                        output.accept(ModItems.GUN_LASRIFLE.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());

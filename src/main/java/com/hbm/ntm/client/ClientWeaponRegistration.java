@@ -29,6 +29,7 @@ import com.hbm.ntm.client.render.HeavyRevolverItemRenderer;
 import com.hbm.ntm.client.render.LaserDetonatorItemRenderer;
 import com.hbm.ntm.client.render.LaserPistolBeamRenderer;
 import com.hbm.ntm.client.render.LaserPistolItemRenderer;
+import com.hbm.ntm.client.render.LasrifleItemRenderer;
 import com.hbm.ntm.client.render.FlattenedMobRenderer;
 import com.hbm.ntm.client.render.LagPistolItemRenderer;
 import com.hbm.ntm.client.render.LiberatorItemRenderer;
@@ -574,6 +575,7 @@ public final class ClientWeaponRegistration {
                 ModItems.GUN_LASER_PISTOL_PEW_PEW.get());
         event.registerItem(weaponExtension(new LaserPistolItemRenderer()),
                 ModItems.GUN_LASER_PISTOL_MORNING_GLORY.get());
+        event.registerItem(weaponExtension(new LasrifleItemRenderer()), ModItems.GUN_LASRIFLE.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(ResourceLocation.fromNamespaceAndPath(
                 "hbm", "textures/models/weapons/amat_subtlety.png"))), ModItems.GUN_AMAT_SUBTLETY.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(PenanceItem.PENANCE_TEXTURE, true)),
