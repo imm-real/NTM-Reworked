@@ -58,6 +58,8 @@ import com.hbm.ntm.client.render.AmatItemRenderer;
 import com.hbm.ntm.client.render.TeslaBeamRenderer;
 import com.hbm.ntm.client.render.TeslaImpactRenderer;
 import com.hbm.ntm.client.render.TeslaCannonItemRenderer;
+import com.hbm.ntm.client.render.TauBeamRenderer;
+import com.hbm.ntm.client.render.TauGunItemRenderer;
 import com.hbm.ntm.network.DetonatorInfoPayload;
 import com.hbm.ntm.item.PenanceItem;
 import com.hbm.ntm.registry.ModEntities;
@@ -151,6 +153,7 @@ public final class ClientWeaponRegistration {
         event.registerEntityRenderer(ModEntities.TESLA_BEAM.get(), TeslaBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.TESLA_IMPACT.get(), TeslaImpactRenderer::new);
         event.registerEntityRenderer(ModEntities.LASER_PISTOL_BEAM.get(), LaserPistolBeamRenderer::new);
+        event.registerEntityRenderer(ModEntities.TAU_BEAM.get(), TauBeamRenderer::new);
     }
 
     private static void registerModels(ModelEvent.RegisterAdditional event) {
@@ -576,6 +579,7 @@ public final class ClientWeaponRegistration {
         event.registerItem(weaponExtension(new LaserPistolItemRenderer()),
                 ModItems.GUN_LASER_PISTOL_MORNING_GLORY.get());
         event.registerItem(weaponExtension(new LasrifleItemRenderer()), ModItems.GUN_LASRIFLE.get());
+        event.registerItem(weaponExtension(new TauGunItemRenderer()), ModItems.GUN_TAU.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(ResourceLocation.fromNamespaceAndPath(
                 "hbm", "textures/models/weapons/amat_subtlety.png"))), ModItems.GUN_AMAT_SUBTLETY.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(PenanceItem.PENANCE_TEXTURE, true)),

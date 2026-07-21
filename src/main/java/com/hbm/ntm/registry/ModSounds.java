@@ -88,6 +88,13 @@ public final class ModSounds {
             register("weapon.fire.laserpistol");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_LASER_RIFLE_FIRE =
             register("weapon.fire.laser");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_TAU_FIRE =
+            register("weapon.fire.tau");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_TAU_RELEASE =
+            register("weapon.fire.tau_release");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_TAU_LOOP = SOUNDS.register(
+            "weapon.fire.tau_loop", () -> SoundEvent.createFixedRangeEvent(
+                    ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "weapon.fire.tau_loop"), 15.0F));
     public static final DeferredHolder<SoundEvent, SoundEvent> DISINTEGRATION =
             register("weapon.fire.disintegration");
     public static final DeferredHolder<SoundEvent, SoundEvent> TESLA_BLAST = register("entity.ufo_blast");

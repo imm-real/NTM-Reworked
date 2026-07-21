@@ -606,6 +606,22 @@
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/laser", "stream": false}]
   },
+  "weapon.fire.tau": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/tau", "stream": false}]
+  },
+  "weapon.fire.tau_loop": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/tauLoop", "stream": false}]
+  },
+  "weapon.fire.tau_release": {
+    "category": "player",
+    "sounds": [
+      {"name": "hbm:weapon/fire/tauRelease1", "stream": false},
+      {"name": "hbm:weapon/fire/tauRelease2", "stream": false},
+      {"name": "hbm:weapon/fire/tauRelease3", "stream": false}
+    ]
+  },
   "weapon.fire.disintegration": {
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/disintegration", "stream": false}]
