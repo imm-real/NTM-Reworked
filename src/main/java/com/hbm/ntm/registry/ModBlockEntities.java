@@ -1,6 +1,7 @@
 package com.hbm.ntm.registry;
 
 import com.hbm.ntm.HbmNtm;
+import com.hbm.ntm.block.ConverterFEtoHEBlock;
 import com.hbm.ntm.blockentity.AshpitBlockEntity;
 import com.hbm.ntm.blockentity.AirIntakeBlockEntity;
 import com.hbm.ntm.blockentity.AirIntakeProxyBlockEntity;
@@ -77,6 +78,8 @@ import com.hbm.ntm.blockentity.TurbofanProxyBlockEntity;
 import com.hbm.ntm.blockentity.MachinePressBlockEntity;
 import com.hbm.ntm.blockentity.MachineShredderBlockEntity;
 import com.hbm.ntm.blockentity.MicrowaveBlockEntity;
+import com.hbm.ntm.blockentity.ConverterHEtoFEBlockEntity;
+import com.hbm.ntm.blockentity.ConverterFEtoHEBlockEntity;
 import com.hbm.ntm.blockentity.LargeNukeBlockEntity;
 import com.hbm.ntm.blockentity.NukeManBlockEntity;
 import com.hbm.ntm.blockentity.BombMultiBlockEntity;
@@ -499,6 +502,16 @@ public final class ModBlockEntities {
             BLOCK_ENTITY_TYPES.register("machine_microwave",
                     () -> BlockEntityType.Builder.of(MicrowaveBlockEntity::new,
                             ModBlocks.MACHINE_MICROWAVE.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ConverterHEtoFEBlockEntity>> MACHINE_CONVERTER_HE_FE =
+            BLOCK_ENTITY_TYPES.register("machine_converter_he_fe",
+                    () -> BlockEntityType.Builder.of(ConverterHEtoFEBlockEntity::new,
+                            ModBlocks.MACHINE_CONVERTER_HE_FE.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ConverterFEtoHEBlockEntity>> MACHINE_CONVERTER_FE_HE =
+            BLOCK_ENTITY_TYPES.register("machine_converter_fe_he",
+                    () -> BlockEntityType.Builder.of(ConverterFEtoHEBlockEntity::new,
+                            ModBlocks.MACHINE_CONVERTER_FE_HE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OilDerrickBlockEntity>> MACHINE_WELL =
             BLOCK_ENTITY_TYPES.register("machine_well",

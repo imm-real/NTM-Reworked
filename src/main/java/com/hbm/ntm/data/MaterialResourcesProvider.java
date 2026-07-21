@@ -714,6 +714,16 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, selfDropLoot("machine_microwave"), lootTables,
                 hbm("machine_microwave")));
         writes.add(save(output, microwaveRecipe(), recipes, hbm("machine_microwave")));
+        writes.add(save(output, cubeAllBlockModel("machine_converter_he_fe"), blockModels, hbm("machine_converter_he_fe")));
+        writes.add(save(output, legacyStandardBlockItemModel("machine_converter_he_fe"), itemModels, hbm("machine_converter_he_fe")));
+        writes.add(save(output, simpleBlockState("machine_converter_he_fe"), blockStates, hbm("machine_converter_he_fe")));
+        writes.add(save(output, selfDropLoot("machine_converter_he_fe"), lootTables, hbm("machine_converter_he_fe")));
+        writes.add(save(output, converterHEFErecipe(), recipes, hbm("machine_converter_he_fe")));
+        writes.add(save(output, cubeAllBlockModel("machine_converter_fe_he"), blockModels, hbm("machine_converter_fe_he")));
+        writes.add(save(output, legacyStandardBlockItemModel("machine_converter_fe_he"), itemModels, hbm("machine_converter_fe_he")));
+        writes.add(save(output, simpleBlockState("machine_converter_fe_he"), blockStates, hbm("machine_converter_fe_he")));
+        writes.add(save(output, selfDropLoot("machine_converter_fe_he"), lootTables, hbm("machine_converter_fe_he")));
+        writes.add(save(output, converterFEHErecipe(), recipes, hbm("machine_converter_fe_he")));
         writes.add(save(output, generatedItemModel("magnetron_alt"), itemModels, hbm("magnetron")));
         writes.add(save(output, generatedItemModel("oil_tar"), itemModels, hbm("oil_tar")));
         writes.add(save(output, generatedItemModel("powder_sawdust"), itemModels, hbm("powder_sawdust")));
@@ -895,6 +905,8 @@ public final class MaterialResourcesProvider implements DataProvider {
         mineableBlocks.add("hbm:machine_centrifuge");
         mineableBlocks.add("hbm:machine_catalytic_cracker");
         mineableBlocks.add("hbm:machine_fraction_tower");
+        mineableBlocks.add("hbm:machine_converter_he_fe");
+        mineableBlocks.add("hbm:machine_converter_fe_he");
         mineableBlocks.add("hbm:fraction_spacer");
         mineableBlocks.add("hbm:machine_crucible");
         mineableBlocks.add("hbm:foundry_mold");
@@ -3009,6 +3021,39 @@ public final class MaterialResourcesProvider implements DataProvider {
         key.add("D", itemIngredient("hbm:motor"));
         root.add("key", key);
         root.add("result", recipeResult("hbm:machine_microwave", 1));
+        return root;
+    }
+
+    private JsonObject converterHEFErecipe() {
+        JsonObject root = new JsonObject();
+        root.addProperty("type", "minecraft:crafting_shaped");
+        root.addProperty("category", "misc");
+        JsonArray pattern = new JsonArray();
+        pattern.add("RRR"); pattern.add("WWW"); pattern.add("III");
+        root.add("pattern", pattern);
+        JsonObject key = new JsonObject();
+        key.add("R", customComponentIngredient("hbm:circuit", "type", "capacitor", 1));
+        key.add("W",  itemIngredient("minecraft:redstone"));
+        key.add("I", tagIngredient("c:ingots/steel"));
+        root.add("key", key);
+        root.add("result", recipeResult("hbm:machine_converter_he_fe", 1));
+        return root;
+    }
+
+    private JsonObject converterFEHErecipe() {
+        JsonObject root = new JsonObject();
+        root.addProperty("type", "minecraft:crafting_shaped");
+        root.addProperty("category", "misc");
+        JsonArray pattern = new JsonArray();
+        pattern.add("RRR"); pattern.add("WWW"); pattern.add("III");
+        root.add("pattern", pattern);
+        JsonObject key = new JsonObject();
+        key.add("R", itemIngredient("minecraft:redstone"));
+        key.add("W", materialComponentOrExternalTagIngredient(
+                "hbm:wire_fine", "red_copper", 31, "c:wires/fine/red_copper"));
+        key.add("I", tagIngredient("c:ingots/steel"));
+        root.add("key", key);
+        root.add("result", recipeResult("hbm:machine_converter_fe_he", 1));
         return root;
     }
 
