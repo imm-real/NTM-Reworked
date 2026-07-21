@@ -72,4 +72,3 @@ final class JeiMaterials {
         return parts.isEmpty() ? "0" : String.join(", ", parts);
     }
 }
-
