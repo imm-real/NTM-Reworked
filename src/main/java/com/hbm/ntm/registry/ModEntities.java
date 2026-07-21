@@ -8,6 +8,8 @@ import com.hbm.ntm.entity.BulletEntity;
 import com.hbm.ntm.entity.BuildingEntity;
 import com.hbm.ntm.entity.FlattenedMobEntity;
 import com.hbm.ntm.entity.FortyMillimeterProjectileEntity;
+import com.hbm.ntm.entity.FollyBeamEntity;
+import com.hbm.ntm.entity.FollyNukeProjectileEntity;
 import com.hbm.ntm.entity.FlameProjectileEntity;
 import com.hbm.ntm.entity.LingeringFireEntity;
 import com.hbm.ntm.entity.LaserPistolBeamEntity;
@@ -235,6 +237,13 @@ public final class ModEntities {
                             .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(16).updateInterval(1)
                             .build("hbm:entity_bullet_mini_nuke"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<FollyNukeProjectileEntity>> FOLLY_NUKE_PROJECTILE =
+            ENTITY_TYPES.register("entity_bullet_folly_nuke",
+                    () -> EntityType.Builder.<FollyNukeProjectileEntity>of(
+                                    FollyNukeProjectileEntity::new, MobCategory.MISC)
+                            .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(32).updateInterval(1).noSave()
+                            .build("hbm:entity_bullet_folly_nuke"));
+
     public static final DeferredHolder<EntityType<?>, EntityType<LingeringFireEntity>> LINGERING_FIRE =
             ENTITY_TYPES.register("entity_fire_lingering",
                     () -> EntityType.Builder.<LingeringFireEntity>of(LingeringFireEntity::new, MobCategory.MISC)
@@ -277,6 +286,12 @@ public final class ModEntities {
                     () -> EntityType.Builder.<TauBeamEntity>of(TauBeamEntity::new, MobCategory.MISC)
                             .sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(1).noSave()
                             .build("hbm:entity_tau_beam"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FollyBeamEntity>> FOLLY_BEAM =
+            ENTITY_TYPES.register("entity_folly_beam",
+                    () -> EntityType.Builder.<FollyBeamEntity>of(FollyBeamEntity::new, MobCategory.MISC)
+                            .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(63).updateInterval(1).noSave()
+                            .build("hbm:entity_folly_beam"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<NI4NIBeamEntity>> NI4NI_BEAM =
             ENTITY_TYPES.register("entity_ni4ni_beam",

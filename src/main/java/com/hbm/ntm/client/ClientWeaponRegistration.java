@@ -23,6 +23,9 @@ import com.hbm.ntm.client.render.FleijaRainbowCloudRenderer;
 import com.hbm.ntm.client.render.FleijaCloudRenderer;
 import com.hbm.ntm.client.render.FortyMillimeterGunItemRenderer;
 import com.hbm.ntm.client.render.FortyMillimeterProjectileRenderer;
+import com.hbm.ntm.client.render.FollyBeamRenderer;
+import com.hbm.ntm.client.render.FollyItemRenderer;
+import com.hbm.ntm.client.render.FollyNukeProjectileRenderer;
 import com.hbm.ntm.client.render.G3ItemRenderer;
 import com.hbm.ntm.client.render.HenryItemRenderer;
 import com.hbm.ntm.client.render.HangmanItemRenderer;
@@ -164,6 +167,8 @@ public final class ClientWeaponRegistration {
         event.registerEntityRenderer(ModEntities.NI4NI_BEAM.get(), NI4NIBeamRenderer::new);
         event.registerEntityRenderer(ModEntities.NI4NI_COIN.get(), NI4NICoinRenderer::new);
         event.registerEntityRenderer(ModEntities.MINI_NUKE_PROJECTILE.get(), MiniNukeProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.FOLLY_BEAM.get(), FollyBeamRenderer::new);
+        event.registerEntityRenderer(ModEntities.FOLLY_NUKE_PROJECTILE.get(), FollyNukeProjectileRenderer::new);
     }
 
     private static void registerModels(ModelEvent.RegisterAdditional event) {
@@ -594,6 +599,7 @@ public final class ClientWeaponRegistration {
         event.registerItem(weaponExtension(new NI4NIItemRenderer()), ModItems.GUN_N_I_4_N_I.get());
         event.registerItem(weaponExtension(new FatManItemRenderer()), ModItems.GUN_FATMAN.get());
         event.registerItem(weaponExtension(new BolterItemRenderer()), ModItems.GUN_BOLTER.get());
+        event.registerItem(weaponExtension(new FollyItemRenderer()), ModItems.GUN_FOLLY.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(ResourceLocation.fromNamespaceAndPath(
                 "hbm", "textures/models/weapons/amat_subtlety.png"))), ModItems.GUN_AMAT_SUBTLETY.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(PenanceItem.PENANCE_TEXTURE, true)),

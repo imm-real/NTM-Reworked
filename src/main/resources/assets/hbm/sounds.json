@@ -130,6 +130,22 @@
     "category": "player",
     "sounds": [{"name": "hbm:weapon/reload/fatman_full", "stream": false}]
   },
+  "weapon.fire.loudest_noise_on_earth": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/loudest_noise_on_earth", "stream": false}]
+  },
+  "weapon.fire.vstar": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/vstar", "stream": false}]
+  },
+  "weapon.reload.screw": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/reload/screw", "stream": false}]
+  },
+  "weapon.reload.insert_rocket": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/reload/insert_rocket", "stream": false}]
+  },
   "weapon.fire.blackpowder": {
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/blackpowder", "stream": false}]

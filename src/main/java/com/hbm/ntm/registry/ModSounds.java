@@ -105,6 +105,14 @@ public final class ModSounds {
             register("weapon.fire.fatman");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FATMAN_RELOAD =
             register("weapon.reload.fatman_full");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FOLLY_FIRE =
+            register("weapon.fire.loudest_noise_on_earth");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FOLLY_VSTAR =
+            register("weapon.fire.vstar");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FOLLY_SCREW =
+            register("weapon.reload.screw");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FOLLY_INSERT =
+            register("weapon.reload.insert_rocket");
     public static final DeferredHolder<SoundEvent, SoundEvent> DISINTEGRATION =
             register("weapon.fire.disintegration");
     public static final DeferredHolder<SoundEvent, SoundEvent> TESLA_BLAST = register("entity.ufo_blast");

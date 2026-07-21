@@ -1,10 +1,9 @@
 package com.hbm.ntm.item;
 
-import com.hbm.ntm.weapon.FiftyCalAmmoType;
+import com.hbm.ntm.weapon.SecretAmmoTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-/** Original secret-ammunition container, initially used by the XFactory50 legendary rounds. */
 public final class AmmoSecretItem extends Item {
     public AmmoSecretItem() {
         super(new Properties());
@@ -12,6 +11,6 @@ public final class AmmoSecretItem extends Item {
 
     @Override
     public String getDescriptionId(ItemStack stack) {
-        return "item.hbm.ammo_secret." + FiftyCalAmmoType.fromStack(stack).serializedName();
+        return "item.hbm.ammo_secret." + SecretAmmoTypes.fromStack(stack).serializedName();
     }
 }

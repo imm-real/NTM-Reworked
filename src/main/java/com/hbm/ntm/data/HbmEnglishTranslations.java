@@ -892,6 +892,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_n_i_4_n_i", "N I 4 N I");
         language.addProperty("item.hbm.gun_fatman", "Fat Man");
         language.addProperty("item.hbm.gun_bolter", "Bolter");
+        language.addProperty("item.hbm.gun_folly", "Folly");
         language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
         language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
         language.addProperty("item.hbm.ammo_standard.capacitor_ir", "Capacitor (Low Wavelength)");
@@ -933,6 +934,8 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.ammo_standard.bmg50_sm", ".50 BMG Round (Starmetal)");
         language.addProperty("item.hbm.ammo_secret.bmg50_equestrian", ".50 BMG Demolisher");
         language.addProperty("item.hbm.ammo_secret.bmg50_black", ".50 BMG Bypass Round");
+        language.addProperty("item.hbm.ammo_secret.folly_sm", "Silver Bullet");
+        language.addProperty("item.hbm.ammo_secret.folly_nuke", "Silver Bullet, Nuclear");
         language.addProperty("item.hbm.ammo_standard.r762_sp", "7.62mm Round (Soft Point)");
         language.addProperty("item.hbm.ammo_standard.r762_fmj", "7.62mm Round (Full Metal Jacket)");
         language.addProperty("item.hbm.ammo_standard.r762_jhp", "7.62mm Round (Jacketed Hollow Point)");
@@ -1035,6 +1038,7 @@ final class HbmEnglishTranslations {
         language.addProperty("gui.weapon.quality.bside", "B-Side Arsenal");
         language.addProperty("gui.weapon.quality.legendary", "Legendary Weapon");
         language.addProperty("gui.weapon.quality.special", "Special Weapon");
+        language.addProperty("gui.weapon.quality.secret", "Secret Weapon");
         language.addProperty("death.attack.bullet", "%s was shot");
         language.addProperty("death.attack.bullet.player", "%s was shot by %s");
         language.addProperty("death.attack.nuclear_blast", "%s was vaporized by a nuclear blast");
