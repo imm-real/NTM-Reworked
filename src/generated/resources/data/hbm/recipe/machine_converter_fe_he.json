@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/steel"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "type": "neoforge:components",
+          "components": {
+            "minecraft:custom_data": {
+              "material": "red_copper"
+            },
+            "minecraft:custom_model_data": 31
+          },
+          "items": "hbm:wire_fine",
+          "strict": false
+        },
+        {
+          "type": "neoforge:difference",
+          "base": {
+            "tag": "c:wires/fine/red_copper"
+          },
+          "subtracted": {
+            "item": "hbm:wire_fine"
+          }
+        }
+      ]
+    }
+  },
+  "pattern": [
+    "RRR",
+    "WWW",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_converter_fe_he"
+  }
+}

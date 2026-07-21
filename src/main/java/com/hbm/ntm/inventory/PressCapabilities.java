@@ -12,6 +12,7 @@ import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 
 import java.util.List;
@@ -79,6 +80,24 @@ public final class PressCapabilities {
                 (proxy, side) -> new SidedInvWrapper(proxy, side == null ? Direction.DOWN : side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.MACHINE_MICROWAVE.get(),
                 (microwave, side) -> new SidedInvWrapper(microwave, side == null ? Direction.DOWN : side));
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.MACHINE_CONVERTER_HE_FE.get(),
+                (converter, side) -> new IEnergyStorage() {
+                    @Override public int receiveEnergy(int maxReceive, boolean simulate) { return 0; }
+                    @Override public int extractEnergy(int maxExtract, boolean simulate) { return converter.getEnergy().extractEnergy(maxExtract, simulate); }
+                    @Override public int getEnergyStored() { return converter.getEnergy().getEnergyStored(); }
+                    @Override public int getMaxEnergyStored() { return converter.getEnergy().getMaxEnergyStored(); }
+                    @Override public boolean canExtract() { return false; }
+                    @Override public boolean canReceive() { return true; }
+                });
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.MACHINE_CONVERTER_FE_HE.get(),
+                (converter, side) -> new IEnergyStorage() {
+                    @Override public int receiveEnergy(int maxReceive, boolean simulate) { return converter.getEnergy().receiveEnergy(maxReceive, simulate); }
+                    @Override public int extractEnergy(int maxExtract, boolean simulate) { return 0; }
+                    @Override public int getEnergyStored() { return converter.getEnergy().getEnergyStored(); }
+                    @Override public int getMaxEnergyStored() { return converter.getEnergy().getMaxEnergyStored(); }
+                    @Override public boolean canExtract() { return false; }
+                    @Override public boolean canReceive() { return true; }
+                });
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, ModBlockEntities.MACHINE_WOOD_BURNER_PROXY.get(),
                 (proxy, side) -> proxy.fluidHandler(side));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, ModBlockEntities.THERMAL_PROXY.get(),

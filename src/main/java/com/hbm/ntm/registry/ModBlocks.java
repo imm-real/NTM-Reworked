@@ -60,6 +60,8 @@ import com.hbm.ntm.block.TurbofanBlock;
 import com.hbm.ntm.block.MachinePressBlock;
 import com.hbm.ntm.block.MachineShredderBlock;
 import com.hbm.ntm.block.MicrowaveBlock;
+import com.hbm.ntm.block.ConverterHEtoFEBlock;
+import com.hbm.ntm.block.ConverterFEtoHEBlock;
 import com.hbm.ntm.block.LargeNukeBlock;
 import com.hbm.ntm.block.LargeNukeType;
 import com.hbm.ntm.block.LevitationBombBlock;
@@ -242,6 +244,8 @@ public final class ModBlocks {
     public static final DeferredBlock<BrickFurnaceBlock> MACHINE_FURNACE_BRICK;
     public static final DeferredBlock<WoodBurnerBlock> MACHINE_WOOD_BURNER;
     public static final DeferredBlock<MicrowaveBlock> MACHINE_MICROWAVE;
+    public static final DeferredBlock<ConverterHEtoFEBlock> MACHINE_CONVERTER_HE_FE;
+    public static final DeferredBlock<ConverterFEtoHEBlock> MACHINE_CONVERTER_FE_HE;
     public static final DeferredBlock<FluidDuctBlock> FLUID_DUCT_NEO;
     public static final DeferredBlock<ConventionalExplosiveBlock> DYNAMITE;
     public static final DeferredBlock<ConventionalExplosiveBlock> TNT_NTM;
@@ -900,6 +904,20 @@ public final class ModBlocks {
                 () -> new MicrowaveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                         .strength(5.0F, 6.0F).sound(SoundType.METAL)
                         .requiresCorrectToolForDrops().noOcclusion()));
+        MACHINE_CONVERTER_HE_FE = BLOCKS.register(
+                "machine_converter_he_fe",
+                () -> new ConverterHEtoFEBlock(BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL)
+                        .strength(5.0F, 6.0F)
+                        .sound(SoundType.STONE)
+                        .requiresCorrectToolForDrops()));
+        MACHINE_CONVERTER_FE_HE = BLOCKS.register(
+                "machine_converter_fe_he",
+                () -> new ConverterFEtoHEBlock(BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL)
+                        .strength(5.0F, 6.0F)
+                        .sound(SoundType.STONE)
+                        .requiresCorrectToolForDrops()));
         MACHINE_ASSEMBLY_MACHINE = BLOCKS.register("machine_assembly_machine",
                 () -> new AssemblyMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                         .strength(5.0F, 18.0F).sound(SoundType.METAL)

@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/steel"
+    },
+    "R": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "capacitor"
+        },
+        "minecraft:custom_model_data": 1
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "W": {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "type": "neoforge:components",
+          "components": {
+            "minecraft:custom_data": {
+              "material": "copper"
+            },
+            "minecraft:custom_model_data": 2900
+          },
+          "items": "hbm:wire_fine",
+          "strict": false
+        },
+        {
+          "type": "neoforge:difference",
+          "base": {
+            "tag": "c:wires/fine/copper"
+          },
+          "subtracted": {
+            "item": "hbm:wire_fine"
+          }
+        }
+      ]
+    }
+  },
+  "pattern": [
+    "RRR",
+    "WWW",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_converter_he_fe"
+  }
+}

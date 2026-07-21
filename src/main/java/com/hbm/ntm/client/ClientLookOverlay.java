@@ -26,10 +26,12 @@ import com.hbm.ntm.blockentity.IndustrialTurbineBlockEntity;
 import com.hbm.ntm.blockentity.SteamEngineBlockEntity;
 import com.hbm.ntm.blockentity.SteamCondenserBlockEntity;
 import com.hbm.ntm.blockentity.PumpBlockEntity;
-import com.hbm.ntm.recipe.FluidBurnerFuels;
-import com.hbm.ntm.item.OreDensityScannerItem;
+import com.hbm.ntm.blockentity.ConverterFEtoHEBlockEntity;
+import com.hbm.ntm.blockentity.ConverterHEtoFEBlockEntity;
 import com.hbm.ntm.blockentity.StirlingBlockEntity;
 import com.hbm.ntm.blockentity.SawmillBlockEntity;
+import com.hbm.ntm.recipe.FluidBurnerFuels;
+import com.hbm.ntm.item.OreDensityScannerItem;
 import com.hbm.ntm.registry.ModBlocks;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -158,6 +160,18 @@ public final class ClientLookOverlay {
                     && minecraft.player.getMainHandItem().is(ModItems.BLOWTORCH.get())) {
                 renderTankRepair(event.getGuiGraphics(), minecraft);
             }
+            return;
+        }
+        if (state.is(ModBlocks.MACHINE_CONVERTER_HE_FE.get())) {
+            if (minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof ConverterHEtoFEBlockEntity converter) {
+                renderConverterHEtoFE(event.getGuiGraphics(), minecraft, converter);
+            };
+            return;
+        }
+        if (state.is(ModBlocks.MACHINE_CONVERTER_FE_HE.get())) {
+            if (minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof ConverterFEtoHEBlockEntity converter) {
+                renderConverterFEtoHE(event.getGuiGraphics(), minecraft, converter);
+            };
             return;
         }
         if (!state.is(ModBlocks.MACHINE_STIRLING.get())) return;
@@ -499,6 +513,37 @@ public final class ClientLookOverlay {
                 "<- %s: %,d/%,dmB", Component.translatable("hbmfluid.air").getString(),
                 intake.airTank().getFluidAmount(), intake.airTank().getCapacity()),
                 x, y, 0xFFFFFF, true);
+    }
+
+
+    private static void renderConverterHEtoFE(GuiGraphics graphics, Minecraft minecraft,
+                                        ConverterHEtoFEBlockEntity converter) {
+        int x = graphics.guiWidth() / 2 + 8;
+        int y = graphics.guiHeight() / 2 + 2;
+
+        long power = converter.getPower();
+        int currentEnergy = converter.getEnergy().getEnergyStored();
+
+        graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                "-> %,dHE", power), x, y, 0xFF5555, true);
+        y += 10;
+        graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                "<- %,dFE", currentEnergy), x, y, 0x55FF55, true);
+    }
+
+    private static void renderConverterFEtoHE(GuiGraphics graphics, Minecraft minecraft,
+                                              ConverterFEtoHEBlockEntity converter) {
+        int x = graphics.guiWidth() / 2 + 8;
+        int y = graphics.guiHeight() / 2 + 2;
+
+        long power = converter.getPower();
+        int currentEnergy = converter.getEnergy().getEnergyStored();
+
+        graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                "-> %,dFE", currentEnergy), x, y, 0xFF5555, true);
+        y += 10;
+        graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                "<- %,dHE", power), x, y, 0x55FF55, true);
     }
 
     private static void renderBoiler(GuiGraphics graphics, Minecraft minecraft, HeatBoilerBlockEntity boiler) {

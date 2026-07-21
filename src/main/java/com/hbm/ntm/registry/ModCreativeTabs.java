@@ -469,6 +469,8 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.CRANE_INSERTER_ITEM.get());
                         output.accept(ModItems.CRANE_BOXER_ITEM.get());
                         output.accept(ModItems.RED_CABLE_ITEM.get());
+                        output.accept(ModItems.MACHINE_CONVERTER_HE_FE.get());
+                        output.accept(ModItems.MACHINE_CONVERTER_FE_HE.get());
                         output.accept(ModItems.MACHINE_BATTERY_SOCKET_ITEM.get());
                         output.accept(ModItems.MACHINE_BATTERY_REDD_ITEM.get());
                         output.accept(ModItems.GEIGER_BLOCK_ITEM.get());

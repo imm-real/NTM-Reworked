@@ -225,6 +225,8 @@
   "block.hbm.machine_combustion_engine": "Industrial Combustion Engine",
   "block.hbm.machine_condenser": "Steam Condenser",
   "block.hbm.machine_condenser_powered": "High-Power Steam Condenser",
+  "block.hbm.machine_converter_fe_he": "FE to HE Converter",
+  "block.hbm.machine_converter_he_fe": "HE to FE Converter",
   "block.hbm.machine_crucible": "Crucible",
   "block.hbm.machine_diesel": "Diesel Generator",
   "block.hbm.machine_diesel.desc.0": "Fuel efficiency:",

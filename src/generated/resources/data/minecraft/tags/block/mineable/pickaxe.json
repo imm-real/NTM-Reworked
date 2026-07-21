@@ -88,6 +88,8 @@
     "hbm:machine_centrifuge",
     "hbm:machine_catalytic_cracker",
     "hbm:machine_fraction_tower",
+    "hbm:machine_converter_he_fe",
+    "hbm:machine_converter_fe_he",
     "hbm:fraction_spacer",
     "hbm:machine_crucible",
     "hbm:foundry_mold",
