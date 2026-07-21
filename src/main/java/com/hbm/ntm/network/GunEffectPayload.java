@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.registry.ModParticles;
 import com.hbm.ntm.item.FlamerGunItem;
+import com.hbm.ntm.item.LaserPistolItem;
 import com.hbm.ntm.item.RocketLauncherItem;
 import com.hbm.ntm.item.StingerLauncherItem;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -67,6 +68,7 @@ public record GunEffectPayload(int shooterId, int receiverIndex, double x, doubl
             boolean customMuzzle = viewer.level().getEntity(payload.shooterId)
                     instanceof net.minecraft.world.entity.LivingEntity living
                     && (living.getMainHandItem().getItem() instanceof FlamerGunItem
+                    || living.getMainHandItem().getItem() instanceof LaserPistolItem
                     || living.getMainHandItem().getItem() instanceof RocketLauncherItem
                     || living.getMainHandItem().getItem() instanceof StingerLauncherItem);
             int smokeCount = customMuzzle ? 0 : payload.blackPowder ? 10 : 3;

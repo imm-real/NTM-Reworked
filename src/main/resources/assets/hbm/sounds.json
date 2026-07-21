@@ -598,6 +598,10 @@
     "category": "player",
     "sounds": [{"name": "hbm:weapon/fire/tesla", "stream": false}]
   },
+  "weapon.fire.laserpistol": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/laserpistol", "stream": false}]
+  },
   "entity.ufo_blast": {
     "category": "hostile",
     "sounds": [{"name": "hbm:entity/ufo_blast", "stream": false}]
