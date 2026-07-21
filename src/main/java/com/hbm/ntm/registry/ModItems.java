@@ -616,6 +616,8 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> MACHINE_FURNACE_BRICK_ITEM;
     public static final DeferredItem<DescriptionBlockItem> MACHINE_WOOD_BURNER_ITEM;
     public static final DeferredItem<BlockItem> MACHINE_MICROWAVE_ITEM;
+    public static final DeferredItem<BlockItem> MACHINE_CONVERTER_HE_FE;
+    public static final DeferredItem<BlockItem> MACHINE_CONVERTER_FE_HE;
     public static final DeferredItem<BlockItem> MACHINE_ASSEMBLY_MACHINE_ITEM;
     public static final DeferredItem<DieselGeneratorBlockItem> MACHINE_DIESEL_ITEM;
     public static final DeferredItem<CombustionEngineBlockItem> MACHINE_COMBUSTION_ENGINE_ITEM;
@@ -1512,6 +1514,8 @@ public final class ModItems {
                         "block.hbm.machine_wood_burner.desc.1",
                         "block.hbm.machine_wood_burner.desc.2"));
         MACHINE_MICROWAVE_ITEM = ITEMS.registerSimpleBlockItem("machine_microwave", ModBlocks.MACHINE_MICROWAVE);
+        MACHINE_CONVERTER_HE_FE = ITEMS.registerSimpleBlockItem("machine_converter_he_fe", ModBlocks.MACHINE_CONVERTER_HE_FE);
+        MACHINE_CONVERTER_FE_HE = ITEMS.registerSimpleBlockItem("machine_converter_fe_he", ModBlocks.MACHINE_CONVERTER_FE_HE);
         MACHINE_ASSEMBLY_MACHINE_ITEM = ITEMS.registerSimpleBlockItem(
                 "machine_assembly_machine", ModBlocks.MACHINE_ASSEMBLY_MACHINE);
         MACHINE_DIESEL_ITEM = ITEMS.register("machine_diesel",

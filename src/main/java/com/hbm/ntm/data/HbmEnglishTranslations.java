@@ -245,6 +245,8 @@ final class HbmEnglishTranslations {
                 "Can burn fluids at 50% efficiency at 40mB/s");
         language.addProperty("block.hbm.machine_microwave", "Microwave");
         language.addProperty("container.microwave", "Microwave");
+        language.addProperty("block.hbm.machine_converter_he_fe", "HE to FE Converter");
+        language.addProperty("block.hbm.machine_converter_fe_he", "FE to HE Converter");
         language.addProperty("item.hbm.magnetron", "Magnetron");
         language.addProperty("block.hbm.fluid_duct_neo", "Universal Fluid Duct");
         language.addProperty("item.hbm.fluid_duct", "Fluid Duct:");

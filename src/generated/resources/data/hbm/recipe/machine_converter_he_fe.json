@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/steel"
+    },
+    "R": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "capacitor"
+        },
+        "minecraft:custom_model_data": 1
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "W": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "WWW",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:machine_converter_he_fe"
+  }
+}
