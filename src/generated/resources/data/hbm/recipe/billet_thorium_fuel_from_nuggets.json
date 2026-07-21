@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:nuggets/thorium_232"
+    },
+    {
+      "tag": "c:nuggets/thorium_232"
+    },
+    {
+      "tag": "c:nuggets/thorium_232"
+    },
+    {
+      "tag": "c:nuggets/thorium_232"
+    },
+    {
+      "tag": "c:nuggets/thorium_232"
+    },
+    {
+      "tag": "c:nuggets/uranium_233"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:billet_thorium_fuel"
+  }
+}

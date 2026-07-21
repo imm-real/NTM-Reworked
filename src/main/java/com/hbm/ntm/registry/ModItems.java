@@ -59,6 +59,7 @@ import com.hbm.ntm.item.GeigerCounterItem;
 import com.hbm.ntm.item.G3Item;
 import com.hbm.ntm.item.Stg77Item;
 import com.hbm.ntm.item.M2Item;
+import com.hbm.ntm.item.TeslaCannonItem;
 import com.hbm.ntm.item.AmatItem;
 import com.hbm.ntm.item.SubtletyItem;
 import com.hbm.ntm.item.PenanceItem;
@@ -208,6 +209,7 @@ public final class ModItems {
     public static final DeferredItem<SourceFluidContainerItem> GAS_FULL;
     public static final DeferredItem<Item> CELL_EMPTY;
     public static final DeferredItem<FluidCellItem> CELL_TRITIUM;
+    public static final DeferredItem<FluidCellItem> CELL_SAS3;
     public static final DeferredItem<OilDerrickBlockItem> MACHINE_WELL_ITEM;
     public static final DeferredItem<BlockItem> RADIO_TORCH_SENDER_ITEM;
     public static final DeferredItem<BlockItem> RADIO_TORCH_RECEIVER_ITEM;
@@ -456,6 +458,7 @@ public final class ModItems {
     public static final DeferredItem<G3Item> GUN_G3_ZEBRA;
     public static final DeferredItem<Stg77Item> GUN_STG77;
     public static final DeferredItem<M2Item> GUN_M2;
+    public static final DeferredItem<TeslaCannonItem> GUN_TESLA_CANNON;
     public static final DeferredItem<AmatItem> GUN_AMAT;
     public static final DeferredItem<SubtletyItem> GUN_AMAT_SUBTLETY;
     public static final DeferredItem<PenanceItem> GUN_AMAT_PENANCE;
@@ -797,6 +800,9 @@ public final class ModItems {
         CELL_EMPTY = ITEMS.registerSimpleItem("cell_empty", new Item.Properties());
         CELL_TRITIUM = ITEMS.register("cell_tritium", () -> new FluidCellItem(
                 new Item.Properties(), HazardProfile.radiation(0.001F), CELL_EMPTY::get));
+        CELL_SAS3 = ITEMS.register("cell_sas3", () -> new FluidCellItem(
+                new Item.Properties().rarity(net.minecraft.world.item.Rarity.RARE),
+                HazardProfile.radiation(5.0F).withBlinding(60.0F), CELL_EMPTY::get));
         MACHINE_WELL_ITEM = ITEMS.register("machine_well",
                 () -> new OilDerrickBlockItem(ModBlocks.MACHINE_WELL.get(), new Item.Properties()));
         RADIO_TORCH_SENDER_ITEM = ITEMS.registerSimpleBlockItem("radio_torch_sender", ModBlocks.RADIO_TORCH_SENDER);
@@ -1240,6 +1246,7 @@ public final class ModItems {
         GUN_AMAT_SUBTLETY = ITEMS.register("gun_amat_subtlety", SubtletyItem::new);
         GUN_AMAT_PENANCE = ITEMS.register("gun_amat_penance", PenanceItem::new);
         GUN_M2 = ITEMS.register("gun_m2", M2Item::new);
+        GUN_TESLA_CANNON = ITEMS.register("gun_tesla_cannon", TeslaCannonItem::new);
         WEAPONIZED_STARBLASTER_CELL = ITEMS.register(
                 "weaponized_starblaster_cell", WeaponizedStarblasterCellItem::new);
         MULTITOOL_DIG = ITEMS.register("multitool_dig",

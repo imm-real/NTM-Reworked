@@ -26,6 +26,8 @@ public final class FractionRecipes {
 
     public static int recipeCount() { return RECIPES.size(); }
 
+    public static List<FractionRecipe> all() { return RECIPES; }
+
     public record FractionRecipe(Supplier<? extends Fluid> input,
                                  Supplier<? extends Fluid> outputLeft, int outputLeftAmount,
                                  Supplier<? extends Fluid> outputRight, int outputRightAmount) {

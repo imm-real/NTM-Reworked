@@ -95,6 +95,10 @@ dependencies {
     compileOnly "dev.ryanhcode.sable:sable-common-${minecraft_version}:${sable_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    // Full JEI at dev runtime only, so runClient can actually show the recipe pages.
+    // Not packaged/published with the mod (compile still only sees the API above).
+    localRuntime "mezz.jei:jei-${minecraft_version}-common:${jei_version}"
+    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Dev-runtime performance mods (not packaged or published with the mod).
     // Sodium 0.8.12 is installed in run/client/mods. Its upstream wrapper and

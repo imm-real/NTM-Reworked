@@ -11,6 +11,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
@@ -44,6 +45,10 @@ public final class ShredderRecipes {
         return RECIPES.size();
     }
 
+    public static List<ShredderRecipe> all() {
+        return RECIPES;
+    }
+
     private static List<ShredderRecipe> buildRecipes() {
         List<ShredderRecipe> recipes = new ArrayList<>();
 
@@ -65,12 +70,16 @@ public final class ShredderRecipes {
         recipes.add(new ShredderRecipe(
                 stack -> stack.is(ModItems.STONE_RESOURCE_ITEM.get())
                         && StoneResourceBlockItem.type(stack) == StoneResourceBlock.Type.LIMESTONE,
-                item("powder_limestone", 4)
+                item("powder_limestone", 4),
+                () -> List.of(StoneResourceBlockItem.create(ModItems.STONE_RESOURCE_ITEM.get(),
+                        StoneResourceBlock.Type.LIMESTONE, 1))
         ));
         recipes.add(new ShredderRecipe(
                 stack -> stack.is(ModItems.CHUNK_ORE.get())
                         && OreChunkItem.type(stack) == OreChunkItem.ChunkType.RARE,
-                item("powder_desh_mix")
+                item("powder_desh_mix"),
+                () -> List.of(OreChunkItem.create(ModItems.CHUNK_ORE.get(),
+                        OreChunkItem.ChunkType.RARE, 1))
         ));
         exact(recipes, () -> ModBlocks.ORE_COLTAN.get(), item("powder_coltan_ore", 2));
         exact(recipes, () -> Blocks.OBSIDIAN, block(ModBlocks.GRAVEL_OBSIDIAN, 1));
@@ -110,12 +119,15 @@ public final class ShredderRecipes {
         generatedHbm(recipes, "ingot_steel", "powder_steel", 1);
         generatedHbm(recipes, "ingot_tcalloy", "powder_tcalloy", 1);
         generatedHbm(recipes, "ingot_polymer", "powder_polymer", 1);
+        generatedHbm(recipes, "ingot_desh", "powder_desh", 1);
+        generatedHbm(recipes, "ingot_dura_steel", "powder_dura_steel", 1);
         generatedHbm(recipes, "ingot_calcium", "powder_calcium", 1);
         generatedHbm(recipes, "ingot_cadmium", "powder_cadmium", 1);
         generatedHbm(recipes, "ingot_beryllium", "powder_beryllium", 1);
         generatedHbm(recipes, "ingot_cobalt", "powder_cobalt", 1);
         generatedHbm(recipes, "ingot_co60", "powder_co60", 1);
         generatedHbm(recipes, "ingot_neptunium", "powder_neptunium", 1);
+        generatedHbm(recipes, "ingot_ra226", "powder_ra226", 1);
         generatedHbm(recipes, "fragment_coltan", "powder_coltan_ore", 1);
 
         generatedHbm(recipes, "plate_iron", "powder_iron", 1);
@@ -161,11 +173,15 @@ public final class ShredderRecipes {
         storageHbm(recipes, "block_fluorite", "fluorite", 4);
         storageHbm(recipes, "block_beryllium", "powder_beryllium", 9);
         storageHbm(recipes, "block_steel", "powder_steel", 9);
+        storageHbm(recipes, "block_desh", "powder_desh", 9);
+        storageHbm(recipes, "block_dura_steel", "powder_dura_steel", 9);
         storageHbm(recipes, "block_tcalloy", "powder_tcalloy", 9);
         storageHbm(recipes, "block_bismuth", "powder_bismuth", 9);
         storageHbm(recipes, "block_cadmium", "powder_cadmium", 9);
         storageHbm(recipes, "block_coltan", "powder_coltan_ore", 9);
         storageHbm(recipes, "block_neptunium", "powder_neptunium", 9);
+        storageHbm(recipes, "block_ra226", "powder_ra226", 9);
+        storageHbm(recipes, "block_schrabidium", "powder_schrabidium", 9);
 
         exact(recipes, () -> ModItems.get("powder_steel_tiny").get(), item("dust_tiny"));
         exact(recipes, () -> ModItems.get("powder_coltan_ore").get(), item("dust"));
@@ -216,11 +232,13 @@ public final class ShredderRecipes {
             Supplier<? extends ItemLike> input,
             Supplier<ItemStack> output
     ) {
-        recipes.add(new ShredderRecipe(stack -> stack.is(input.get().asItem()), output));
+        recipes.add(new ShredderRecipe(stack -> stack.is(input.get().asItem()), output,
+                () -> List.of(new ItemStack(input.get().asItem()))));
     }
 
     private static void tag(List<ShredderRecipe> recipes, TagKey<Item> input, Supplier<ItemStack> output) {
-        recipes.add(new ShredderRecipe(stack -> stack.is(input), output));
+        recipes.add(new ShredderRecipe(stack -> stack.is(input), output,
+                () -> List.of(Ingredient.of(input).getItems())));
     }
 
     private static Supplier<ItemStack> item(String id) {
@@ -239,6 +257,7 @@ public final class ShredderRecipes {
         return () -> new ItemStack(item, count);
     }
 
-    public record ShredderRecipe(Predicate<ItemStack> input, Supplier<ItemStack> output) {
+    public record ShredderRecipe(Predicate<ItemStack> input, Supplier<ItemStack> output,
+                                 Supplier<List<ItemStack>> display) {
     }
 }

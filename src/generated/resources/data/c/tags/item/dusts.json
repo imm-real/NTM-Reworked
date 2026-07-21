@@ -7,6 +7,7 @@
     "#c:dusts/neptunium_237",
     "#c:dusts/schrabidium",
     "#c:dusts/cobalt_60",
+    "#c:dusts/radium_226",
     "#c:dusts/coal",
     "#c:dusts/lignite",
     "#c:dusts/asbestos",
@@ -34,8 +35,10 @@
     "#c:dusts/beryllium",
     "#c:dusts/cobalt",
     "#c:dusts/niobium",
+    "#c:dusts/desh",
     "#c:dusts/polymer",
     "#c:dusts/magnetized_tungsten",
-    "#c:dusts/combine_steel"
+    "#c:dusts/combine_steel",
+    "#c:dusts/dura_steel"
   ]
 }

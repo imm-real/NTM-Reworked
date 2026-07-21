@@ -42,6 +42,14 @@ public final class CentrifugeRecipes {
             recipe(Ingredient.of(ModBlocks.ORE_RARE.get()),
                     item("powder_desh_mix", 1), item("nugget_zirconium", 1),
                     item("nugget_zirconium", 1), () -> new ItemStack(Items.GRAVEL)),
+            recipe(Ingredient.of(ModItems.legacyOreBlockItem("ore_uranium").get(),
+                            ModItems.legacyOreBlockItem("ore_gneiss_uranium").get(),
+                            ModItems.legacyOreBlockItem("ore_nether_uranium").get()),
+                    item("powder_uranium", 1), item("powder_uranium", 1),
+                    item("nugget_ra226", 1), () -> new ItemStack(Items.GRAVEL)),
+            recipe(Ingredient.of(ModItems.legacyOreBlockItem("ore_thorium").get()),
+                    item("powder_thorium", 1), item("powder_thorium", 1),
+                    item("powder_uranium", 1), () -> new ItemStack(Items.GRAVEL)),
             recipe(Ingredient.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE),
                     () -> new ItemStack(Items.REDSTONE, 3), () -> new ItemStack(Items.REDSTONE, 3),
                     item("nugget_mercury", 1), () -> new ItemStack(Items.GRAVEL))
@@ -70,6 +78,10 @@ public final class CentrifugeRecipes {
         return RECIPES.size();
     }
 
+    public static List<CentrifugeRecipe> all() {
+        return RECIPES;
+    }
+
     private static CentrifugeRecipe recipe(Ingredient input,
                                            Supplier<ItemStack> first,
                                            Supplier<ItemStack> second,
@@ -82,6 +94,6 @@ public final class CentrifugeRecipes {
         return () -> new ItemStack(ModItems.get(id).get(), count);
     }
 
-    private record CentrifugeRecipe(Ingredient input, List<Supplier<ItemStack>> outputs) {
+    public record CentrifugeRecipe(Ingredient input, List<Supplier<ItemStack>> outputs) {
     }
 }

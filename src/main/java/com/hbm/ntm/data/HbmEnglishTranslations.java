@@ -117,6 +117,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.rod_quad_empty", "Empty Quad Rod");
         language.addProperty("item.hbm.cell_empty", "Empty Cell");
         language.addProperty("item.hbm.cell_tritium", "Tritium Cell");
+        language.addProperty("item.hbm.cell_sas3", "Schrabidium Trisulfide Cell");
         Map.ofEntries(
                 Map.entry("lithium", "Lithium"), Map.entry("tritium", "Tritium"),
                 Map.entry("co", "Cobalt"), Map.entry("co60", "Cobalt-60"),
@@ -299,6 +300,9 @@ final class HbmEnglishTranslations {
         language.addProperty("fluid.hbm.deuterium", "Deuterium");
         language.addProperty("hbmfluid.tritium", "Tritium");
         language.addProperty("fluid.hbm.tritium", "Tritium");
+        language.addProperty("hbmfluid.sas3", "Schrabidium Trisulfide");
+        language.addProperty("fluid.hbm.sas3", "Schrabidium Trisulfide");
+        language.addProperty("fluid.hbm.flowing_sas3", "Schrabidium Trisulfide");
         language.addProperty("hbmfluid.cryogel", "Cryogel");
         language.addProperty("fluid.hbm.cryogel", "Cryogel");
         language.addProperty("hbmfluid.mercury", "Mercury");
@@ -362,6 +366,7 @@ final class HbmEnglishTranslations {
         language.addProperty("recipe.hbm.chem.lubeelectrodes", "Instant Electrodes (Lubricant)");
         language.addProperty("recipe.hbm.chem.cordite", "Cordite");
         language.addProperty("recipe.hbm.chem.dynamite", "Dynamite");
+        language.addProperty("recipe.hbm.chem.sas3", "Schrabidium Trisulfide Production");
         language.addProperty("block.hbm.machine_soldering_station", "Soldering Station");
         language.addProperty("container.machineSolderingStation", "Soldering Station");
         language.addProperty("block.hbm.machine_transformer", "10k-20Hz Transformer");
@@ -875,6 +880,12 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_amat_subtlety", "Subtlety");
         language.addProperty("item.hbm.gun_amat_penance", "Penance");
         language.addProperty("item.hbm.gun_m2", "Ma Deuce");
+        language.addProperty("item.hbm.gun_tesla_cannon", "Tesla Cannon");
+        language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
+        language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
+        language.addProperty("item.hbm.ammo_standard.capacitor_ir", "Capacitor (Low Wavelength)");
+        language.addProperty("entity.hbm.entity_tesla_beam", "Tesla Beam");
+        language.addProperty("entity.hbm.entity_tesla_impact", "Tesla Impact");
         language.addProperty("item.hbm.ammo_standard.flame_diesel", "Flamer Fuel, Diesel");
         language.addProperty("item.hbm.ammo_standard.flame_gas", "Flamer Fuel, Gas");
         language.addProperty("item.hbm.ammo_standard.flame_napalm", "Flamer Fuel, Napalm");
@@ -1085,6 +1096,13 @@ final class HbmEnglishTranslations {
         language.addProperty("jei.hbm.anvil", "NTM Anvil");
         language.addProperty("jei.hbm.assembly", "Assembly Machine");
         language.addProperty("jei.hbm.press", "Burner Press");
+        language.addProperty("jei.hbm.chemplant", "Chemical Plant");
+        language.addProperty("jei.hbm.centrifuge", "Centrifuge");
+        language.addProperty("jei.hbm.shredder", "Shredder");
+        language.addProperty("jei.hbm.cracking", "Catalytic Cracking Tower");
+        language.addProperty("jei.hbm.fraction", "Fractioning Tower");
+        language.addProperty("jei.hbm.refinery", "Oil Refinery");
+        language.addProperty("jei.hbm.crucible", "Crucible");
         language.addProperty("jei.hbm.anvil.tier", "Anvil tier: %s");
         language.addProperty("jei.hbm.anvil.tier_range", "Anvil tiers: %s-%s");
         language.addProperty("jei.hbm.chance", "Chance: %s%%");

@@ -34,6 +34,7 @@ import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import com.hbm.ntm.weapon.TwentyTwoAmmoType;
 import com.hbm.ntm.weapon.FlamerFuelType;
 import com.hbm.ntm.weapon.RocketAmmoType;
+import com.hbm.ntm.weapon.EnergyAmmoType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -220,6 +221,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.ROD_QUAD_EMPTY.get());
                         output.accept(ModItems.CELL_EMPTY.get());
                         output.accept(ModItems.CELL_TRITIUM.get());
+                        output.accept(ModItems.CELL_SAS3.get());
                         addWasteVariants(output, ModItems.NUCLEAR_WASTE_LONG.get());
                         addWasteVariants(output, ModItems.NUCLEAR_WASTE_LONG_TINY.get());
                         addWasteVariants(output, ModItems.NUCLEAR_WASTE_SHORT.get());
@@ -603,6 +605,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_AMAT_SUBTLETY.get());
                         output.accept(ModItems.GUN_AMAT_PENANCE.get());
                         output.accept(ModItems.GUN_M2.get());
+                        output.accept(ModItems.GUN_TESLA_CANNON.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());
@@ -642,6 +645,9 @@ public final class ModCreativeTabs {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
                         }
                         for (FlamerFuelType type : FlamerFuelType.values()) {
+                            output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
+                        }
+                        for (EnergyAmmoType type : EnergyAmmoType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
                         }
                     })

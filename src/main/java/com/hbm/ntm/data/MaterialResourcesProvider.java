@@ -724,6 +724,7 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, gasFullModel(), itemModels, hbm("gas_full")));
         writes.add(save(output, generatedItemModel("cell_empty"), itemModels, hbm("cell_empty")));
         writes.add(save(output, generatedItemModel("cell_tritium"), itemModels, hbm("cell_tritium")));
+        writes.add(save(output, generatedItemModel("cell_sas3"), itemModels, hbm("cell_sas3")));
         writes.add(save(output, sourceContainerRecipe(true), recipes, hbm("canister_empty")));
         writes.add(save(output, sourceContainerRecipe(false), recipes, hbm("gas_empty")));
         writes.add(save(output, smeltingRecipe("hbm:ore_titanium", "hbm:ingot_titanium", 3.0F),
@@ -742,6 +743,8 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("ingot_co60_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_neptunium", "hbm:ingot_neptunium", 1.0F),
                 recipes, hbm("ingot_neptunium_from_powder")));
+        writes.add(save(output, smeltingRecipe("hbm:powder_ra226", "hbm:ingot_ra226", 1.0F),
+                recipes, hbm("ingot_ra226_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_niobium", "hbm:ingot_niobium", 1.0F),
                 recipes, hbm("ingot_niobium_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_tantalium", "hbm:ingot_tantalium", 1.0F),
@@ -787,6 +790,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("ingot_combine_steel_from_powder")));
         writes.add(save(output, smeltingRecipe("hbm:powder_polymer", "hbm:ingot_polymer", 1.0F),
                 recipes, hbm("ingot_polymer_from_powder")));
+        writes.add(save(output, smeltingRecipe("hbm:powder_desh", "hbm:ingot_desh", 1.0F),
+                recipes, hbm("ingot_desh_from_powder")));
+        writes.add(save(output, smeltingRecipe("hbm:powder_dura_steel", "hbm:ingot_dura_steel", 1.0F),
+                recipes, hbm("ingot_dura_steel_from_powder")));
         writes.add(save(output, powderAlloyScrapsRecipe(List.of("c:dusts/tungsten", "c:nuggets/schrabidium"),
                         "magnetized_tungsten", 38, 72),
                 recipes, hbm("scraps_magnetized_tungsten")));
@@ -825,6 +832,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("powder_lithium")));
         writes.add(save(output, decompressionRecipe("powder_lithium", "powder_lithium_tiny"),
                 recipes, hbm("powder_lithium_tiny_from_powder")));
+        writes.add(save(output, compressionRecipe("nuclear_waste", "block_waste"),
+                recipes, hbm("waste_block")));
+        writes.add(save(output, decompressionRecipe("block_waste", "nuclear_waste"),
+                recipes, hbm("nuclear_waste_from_block_waste")));
         writes.add(save(output, compressionRecipe("nugget_zirconium", "ingot_zirconium"),
                 recipes, hbm("ingot_zirconium_from_nugget")));
         writes.add(save(output, decompressionRecipe("ingot_zirconium", "nugget_zirconium"),
@@ -833,6 +844,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                 recipes, hbm("ingot_tantalium_from_nugget")));
         writes.add(save(output, decompressionRecipe("ingot_tantalium", "nugget_tantalium"),
                 recipes, hbm("nugget_tantalium_from_ingot")));
+        writes.add(save(output, compressionRecipe("nugget_lead", "ingot_lead"),
+                recipes, hbm("ingot_lead_from_nugget_lead")));
+        writes.add(save(output, decompressionRecipe("ingot_lead", "nugget_lead"),
+                recipes, hbm("nugget_lead_from_ingot_lead")));
 
         for (HazardousMaterialDefinitions.ItemDefinition ingot : HazardousMaterialDefinitions.ITEMS) {
             if (ingot.form() != HazardousMaterialDefinitions.Form.INGOT) {
@@ -4538,8 +4553,107 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "R", itemIngredient("hbm:rod_quad_empty")), "hbm:machine_waste_drum"),
                 recipes, hbm("machine_waste_drum")));
 
+        addReactorFuelBlendRecipes(writes, output);
+        addZirnoxRodRecipes(writes, output);
         addBreedingRodRecipes(writes, output);
+        addLeadBreedingRodRecipes(writes, output);
         addTritiumCellRecipes(writes, output);
+    }
+
+    private void addReactorFuelBlendRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        List<JsonObject> billetBlend = new ArrayList<>();
+        for (int i = 0; i < 5; i++) billetBlend.add(itemIngredient("hbm:billet_th232"));
+        billetBlend.add(itemIngredient("hbm:billet_u233"));
+        writes.add(save(output, shapelessItemRecipe(billetBlend, "hbm:billet_thorium_fuel", 6),
+                recipes, hbm("billet_thorium_fuel_from_billets")));
+
+        List<JsonObject> nuggetBlend = new ArrayList<>();
+        for (int i = 0; i < 5; i++) nuggetBlend.add(tagIngredient("c:nuggets/thorium_232"));
+        nuggetBlend.add(tagIngredient("c:nuggets/uranium_233"));
+        writes.add(save(output, shapelessItemRecipe(nuggetBlend, "hbm:billet_thorium_fuel", 1),
+                recipes, hbm("billet_thorium_fuel_from_nuggets")));
+
+        addSixPartFuelBlend(writes, output, "uranium_fuel", "billet_u238", "billet_u235",
+                "c:nuggets/uranium_238", "c:nuggets/uranium_235");
+
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:billet_u238"), itemIngredient("hbm:billet_u238"),
+                itemIngredient("hbm:billet_pu_mix")), "hbm:billet_plutonium_fuel", 3),
+                recipes, hbm("billet_plutonium_fuel_from_billets")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                tagIngredient("c:nuggets/plutonium_rg"), tagIngredient("c:nuggets/plutonium_rg"),
+                tagIngredient("c:nuggets/uranium_238"), tagIngredient("c:nuggets/uranium_238"),
+                tagIngredient("c:nuggets/uranium_238"), tagIngredient("c:nuggets/uranium_238")),
+                "hbm:billet_plutonium_fuel", 1),
+                recipes, hbm("billet_plutonium_fuel_from_nuggets")));
+
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:billet_uranium_fuel"), itemIngredient("hbm:billet_uranium_fuel"),
+                tagIngredient("c:billets/plutonium_239")), "hbm:billet_mox_fuel", 3),
+                recipes, hbm("billet_mox_fuel_from_billets")));
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                tagIngredient("c:nuggets/plutonium_239"), tagIngredient("c:nuggets/plutonium_239"),
+                itemIngredient("hbm:nugget_uranium_fuel"), itemIngredient("hbm:nugget_uranium_fuel"),
+                itemIngredient("hbm:nugget_uranium_fuel"), itemIngredient("hbm:nugget_uranium_fuel")),
+                "hbm:billet_mox_fuel", 1),
+                recipes, hbm("billet_mox_fuel_from_nuggets")));
+    }
+
+    private void addSixPartFuelBlend(
+            List<CompletableFuture<?>> writes,
+            CachedOutput output,
+            String fuel,
+            String majorityBillet,
+            String fissileBillet,
+            String majorityNuggetTag,
+            String fissileNuggetTag
+    ) {
+        List<JsonObject> billets = new ArrayList<>();
+        for (int i = 0; i < 5; i++) billets.add(itemIngredient("hbm:" + majorityBillet));
+        billets.add(itemIngredient("hbm:" + fissileBillet));
+        writes.add(save(output, shapelessItemRecipe(billets, "hbm:billet_" + fuel, 6),
+                recipes, hbm("billet_" + fuel + "_from_billets")));
+
+        List<JsonObject> nuggets = new ArrayList<>();
+        for (int i = 0; i < 5; i++) nuggets.add(tagIngredient(majorityNuggetTag));
+        nuggets.add(tagIngredient(fissileNuggetTag));
+        writes.add(save(output, shapelessItemRecipe(nuggets, "hbm:billet_" + fuel, 1),
+                recipes, hbm("billet_" + fuel + "_from_nuggets")));
+    }
+
+    private void addZirnoxRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        writes.add(save(output, shapedItemRecipe(List.of("Z Z", "ZBZ", "Z Z"), Map.of(
+                "Z", tagIngredient("c:nuggets/zirconium"),
+                "B", tagIngredient("c:ingots/beryllium")), "hbm:rod_zirnox_empty", 4),
+                recipes, hbm("rod_zirnox_empty")));
+
+        addZirnoxFuelRodRecipe(writes, output, "natural_uranium_fuel", "c:billets/uranium");
+        addZirnoxFuelRodRecipe(writes, output, "uranium_fuel", "c:billets/uranium_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "th232", "c:billets/thorium_232");
+        addZirnoxFuelRodRecipe(writes, output, "thorium_fuel", "c:billets/thorium_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "mox_fuel", "c:billets/mox_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "plutonium_fuel", "c:billets/plutonium_fuel");
+        addZirnoxFuelRodRecipe(writes, output, "u233_fuel", "c:billets/uranium_233");
+        addZirnoxFuelRodRecipe(writes, output, "u235_fuel", "c:billets/uranium_235");
+
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_zirnox_empty"),
+                tagIngredient("c:ingots/lithium"),
+                tagIngredient("c:ingots/lithium")), "hbm:rod_zirnox_lithium", 1),
+                recipes, hbm("rod_zirnox_lithium")));
+    }
+
+    private void addZirnoxFuelRodRecipe(
+            List<CompletableFuture<?>> writes,
+            CachedOutput output,
+            String rod,
+            String billetTag
+    ) {
+        writes.add(save(output, shapelessItemRecipe(List.of(
+                itemIngredient("hbm:rod_zirnox_empty"),
+                tagIngredient(billetTag),
+                tagIngredient(billetTag)), "hbm:rod_zirnox_" + rod, 1),
+                recipes, hbm("rod_zirnox_" + rod)));
     }
 
     private void addTritiumCellRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
@@ -4571,8 +4685,14 @@ public final class MaterialResourcesProvider implements DataProvider {
                         "c:billets/cobalt", "hbm:billet_cobalt"),
                 new BreedingRodMaterial(BreedingRodItem.Type.CO60,
                         "c:billets/cobalt_60", "hbm:billet_co60"),
+                new BreedingRodMaterial(BreedingRodItem.Type.RA226,
+                        "c:billets/radium_226", "hbm:billet_ra226"),
+                new BreedingRodMaterial(BreedingRodItem.Type.AC227,
+                        "c:billets/actinium_227", "hbm:billet_actinium"),
                 new BreedingRodMaterial(BreedingRodItem.Type.TH232,
                         "c:billets/thorium_232", "hbm:billet_th232"),
+                new BreedingRodMaterial(BreedingRodItem.Type.THF,
+                        "c:billets/thorium_fuel", "hbm:billet_thorium_fuel"),
                 new BreedingRodMaterial(BreedingRodItem.Type.U235,
                         "c:billets/uranium_235", "hbm:billet_u235"),
                 new BreedingRodMaterial(BreedingRodItem.Type.NP237,
@@ -4583,6 +4703,10 @@ public final class MaterialResourcesProvider implements DataProvider {
                         "c:billets/plutonium_238", "hbm:billet_pu238"),
                 new BreedingRodMaterial(BreedingRodItem.Type.PU239,
                         "c:billets/plutonium_239", "hbm:billet_pu239"),
+                new BreedingRodMaterial(BreedingRodItem.Type.RGP,
+                        "c:billets/plutonium_rg", "hbm:billet_pu_mix"),
+                new BreedingRodMaterial(BreedingRodItem.Type.WASTE,
+                        "c:billets/nuclear_waste", "hbm:billet_nuclear_waste"),
                 new BreedingRodMaterial(BreedingRodItem.Type.URANIUM,
                         "c:billets/uranium", "hbm:billet_uranium")
         );
@@ -4615,6 +4739,49 @@ public final class MaterialResourcesProvider implements DataProvider {
                         recipes, hbm(material.returnedItem().substring("hbm:".length())
                                 + "_from_rod" + formSuffix)));
             }
+        }
+    }
+
+    private void addLeadBreedingRodRecipes(List<CompletableFuture<?>> writes, CachedOutput output) {
+        List<JsonObject> single = new ArrayList<>();
+        single.add(itemIngredient("hbm:rod_empty"));
+        for (int i = 0; i < 6; i++) single.add(tagIngredient("c:nuggets/lead"));
+        writes.add(save(output, shapelessRecipe(single,
+                        breedingRodResult(BreedingRodItem.Form.SINGLE, BreedingRodItem.Type.LEAD)),
+                recipes, hbm("rod_lead")));
+
+        List<JsonObject> dual = new ArrayList<>();
+        dual.add(itemIngredient("hbm:rod_dual_empty"));
+        dual.add(tagIngredient("c:ingots/lead"));
+        for (int i = 0; i < 3; i++) dual.add(tagIngredient("c:nuggets/lead"));
+        writes.add(save(output, shapelessRecipe(dual,
+                        breedingRodResult(BreedingRodItem.Form.DUAL, BreedingRodItem.Type.LEAD)),
+                recipes, hbm("rod_dual_lead")));
+
+        List<JsonObject> quad = new ArrayList<>();
+        quad.add(itemIngredient("hbm:rod_quad_empty"));
+        quad.add(tagIngredient("c:ingots/lead"));
+        quad.add(tagIngredient("c:ingots/lead"));
+        for (int i = 0; i < 6; i++) quad.add(tagIngredient("c:nuggets/lead"));
+        writes.add(save(output, shapelessRecipe(quad,
+                        breedingRodResult(BreedingRodItem.Form.QUAD, BreedingRodItem.Type.LEAD)),
+                recipes, hbm("rod_quad_lead")));
+
+        for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+            int nuggets = switch (form) {
+                case SINGLE -> 6;
+                case DUAL -> 12;
+                case QUAD -> 24;
+            };
+            String suffix = switch (form) {
+                case SINGLE -> "";
+                case DUAL -> "_dual";
+                case QUAD -> "_quad";
+            };
+            writes.add(save(output, shapelessRecipe(
+                            List.of(breedingRodIngredient(form, BreedingRodItem.Type.LEAD)),
+                            recipeResult("hbm:nugget_lead", nuggets)),
+                    recipes, hbm("nugget_lead_from_rod" + suffix)));
         }
     }
 
@@ -4906,6 +5073,20 @@ public final class MaterialResourcesProvider implements DataProvider {
                 "R", foundryPart("part_receiver_heavy", "ferrouranium", 37),
                 "M", foundryPart("part_mechanism", "weapon_steel", 50)), "gun_m2"),
                 recipes, hbm("gun_m2")));
+        writes.add(save(output, weaponRecipe(List.of("CCC", "BRB", "MGE"), Map.of(
+                "C", itemIngredient("hbm:coil_copper"),
+                "B", resistantPart("part_barrel_heavy"),
+                "R", resistantPart("part_receiver_heavy"),
+                "M", foundryPart("part_mechanism", "weapon_steel", 50),
+                "G", foundryPart("part_grip", "polymer", 20_001),
+                "E", customComponentIngredient("hbm:circuit", "type", "advanced", 9)),
+                "gun_tesla_cannon"), recipes, hbm("gun_tesla_cannon")));
+        writes.add(save(output, capacitorRecipe("capacitor", 67, 4, false),
+                recipes, hbm("ammo_capacitor")));
+        writes.add(save(output, capacitorRecipe("capacitor_overcharge", 68, 6, false),
+                recipes, hbm("ammo_capacitor_overcharge")));
+        writes.add(save(output, capacitorRecipe("capacitor_ir", 69, 0, true),
+                recipes, hbm("ammo_capacitor_low")));
         writes.add(save(output, weaponRecipe(List.of(" C ", "BRS", " MG"), Map.of(
                 "C", customComponentIngredient("hbm:circuit", "type", "advanced", 9),
                 "B", foundryPart("part_barrel_heavy", "ferrouranium", 37),
@@ -4935,6 +5116,25 @@ public final class MaterialResourcesProvider implements DataProvider {
 
     private JsonObject weaponRecipe(List<String> pattern, Map<String, JsonObject> key, String output) {
         return shapedItemRecipe(pattern, key, "hbm:" + output);
+    }
+
+    /** Ammo press inputs flattened into shapeless crafting until that machine arrives. */
+    private JsonObject capacitorRecipe(String type, int model, int silicon, boolean niobium) {
+        JsonObject root = new JsonObject();
+        root.addProperty("type", "minecraft:crafting_shapeless");
+        root.addProperty("category", "combat");
+        JsonArray ingredients = new JsonArray();
+        ingredients.add(itemIngredient("hbm:ingot_polymer"));
+        ingredients.add(itemIngredient("hbm:ingot_polymer"));
+        for (int i = 0; i < silicon; i++) ingredients.add(itemIngredient("hbm:billet_silicon"));
+        if (niobium) ingredients.add(itemIngredient("hbm:ingot_niobium"));
+        root.add("ingredients", ingredients);
+        JsonObject customData = new JsonObject(); customData.addProperty("hbm_ammo_type", type);
+        JsonObject components = new JsonObject(); components.add("minecraft:custom_data", customData);
+        components.addProperty("minecraft:custom_model_data", model);
+        JsonObject result = new JsonObject(); result.addProperty("id", "hbm:ammo_standard");
+        result.addProperty("count", 4); result.add("components", components); root.add("result", result);
+        return root;
     }
 
     private JsonObject foundryPart(String part, String material, int metadata) {
@@ -5480,6 +5680,8 @@ public final class MaterialResourcesProvider implements DataProvider {
             case "uranium_235" -> List.of("uranium235", "u235");
             case "uranium_238" -> List.of("uranium238", "u238");
             case "thorium_232" -> List.of("thorium232", "th232", "thorium");
+            case "radium_226" -> List.of("radium226", "ra226");
+            case "actinium_227" -> List.of("actinium227", "ac227");
             default -> List.of();
         };
     }

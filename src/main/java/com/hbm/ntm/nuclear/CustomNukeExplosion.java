@@ -85,8 +85,10 @@ public final class CustomNukeExplosion {
         add(map, item("ingot_schrabidium"), BombType.SCHRAB, 5F);
         add(map, item("nugget_schrabidium"), BombType.SCHRAB, 0.5F);
         add(map, item("powder_schrabidium"), BombType.SCHRAB, 5F);
+        add(map, ModItems.getBlockItem("block_schrabidium").get(), BombType.SCHRAB, 50F);
+        add(map, ModItems.CELL_SAS3.get(), BombType.SCHRAB, 7.5F);
         add(map, ModItems.CUSTOM_SCHRAB.get(), BombType.SCHRAB, 15F);
-        // block_schrabidium, cell_sas3 and cell_anti_schrabidium are not registered yet.
+        // cell_anti_schrabidium is not registered yet.
 
         // === EUPHEMIUM (ADD) === waiting on Euphemium ingots and nuggets.
 
@@ -105,8 +107,9 @@ public final class CustomNukeExplosion {
         mult(map, item("nugget_pu238"), BombType.NUKE, 1.015F);
         mult(map, item("powder_uranium"), BombType.NUKE, 1.05F);
         mult(map, item("powder_plutonium"), BombType.NUKE, 1.15F);
+        mult(map, item("nuclear_waste"), BombType.DIRTY, 1.025F);
         mult(map, ModItems.BLOCK_WASTE_ITEM.get(), BombType.DIRTY, 1.25F);
-        // ingot_pu240, the nuclear-waste item and yellow_barrel are not registered yet.
+        // ingot_pu240 and yellow_barrel are not registered yet.
 
         return map;
     }

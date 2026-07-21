@@ -7,6 +7,7 @@ import com.hbm.ntm.config.HbmConfig;
 import com.hbm.ntm.explosion.DetonationResult;
 import com.hbm.ntm.explosion.RemoteDetonation;
 import com.hbm.ntm.inventory.NukePrototypeMenu;
+import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.nuclear.FleijaCloudEntity;
 import com.hbm.ntm.nuclear.FleijaExplosionEntity;
 import com.hbm.ntm.registry.ModBlocks;
@@ -63,20 +64,44 @@ public final class NukePrototypeGameTests {
         helper.succeed();
     }
 
-    /**
-     * cell_sas3 and rod_quad are not registered, so isReady can never be
-     * satisfied. The gate must reject an empty bomb and any wrong-component fill.
-     */
     @GameTest(template = "empty")
-    public static void readinessStaysGatedWithoutArmingComponents(GameTestHelper helper) {
+    public static void readinessRequiresTheExactFourteenSourceComponents(GameTestHelper helper) {
         BlockPos pos = placeBomb(helper);
         NukePrototypeBlockEntity bomb = bomb(helper, pos);
         check(helper, !bomb.isReady(), "An empty Prototype must not be ready");
         for (int slot = 0; slot < NukePrototypeBlockEntity.SLOTS; slot++) {
             bomb.setItem(slot, new ItemStack(Items.IRON_INGOT));
         }
-        check(helper, !bomb.isReady(),
-                "The Prototype must stay unarmed without cell_sas3 and rod_quad");
+        check(helper, !bomb.isReady(), "Fourteen random items must not arm the Prototype");
+
+        int[] cells = {0, 1, 12, 13};
+        int[] uranium = {2, 3, 10, 11};
+        int[] lead = {4, 5, 8, 9};
+        int[] neptunium = {6, 7};
+        for (int slot : cells) bomb.setItem(slot, new ItemStack(ModItems.CELL_SAS3.get()));
+        for (int slot : uranium) bomb.setItem(slot, quadRod(BreedingRodItem.Type.URANIUM));
+        for (int slot : lead) bomb.setItem(slot, quadRod(BreedingRodItem.Type.LEAD));
+        for (int slot : neptunium) bomb.setItem(slot, quadRod(BreedingRodItem.Type.NP237));
+        check(helper, bomb.isReady(), "Four SAS3 Cells and the exact U/Lead/Np rod layout must arm the Prototype");
+
+        bomb.setItem(13, new ItemStack(ModItems.CELL_TRITIUM.get()));
+        check(helper, !bomb.isReady(), "A Tritium Cell must not pass for SAS3 in the Prototype");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void armingRodsKeepTheirSourceSlotLayout(GameTestHelper helper) {
+        NukePrototypeBlockEntity bomb = bomb(helper, placeBomb(helper));
+        int[] uranium = {2, 3, 10, 11};
+        int[] lead = {4, 5, 8, 9};
+        int[] neptunium = {6, 7};
+        for (int slot : uranium) bomb.setItem(slot, quadRod(BreedingRodItem.Type.URANIUM));
+        for (int slot : lead) bomb.setItem(slot, quadRod(BreedingRodItem.Type.LEAD));
+        for (int slot : neptunium) bomb.setItem(slot, quadRod(BreedingRodItem.Type.NP237));
+        check(helper, bomb.hasCorrectRodLayout(), "The Prototype must accept its exact U/Lead/Np rod layout");
+
+        bomb.setItem(4, quadRod(BreedingRodItem.Type.URANIUM));
+        check(helper, !bomb.hasCorrectRodLayout(), "A Uranium rod must not pass for Lead in slot 4");
         helper.succeed();
     }
 
@@ -204,6 +229,10 @@ public final class NukePrototypeGameTests {
         helper.setBlock(pos, ModBlocks.NUKE_PROTOTYPE.get().defaultBlockState()
                 .setValue(NukePrototypeBlock.FACING, Direction.SOUTH));
         return pos;
+    }
+
+    private static ItemStack quadRod(BreedingRodItem.Type type) {
+        return BreedingRodItem.stack(ModItems.ROD_QUAD.get(), type, 1);
     }
 
     private static NukePrototypeBlockEntity bomb(GameTestHelper helper, BlockPos pos) {

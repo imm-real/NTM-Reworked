@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:billet_uranium_fuel"
+    },
+    {
+      "item": "hbm:billet_uranium_fuel"
+    },
+    {
+      "item": "hbm:billet_uranium_fuel"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "hbm:ingot_uranium_fuel"
+  }
+}

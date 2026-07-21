@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "hbmBreedingRodType": "lead"
+        },
+        "minecraft:custom_model_data": 13
+      },
+      "items": "hbm:rod_quad",
+      "strict": false
+    }
+  ],
+  "result": {
+    "count": 24,
+    "id": "hbm:nugget_lead"
+  }
+}

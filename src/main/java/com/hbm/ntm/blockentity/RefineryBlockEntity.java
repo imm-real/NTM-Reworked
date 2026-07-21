@@ -73,6 +73,11 @@ public final class RefineryBlockEntity extends BlockEntity implements WorldlyCon
     private static final int[] SULFUR_ONLY = {SULFUR_OUTPUT};
     private static final int[] OUTPUT_AMOUNTS = {50, 25, 15, 10};
 
+    /** The exact per-operation Heavy Oil/Naphtha/Light Oil/Petroleum split, exposed read-only for JEI. */
+    public static int[] outputAmounts() {
+        return OUTPUT_AMOUNTS.clone();
+    }
+
     private final NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private FluidIdentifierItem.Selection selectedFluid = FluidIdentifierItem.Selection.HOTOIL;
     private final FluidTank input = new FluidTank(INPUT_CAPACITY,

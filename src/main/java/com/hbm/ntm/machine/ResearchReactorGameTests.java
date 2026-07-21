@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -142,6 +143,20 @@ public final class ResearchReactorGameTests {
                 "Sided automation must reject insertion into the other eleven slots");
         check(helper, !reactor.canTakeItemThroughFace(0, stack, Direction.NORTH),
                 "The source ItemStack identity bug must prevent sided extraction");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void deshBlockCountsAsReactorRadiationShielding(GameTestHelper helper) {
+        Block desh = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "block_desh"));
+        check(helper, desh != Blocks.AIR, "block_desh must be registered before it can shield the reactor");
+        check(helper, ResearchReactorBlockEntity.isRadiationShieldingBlock(desh.defaultBlockState()),
+                "The Research Reactor must treat a Reinforced Block of Desh as radiation shielding");
+        Block lead = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "block_lead"));
+        check(helper, ResearchReactorBlockEntity.isRadiationShieldingBlock(lead.defaultBlockState()),
+                "Lead must remain reactor shielding");
+        check(helper, !ResearchReactorBlockEntity.isRadiationShieldingBlock(Blocks.DIRT.defaultBlockState()),
+                "Plain dirt must never count as reactor shielding");
         helper.succeed();
     }
 
