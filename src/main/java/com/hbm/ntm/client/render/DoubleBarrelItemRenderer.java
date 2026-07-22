@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.client.model.EnvsuitMesh;
 import com.hbm.ntm.item.DoubleBarrelItem;
+import com.hbm.ntm.item.SacredDragonItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -18,7 +19,9 @@ import java.util.Set;
 
 public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation MODEL = id("models/weapons/sacred_dragon.obj");
-    private static final ResourceLocation TEXTURE = id("textures/models/weapons/double_barrel.png");
+    private static final ResourceLocation TEXTURE_CLASSIC = id("textures/models/weapons/double_barrel.png");
+    private static final ResourceLocation TEXTURE_SACRED_DRAGON = id(
+            "textures/models/weapons/double_barrel_sacred_dragon.png");
     private static final Set<String> GROUPS = Set.of(
             "Stock", "BarrelShort", "Barrel", "Buckle", "Lever", "Shells");
     private EnvsuitMesh mesh;
@@ -31,7 +34,7 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext context, PoseStack poses,
                              MultiBufferSource buffers, int light, int overlay) {
-        if (!(stack.getItem() instanceof DoubleBarrelItem)) return;
+        if (!supports(stack)) return;
         boolean first = context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND;
         boolean held = first || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
@@ -40,7 +43,7 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
         poses.pushPose();
         setupContext(context, poses);
         if (first) renderFirstPerson(stack, poses, buffers, light, overlay);
-        else renderStatic(poses, buffers, light, overlay);
+        else renderStatic(stack, poses, buffers, light, overlay);
         if (held) renderMuzzleFlash(stack, poses, buffers);
         poses.popPose();
     }
@@ -48,8 +51,8 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
     private void renderFirstPerson(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
                                    int light, int overlay) {
         float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        double time = (DoubleBarrelItem.animationTimer(stack) + partial) * 50.0D;
-        Animation animation = animation(DoubleBarrelItem.animation(stack), time);
+        double time = (animationTimer(stack) + partial) * 50.0D;
+        Animation animation = animation(stack, time);
 
         poses.translate(animation.recoil.x * 3.0D, animation.recoil.y, animation.recoil.z);
         poses.mulPose(Axis.XP.rotationDegrees((float) (animation.recoil.z * 10.0D)));
@@ -66,27 +69,27 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
         poses.mulPose(Axis.XN.rotationDegrees((float) animation.lift.x));
         poses.translate(0.0D, 0.0D, 4.0D);
 
-        render("Stock", poses, buffers, light, overlay);
+        render("Stock", stack, poses, buffers, light, overlay);
 
         poses.pushPose();
         poses.translate(0.0D, -0.4375D, -0.875D);
         poses.mulPose(Axis.XP.rotationDegrees((float) animation.barrel.x));
         poses.translate(0.0D, 0.4375D, 0.875D);
-        render("BarrelShort", poses, buffers, light, overlay);
-        render("Barrel", poses, buffers, light, overlay);
+        render("BarrelShort", stack, poses, buffers, light, overlay);
+        if (!isSacredDragon(stack)) render("Barrel", stack, poses, buffers, light, overlay);
 
         poses.pushPose();
         poses.translate(0.75D, 0.0D, -0.6875D);
         poses.mulPose(Axis.YP.rotationDegrees((float) animation.buckle.y));
         poses.translate(-0.75D, 0.0D, 0.6875D);
-        render("Buckle", poses, buffers, light, overlay);
+        render("Buckle", stack, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
         poses.translate(-0.3125D, 0.3125D, 0.0D);
         poses.mulPose(Axis.ZP.rotationDegrees((float) animation.lever.z));
         poses.translate(0.3125D, -0.3125D, 0.0D);
-        render("Lever", poses, buffers, light, overlay);
+        render("Lever", stack, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
@@ -94,13 +97,17 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
         poses.translate(0.0D, 0.0D, -1.0D);
         poses.mulPose(Axis.XP.rotationDegrees((float) animation.shellFlip.x));
         poses.translate(0.0D, 0.0D, 1.0D);
-        render("Shells", poses, buffers, light, overlay);
+        render("Shells", stack, poses, buffers, light, overlay);
         poses.popPose();
         poses.popPose();
     }
 
-    private void renderStatic(PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
-        for (String group : GROUPS) render(group, poses, buffers, light, overlay);
+    private void renderStatic(ItemStack stack, PoseStack poses, MultiBufferSource buffers, int light,
+                             int overlay) {
+        for (String group : GROUPS) {
+            if ("Barrel".equals(group) && isSacredDragon(stack)) continue;
+            render(group, stack, poses, buffers, light, overlay);
+        }
     }
 
     private static void renderMuzzleFlash(ItemStack stack, PoseStack poses,
@@ -116,10 +123,39 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
         poses.popPose();
     }
 
-    private void render(String group, PoseStack poses, MultiBufferSource buffers,
+    private void render(String group, ItemStack stack, PoseStack poses, MultiBufferSource buffers,
                         int light, int overlay) {
-        mesh().render(group, poses.last(), buffers.getBuffer(RenderType.entityCutout(TEXTURE)),
+        mesh().render(group, poses.last(), buffers.getBuffer(RenderType.entityCutout(texture(stack))),
                 1.0F, light, overlay, -1);
+    }
+
+    private static boolean supports(ItemStack stack) {
+        return stack.getItem() instanceof DoubleBarrelItem
+                || stack.getItem() instanceof SacredDragonItem;
+    }
+
+    private static boolean isSacredDragon(ItemStack stack) {
+        return stack.getItem() instanceof SacredDragonItem;
+    }
+
+    private static double animationTimer(ItemStack stack) {
+        if (stack.getItem() instanceof DoubleBarrelItem) return DoubleBarrelItem.animationTimer(stack);
+        if (stack.getItem() instanceof SacredDragonItem) return SacredDragonItem.animationTimer(stack);
+        return 0.0D;
+    }
+
+    private static Animation animation(ItemStack stack, double time) {
+        if (stack.getItem() instanceof DoubleBarrelItem) {
+            return animation(DoubleBarrelItem.animation(stack), time);
+        }
+        if (stack.getItem() instanceof SacredDragonItem) {
+            return animation(SacredDragonItem.animation(stack), time);
+        }
+        return Animation.NONE;
+    }
+
+    private static ResourceLocation texture(ItemStack stack) {
+        return isSacredDragon(stack) ? TEXTURE_SACRED_DRAGON : TEXTURE_CLASSIC;
     }
 
     private EnvsuitMesh mesh() {
@@ -229,6 +265,10 @@ public final class DoubleBarrelItemRenderer extends BlockEntityWithoutLevelRende
                             frame(0, 0, -90, 800), frame(0, 0, 0, 100, Curve.SIN_FULL)), ZERO);
             default -> Animation.NONE;
         };
+    }
+
+    private static Animation animation(SacredDragonItem.GunAnimation type, double time) {
+        return animation(DoubleBarrelItem.GunAnimation.valueOf(type.name()), time);
     }
 
     private static Vec sequence(double time, Frame... frames) {

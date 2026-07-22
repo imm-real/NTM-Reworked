@@ -14,6 +14,7 @@ import com.hbm.ntm.client.render.BlackHoleRenderer;
 import com.hbm.ntm.client.render.BolterItemRenderer;
 import com.hbm.ntm.client.render.DoubleBarrelItemRenderer;
 import com.hbm.ntm.client.render.EyesOfTheTempestItemRenderer;
+import com.hbm.ntm.client.render.AberratorItemRenderer;
 import com.hbm.ntm.client.render.BreakActionRevolverItemRenderer;
 import com.hbm.ntm.client.render.BrokenMaresLegItemRenderer;
 import com.hbm.ntm.client.render.BulletRenderer;
@@ -247,6 +248,15 @@ public final class ClientWeaponRegistration {
         event.register(SexyItemRenderer.MAGAZINE);
         event.register(SexyItemRenderer.SHELL);
         event.register(SexyItemRenderer.BELT);
+        event.register(SexyItemRenderer.HERETIC_GUN);
+        event.register(SexyItemRenderer.HERETIC_BARREL);
+        event.register(SexyItemRenderer.HERETIC_RECOIL_SPRING);
+        event.register(SexyItemRenderer.HERETIC_HOOD);
+        event.register(SexyItemRenderer.HERETIC_LEVER);
+        event.register(SexyItemRenderer.HERETIC_LOCK_SPRING);
+        event.register(SexyItemRenderer.HERETIC_MAGAZINE);
+        event.register(SexyItemRenderer.HERETIC_SHELL);
+        event.register(SexyItemRenderer.HERETIC_BELT);
         event.register(SexyItemRenderer.WHISKEY);
         event.register(B92ItemRenderer.ICON);
         event.register(B93ItemRenderer.ICON);
@@ -604,7 +614,10 @@ public final class ClientWeaponRegistration {
         event.registerItem(weaponExtension(new FatManItemRenderer()), ModItems.GUN_FATMAN.get());
         event.registerItem(weaponExtension(new BolterItemRenderer()), ModItems.GUN_BOLTER.get());
         event.registerItem(weaponExtension(new FollyItemRenderer()), ModItems.GUN_FOLLY.get());
-        event.registerItem(weaponExtension(new DoubleBarrelItemRenderer()), ModItems.GUN_DOUBLE_BARREL.get());
+        event.registerItem(weaponExtension(new DoubleBarrelItemRenderer()), ModItems.GUN_DOUBLE_BARREL.get(),
+                ModItems.GUN_DOUBLE_BARREL_SACRED_DRAGON.get());
+        event.registerItem(weaponExtension(new AberratorItemRenderer()),
+                ModItems.GUN_ABERRATOR.get());
         event.registerItem(weaponExtension(new EyesOfTheTempestItemRenderer()),
                 ModItems.GUN_ABERRATOR_EOTT.get());
         event.registerItem(weaponExtension(new AmatItemRenderer(ResourceLocation.fromNamespaceAndPath(
@@ -966,7 +979,7 @@ public final class ClientWeaponRegistration {
                                                    float swingProgress) {
                 return true;
             }
-        }, ModItems.GUN_AUTOSHOTGUN_SEXY.get());
+        }, ModItems.GUN_AUTOSHOTGUN_SEXY.get(), ModItems.GUN_AUTOSHOTGUN_HERETIC.get());
 
         event.registerItem(new IClientItemExtensions() {
             private B92ItemRenderer renderer;

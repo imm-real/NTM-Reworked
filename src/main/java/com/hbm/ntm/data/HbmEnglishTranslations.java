@@ -859,6 +859,7 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_autoshotgun", "Auto Shotgun");
         language.addProperty("item.hbm.gun_autoshotgun_shredder", "Shredder");
         language.addProperty("item.hbm.gun_autoshotgun_sexy", "Sexy");
+        language.addProperty("item.hbm.gun_autoshotgun_heretic", "The Heretic");
         language.addProperty("item.hbm.gun_flaregun", "Flare Gun");
         language.addProperty("item.hbm.gun_congolake", "Congo Lake");
         language.addProperty("item.hbm.gun_mk108", "Grenade Machinegun");
@@ -894,6 +895,8 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_bolter", "Bolter");
         language.addProperty("item.hbm.gun_folly", "Folly");
         language.addProperty("item.hbm.gun_double_barrel", "An Old Classic");
+        language.addProperty("item.hbm.gun_double_barrel_sacred_dragon", "Sacred Dragon");
+        language.addProperty("item.hbm.gun_aberrator", "Aberrator");
         language.addProperty("item.hbm.gun_aberrator_eott", "Eyes Of The Tempest");
         language.addProperty("item.hbm.ammo_standard.capacitor", "Capacitor (Standard)");
         language.addProperty("item.hbm.ammo_standard.capacitor_overcharge", "Capacitor (Overcharge)");
@@ -1049,6 +1052,7 @@ final class HbmEnglishTranslations {
         language.addProperty("gui.weapon.quality.legendary", "Legendary Weapon");
         language.addProperty("gui.weapon.quality.special", "Special Weapon");
         language.addProperty("gui.weapon.quality.secret", "Secret Weapon");
+        language.addProperty("gui.weapon.quality.debug", "DEBUG");
         language.addProperty("death.attack.bullet", "%s was shot");
         language.addProperty("death.attack.bullet.player", "%s was shot by %s");
         language.addProperty("death.attack.nuclear_blast", "%s was vaporized by a nuclear blast");

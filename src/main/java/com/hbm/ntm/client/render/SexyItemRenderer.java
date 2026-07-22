@@ -2,6 +2,7 @@ package com.hbm.ntm.client.render;
 
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
+import com.hbm.ntm.item.AutoshotgunHereticItem;
 import com.hbm.ntm.item.SexyItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -20,7 +21,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
-/** Legendary Sexy renderer. Whiskey is an animation dependency. */
+/** Sexy renderer. Heretic only changes the paint. */
 public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
     public static final ModelResourceLocation GUN = model("sexy_gun");
     public static final ModelResourceLocation BARREL = model("sexy_barrel");
@@ -31,6 +32,15 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
     public static final ModelResourceLocation MAGAZINE = model("sexy_magazine");
     public static final ModelResourceLocation SHELL = model("sexy_shell");
     public static final ModelResourceLocation BELT = model("sexy_belt");
+    public static final ModelResourceLocation HERETIC_GUN = model("heretic_gun");
+    public static final ModelResourceLocation HERETIC_BARREL = model("heretic_barrel");
+    public static final ModelResourceLocation HERETIC_RECOIL_SPRING = model("heretic_recoilspring");
+    public static final ModelResourceLocation HERETIC_HOOD = model("heretic_hood");
+    public static final ModelResourceLocation HERETIC_LEVER = model("heretic_lever");
+    public static final ModelResourceLocation HERETIC_LOCK_SPRING = model("heretic_lockspring");
+    public static final ModelResourceLocation HERETIC_MAGAZINE = model("heretic_magazine");
+    public static final ModelResourceLocation HERETIC_SHELL = model("heretic_shell");
+    public static final ModelResourceLocation HERETIC_BELT = model("heretic_belt");
     public static final ModelResourceLocation WHISKEY = model("whiskey_plane");
 
     private static final double[] ANGLES_LOADED = {0, 0, 20, 20, 50, 60, 70};
@@ -44,14 +54,15 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext context, PoseStack poses,
                              MultiBufferSource buffers, int packedLight, int packedOverlay) {
-        if (!(stack.getItem() instanceof SexyItem)) return;
+        if (!isSexyLike(stack.getItem())) return;
         boolean firstPerson = context == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND
                 || context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
+        boolean heretic = stack.getItem() instanceof AutoshotgunHereticItem;
 
         poses.pushPose();
         setupContext(context, poses);
-        if (firstPerson) renderFirstPerson(stack, poses, buffers, packedLight, packedOverlay);
-        else renderStatic(poses, buffers, packedLight, packedOverlay);
+        if (firstPerson) renderFirstPerson(stack, poses, buffers, packedLight, packedOverlay, heretic);
+        else renderStatic(poses, buffers, packedLight, packedOverlay, heretic);
 
         boolean held = firstPerson || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
@@ -64,8 +75,16 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
     }
 
     private void renderFirstPerson(ItemStack stack, PoseStack poses,
-                                   MultiBufferSource buffers, int light, int overlay) {
+                                   MultiBufferSource buffers, int light, int overlay,
+                                   boolean heretic) {
         Animation a = animation(stack);
+        ModelResourceLocation gun = modelFor(heretic, GUN, HERETIC_GUN);
+        ModelResourceLocation barrel = modelFor(heretic, BARREL, HERETIC_BARREL);
+        ModelResourceLocation recoil = modelFor(heretic, RECOIL_SPRING, HERETIC_RECOIL_SPRING);
+        ModelResourceLocation hood = modelFor(heretic, HOOD, HERETIC_HOOD);
+        ModelResourceLocation lever = modelFor(heretic, LEVER, HERETIC_LEVER);
+        ModelResourceLocation lockSpring = modelFor(heretic, LOCK_SPRING, HERETIC_LOCK_SPRING);
+        ModelResourceLocation magazine = modelFor(heretic, MAGAZINE, HERETIC_MAGAZINE);
 
         // Inspect responsibly.
         if (a.girldinner) {
@@ -92,39 +111,39 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         poses.translate(0.0D, 0.0D, a.recoil.z);
 
-        renderModel(GUN, poses, buffers, light, overlay);
+        renderModel(gun, poses, buffers, light, overlay);
 
         poses.pushPose();
         poses.translate(0.0D, 0.0D, a.barrel.z);
-        renderModel(BARREL, poses, buffers, light, overlay);
+        renderModel(barrel, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
         poses.translate(0.0D, 0.0D, -0.375D);
         poses.scale(1.0F, 1.0F, (float) (1.0D + RECOIL_SPRING_SCALE * a.barrel.z));
         poses.translate(0.0D, 0.0D, 0.375D);
-        renderModel(RECOIL_SPRING, poses, buffers, light, overlay);
+        renderModel(recoil, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
         poses.translate(0.0D, 0.4375D, -2.875D);
         poses.mulPose(Axis.XP.rotationDegrees((float) a.hood.x));
         poses.translate(0.0D, -0.4375D, 2.875D);
-        renderModel(HOOD, poses, buffers, light, overlay);
+        renderModel(hood, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
         poses.translate(0.0D, 0.46875D, -6.875D);
         poses.mulPose(Axis.XP.rotationDegrees((float) (a.lever.z * 60.0D)));
         poses.translate(0.0D, -0.46875D, 6.875D);
-        renderModel(LEVER, poses, buffers, light, overlay);
+        renderModel(lever, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
         poses.translate(0.0D, 0.0D, -6.75D);
         poses.scale(1.0F, 1.0F, (float) (1.0D - a.lever.z * 0.25D));
         poses.translate(0.0D, 0.0D, 6.75D);
-        renderModel(LOCK_SPRING, poses, buffers, light, overlay);
+        renderModel(lockSpring, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
@@ -132,14 +151,15 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
         poses.translate(0.0D, -1.0D, 0.0D);
         poses.mulPose(Axis.ZP.rotationDegrees((float) a.magRot.z));
         poses.translate(0.0D, 1.0D, 0.0D);
-        renderModel(MAGAZINE, poses, buffers, light, overlay);
-        renderProceduralBelt(stack, a, poses, buffers, light, overlay);
+        renderModel(magazine, poses, buffers, light, overlay);
+        renderProceduralBelt(stack, a, poses, buffers, light, overlay, heretic);
         poses.popPose();
     }
 
     /** Seven shells doing procedural conga. */
     private void renderProceduralBelt(ItemStack stack, Animation a, PoseStack poses,
-                                      MultiBufferSource buffers, int light, int overlay) {
+                                      MultiBufferSource buffers, int light, int overlay,
+                                      boolean heretic) {
         double p = 0.0625D;
         double x = p * 17.0D;
         double y = p * -26.0D;
@@ -168,46 +188,76 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
             y += vy;
         }
 
-        int shellAmount = a.useShellCount ? (int) a.shells.x : SexyItem.rounds(stack);
+        int shellAmount = a.useShellCount ? (int) a.shells.x : rounds(stack);
+        ModelResourceLocation shellModel = modelFor(heretic, SHELL, HERETIC_SHELL);
+        ModelResourceLocation belt = modelFor(heretic, BELT, HERETIC_BELT);
         for (int i = 0; i < shells.length - 1; i++) {
             double[] prev = shells[i];
             double[] next = shells[i + 1];
-            boolean shell = shells.length - i < shellAmount + 2;
+            boolean hasShell = shells.length - i < shellAmount + 2;
             renderShell(poses, buffers, light, overlay,
                     interp(prev[0], next[0], cycleProgress),
                     interp(prev[1], next[1], cycleProgress),
-                    interp(prev[2], next[2], cycleProgress), shell);
+                    interp(prev[2], next[2], cycleProgress), shellModel, belt, hasShell);
         }
     }
 
-    private void renderStatic(PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
-        renderModel(GUN, poses, buffers, light, overlay);
-        renderModel(BARREL, poses, buffers, light, overlay);
-        renderModel(RECOIL_SPRING, poses, buffers, light, overlay);
-        renderModel(HOOD, poses, buffers, light, overlay);
-        renderModel(LEVER, poses, buffers, light, overlay);
-        renderModel(LOCK_SPRING, poses, buffers, light, overlay);
-        renderModel(MAGAZINE, poses, buffers, light, overlay);
+    private void renderStatic(PoseStack poses, MultiBufferSource buffers, int light, int overlay,
+                             boolean heretic) {
+        ModelResourceLocation gun = modelFor(heretic, GUN, HERETIC_GUN);
+        ModelResourceLocation barrel = modelFor(heretic, BARREL, HERETIC_BARREL);
+        ModelResourceLocation recoil = modelFor(heretic, RECOIL_SPRING, HERETIC_RECOIL_SPRING);
+        ModelResourceLocation hood = modelFor(heretic, HOOD, HERETIC_HOOD);
+        ModelResourceLocation lever = modelFor(heretic, LEVER, HERETIC_LEVER);
+        ModelResourceLocation lockSpring = modelFor(heretic, LOCK_SPRING, HERETIC_LOCK_SPRING);
+        ModelResourceLocation magazine = modelFor(heretic, MAGAZINE, HERETIC_MAGAZINE);
+        ModelResourceLocation shell = modelFor(heretic, SHELL, HERETIC_SHELL);
+        ModelResourceLocation belt = modelFor(heretic, BELT, HERETIC_BELT);
+
+        renderModel(gun, poses, buffers, light, overlay);
+        renderModel(barrel, poses, buffers, light, overlay);
+        renderModel(recoil, poses, buffers, light, overlay);
+        renderModel(hood, poses, buffers, light, overlay);
+        renderModel(lever, poses, buffers, light, overlay);
+        renderModel(lockSpring, poses, buffers, light, overlay);
+        renderModel(magazine, poses, buffers, light, overlay);
 
         // Shelf-stable cartridge belt.
         double p = 0.0625D;
-        renderShell(poses, buffers, light, overlay, p * 0.0D, p * -6.0D, 90.0D, true);
-        renderShell(poses, buffers, light, overlay, p * 5.0D, p * 1.0D, 30.0D, true);
-        renderShell(poses, buffers, light, overlay, p * 12.0D, p * -1.0D, -30.0D, true);
-        renderShell(poses, buffers, light, overlay, p * 17.0D, p * -6.0D, -60.0D, true);
-        renderShell(poses, buffers, light, overlay, p * 17.0D, p * -13.0D, -90.0D, true);
-        renderShell(poses, buffers, light, overlay, p * 17.0D, p * -20.0D, -90.0D, true);
+        renderShell(poses, buffers, light, overlay,
+                p * 0.0D, p * -6.0D, 90.0D, shell, belt, true);
+        renderShell(poses, buffers, light, overlay,
+                p * 5.0D, p * 1.0D, 30.0D, shell, belt, true);
+        renderShell(poses, buffers, light, overlay,
+                p * 12.0D, p * -1.0D, -30.0D, shell, belt, true);
+        renderShell(poses, buffers, light, overlay,
+                p * 17.0D, p * -6.0D, -60.0D, shell, belt, true);
+        renderShell(poses, buffers, light, overlay,
+                p * 17.0D, p * -13.0D, -90.0D, shell, belt, true);
+        renderShell(poses, buffers, light, overlay,
+                p * 17.0D, p * -20.0D, -90.0D, shell, belt, true);
     }
 
     private void renderShell(PoseStack poses, MultiBufferSource buffers, int light, int overlay,
-                             double x, double y, double rot, boolean shell) {
+                             double x, double y, double rot,
+                             ModelResourceLocation shellModel, ModelResourceLocation beltModel,
+                             boolean drawShell) {
         poses.pushPose();
         poses.translate(x, 0.375D + y, 0.0D);
         poses.mulPose(Axis.ZP.rotationDegrees((float) rot));
         poses.translate(0.0D, -0.375D, 0.0D);
-        renderModel(BELT, poses, buffers, light, overlay);
-        if (shell) renderModel(SHELL, poses, buffers, light, overlay);
+        renderModel(beltModel, poses, buffers, light, overlay);
+        if (drawShell) renderModel(shellModel, poses, buffers, light, overlay);
         poses.popPose();
+    }
+
+    private static boolean isSexyLike(Object item) {
+        return item instanceof SexyItem || item instanceof AutoshotgunHereticItem;
+    }
+
+    private static ModelResourceLocation modelFor(boolean heretic, ModelResourceLocation sexyModel,
+                                                  ModelResourceLocation hereticModel) {
+        return heretic ? hereticModel : sexyModel;
     }
 
     private static void setupContext(ItemDisplayContext context, PoseStack poses) {
@@ -280,9 +330,9 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static Animation animation(ItemStack stack) {
         float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        double time = (SexyItem.animationTimer(stack) + partial) * 50.0D;
-        int amount = SexyItem.rounds(stack);
-        return switch (SexyItem.animation(stack)) {
+        double time = (animationTimer(stack) + partial) * 50.0D;
+        int amount = rounds(stack);
+        return switch (animationType(stack)) {
             case EQUIP -> Animation.of()
                     .equip(sequence(time, frame(45, 0, 0, 0), frame(0, 0, 0, 1000, Curve.SIN_DOWN)));
             case CYCLE -> Animation.of()
@@ -322,6 +372,23 @@ public final class SexyItemRenderer extends BlockEntityWithoutLevelRenderer {
                             frame(25, 0, 0, 750, Curve.SIN_FULL)));
             default -> Animation.of();
         };
+    }
+
+    private static int animationTimer(ItemStack stack) {
+        return stack.getItem() instanceof AutoshotgunHereticItem
+                ? AutoshotgunHereticItem.animationTimer(stack) : SexyItem.animationTimer(stack);
+    }
+
+    private static int rounds(ItemStack stack) {
+        return stack.getItem() instanceof AutoshotgunHereticItem
+                ? AutoshotgunHereticItem.rounds(stack) : SexyItem.rounds(stack);
+    }
+
+    private static SexyItem.GunAnimation animationType(ItemStack stack) {
+        if (stack.getItem() instanceof AutoshotgunHereticItem) {
+            return SexyItem.GunAnimation.valueOf(AutoshotgunHereticItem.animation(stack).name());
+        }
+        return SexyItem.animation(stack);
     }
 
     private static Vec sequence(double time, Frame... frames) {

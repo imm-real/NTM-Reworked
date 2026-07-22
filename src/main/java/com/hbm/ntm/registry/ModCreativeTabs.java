@@ -627,9 +627,12 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_N_I_4_N_I.get());
                         output.accept(ModItems.GUN_FATMAN.get());
                         output.accept(ModItems.GUN_BOLTER.get());
+                        output.accept(ModItems.GUN_DOUBLE_BARREL_SACRED_DRAGON.get());
                         output.accept(ModItems.GUN_FOLLY.get());
                         output.accept(ModItems.GUN_DOUBLE_BARREL.get());
+                        output.accept(ModItems.GUN_ABERRATOR.get());
                         output.accept(ModItems.GUN_ABERRATOR_EOTT.get());
+                        output.accept(ModItems.GUN_AUTOSHOTGUN_HERETIC.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());

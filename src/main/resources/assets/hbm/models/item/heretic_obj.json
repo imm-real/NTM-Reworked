@@ -1,0 +1,19 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/item/heretic.obj",
+  "automatic_culling": false,
+  "shade_quads": true,
+  "flip_v": true,
+  "emissive_ambient": false,
+  "visibility": {
+    "Gun": false,
+    "Barrel": false,
+    "RecoilSpring": false,
+    "Hood": false,
+    "Lever": false,
+    "LockSpring": false,
+    "Magazine": false,
+    "Shell": false,
+    "Belt": false
+  }
+}

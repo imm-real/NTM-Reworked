@@ -17,13 +17,16 @@ import com.hbm.ntm.item.B93Item;
 import com.hbm.ntm.item.BatteryPackItem;
 import com.hbm.ntm.item.BlastInfoBlockItem;
 import com.hbm.ntm.item.BloodBagItem;
+import com.hbm.ntm.item.AberratorItem;
+import com.hbm.ntm.item.AutoshotgunHereticItem;
 import com.hbm.ntm.item.BlueprintItem;
 import com.hbm.ntm.item.BlowtorchItem;
 import com.hbm.ntm.item.BoltItem;
 import com.hbm.ntm.item.BolterItem;
-import com.hbm.ntm.item.FollyItem;
 import com.hbm.ntm.item.DoubleBarrelItem;
 import com.hbm.ntm.item.EyesOfTheTempestItem;
+import com.hbm.ntm.item.FollyItem;
+import com.hbm.ntm.item.SacredDragonItem;
 import com.hbm.ntm.item.BreakActionRevolverItem;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.item.ChargeBlockItem;
@@ -480,7 +483,10 @@ public final class ModItems {
     public static final DeferredItem<BolterItem> GUN_BOLTER;
     public static final DeferredItem<FollyItem> GUN_FOLLY;
     public static final DeferredItem<DoubleBarrelItem> GUN_DOUBLE_BARREL;
+    public static final DeferredItem<SacredDragonItem> GUN_DOUBLE_BARREL_SACRED_DRAGON;
+    public static final DeferredItem<AberratorItem> GUN_ABERRATOR;
     public static final DeferredItem<EyesOfTheTempestItem> GUN_ABERRATOR_EOTT;
+    public static final DeferredItem<AutoshotgunHereticItem> GUN_AUTOSHOTGUN_HERETIC;
     public static final DeferredItem<AmatItem> GUN_AMAT;
     public static final DeferredItem<SubtletyItem> GUN_AMAT_SUBTLETY;
     public static final DeferredItem<PenanceItem> GUN_AMAT_PENANCE;
@@ -1284,7 +1290,12 @@ public final class ModItems {
         GUN_BOLTER = ITEMS.register("gun_bolter", BolterItem::new);
         GUN_FOLLY = ITEMS.register("gun_folly", FollyItem::new);
         GUN_DOUBLE_BARREL = ITEMS.register("gun_double_barrel", DoubleBarrelItem::new);
+        GUN_DOUBLE_BARREL_SACRED_DRAGON = ITEMS.register("gun_double_barrel_sacred_dragon",
+                SacredDragonItem::new);
+        GUN_ABERRATOR = ITEMS.register("gun_aberrator", AberratorItem::new);
         GUN_ABERRATOR_EOTT = ITEMS.register("gun_aberrator_eott", EyesOfTheTempestItem::new);
+        GUN_AUTOSHOTGUN_HERETIC = ITEMS.register("gun_autoshotgun_heretic",
+                AutoshotgunHereticItem::new);
         WEAPONIZED_STARBLASTER_CELL = ITEMS.register(
                 "weaponized_starblaster_cell", WeaponizedStarblasterCellItem::new);
         MULTITOOL_DIG = ITEMS.register("multitool_dig",
