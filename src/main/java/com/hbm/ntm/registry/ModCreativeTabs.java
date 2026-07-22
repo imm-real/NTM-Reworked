@@ -37,6 +37,7 @@ import com.hbm.ntm.weapon.Shotgun10GaugeAmmoType;
 import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import com.hbm.ntm.weapon.TwentyTwoAmmoType;
 import com.hbm.ntm.weapon.FlamerFuelType;
+import com.hbm.ntm.weapon.FireExtinguisherAmmoType;
 import com.hbm.ntm.weapon.RocketAmmoType;
 import com.hbm.ntm.weapon.EnergyAmmoType;
 import com.hbm.ntm.weapon.TauAmmoType;
@@ -633,6 +634,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_ABERRATOR.get());
                         output.accept(ModItems.GUN_ABERRATOR_EOTT.get());
                         output.accept(ModItems.GUN_AUTOSHOTGUN_HERETIC.get());
+                        output.accept(ModItems.GUN_FIREEXT.get());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());
@@ -682,6 +684,9 @@ public final class ModCreativeTabs {
                         }
                         for (FlamerFuelType type : FlamerFuelType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
+                        }
+                        for (FireExtinguisherAmmoType type : FireExtinguisherAmmoType.values()) {
+                            output.accept(type.createStack(ModItems.AMMO_FIREEXT.get(), 1));
                         }
                         for (EnergyAmmoType type : EnergyAmmoType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));

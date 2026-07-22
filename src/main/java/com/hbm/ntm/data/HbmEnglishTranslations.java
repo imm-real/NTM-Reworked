@@ -872,6 +872,15 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_flamer", "Flamethrower");
         language.addProperty("item.hbm.gun_flamer_topaz", "Mister Topaz");
         language.addProperty("item.hbm.gun_flamer_daybreaker", "Daybreaker");
+        language.addProperty("item.hbm.gun_fireext", "Fire Extinguisher");
+        language.addProperty("item.hbm.ammo_fireext.water", "Fire Extinguisher Water Tank");
+        language.addProperty("item.hbm.ammo_fireext.foam", "Fire Extinguisher Foam Tank");
+        language.addProperty("item.hbm.ammo_fireext.sand", "Fire Extinguisher Sand Tank");
+        language.addProperty("block.hbm.block_foam", "Foam");
+        language.addProperty("block.hbm.foam_layer", "Foam Layer");
+        language.addProperty("block.hbm.sand_mix", "Boron Sand");
+        language.addProperty("block.hbm.sand_boron_layer", "Boron Sand Layer");
+        language.addProperty("entity.hbm.entity_bullet_fireext", "Extinguisher Spray");
         language.addProperty("item.hbm.gun_panzerschreck", "Panzerschreck");
         language.addProperty("item.hbm.gun_stinger", "FIM-92 Stinger");
         language.addProperty("item.hbm.gun_quadro", "Quad Rocket Launcher");
@@ -1053,6 +1062,7 @@ final class HbmEnglishTranslations {
         language.addProperty("gui.weapon.quality.special", "Special Weapon");
         language.addProperty("gui.weapon.quality.secret", "Secret Weapon");
         language.addProperty("gui.weapon.quality.debug", "DEBUG");
+        language.addProperty("gui.weapon.quality.utility", "Utility");
         language.addProperty("death.attack.bullet", "%s was shot");
         language.addProperty("death.attack.bullet.player", "%s was shot by %s");
         language.addProperty("death.attack.nuclear_blast", "%s was vaporized by a nuclear blast");

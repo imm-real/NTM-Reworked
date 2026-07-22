@@ -48,6 +48,8 @@ import com.hbm.ntm.item.DenseWireItem;
 import com.hbm.ntm.item.FluidStorageTankBlockItem;
 import com.hbm.ntm.item.FortyMillimeterGunItem;
 import com.hbm.ntm.item.FlamerGunItem;
+import com.hbm.ntm.item.FireExtinguisherAmmoItem;
+import com.hbm.ntm.item.FireExtinguisherItem;
 import com.hbm.ntm.item.RocketLauncherItem;
 import com.hbm.ntm.item.QuadRocketLauncherItem;
 import com.hbm.ntm.item.MissileLauncherItem;
@@ -429,6 +431,7 @@ public final class ModItems {
     public static final DeferredItem<CustomLoreItem> IGNITER;
     public static final DeferredItem<AmmoStandardItem> AMMO_STANDARD;
     public static final DeferredItem<AmmoSecretItem> AMMO_SECRET;
+    public static final DeferredItem<FireExtinguisherAmmoItem> AMMO_FIREEXT;
     public static final DeferredItem<PepperboxItem> GUN_PEPPERBOX;
     public static final DeferredItem<BreakActionRevolverItem> GUN_LIGHT_REVOLVER;
     public static final DeferredItem<BreakActionRevolverItem> GUN_LIGHT_REVOLVER_ATLAS;
@@ -463,6 +466,7 @@ public final class ModItems {
     public static final DeferredItem<FlamerGunItem> GUN_FLAMER;
     public static final DeferredItem<FlamerGunItem> GUN_FLAMER_TOPAZ;
     public static final DeferredItem<FlamerGunItem> GUN_FLAMER_DAYBREAKER;
+    public static final DeferredItem<FireExtinguisherItem> GUN_FIREEXT;
     public static final DeferredItem<RocketLauncherItem> GUN_PANZERSCHRECK;
     public static final DeferredItem<StingerLauncherItem> GUN_STINGER;
     public static final DeferredItem<QuadRocketLauncherItem> GUN_QUADRO;
@@ -1216,6 +1220,7 @@ public final class ModItems {
                 "item.hbm.igniter.desc.0", "item.hbm.igniter.desc.1", "item.hbm.igniter.desc.2",
                 "item.hbm.igniter.desc.3", "item.hbm.igniter.desc.4", "item.hbm.igniter.desc.5"));
         AMMO_STANDARD = ITEMS.register("ammo_standard", AmmoStandardItem::new);
+        AMMO_FIREEXT = ITEMS.register("ammo_fireext", FireExtinguisherAmmoItem::new);
         GUN_PEPPERBOX = ITEMS.register("gun_pepperbox", PepperboxItem::new);
         GUN_LIGHT_REVOLVER = ITEMS.register("gun_light_revolver", () -> new BreakActionRevolverItem(false));
         GUN_LIGHT_REVOLVER_ATLAS = ITEMS.register("gun_light_revolver_atlas", () -> new BreakActionRevolverItem(true));
@@ -1264,6 +1269,7 @@ public final class ModItems {
                 () -> new FlamerGunItem(FlamerGunItem.Variant.TOPAZ));
         GUN_FLAMER_DAYBREAKER = ITEMS.register("gun_flamer_daybreaker",
                 () -> new FlamerGunItem(FlamerGunItem.Variant.DAYBREAKER));
+        GUN_FIREEXT = ITEMS.register("gun_fireext", FireExtinguisherItem::new);
         GUN_PANZERSCHRECK = ITEMS.register("gun_panzerschreck", RocketLauncherItem::new);
         GUN_STINGER = ITEMS.register("gun_stinger", StingerLauncherItem::new);
         GUN_QUADRO = ITEMS.register("gun_quadro", QuadRocketLauncherItem::new);

@@ -5,10 +5,12 @@ import com.hbm.ntm.config.HbmClientConfig;
 import com.hbm.ntm.config.HbmConfig;
 import com.hbm.ntm.item.LaserDetonatorItem;
 import com.hbm.ntm.item.FlamerGunItem;
+import com.hbm.ntm.item.FireExtinguisherItem;
 import com.hbm.ntm.item.SednaGunItem;
 import com.hbm.ntm.item.StingerLauncherItem;
 import com.hbm.ntm.item.TauGunItem;
 import com.hbm.ntm.client.sound.FlamerSoundInstance;
+import com.hbm.ntm.client.sound.FireExtinguisherSoundInstance;
 import com.hbm.ntm.client.sound.StingerLockSoundInstance;
 import com.hbm.ntm.client.sound.TauChargeSoundInstance;
 import com.hbm.ntm.network.GunInputPayload;
@@ -351,6 +353,9 @@ public final class ClientWeaponEvents {
             if (shooter.getMainHandItem().getItem() instanceof FlamerGunItem flamer
                     && flamer.variant() != FlamerGunItem.Variant.DAYBREAKER) {
                 FlamerSoundInstance.keepAlive(shooter);
+            }
+            if (shooter.getMainHandItem().getItem() instanceof FireExtinguisherItem) {
+                FireExtinguisherSoundInstance.keepAlive(shooter);
             }
         }
         if (minecraft.player != null && minecraft.player.getId() == shooterId

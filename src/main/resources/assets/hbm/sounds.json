@@ -521,6 +521,10 @@
     "category": "player",
     "sounds": [{"name": "hbm:weapon/reload/pressure_valve", "stream": false}]
   },
+  "weapon.extinguisher": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/extinguisher", "stream": false}]
+  },
   "block.arc_furnace_lid_stop": {
     "category": "block",
     "sounds": [{"name": "hbm:block/arc_furnace_lid_stop", "stream": false}]

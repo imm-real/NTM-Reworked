@@ -34,6 +34,7 @@ import com.hbm.ntm.block.CraneInserterBlock;
 import com.hbm.ntm.block.CrackingTowerBlock;
 import com.hbm.ntm.block.CrucibleBlock;
 import com.hbm.ntm.block.FireboxBlock;
+import com.hbm.ntm.block.ExtinguisherLayerBlock;
 import com.hbm.ntm.block.FensuBlock;
 import com.hbm.ntm.block.FractionTowerBlock;
 import com.hbm.ntm.block.FractionTowerSeparatorBlock;
@@ -158,6 +159,10 @@ public final class ModBlocks {
     public static final DeferredBlock<ColoredFallingBlock> DIRT_DEAD;
     public static final DeferredBlock<ColoredFallingBlock> SAND_DIRTY;
     public static final DeferredBlock<ColoredFallingBlock> SAND_DIRTY_RED;
+    public static final DeferredBlock<ExtinguisherLayerBlock> FOAM_LAYER;
+    public static final DeferredBlock<Block> BLOCK_FOAM;
+    public static final DeferredBlock<ExtinguisherLayerBlock> SAND_BORON_LAYER;
+    public static final DeferredBlock<ColoredFallingBlock> SAND_MIX;
     public static final DeferredBlock<ColoredFallingBlock> STONE_CRACKED;
     public static final DeferredBlock<DeadPlantBlock> PLANT_DEAD;
     public static final DeferredBlock<OilSpillBlock> OIL_SPILL;
@@ -440,6 +445,18 @@ public final class ModBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(0.5F).sound(SoundType.SAND)));
         SAND_DIRTY_RED = BLOCKS.register("sand_dirty_red", () -> new ColoredFallingBlock(new ColorRGBA(0x8B4C36FF),
                 BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.5F).sound(SoundType.SAND)));
+        FOAM_LAYER = BLOCKS.register("foam_layer", () -> new ExtinguisherLayerBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).replaceable().noOcclusion()
+                        .strength(0.1F, 0.0F).sound(SoundType.SNOW)));
+        BLOCK_FOAM = BLOCKS.register("block_foam", () -> new Block(
+                BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.5F, 0.0F)
+                        .sound(SoundType.SNOW)));
+        SAND_BORON_LAYER = BLOCKS.register("sand_boron_layer", () -> new ExtinguisherLayerBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.SAND).replaceable().noOcclusion()
+                        .strength(0.1F, 0.0F).sound(SoundType.SAND)));
+        SAND_MIX = BLOCKS.register("sand_mix", () -> new ColoredFallingBlock(new ColorRGBA(0xB6AA8AFF),
+                BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(0.5F, 0.0F)
+                        .sound(SoundType.SAND)));
         STONE_CRACKED = BLOCKS.register("stone_cracked", () -> new ColoredFallingBlock(new ColorRGBA(0x6D6D6DFF),
                 BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(5.0F, 0.0F).sound(SoundType.STONE)));
         PLANT_DEAD = BLOCKS.register("plant_dead", () -> new DeadPlantBlock(BlockBehaviour.Properties.of()

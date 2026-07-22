@@ -162,6 +162,8 @@ public final class ModSounds {
             register("weapon.reload.pressure_valve");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_FLAMER_LOOP =
             register("weapon.fire.flame_loop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GUN_EXTINGUISHER_FIRE =
+            register("weapon.extinguisher");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_BOLT_OPEN = register("weapon.reload.boltopen");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_BOLT_CLOSE = register("weapon.reload.boltclose");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_RIFLE_COCK = register("weapon.reload.riflecock");

@@ -12,6 +12,7 @@ import com.hbm.ntm.entity.FortyMillimeterProjectileEntity;
 import com.hbm.ntm.entity.FollyBeamEntity;
 import com.hbm.ntm.entity.FollyNukeProjectileEntity;
 import com.hbm.ntm.entity.FlameProjectileEntity;
+import com.hbm.ntm.entity.FireExtinguisherProjectileEntity;
 import com.hbm.ntm.entity.LingeringFireEntity;
 import com.hbm.ntm.entity.LaserPistolBeamEntity;
 import com.hbm.ntm.entity.NI4NIBeamEntity;
@@ -223,6 +224,13 @@ public final class ModEntities {
                                     FlameProjectileEntity::new, MobCategory.MISC)
                             .fireImmune().sized(0.125F, 0.125F).clientTrackingRange(16).updateInterval(1)
                             .build("hbm:entity_bullet_flamer"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<FireExtinguisherProjectileEntity>> FIRE_EXTINGUISHER_PROJECTILE =
+            ENTITY_TYPES.register("entity_bullet_fireext",
+                    () -> EntityType.Builder.<FireExtinguisherProjectileEntity>of(
+                                    FireExtinguisherProjectileEntity::new, MobCategory.MISC)
+                            .sized(0.125F, 0.125F).clientTrackingRange(16).updateInterval(1)
+                            .build("hbm:entity_bullet_fireext"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<RocketProjectileEntity>> ROCKET_PROJECTILE =
             ENTITY_TYPES.register("entity_bullet_rocket",
