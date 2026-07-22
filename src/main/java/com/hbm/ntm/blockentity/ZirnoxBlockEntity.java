@@ -6,6 +6,7 @@ import com.hbm.ntm.explosion.MultiBombExplosion;
 import com.hbm.ntm.inventory.ZirnoxMenu;
 import com.hbm.ntm.item.InfiniteFluidBarrelItem;
 import com.hbm.ntm.item.ZirnoxRodItem;
+import com.hbm.ntm.recipe.ZirnoxRecipes;
 import com.hbm.ntm.registry.ModBlockEntities;
 import com.hbm.ntm.registry.ModFluids;
 import com.hbm.ntm.registry.ModItems;
@@ -174,27 +175,11 @@ public final class ZirnoxBlockEntity extends BlockEntity implements WorldlyConta
             for (int reaction = 0; reaction < reactions; reaction++) {
                 heat += rod.type().heat();
                 if (rod.advance(stack, 1) > rod.type().maxLife()) {
-                    items.set(slot, depleted(rod.type()));
+                    items.set(slot, ZirnoxRecipes.burnResult(rod.type()));
                     break;
                 }
             }
         }
-    }
-
-    private ItemStack depleted(ZirnoxRodItem.Type type) {
-        return new ItemStack(switch (type) {
-            case NATURAL_URANIUM_FUEL -> ModItems.ROD_ZIRNOX_NATURAL_URANIUM_FUEL_DEPLETED.get();
-            case URANIUM_FUEL -> ModItems.ROD_ZIRNOX_URANIUM_FUEL_DEPLETED.get();
-            case TH232 -> ModItems.ROD_ZIRNOX_THORIUM_FUEL.get();
-            case THORIUM_FUEL -> ModItems.ROD_ZIRNOX_THORIUM_FUEL_DEPLETED.get();
-            case MOX_FUEL -> ModItems.ROD_ZIRNOX_MOX_FUEL_DEPLETED.get();
-            case PLUTONIUM_FUEL -> ModItems.ROD_ZIRNOX_PLUTONIUM_FUEL_DEPLETED.get();
-            case U233_FUEL -> ModItems.ROD_ZIRNOX_U233_FUEL_DEPLETED.get();
-            case U235_FUEL -> ModItems.ROD_ZIRNOX_U235_FUEL_DEPLETED.get();
-            case LES_FUEL -> ModItems.ROD_ZIRNOX_LES_FUEL_DEPLETED.get();
-            case LITHIUM -> ModItems.ROD_ZIRNOX_TRITIUM.get();
-            case ZFB_MOX -> ModItems.ROD_ZIRNOX_ZFB_MOX_DEPLETED.get();
-        });
     }
 
     private void generateSteam() {

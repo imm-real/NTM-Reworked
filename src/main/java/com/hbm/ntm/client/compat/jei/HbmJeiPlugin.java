@@ -10,6 +10,7 @@ import com.hbm.ntm.client.screen.ChemicalPlantScreen;
 import com.hbm.ntm.client.screen.CrucibleScreen;
 import com.hbm.ntm.client.screen.MachinePressScreen;
 import com.hbm.ntm.client.screen.MachineShredderScreen;
+import com.hbm.ntm.client.screen.ZirnoxScreen;
 import com.hbm.ntm.client.compat.jei.FoundryJeiRecipes.CastingRecipe;
 import com.hbm.ntm.client.compat.jei.FoundryJeiRecipes.SmeltingRecipe;
 import com.hbm.ntm.recipe.AssemblyClientRecipes;
@@ -29,6 +30,7 @@ import com.hbm.ntm.recipe.FractionRecipes.FractionRecipe;
 import com.hbm.ntm.recipe.PressRecipes;
 import com.hbm.ntm.recipe.ShredderRecipes;
 import com.hbm.ntm.recipe.ShredderRecipes.ShredderRecipe;
+import com.hbm.ntm.recipe.ZirnoxRecipes;
 import com.hbm.ntm.registry.ModItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -72,6 +74,8 @@ public final class HbmJeiPlugin implements IModPlugin {
             RecipeType.create(HbmNtm.MOD_ID, "foundry_casting", CastingRecipe.class);
     public static final RecipeType<DisplayRecipe> BREEDING_REACTOR =
             RecipeType.create(HbmNtm.MOD_ID, "breeding", DisplayRecipe.class);
+    public static final RecipeType<ZirnoxRecipes.Recipe> ZIRNOX =
+            RecipeType.create(HbmNtm.MOD_ID, "zirnox", ZirnoxRecipes.Recipe.class);
 
     private static final ResourceLocation UID =
             ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "jei");
@@ -101,7 +105,8 @@ public final class HbmJeiPlugin implements IModPlugin {
                 new CrucibleSmeltingRecipeCategory(gui),
                 new FoundryCastingRecipeCategory(gui),
                 new CrucibleRecipeCategory(gui),
-                new BreedingReactorRecipeCategory(gui));
+                new BreedingReactorRecipeCategory(gui),
+                new ZirnoxRecipeCategory(gui));
     }
 
     @Override
@@ -119,6 +124,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipes(FOUNDRY_CASTING, FoundryJeiRecipes.casting());
         registration.addRecipes(CRUCIBLE, CrucibleRecipes.all());
         registration.addRecipes(BREEDING_REACTOR, BreederRecipes.all());
+        registration.addRecipes(ZIRNOX, ZirnoxRecipes.all());
         registeredAssemblyRecipes = AssemblyClientRecipes.all();
         registration.addRecipes(ASSEMBLY, registeredAssemblyRecipes);
     }
@@ -147,6 +153,7 @@ public final class HbmJeiPlugin implements IModPlugin {
                 ModItems.FOUNDRY_MOLD_ITEM.get(), ModItems.FOUNDRY_BASIN_ITEM.get());
         registration.addRecipeCatalysts(BREEDING_REACTOR,
                 ModItems.MACHINE_REACTOR_BREEDING_ITEM.get());
+        registration.addRecipeCatalysts(ZIRNOX, ModItems.REACTOR_ZIRNOX_ITEM.get());
     }
 
     @Override
@@ -162,6 +169,7 @@ public final class HbmJeiPlugin implements IModPlugin {
                 CRUCIBLE, CRUCIBLE_SMELTING);
         registration.addRecipeClickArea(BreedingReactorScreen.class, 68, 9, 30, 37,
                 BREEDING_REACTOR);
+        registration.addRecipeClickArea(ZirnoxScreen.class, 147, 1, 18, 18, ZIRNOX);
     }
 
     @Override
