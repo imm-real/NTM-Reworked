@@ -205,6 +205,35 @@ public final class WeaponModifierGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void gearTrainSlowsEachMinigunReceiverIndependently(GameTestHelper helper) {
+        ItemStack gearTrain = new ItemStack(ModItems.WEAPON_MOD_SLOWDOWN.get());
+        ItemStack minigun = new ItemStack(ModItems.GUN_MINIGUN.get());
+        ItemStack dual = new ItemStack(ModItems.GUN_MINIGUN_DUAL.get());
+        helper.assertTrue(WeaponModManager.isApplicable(minigun, gearTrain, 0)
+                        && WeaponModManager.isApplicable(dual, gearTrain, 0)
+                        && WeaponModManager.isApplicable(dual, gearTrain, 1)
+                        && !WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_M2.get()), gearTrain, 0),
+                "Gear Train must fit only ordinary and both dual Minigun receivers");
+        WeaponModManager.install(minigun, 0, List.of(gearTrain));
+        WeaponModManager.install(dual, 1, List.of(gearTrain));
+        helper.assertTrue(WeaponModManager.hasMod(minigun, 0, WeaponModManager.SLOWDOWN)
+                        && WeaponModManager.hasMod(dual, 1, WeaponModManager.SLOWDOWN)
+                        && !WeaponModManager.hasMod(dual, 0, WeaponModManager.SLOWDOWN),
+                "Gear Train must store source ID 207 per receiver");
+        helper.assertTrue(com.hbm.ntm.item.SevenSixTwoGunItem.fireDelay(minigun) == 2
+                        && com.hbm.ntm.item.SevenSixTwoGunItem.innateSpread(minigun) == 0.0F
+                        && com.hbm.ntm.item.DualMinigunItem.fireDelay(dual, 0) == 1
+                        && com.hbm.ntm.item.DualMinigunItem.fireDelay(dual, 1) == 2
+                        && com.hbm.ntm.item.DualMinigunItem.innateSpread(dual, 1) == 0.0F,
+                "Gear Train must double delay and remove innate spread only on fitted receivers");
+        helper.assertTrue(WeaponModManager.installedMods(dual, 1).getFirst()
+                        .is(ModItems.WEAPON_MOD_SLOWDOWN.get()),
+                "Source ID 207 must rebuild the Gear Train table item");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void dualReceiverStorageStaysIndependent(GameTestHelper helper) {
         ItemStack dual = new ItemStack(ModItems.GUN_UZI_AKIMBO.get());
         ItemStack silencer = new ItemStack(ModItems.WEAPON_MOD_SILENCER.get());

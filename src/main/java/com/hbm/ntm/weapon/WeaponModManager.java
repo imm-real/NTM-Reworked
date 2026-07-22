@@ -2,6 +2,7 @@ package com.hbm.ntm.weapon;
 
 import com.hbm.ntm.item.ChargeThrowerItem;
 import com.hbm.ntm.item.DualStarFItem;
+import com.hbm.ntm.item.DualMinigunItem;
 import com.hbm.ntm.item.DualUziItem;
 import com.hbm.ntm.item.G3Item;
 import com.hbm.ntm.item.HeavyRevolverItem;
@@ -30,6 +31,7 @@ public final class WeaponModManager {
     public static final int NO_SHIELD = 204;
     public static final int NO_STOCK = 205;
     public static final int GREASE_GUN_CLEAN = 206;
+    public static final int SLOWDOWN = 207;
     private static final String MOD_LIST = "KEY_MOD_LIST_";
 
     private WeaponModManager() {}
@@ -39,7 +41,8 @@ public final class WeaponModManager {
                 || stack.is(ModItems.WEAPON_MOD_SPEEDLOADER.get())
                 || stack.is(ModItems.WEAPON_MOD_SCOPE.get())
                 || stack.is(ModItems.WEAPON_MOD_SAW.get())
-                || stack.is(ModItems.WEAPON_MOD_GREASE_GUN.get());
+                || stack.is(ModItems.WEAPON_MOD_GREASE_GUN.get())
+                || stack.is(ModItems.WEAPON_MOD_SLOWDOWN.get());
     }
 
     public static boolean isApplicable(ItemStack gun, ItemStack mod, int config) {
@@ -66,6 +69,11 @@ public final class WeaponModManager {
             return gun.getItem() instanceof NineMillimeterGunItem item
                     && item.variant() == NineMillimeterGunItem.Variant.GREASE_GUN;
         }
+        if (mod.is(ModItems.WEAPON_MOD_SLOWDOWN.get())) {
+            if (gun.getItem() instanceof DualMinigunItem) return true;
+            return gun.getItem() instanceof SevenSixTwoGunItem item
+                    && item.variant() == SevenSixTwoGunItem.Variant.MINIGUN;
+        }
         if (!mod.is(ModItems.WEAPON_MOD_SILENCER.get())) return false;
         if (gun.getItem() instanceof TwentyTwoGunItem item) {
             return item.variant() == TwentyTwoGunItem.Variant.AM180
@@ -82,6 +90,7 @@ public final class WeaponModManager {
     public static int configCount(ItemStack gun) {
         if (gun.getItem() instanceof DualUziItem) return DualUziItem.RECEIVER_COUNT;
         if (gun.getItem() instanceof DualStarFItem) return DualStarFItem.RECEIVER_COUNT;
+        if (gun.getItem() instanceof DualMinigunItem) return DualMinigunItem.RECEIVER_COUNT;
         if (gun.getItem() instanceof TwentyTwoGunItem item
                 && (item.variant() == TwentyTwoGunItem.Variant.AM180
                 || item.variant() == TwentyTwoGunItem.Variant.STAR_F)) return 1;
@@ -94,6 +103,8 @@ public final class WeaponModManager {
                 && (item.variant() == SevenSixTwoGunItem.Variant.CARBINE
                 || item.variant() == SevenSixTwoGunItem.Variant.MAS36)) return 1;
         if (gun.getItem() instanceof ChargeThrowerItem) return 1;
+        if (gun.getItem() instanceof SevenSixTwoGunItem item
+                && item.variant() == SevenSixTwoGunItem.Variant.MINIGUN) return 1;
         if (gun.getItem() instanceof MaresLegItem || gun.getItem() instanceof DoubleBarrelItem
                 || gun.is(ModItems.GUN_PANZERSCHRECK.get())) return 1;
         return 0;
@@ -121,6 +132,7 @@ public final class WeaponModManager {
             if (id == GREASE_GUN_CLEAN) {
                 result.add(new ItemStack(ModItems.WEAPON_MOD_GREASE_GUN.get()));
             }
+            if (id == SLOWDOWN) result.add(new ItemStack(ModItems.WEAPON_MOD_SLOWDOWN.get()));
         }
         return result;
     }
@@ -155,7 +167,8 @@ public final class WeaponModManager {
             if (gun.getItem() instanceof G3Item) return NO_STOCK;
             return SAWED_OFF;
         }
-        return stack.is(ModItems.WEAPON_MOD_GREASE_GUN.get()) ? GREASE_GUN_CLEAN : -1;
+        if (stack.is(ModItems.WEAPON_MOD_GREASE_GUN.get())) return GREASE_GUN_CLEAN;
+        return stack.is(ModItems.WEAPON_MOD_SLOWDOWN.get()) ? SLOWDOWN : -1;
     }
 
     private static int priority(ItemStack stack) {

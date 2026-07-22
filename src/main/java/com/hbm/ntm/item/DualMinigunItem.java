@@ -7,6 +7,7 @@ import com.hbm.ntm.registry.ModSounds;
 import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -191,7 +192,7 @@ public final class DualMinigunItem extends SednaGunItem {
         float currentWear = Mth.clamp(tag.getFloat(wearKey(index)), 0.0F, DURABILITY);
         float damage = BASE_DAMAGE * SevenSixTwoGunItem.wearDamageMultiplier(currentWear, DURABILITY)
                 * ammo.damageMultiplier();
-        float spread = INNATE_SPREAD + ammo.spread()
+        float spread = innateSpread(stack, index) + ammo.spread()
                 + (tag.getBoolean(AIMING) ? 0.0F : SevenSixTwoGunItem.HIP_SPREAD)
                 + SevenSixTwoGunItem.wearSpread(currentWear, DURABILITY);
         Vec3 origin = projectileOrigin(player, index);
@@ -216,7 +217,7 @@ public final class DualMinigunItem extends SednaGunItem {
         }
         tag.putFloat(wearKey(index), Math.min(currentWear + ammo.wear(), DURABILITY));
         setState(tag, index, GunState.COOLDOWN);
-        tag.putInt(timerKey(index), FIRE_DELAY);
+        tag.putInt(timerKey(index), fireDelay(stack, index));
         playAnimation(tag, index, GunAnimation.CYCLE);
     }
 
@@ -295,6 +296,15 @@ public final class DualMinigunItem extends SednaGunItem {
     }
     public static GunState state(ItemStack stack, int index) { return state(data(stack), index); }
     public static int timer(ItemStack stack, int index) { return data(stack).getInt(timerKey(index)); }
+    public static float innateSpread(ItemStack stack, int index) {
+        checkIndex(index);
+        return WeaponModManager.hasMod(stack, index, WeaponModManager.SLOWDOWN) ? 0.0F : INNATE_SPREAD;
+    }
+    public static int fireDelay(ItemStack stack, int index) {
+        checkIndex(index);
+        return WeaponModManager.hasMod(stack, index, WeaponModManager.SLOWDOWN)
+                ? FIRE_DELAY * 2 : FIRE_DELAY;
+    }
     public static GunAnimation animation(ItemStack stack, int index) {
         return animation(data(stack), index);
     }
@@ -375,6 +385,9 @@ public final class DualMinigunItem extends SednaGunItem {
                     * 100.0F / DURABILITY), 0, 100);
             tooltip.add(Component.translatable("gui.weapon.condition")
                     .append(": " + condition + "%").withStyle(ChatFormatting.GRAY));
+            for (ItemStack mod : WeaponModManager.installedMods(stack, index)) {
+                tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+            }
         }
         tooltip.add(Component.translatable("gui.weapon.quality.debug").withStyle(ChatFormatting.DARK_PURPLE));
     }

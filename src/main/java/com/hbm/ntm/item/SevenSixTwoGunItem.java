@@ -206,7 +206,7 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
         float damage = variant.baseDamage * wearDamageMultiplier(currentWear, variant.durability)
                 * ammo.damageMultiplier();
         boolean aiming = tag.getBoolean(AIMING);
-        float spread = variant.innateSpread + ammo.spread()
+        float spread = innateSpread(stack) + ammo.spread()
                 + (aiming ? 0.0F : HIP_SPREAD) + wearSpread(currentWear, variant.durability);
         Vec3 origin = projectileOrigin(player, aiming);
         Vec3 heading = player.getLookAngle();
@@ -227,7 +227,7 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
         }
         tag.putFloat(WEAR, Math.min(currentWear + ammo.wear(), variant.durability));
         tag.putByte(STATE, (byte) GunState.COOLDOWN.ordinal());
-        tag.putInt(TIMER, variant.fireDelay);
+        tag.putInt(TIMER, fireDelay(stack));
         playAnimation(tag, GunAnimation.CYCLE);
     }
 
@@ -453,6 +453,16 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
         return Mth.clamp(tag.getInt(MAG_COUNT), 0, variant.capacity);
     }
     public static int beltCount(ItemStack stack) { return Math.max(0, data(stack).getInt(MAG_COUNT)); }
+    public static float innateSpread(ItemStack stack) {
+        SevenSixTwoGunItem gun = (SevenSixTwoGunItem) stack.getItem();
+        return gun.variant == Variant.MINIGUN
+                && WeaponModManager.hasMod(stack, 0, WeaponModManager.SLOWDOWN)
+                ? 0.0F : gun.variant.innateSpread;
+    }
+    public static int fireDelay(ItemStack stack) {
+        SevenSixTwoGunItem gun = (SevenSixTwoGunItem) stack.getItem();
+        return gun.variant.fireDelay * (WeaponModManager.hasMod(stack, 0, WeaponModManager.SLOWDOWN) ? 2 : 1);
+    }
     public static float wear(ItemStack stack) {
         SevenSixTwoGunItem gun = (SevenSixTwoGunItem) stack.getItem();
         return Mth.clamp(data(stack).getFloat(WEAR), 0.0F, gun.variant.durability);
