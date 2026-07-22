@@ -680,5 +680,9 @@
   "weapon.tesla_yomi": {
     "category": "player",
     "sounds": [{"name": "hbm:block/squeaky_toy", "stream": false}]
+  },
+  "weapon.fire.grenade": {
+    "category": "player",
+    "sounds": [{"name": "hbm:weapon/fire/grenade", "stream": false}]
   }
 }

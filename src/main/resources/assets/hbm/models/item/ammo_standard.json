@@ -86,6 +86,9 @@
     {"predicate": {"custom_model_data": 82}, "model": "hbm:item/ammo_standard_r762_he"},
     {"predicate": {"custom_model_data": 83}, "model": "hbm:item/ammo_standard_bmg50_he"},
     {"predicate": {"custom_model_data": 84}, "model": "hbm:item/ammo_standard_g10_explosive"},
+    {"predicate": {"custom_model_data": 90}, "model": "hbm:item/ammo_standard_ct_hook"},
+    {"predicate": {"custom_model_data": 91}, "model": "hbm:item/ammo_standard_ct_mortar"},
+    {"predicate": {"custom_model_data": 92}, "model": "hbm:item/ammo_standard_ct_mortar_charge"},
     {"predicate": {"custom_model_data": 93}, "model": "hbm:item/ammo_standard_nuke_balefire"},
     {"predicate": {"custom_model_data": 94}, "model": "hbm:item/ammo_standard_bmg50_sm"}
   ]

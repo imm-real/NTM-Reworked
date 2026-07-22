@@ -67,6 +67,9 @@ public final class StandardAmmoTypes {
             for (MiniNukeAmmoType type : MiniNukeAmmoType.values()) {
                 if (type.serializedName().equals(name)) return type;
             }
+            for (ChargeThrowerAmmoType type : ChargeThrowerAmmoType.values()) {
+                if (type.serializedName().equals(name)) return type;
+            }
         }
         CustomModelData modelData = stack.get(DataComponents.CUSTOM_MODEL_DATA);
         return fromLegacyMetadata(modelData == null ? 0 : modelData.value());
@@ -89,6 +92,9 @@ public final class StandardAmmoTypes {
         if (metadata == 71 || metadata == 72) return CoilAmmoType.fromLegacyMetadata(metadata);
         if (metadata >= 73 && metadata <= 77 || metadata == 93) {
             return MiniNukeAmmoType.fromLegacyMetadata(metadata);
+        }
+        if (metadata >= 90 && metadata <= 92) {
+            return ChargeThrowerAmmoType.fromLegacyMetadata(metadata);
         }
         if (metadata >= 58 && metadata <= 62) return RocketAmmoType.fromLegacyMetadata(metadata);
         if (metadata >= 41 && metadata <= 49) return Shotgun12GaugeAmmoType.fromLegacyMetadata(metadata);

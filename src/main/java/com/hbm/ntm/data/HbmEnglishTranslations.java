@@ -287,6 +287,10 @@ final class HbmEnglishTranslations {
         language.addProperty("hbmfluid.diesel", "Diesel");
         language.addProperty("fluid.hbm.diesel", "Diesel");
         language.addProperty("hbmfluid.kerosene", "Kerosene");
+        language.addProperty("hbmfluid.gasoline", "Gasoline");
+        language.addProperty("hbmfluid.gasoline_leaded", "Leaded Gasoline");
+        language.addProperty("hbmfluid.coalgas", "Coal Gasoline");
+        language.addProperty("hbmfluid.coalgas_leaded", "Leaded Coal Gasoline");
         language.addProperty("fluid.hbm.kerosene", "Kerosene");
         language.addProperty("hbmfluid.petroleum", "Petroleum Gas");
         language.addProperty("fluid.hbm.petroleum", "Petroleum Gas");
@@ -873,6 +877,8 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.gun_flamer_topaz", "Mister Topaz");
         language.addProperty("item.hbm.gun_flamer_daybreaker", "Daybreaker");
         language.addProperty("item.hbm.gun_fireext", "Fire Extinguisher");
+        language.addProperty("item.hbm.gun_charge_thrower", "Charge Thrower");
+        language.addProperty("item.hbm.gun_drill", "Powered Drill");
         language.addProperty("item.hbm.ammo_fireext.water", "Fire Extinguisher Water Tank");
         language.addProperty("item.hbm.ammo_fireext.foam", "Fire Extinguisher Foam Tank");
         language.addProperty("item.hbm.ammo_fireext.sand", "Fire Extinguisher Sand Tank");
@@ -881,6 +887,7 @@ final class HbmEnglishTranslations {
         language.addProperty("block.hbm.sand_mix", "Boron Sand");
         language.addProperty("block.hbm.sand_boron_layer", "Boron Sand Layer");
         language.addProperty("entity.hbm.entity_bullet_fireext", "Extinguisher Spray");
+        language.addProperty("entity.hbm.entity_bullet_charge_thrower", "Charge Thrower Payload");
         language.addProperty("item.hbm.gun_panzerschreck", "Panzerschreck");
         language.addProperty("item.hbm.gun_stinger", "FIM-92 Stinger");
         language.addProperty("item.hbm.gun_quadro", "Quad Rocket Launcher");
@@ -919,6 +926,9 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.ammo_standard.nuke_tots", "Mini Nuke, Tiny Tots");
         language.addProperty("item.hbm.ammo_standard.nuke_hive", "Rocket Hive");
         language.addProperty("item.hbm.ammo_standard.nuke_balefire", "Mini Nuke, Balefire Egg");
+        language.addProperty("item.hbm.ammo_standard.ct_hook", "Grappling Hook");
+        language.addProperty("item.hbm.ammo_standard.ct_mortar", "Demolition Charge");
+        language.addProperty("item.hbm.ammo_standard.ct_mortar_charge", "Heavy Demolition Charge");
         language.addProperty("item.hbm.ammo_standard.b75", ".75 Bolt");
         language.addProperty("item.hbm.ammo_standard.b75_inc", ".75 Bolt (Incendiary)");
         language.addProperty("item.hbm.ammo_standard.b75_exp", ".75 Bolt (Explosive)");

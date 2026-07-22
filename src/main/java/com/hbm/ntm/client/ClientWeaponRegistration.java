@@ -63,6 +63,9 @@ import com.hbm.ntm.client.render.SevenSixTwoGunItemRenderer;
 import com.hbm.ntm.client.render.TwentyTwoGunItemRenderer;
 import com.hbm.ntm.client.render.FlamerGunItemRenderer;
 import com.hbm.ntm.client.render.FireExtinguisherItemRenderer;
+import com.hbm.ntm.client.render.ChargeThrowerItemRenderer;
+import com.hbm.ntm.client.render.ChargeThrowerProjectileRenderer;
+import com.hbm.ntm.client.render.DrillItemRenderer;
 import com.hbm.ntm.client.render.RocketProjectileRenderer;
 import com.hbm.ntm.client.render.SpasItemRenderer;
 import com.hbm.ntm.client.render.StingerItemRenderer;
@@ -148,6 +151,8 @@ public final class ClientWeaponRegistration {
                 net.minecraft.client.renderer.entity.NoopRenderer::new);
         event.registerEntityRenderer(ModEntities.FIRE_EXTINGUISHER_PROJECTILE.get(),
                 net.minecraft.client.renderer.entity.NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.CHARGE_THROWER_PROJECTILE.get(),
+                ChargeThrowerProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.ROCKET_PROJECTILE.get(), RocketProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.LINGERING_FIRE.get(),
                 net.minecraft.client.renderer.entity.NoopRenderer::new);
@@ -691,6 +696,30 @@ public final class ClientWeaponRegistration {
                 return true;
             }
         }, ModItems.GUN_FIREEXT.get());
+
+        event.registerItem(new IClientItemExtensions() {
+            private final ChargeThrowerItemRenderer renderer = new ChargeThrowerItemRenderer();
+            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() { return renderer; }
+            @Override public HumanoidModel.ArmPose getArmPose(LivingEntity entity, InteractionHand hand, ItemStack stack) {
+                return HumanoidModel.ArmPose.BOW_AND_ARROW;
+            }
+            @Override public boolean applyForgeHandTransform(PoseStack poses, LocalPlayer player,
+                    HumanoidArm arm, ItemStack stack, float partialTick, float equipProgress, float swingProgress) {
+                return true;
+            }
+        }, ModItems.GUN_CHARGE_THROWER.get());
+
+        event.registerItem(new IClientItemExtensions() {
+            private final DrillItemRenderer renderer = new DrillItemRenderer();
+            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() { return renderer; }
+            @Override public HumanoidModel.ArmPose getArmPose(LivingEntity entity, InteractionHand hand, ItemStack stack) {
+                return HumanoidModel.ArmPose.BOW_AND_ARROW;
+            }
+            @Override public boolean applyForgeHandTransform(PoseStack poses, LocalPlayer player,
+                    HumanoidArm arm, ItemStack stack, float partialTick, float equipProgress, float swingProgress) {
+                return true;
+            }
+        }, ModItems.GUN_DRILL.get());
 
         event.registerItem(new IClientItemExtensions() {
             private final PanzerschreckItemRenderer renderer = new PanzerschreckItemRenderer();

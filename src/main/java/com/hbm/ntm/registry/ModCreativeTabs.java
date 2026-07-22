@@ -38,6 +38,7 @@ import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import com.hbm.ntm.weapon.TwentyTwoAmmoType;
 import com.hbm.ntm.weapon.FlamerFuelType;
 import com.hbm.ntm.weapon.FireExtinguisherAmmoType;
+import com.hbm.ntm.weapon.ChargeThrowerAmmoType;
 import com.hbm.ntm.weapon.RocketAmmoType;
 import com.hbm.ntm.weapon.EnergyAmmoType;
 import com.hbm.ntm.weapon.TauAmmoType;
@@ -328,7 +329,11 @@ public final class ModCreativeTabs {
                                 com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.COALCREOSOTE,
                                 com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.LUBRICANT,
                                 com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.DIESEL,
-                                com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.KEROSENE)) {
+                                com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.KEROSENE,
+                                com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.GASOLINE,
+                                com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.GASOLINE_LEADED,
+                                com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.COALGAS,
+                                com.hbm.ntm.item.SourceFluidContainerItem.ContainedFluid.COALGAS_LEADED)) {
                             output.accept(com.hbm.ntm.item.SourceFluidContainerItem.create(
                                     ModItems.CANISTER_FULL.get(), fluid, 1));
                         }
@@ -635,6 +640,8 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GUN_ABERRATOR_EOTT.get());
                         output.accept(ModItems.GUN_AUTOSHOTGUN_HERETIC.get());
                         output.accept(ModItems.GUN_FIREEXT.get());
+                        output.accept(ModItems.GUN_CHARGE_THROWER.get());
+                        output.accept(com.hbm.ntm.item.DrillItem.filledStack());
                         output.accept(ModItems.GUN_B92.get());
                         output.accept(ModItems.GUN_B93.get());
                         output.accept(ModItems.GUN_B92_AMMO.get());
@@ -687,6 +694,9 @@ public final class ModCreativeTabs {
                         }
                         for (FireExtinguisherAmmoType type : FireExtinguisherAmmoType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_FIREEXT.get(), 1));
+                        }
+                        for (ChargeThrowerAmmoType type : ChargeThrowerAmmoType.values()) {
+                            output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));
                         }
                         for (EnergyAmmoType type : EnergyAmmoType.values()) {
                             output.accept(type.createStack(ModItems.AMMO_STANDARD.get(), 1));

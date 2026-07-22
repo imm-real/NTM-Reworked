@@ -167,6 +167,30 @@ public final class ModFluids {
             "kerosene", () -> new BaseFlowingFluid.Source(keroseneProperties()));
     public static final DeferredHolder<Fluid, FlowingFluid> FLOWING_KEROSENE = FLUIDS.register(
             "flowing_kerosene", () -> new BaseFlowingFluid.Flowing(keroseneProperties()));
+    public static final DeferredHolder<FluidType, FluidType> GASOLINE_TYPE = FLUID_TYPES.register(
+            "gasoline", () -> new FluidType(FluidType.Properties.create().density(750).viscosity(700).temperature(293)));
+    public static final DeferredHolder<Fluid, FlowingFluid> GASOLINE = FLUIDS.register(
+            "gasoline", () -> new BaseFlowingFluid.Source(gasolineProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> FLOWING_GASOLINE = FLUIDS.register(
+            "flowing_gasoline", () -> new BaseFlowingFluid.Flowing(gasolineProperties()));
+    public static final DeferredHolder<FluidType, FluidType> GASOLINE_LEADED_TYPE = FLUID_TYPES.register(
+            "gasoline_leaded", () -> new FluidType(FluidType.Properties.create().density(760).viscosity(700).temperature(293)));
+    public static final DeferredHolder<Fluid, FlowingFluid> GASOLINE_LEADED = FLUIDS.register(
+            "gasoline_leaded", () -> new BaseFlowingFluid.Source(gasolineLeadedProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> FLOWING_GASOLINE_LEADED = FLUIDS.register(
+            "flowing_gasoline_leaded", () -> new BaseFlowingFluid.Flowing(gasolineLeadedProperties()));
+    public static final DeferredHolder<FluidType, FluidType> COALGAS_TYPE = FLUID_TYPES.register(
+            "coalgas", () -> new FluidType(FluidType.Properties.create().density(780).viscosity(800).temperature(293)));
+    public static final DeferredHolder<Fluid, FlowingFluid> COALGAS = FLUIDS.register(
+            "coalgas", () -> new BaseFlowingFluid.Source(coalgasProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> FLOWING_COALGAS = FLUIDS.register(
+            "flowing_coalgas", () -> new BaseFlowingFluid.Flowing(coalgasProperties()));
+    public static final DeferredHolder<FluidType, FluidType> COALGAS_LEADED_TYPE = FLUID_TYPES.register(
+            "coalgas_leaded", () -> new FluidType(FluidType.Properties.create().density(790).viscosity(800).temperature(293)));
+    public static final DeferredHolder<Fluid, FlowingFluid> COALGAS_LEADED = FLUIDS.register(
+            "coalgas_leaded", () -> new BaseFlowingFluid.Source(coalgasLeadedProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> FLOWING_COALGAS_LEADED = FLUIDS.register(
+            "flowing_coalgas_leaded", () -> new BaseFlowingFluid.Flowing(coalgasLeadedProperties()));
     public static final DeferredHolder<FluidType, FluidType> PETROLEUM_TYPE = FLUID_TYPES.register(
             "petroleum", () -> new FluidType(FluidType.Properties.create().density(-100).viscosity(100)
                     .temperature(293)));
@@ -374,6 +398,22 @@ public final class ModFluids {
     private static BaseFlowingFluid.Properties keroseneProperties() {
         return new BaseFlowingFluid.Properties(KEROSENE_TYPE::get, KEROSENE::get, FLOWING_KEROSENE::get)
                 .slopeFindDistance(4).levelDecreasePerBlock(1);
+    }
+    private static BaseFlowingFluid.Properties gasolineProperties() {
+        return new BaseFlowingFluid.Properties(GASOLINE_TYPE::get, GASOLINE::get, FLOWING_GASOLINE::get)
+                .slopeFindDistance(4).levelDecreasePerBlock(1);
+    }
+    private static BaseFlowingFluid.Properties gasolineLeadedProperties() {
+        return new BaseFlowingFluid.Properties(GASOLINE_LEADED_TYPE::get, GASOLINE_LEADED::get,
+                FLOWING_GASOLINE_LEADED::get).slopeFindDistance(4).levelDecreasePerBlock(1);
+    }
+    private static BaseFlowingFluid.Properties coalgasProperties() {
+        return new BaseFlowingFluid.Properties(COALGAS_TYPE::get, COALGAS::get, FLOWING_COALGAS::get)
+                .slopeFindDistance(4).levelDecreasePerBlock(1);
+    }
+    private static BaseFlowingFluid.Properties coalgasLeadedProperties() {
+        return new BaseFlowingFluid.Properties(COALGAS_LEADED_TYPE::get, COALGAS_LEADED::get,
+                FLOWING_COALGAS_LEADED::get).slopeFindDistance(4).levelDecreasePerBlock(1);
     }
     private static BaseFlowingFluid.Properties petroleumProperties() {
         return new BaseFlowingFluid.Properties(PETROLEUM_TYPE::get, PETROLEUM::get, FLOWING_PETROLEUM::get)

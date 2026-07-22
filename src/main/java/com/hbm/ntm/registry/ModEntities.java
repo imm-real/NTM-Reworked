@@ -21,6 +21,7 @@ import com.hbm.ntm.entity.MiniNukeProjectileEntity;
 import com.hbm.ntm.entity.RocketProjectileEntity;
 import com.hbm.ntm.entity.CogEntity;
 import com.hbm.ntm.entity.ChlorineCloudEntity;
+import com.hbm.ntm.entity.ChargeThrowerProjectileEntity;
 import com.hbm.ntm.entity.MovingConveyorItemEntity;
 import com.hbm.ntm.entity.MovingConveyorPackageEntity;
 import com.hbm.ntm.entity.PowerFistBeamEntity;
@@ -231,6 +232,13 @@ public final class ModEntities {
                                     FireExtinguisherProjectileEntity::new, MobCategory.MISC)
                             .sized(0.125F, 0.125F).clientTrackingRange(16).updateInterval(1)
                             .build("hbm:entity_bullet_fireext"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<ChargeThrowerProjectileEntity>> CHARGE_THROWER_PROJECTILE =
+            ENTITY_TYPES.register("entity_bullet_charge_thrower",
+                    () -> EntityType.Builder.<ChargeThrowerProjectileEntity>of(
+                                    ChargeThrowerProjectileEntity::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F).clientTrackingRange(16).updateInterval(1)
+                            .build("hbm:entity_bullet_charge_thrower"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<RocketProjectileEntity>> ROCKET_PROJECTILE =
             ENTITY_TYPES.register("entity_bullet_rocket",

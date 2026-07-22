@@ -30,6 +30,7 @@ import com.hbm.ntm.item.SacredDragonItem;
 import com.hbm.ntm.item.BreakActionRevolverItem;
 import com.hbm.ntm.item.BreedingRodItem;
 import com.hbm.ntm.item.ChargeBlockItem;
+import com.hbm.ntm.item.ChargeThrowerItem;
 import com.hbm.ntm.item.CastPlateItem;
 import com.hbm.ntm.item.CasingItem;
 import com.hbm.ntm.item.CircuitItem;
@@ -38,6 +39,7 @@ import com.hbm.ntm.item.DeadMansDetonatorItem;
 import com.hbm.ntm.item.DeadMansExplosiveItem;
 import com.hbm.ntm.item.DefuserItem;
 import com.hbm.ntm.item.DetonatorItem;
+import com.hbm.ntm.item.DrillItem;
 import com.hbm.ntm.item.DepletedPlateFuelItem;
 import com.hbm.ntm.item.DieselGeneratorBlockItem;
 import com.hbm.ntm.item.CombustionEngineBlockItem;
@@ -467,6 +469,8 @@ public final class ModItems {
     public static final DeferredItem<FlamerGunItem> GUN_FLAMER_TOPAZ;
     public static final DeferredItem<FlamerGunItem> GUN_FLAMER_DAYBREAKER;
     public static final DeferredItem<FireExtinguisherItem> GUN_FIREEXT;
+    public static final DeferredItem<ChargeThrowerItem> GUN_CHARGE_THROWER;
+    public static final DeferredItem<DrillItem> GUN_DRILL;
     public static final DeferredItem<RocketLauncherItem> GUN_PANZERSCHRECK;
     public static final DeferredItem<StingerLauncherItem> GUN_STINGER;
     public static final DeferredItem<QuadRocketLauncherItem> GUN_QUADRO;
@@ -1270,6 +1274,8 @@ public final class ModItems {
         GUN_FLAMER_DAYBREAKER = ITEMS.register("gun_flamer_daybreaker",
                 () -> new FlamerGunItem(FlamerGunItem.Variant.DAYBREAKER));
         GUN_FIREEXT = ITEMS.register("gun_fireext", FireExtinguisherItem::new);
+        GUN_CHARGE_THROWER = ITEMS.register("gun_charge_thrower", ChargeThrowerItem::new);
+        GUN_DRILL = ITEMS.register("gun_drill", DrillItem::new);
         GUN_PANZERSCHRECK = ITEMS.register("gun_panzerschreck", RocketLauncherItem::new);
         GUN_STINGER = ITEMS.register("gun_stinger", StingerLauncherItem::new);
         GUN_QUADRO = ITEMS.register("gun_quadro", QuadRocketLauncherItem::new);
