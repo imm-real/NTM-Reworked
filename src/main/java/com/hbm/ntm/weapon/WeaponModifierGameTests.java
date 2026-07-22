@@ -41,6 +41,12 @@ public final class WeaponModifierGameTests {
                         && WeaponModManager.isApplicable(dualStar, silencer, 0)
                         && WeaponModManager.isApplicable(dualStar, silencer, 1),
                 "Silencer must fit both independent dual Star F receivers");
+        helper.assertTrue(WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_G3.get()), silencer, 0),
+                "Silencer must fit the standard G3 receiver");
+        helper.assertTrue(!WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_G3_ZEBRA.get()), silencer, 0),
+                "Zebra must keep its built-in suppressor instead of accepting another one");
         helper.succeed();
     }
 

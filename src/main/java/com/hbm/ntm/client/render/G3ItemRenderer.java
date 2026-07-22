@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.client.model.EnvsuitMesh;
 import com.hbm.ntm.item.G3Item;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -42,22 +43,23 @@ public final class G3ItemRenderer extends BlockEntityWithoutLevelRenderer {
         boolean held = firstPerson || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
         boolean zebra = ((G3Item) stack.getItem()).variant() == G3Item.Variant.ZEBRA;
+        boolean silenced = zebra || WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack);
 
         poses.pushPose();
-        setupContext(context, poses, zebra);
+        setupContext(context, poses, zebra, silenced);
         if (!(firstPerson && zebra && ClientWeaponEvents.fullyAimed())) {
-            if (firstPerson) renderFirstPerson(stack, poses, buffers, light, overlay, zebra);
-            else renderStatic(stack, poses, buffers, light, overlay, zebra);
+            if (firstPerson) renderFirstPerson(stack, poses, buffers, light, overlay, zebra, silenced);
+            else renderStatic(stack, poses, buffers, light, overlay, zebra, silenced);
         }
-        if (!zebra && held && elapsed >= 0L && elapsed < 75L) {
+        if (!silenced && held && elapsed >= 0L && elapsed < 75L) {
             renderFlash(poses, buffers, elapsed, ClientWeaponEvents.shotRandom(stack));
         }
         poses.popPose();
     }
 
     private void renderFirstPerson(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                                   int light, int overlay, boolean zebra) {
+                                   int light, int overlay, boolean zebra, boolean silenced) {
         G3Animation animation = animation(stack, animationTime(stack));
         poses.scale(0.375F, 0.375F, 0.375F);
         pivotX(poses, 0.0D, -2.0D, -6.0D, animation.equip.x);
@@ -66,7 +68,7 @@ public final class G3ItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         renderBody("Rifle", zebra, poses, buffers, light, overlay);
         renderBody("Stock", zebra, poses, buffers, light, overlay);
-        if (!zebra) renderBody("Flash_Hider", false, poses, buffers, light, overlay);
+        if (!silenced) renderBody("Flash_Hider", false, poses, buffers, light, overlay);
         renderBody("Trigger", zebra, poses, buffers, light, overlay);
 
         poses.pushPose();
@@ -98,9 +100,9 @@ public final class G3ItemRenderer extends BlockEntityWithoutLevelRenderer {
         poses.popPose();
 
         renderSelector(G3Item.mode(stack), zebra, poses, buffers, light, overlay);
-        if (zebra) {
+        if (silenced) {
             render("Silencer", ATTACHMENTS_TEXTURE, poses, buffers, light, overlay);
-            render("Scope", ATTACHMENTS_TEXTURE, poses, buffers, light, overlay);
+            if (zebra) render("Scope", ATTACHMENTS_TEXTURE, poses, buffers, light, overlay);
         } else {
             poses.pushPose();
             poses.translate(0.0D, 0.0D, 13.0D);
@@ -114,19 +116,19 @@ public final class G3ItemRenderer extends BlockEntityWithoutLevelRenderer {
     }
 
     private void renderStatic(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                              int light, int overlay, boolean zebra) {
+                              int light, int overlay, boolean zebra, boolean silenced) {
         renderBody("Rifle", zebra, poses, buffers, light, overlay);
         renderBody("Stock", zebra, poses, buffers, light, overlay);
         renderBody("Magazine", zebra, poses, buffers, light, overlay);
-        if (!zebra) renderBody("Flash_Hider", false, poses, buffers, light, overlay);
+        if (!silenced) renderBody("Flash_Hider", false, poses, buffers, light, overlay);
         renderBody("Guide_And_Bolt", zebra, poses, buffers, light, overlay);
         renderBody("Handle", zebra, poses, buffers, light, overlay);
         renderBody("Trigger", zebra, poses, buffers, light, overlay);
         // Third person always shows selector pose zero.
         renderSelector(0, zebra, poses, buffers, light, overlay);
-        if (zebra) {
+        if (silenced) {
             render("Silencer", ATTACHMENTS_TEXTURE, poses, buffers, light, overlay);
-            render("Scope", ATTACHMENTS_TEXTURE, poses, buffers, light, overlay);
+            if (zebra) render("Scope", ATTACHMENTS_TEXTURE, poses, buffers, light, overlay);
         }
     }
 
@@ -158,7 +160,8 @@ public final class G3ItemRenderer extends BlockEntityWithoutLevelRenderer {
         return mesh;
     }
 
-    private static void setupContext(ItemDisplayContext context, PoseStack poses, boolean zebra) {
+    private static void setupContext(ItemDisplayContext context, PoseStack poses, boolean zebra,
+                                     boolean silenced) {
         poses.translate(0.5D, 0.5D, 0.5D);
         switch (context) {
             case GUI -> {
@@ -168,8 +171,8 @@ public final class G3ItemRenderer extends BlockEntityWithoutLevelRenderer {
                 poses.mulPose(Axis.YP.rotationDegrees(90.0F));
                 poses.scale(0.875F / 16.0F, 0.875F / 16.0F, 0.875F / 16.0F);
                 poses.mulPose(Axis.XP.rotationDegrees(25.0F));
-                poses.mulPose(Axis.YP.rotationDegrees(zebra ? 50.0F : 45.0F));
-                poses.translate(zebra ? 0.75D : -0.5D, 0.5D, 0.0D);
+                poses.mulPose(Axis.YP.rotationDegrees(silenced ? 50.0F : 45.0F));
+                poses.translate(silenced ? 0.75D : -0.5D, 0.5D, 0.0D);
             }
             case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND -> {
                 poses.mulPose(Axis.YP.rotationDegrees(180.0F));

@@ -4,6 +4,7 @@ import com.hbm.ntm.item.TwentyTwoGunItem;
 import com.hbm.ntm.item.NineMillimeterGunItem;
 import com.hbm.ntm.item.DualUziItem;
 import com.hbm.ntm.item.DualStarFItem;
+import com.hbm.ntm.item.G3Item;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -33,9 +34,11 @@ public final class WeaponModManager {
             return item.variant() == TwentyTwoGunItem.Variant.AM180
                     || item.variant() == TwentyTwoGunItem.Variant.STAR_F;
         }
-        return gun.getItem() instanceof DualUziItem || gun.getItem() instanceof DualStarFItem
-                || gun.getItem() instanceof NineMillimeterGunItem item
-                && item.variant() == NineMillimeterGunItem.Variant.UZI;
+        if (gun.getItem() instanceof DualUziItem || gun.getItem() instanceof DualStarFItem) return true;
+        if (gun.getItem() instanceof NineMillimeterGunItem item) {
+            return item.variant() == NineMillimeterGunItem.Variant.UZI;
+        }
+        return gun.getItem() instanceof G3Item item && item.variant() == G3Item.Variant.STANDARD;
     }
 
     public static int configCount(ItemStack gun) {
@@ -46,6 +49,7 @@ public final class WeaponModManager {
                 || item.variant() == TwentyTwoGunItem.Variant.STAR_F)) return 1;
         if (gun.getItem() instanceof NineMillimeterGunItem item
                 && item.variant() == NineMillimeterGunItem.Variant.UZI) return 1;
+        if (gun.getItem() instanceof G3Item item && item.variant() == G3Item.Variant.STANDARD) return 1;
         return 0;
     }
 
