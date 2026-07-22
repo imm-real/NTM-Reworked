@@ -3,6 +3,7 @@ package com.hbm.ntm.client.compat.jei;
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.screen.AnvilScreen;
 import com.hbm.ntm.client.screen.AmmoPressScreen;
+import com.hbm.ntm.client.screen.ArcWelderScreen;
 import com.hbm.ntm.client.screen.AssemblyMachineScreen;
 import com.hbm.ntm.client.screen.BreedingReactorScreen;
 import com.hbm.ntm.client.screen.CentrifugeScreen;
@@ -16,6 +17,7 @@ import com.hbm.ntm.client.compat.jei.FoundryJeiRecipes.CastingRecipe;
 import com.hbm.ntm.client.compat.jei.FoundryJeiRecipes.SmeltingRecipe;
 import com.hbm.ntm.recipe.AssemblyClientRecipes;
 import com.hbm.ntm.recipe.AmmoPressRecipes;
+import com.hbm.ntm.recipe.ArcWelderRecipes;
 import com.hbm.ntm.recipe.AssemblyRecipe;
 import com.hbm.ntm.recipe.BreederRecipes;
 import com.hbm.ntm.recipe.BreederRecipes.DisplayRecipe;
@@ -84,6 +86,8 @@ public final class HbmJeiPlugin implements IModPlugin {
             RecipeType.create(HbmNtm.MOD_ID, "sawmill", SawmillJeiRecipe.class);
     public static final RecipeType<AshpitJeiRecipe> ASHPIT =
             RecipeType.create(HbmNtm.MOD_ID, "ashpit", AshpitJeiRecipe.class);
+    public static final RecipeType<ArcWelderRecipes.ArcWelderRecipe> ARC_WELDER =
+            RecipeType.create(HbmNtm.MOD_ID, "arc_welder", ArcWelderRecipes.ArcWelderRecipe.class);
 
     private static final ResourceLocation UID =
             ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "jei");
@@ -117,7 +121,8 @@ public final class HbmJeiPlugin implements IModPlugin {
                 new ZirnoxRecipeCategory(gui),
                 new CombinationOvenRecipeCategory(gui),
                 new SawmillRecipeCategory(gui),
-                new AshpitRecipeCategory(gui));
+                new AshpitRecipeCategory(gui),
+                new ArcWelderRecipeCategory(gui));
     }
 
     @Override
@@ -139,6 +144,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipes(COMBINATION_OVEN, CombinationOvenRecipes.all());
         registration.addRecipes(SAWMILL, SawmillJeiRecipe.all());
         registration.addRecipes(ASHPIT, AshpitJeiRecipe.all());
+        registration.addRecipes(ARC_WELDER, ArcWelderRecipes.all());
         registeredAssemblyRecipes = AssemblyClientRecipes.all();
         registration.addRecipes(ASSEMBLY, registeredAssemblyRecipes);
     }
@@ -171,6 +177,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(COMBINATION_OVEN, ModItems.FURNACE_COMBINATION_ITEM.get());
         registration.addRecipeCatalysts(SAWMILL, ModItems.MACHINE_SAWMILL_ITEM.get());
         registration.addRecipeCatalysts(ASHPIT, ModItems.MACHINE_ASHPIT_ITEM.get());
+        registration.addRecipeCatalysts(ARC_WELDER, ModItems.MACHINE_ARC_WELDER_ITEM.get());
     }
 
     @Override
@@ -189,6 +196,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipeClickArea(ZirnoxScreen.class, 147, 1, 18, 18, ZIRNOX);
         registration.addRecipeClickArea(CombinationOvenScreen.class, 49, 44, 18, 18,
                 COMBINATION_OVEN);
+        registration.addRecipeClickArea(ArcWelderScreen.class, 67, 26, 32, 14, ARC_WELDER);
     }
 
     @Override
