@@ -92,6 +92,8 @@ public final class HbmJeiPlugin implements IModPlugin {
             RecipeType.create(HbmNtm.MOD_ID, "arc_welder", ArcWelderRecipes.ArcWelderRecipe.class);
     public static final RecipeType<ArcFurnaceRecipes.Recipe> ARC_FURNACE_SOLID =
             RecipeType.create(HbmNtm.MOD_ID, "arc_furnace_solid", ArcFurnaceRecipes.Recipe.class);
+    public static final RecipeType<FluidContainerJeiRecipe> FLUID_CONTAINERS =
+            RecipeType.create(HbmNtm.MOD_ID, "fluid_containers", FluidContainerJeiRecipe.class);
 
     private static final ResourceLocation UID =
             ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "jei");
@@ -127,7 +129,8 @@ public final class HbmJeiPlugin implements IModPlugin {
                 new SawmillRecipeCategory(gui),
                 new AshpitRecipeCategory(gui),
                 new ArcWelderRecipeCategory(gui),
-                new ArcFurnaceSolidRecipeCategory(gui));
+                new ArcFurnaceSolidRecipeCategory(gui),
+                new FluidContainerRecipeCategory(gui));
     }
 
     @Override
@@ -151,6 +154,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipes(ASHPIT, AshpitJeiRecipe.all());
         registration.addRecipes(ARC_WELDER, ArcWelderRecipes.all());
         registration.addRecipes(ARC_FURNACE_SOLID, ArcFurnaceRecipes.all());
+        registration.addRecipes(FLUID_CONTAINERS, FluidContainerJeiRecipe.all());
         registeredAssemblyRecipes = AssemblyClientRecipes.all();
         registration.addRecipes(ASSEMBLY, registeredAssemblyRecipes);
     }
@@ -186,6 +190,8 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(ARC_WELDER, ModItems.MACHINE_ARC_WELDER_ITEM.get());
         registration.addRecipeCatalysts(ARC_FURNACE_SOLID,
                 ModItems.MACHINE_ARC_FURNACE_ITEM.get());
+        registration.addRecipeCatalysts(FLUID_CONTAINERS, ModItems.FLUID_TANK_EMPTY.get(),
+                ModItems.CANISTER_EMPTY.get(), ModItems.GAS_EMPTY.get(), ModItems.CELL_EMPTY.get());
     }
 
     @Override
