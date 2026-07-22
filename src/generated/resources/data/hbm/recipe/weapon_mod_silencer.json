@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "steel"
+        },
+        "minecraft:custom_model_data": 30
+      },
+      "items": "hbm:part_barrel_light",
+      "strict": false
+    },
+    "P": {
+      "tag": "c:ingots/polymer"
+    }
+  },
+  "pattern": [
+    "P",
+    "B",
+    "P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:weapon_mod_silencer"
+  }
+}

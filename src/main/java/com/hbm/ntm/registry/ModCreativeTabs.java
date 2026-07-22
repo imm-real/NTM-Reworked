@@ -495,6 +495,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.VENT_CHLORINE_SEAL_ITEM.get());
                         output.accept(ModItems.CHLORINE_GAS_ITEM.get());
                         output.accept(ModItems.MACHINE_ARMOR_TABLE_ITEM.get());
+                        output.accept(ModItems.MACHINE_WEAPON_TABLE_ITEM.get());
                         output.accept(ModItems.ANVIL_IRON_ITEM.get());
                         output.accept(ModItems.ANVIL_LEAD_ITEM.get());
                         output.accept(ModItems.ANVIL_STEEL_ITEM.get());
@@ -607,6 +608,7 @@ public final class ModCreativeTabs {
                         // MAS-36 is also squatting in /give until the Red Room opens.
                         output.accept(ModItems.GUN_MAS36.get());
                         output.accept(ModItems.GUN_AM180.get());
+                        output.accept(ModItems.WEAPON_MOD_SILENCER.get());
                         output.accept(ModItems.GUN_STAR_F.get());
                         output.accept(ModItems.GUN_STAR_F_AKIMBO.get());
                         output.accept(ModItems.GUN_FLAMER.get());

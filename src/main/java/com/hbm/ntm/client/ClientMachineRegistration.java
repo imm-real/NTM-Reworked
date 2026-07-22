@@ -89,6 +89,7 @@ import com.hbm.ntm.client.render.ZirnoxRenderer;
 import com.hbm.ntm.client.render.ZirnoxItemRenderer;
 import com.hbm.ntm.client.render.ZirnoxDestroyedRenderer;
 import com.hbm.ntm.client.screen.ArmorTableScreen;
+import com.hbm.ntm.client.screen.WeaponModifierScreen;
 import com.hbm.ntm.client.screen.AmmoPressScreen;
 import com.hbm.ntm.client.screen.AnvilScreen;
 import com.hbm.ntm.client.screen.ArcWelderScreen;
@@ -213,6 +214,7 @@ public final class ClientMachineRegistration {
         event.register(ModMenus.MACHINE_MICROWAVE.get(), MicrowaveScreen::new);
         event.register(ModMenus.MACHINE_ASHPIT.get(), AshpitScreen::new);
         event.register(ModMenus.ARMOR_TABLE.get(), ArmorTableScreen::new);
+        event.register(ModMenus.WEAPON_MODIFIER.get(), WeaponModifierScreen::new);
         event.register(ModMenus.ANVIL.get(), AnvilScreen::new);
         event.register(ModMenus.MACHINE_ASSEMBLY_MACHINE.get(), AssemblyMachineScreen::new);
         event.register(ModMenus.MACHINE_CHEMICAL_PLANT.get(), ChemicalPlantScreen::new);

@@ -8,6 +8,7 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
 import com.hbm.ntm.weapon.TwentyTwoAmmoType;
+import com.hbm.ntm.weapon.WeaponModManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -197,7 +198,10 @@ public final class TwentyTwoGunItem extends SednaGunItem {
         Vec3 heading = player.getLookAngle();
 
         level.addFreshEntity(new BulletEntity(level, player, ammo, damage, spread, origin, heading));
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), variant.fireSound.get(),
+        SoundEvent fireSound = variant == Variant.AM180
+                && WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)
+                ? ModSounds.GUN_RIFLE_SILENCER.get() : variant.fireSound.get();
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound,
                 SoundSource.PLAYERS, 1.0F, 1.0F);
         if (player instanceof ServerPlayer serverPlayer
                 && serverPlayer.connection.getConnection().isConnected()) {
@@ -428,6 +432,9 @@ public final class TwentyTwoGunItem extends SednaGunItem {
                 / variant.durability), 0, 100);
         tooltip.add(Component.translatable("gui.weapon.condition").append(": " + condition + "%")
                 .withStyle(ChatFormatting.GRAY));
+        for (ItemStack mod : WeaponModManager.installedMods(stack, 0)) {
+            tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+        }
         tooltip.add(Component.translatable("gui.weapon.quality.aside").withStyle(ChatFormatting.YELLOW));
     }
 

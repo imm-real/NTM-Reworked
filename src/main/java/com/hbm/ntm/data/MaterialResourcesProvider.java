@@ -950,6 +950,7 @@ public final class MaterialResourcesProvider implements DataProvider {
         mineableBlocks.add("hbm:machine_microwave");
         mineableBlocks.add("hbm:geiger");
         mineableBlocks.add("hbm:machine_armor_table");
+        mineableBlocks.add("hbm:machine_weapon_table");
         mineableBlocks.add("hbm:anvil_iron");
         mineableBlocks.add("hbm:anvil_lead");
         mineableBlocks.add("hbm:anvil_steel");
@@ -1399,6 +1400,17 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, simpleBlockState("machine_armor_table"), blockStates, hbm("machine_armor_table")));
         writes.add(save(output, selfDropLoot("machine_armor_table"), lootTables, hbm("machine_armor_table")));
         writes.add(save(output, armorTableRecipe(), recipes, hbm("machine_armor_table")));
+        writes.add(save(output, weaponTableBlockModel(), blockModels, hbm("machine_weapon_table")));
+        writes.add(save(output, legacyStandardBlockItemModel("machine_weapon_table"), itemModels,
+                hbm("machine_weapon_table")));
+        writes.add(save(output, simpleBlockState("machine_weapon_table"), blockStates,
+                hbm("machine_weapon_table")));
+        writes.add(save(output, selfDropLoot("machine_weapon_table"), lootTables,
+                hbm("machine_weapon_table")));
+        writes.add(save(output, weaponTableRecipe(), recipes, hbm("machine_weapon_table")));
+        writes.add(save(output, generatedItemModel("weapon_mod_silencer"), itemModels,
+                hbm("weapon_mod_silencer")));
+        writes.add(save(output, silencerRecipe(), recipes, hbm("weapon_mod_silencer")));
         for (String material : List.of("iron", "lead", "steel", "desh", "ferrouranium", "saturnite",
                 "bismuth_bronze", "arsenic_bronze", "schrabidate", "dnt", "osmiridium", "murky")) {
             writes.add(save(output, selfDropLoot("anvil_" + material), lootTables, hbm("anvil_" + material)));
@@ -2293,6 +2305,22 @@ public final class MaterialResourcesProvider implements DataProvider {
         result.addProperty("count", 1);
         recipe.add("result", result);
         return recipe;
+    }
+
+    private JsonObject weaponTableRecipe() {
+        Map<String, JsonObject> key = new LinkedHashMap<>();
+        key.put("P", tagIngredient("c:plates/gunmetal"));
+        key.put("T", tagIngredient("c:ingots/steel"));
+        key.put("C", itemIngredient("minecraft:crafting_table"));
+        key.put("S", tagIngredient("c:storage_blocks/steel"));
+        return shapedItemRecipe(List.of("PPP", "TCT", "TST"), key, "hbm:machine_weapon_table");
+    }
+
+    private JsonObject silencerRecipe() {
+        Map<String, JsonObject> key = new LinkedHashMap<>();
+        key.put("P", tagIngredient("c:ingots/polymer"));
+        key.put("B", foundryPart("part_barrel_light", "steel", 30));
+        return shapedItemRecipe(List.of("P", "B", "P"), key, "hbm:weapon_mod_silencer");
     }
 
     private JsonObject baseAnvilRecipe(String material) {
@@ -3249,6 +3277,20 @@ public final class MaterialResourcesProvider implements DataProvider {
         textures.addProperty("west", "hbm:block/armor_table_side");
         textures.addProperty("east", "hbm:block/armor_table_side");
         textures.addProperty("particle", "hbm:block/armor_table_side");
+        root.add("textures", textures);
+        return root;
+    }
+
+    private JsonObject weaponTableBlockModel() {
+        JsonObject root = new JsonObject();
+        root.addProperty("parent", "minecraft:block/cube");
+        JsonObject textures = new JsonObject();
+        textures.addProperty("down", "hbm:block/gun_table_bottom");
+        textures.addProperty("up", "hbm:block/gun_table_top");
+        for (String face : List.of("north", "south", "west", "east")) {
+            textures.addProperty(face, "hbm:block/gun_table_side");
+        }
+        textures.addProperty("particle", "hbm:block/gun_table_side");
         root.add("textures", textures);
         return root;
     }

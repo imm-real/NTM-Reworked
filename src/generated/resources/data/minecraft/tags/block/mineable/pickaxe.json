@@ -133,6 +133,7 @@
     "hbm:machine_microwave",
     "hbm:geiger",
     "hbm:machine_armor_table",
+    "hbm:machine_weapon_table",
     "hbm:anvil_iron",
     "hbm:anvil_lead",
     "hbm:anvil_steel",

@@ -2,6 +2,7 @@ package com.hbm.ntm.registry;
 
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.block.ArmorTableBlock;
+import com.hbm.ntm.block.WeaponModifierBlock;
 import com.hbm.ntm.block.AmmoPressBlock;
 import com.hbm.ntm.block.AirIntakeBlock;
 import com.hbm.ntm.block.ArcWelderBlock;
@@ -290,6 +291,7 @@ public final class ModBlocks {
     public static final DeferredBlock<ChlorineSealBlock> VENT_CHLORINE_SEAL;
     public static final DeferredBlock<GeigerCounterBlock> GEIGER;
     public static final DeferredBlock<ArmorTableBlock> MACHINE_ARMOR_TABLE;
+    public static final DeferredBlock<WeaponModifierBlock> MACHINE_WEAPON_TABLE;
     public static final DeferredBlock<RotatedPillarBlock> BLOCK_INSULATOR;
     public static final DeferredBlock<SandbagsBlock> SANDBAGS;
     public static final DeferredBlock<NtmAnvilBlock> ANVIL_IRON;
@@ -872,6 +874,9 @@ public final class ModBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(15.0F, 0.15F)
                         .sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion()));
         MACHINE_ARMOR_TABLE = BLOCKS.register("machine_armor_table", () -> new ArmorTableBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F, 10.0F)
+                        .sound(SoundType.METAL).requiresCorrectToolForDrops()));
+        MACHINE_WEAPON_TABLE = BLOCKS.register("machine_weapon_table", () -> new WeaponModifierBlock(
                 BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F, 10.0F)
                         .sound(SoundType.METAL).requiresCorrectToolForDrops()));
         BLOCK_INSULATOR = BLOCKS.register("block_insulator", () -> new RotatedPillarBlock(

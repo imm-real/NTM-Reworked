@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.client.model.EnvsuitMesh;
 import com.hbm.ntm.item.TwentyTwoGunItem;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -47,7 +48,10 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
         boolean held = firstPerson || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack);
-        long duration = gun.variant() == TwentyTwoGunItem.Variant.AM180 ? 50L : 75L;
+        boolean silenced = gun.variant() == TwentyTwoGunItem.Variant.AM180
+                && WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
+        long duration = gun.variant() == TwentyTwoGunItem.Variant.AM180
+                ? (silenced ? 75L : 50L) : 75L;
 
         poses.pushPose();
         setupContext(gun.variant(), context, poses);
@@ -58,12 +62,12 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
                 renderStarFirstPerson(stack, poses, buffers, light, overlay);
             }
         } else {
-            renderStatic(gun.variant(), poses, buffers, light, overlay);
+            renderStatic(stack, gun.variant(), poses, buffers, light, overlay);
         }
         if (held && elapsed >= 0L && elapsed < duration) {
             if (gun.variant() == TwentyTwoGunItem.Variant.AM180) {
                 renderAm180Flash(poses, buffers, elapsed / (float) duration,
-                        ClientWeaponEvents.shotRandom(stack));
+                        ClientWeaponEvents.shotRandom(stack), silenced);
             } else {
                 renderStarFlash(poses, buffers, elapsed / (float) duration,
                         ClientWeaponEvents.shotRandom(stack));
@@ -82,6 +86,8 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
 
         render(TwentyTwoGunItem.Variant.AM180, "Gun", poses, buffers, light, overlay);
         render(TwentyTwoGunItem.Variant.AM180, "Trigger", poses, buffers, light, overlay);
+        boolean silenced = WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
+        if (silenced) render(TwentyTwoGunItem.Variant.AM180, "Silencer", poses, buffers, light, overlay);
 
         poses.pushPose();
         poses.translate(0.0D, 0.0D, animation.bolt.z);
@@ -107,7 +113,7 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
         poses.popPose();
 
         poses.pushPose();
-        poses.translate(0.0D, 1.875D, 13.0D);
+        poses.translate(0.0D, 1.875D, silenced ? 17.0D : 13.0D);
         poses.mulPose(Axis.ZN.rotationDegrees((float) animation.turn.z));
         poses.mulPose(Axis.YP.rotationDegrees(90.0F));
         WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.25D,
@@ -171,11 +177,14 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
         poses.popPose();
     }
 
-    private void renderStatic(TwentyTwoGunItem.Variant variant, PoseStack poses,
+    private void renderStatic(ItemStack stack, TwentyTwoGunItem.Variant variant, PoseStack poses,
                               MultiBufferSource buffers, int light, int overlay) {
         if (variant == TwentyTwoGunItem.Variant.AM180) {
             for (String group : Set.of("Gun", "Trigger", "Bolt", "Mag", "MagPlate")) {
                 render(variant, group, poses, buffers, light, overlay);
+            }
+            if (WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)) {
+                render(variant, "Silencer", poses, buffers, light, overlay);
             }
         } else {
             renderStarStatic(mesh(variant), STAR_TEXTURE, poses, buffers, light, overlay);
@@ -289,13 +298,14 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
     }
 
     private static void renderAm180Flash(PoseStack poses, MultiBufferSource buffers,
-                                         float progress, float random) {
+                                         float progress, float random, boolean silenced) {
         poses.pushPose();
-        poses.translate(0.0D, 1.875D, 12.0D);
+        poses.translate(0.0D, 1.875D, silenced ? 16.75D : 12.0D);
         poses.mulPose(Axis.YP.rotationDegrees(90.0F));
         poses.mulPose(Axis.XP.rotationDegrees(90.0F * random));
-        poses.scale(0.75F, 0.75F, 0.75F);
-        SednaMuzzleFlash.render(poses, buffers, progress, 7.5F);
+        float scale = silenced ? 0.5F : 0.75F;
+        poses.scale(scale, scale, scale);
+        SednaMuzzleFlash.render(poses, buffers, progress, silenced ? 5.0F : 7.5F);
         poses.popPose();
     }
 

@@ -54,6 +54,7 @@ import com.hbm.ntm.inventory.SirenMenu;
 import com.hbm.ntm.inventory.TurbofanMenu;
 import com.hbm.ntm.inventory.WoodBurnerMenu;
 import com.hbm.ntm.inventory.WasteDrumMenu;
+import com.hbm.ntm.inventory.WeaponModifierMenu;
 import com.hbm.ntm.inventory.ZirnoxMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
@@ -157,6 +158,8 @@ public final class ModMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<ArmorTableMenu>> ARMOR_TABLE = MENUS.register(
             "armor_table", () -> IMenuTypeExtension.create(ArmorTableMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<WeaponModifierMenu>> WEAPON_MODIFIER = MENUS.register(
+            "weapon_modifier", () -> IMenuTypeExtension.create(WeaponModifierMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<AnvilMenu>> ANVIL = MENUS.register(
             "anvil", () -> IMenuTypeExtension.create(AnvilMenu::new));

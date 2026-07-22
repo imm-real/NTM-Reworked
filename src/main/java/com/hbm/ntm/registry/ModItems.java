@@ -588,6 +588,8 @@ public final class ModItems {
     public static final DeferredItem<ProtectiveMaskItem> MASK_RAG;
     public static final DeferredItem<ProtectiveMaskItem> MASK_PISS;
     public static final DeferredItem<BlockItem> MACHINE_ARMOR_TABLE_ITEM;
+    public static final DeferredItem<BlockItem> MACHINE_WEAPON_TABLE_ITEM;
+    public static final DeferredItem<Item> WEAPON_MOD_SILENCER;
     public static final DeferredItem<ArmorCladdingItem> CLADDING_PAINT;
     public static final DeferredItem<ArmorCladdingItem> CLADDING_RUBBER;
     public static final DeferredItem<ArmorCladdingItem> CLADDING_LEAD;
@@ -1467,6 +1469,8 @@ public final class ModItems {
         MASK_PISS = ITEMS.register("mask_piss", () -> new ProtectiveMaskItem(
                 ModArmorMaterials.MASK_PISS, ProtectiveMaskItem.MaskType.SOAKED_RAG));
         MACHINE_ARMOR_TABLE_ITEM = ITEMS.registerSimpleBlockItem("machine_armor_table", ModBlocks.MACHINE_ARMOR_TABLE);
+        MACHINE_WEAPON_TABLE_ITEM = ITEMS.registerSimpleBlockItem("machine_weapon_table", ModBlocks.MACHINE_WEAPON_TABLE);
+        WEAPON_MOD_SILENCER = ITEMS.registerSimpleItem("weapon_mod_silencer", new Item.Properties().stacksTo(1));
         CLADDING_PAINT = registerCladding("cladding_paint", ArmorCladdingItem.Effect.RADIATION, 0.025F);
         CLADDING_RUBBER = registerCladding("cladding_rubber", ArmorCladdingItem.Effect.RADIATION, 0.005F);
         CLADDING_LEAD = registerCladding("cladding_lead", ArmorCladdingItem.Effect.RADIATION, 0.1F);
