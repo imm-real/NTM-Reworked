@@ -84,6 +84,15 @@ public final class LegendaryHeavyRevolverItemRenderer extends BlockEntityWithout
         poses.translate(lerp(0.0D, -animation.recoil.z, aim), 0.0D,
                 lerp(animation.recoil.z, 0.0D, aim));
         poses.mulPose(Axis.ZP.rotationDegrees((float) (animation.recoil.z * 10.0D)));
+
+        poses.pushPose();
+        poses.translate(-9.0D, 2.5D, 0.0D);
+        poses.mulPose(Axis.ZP.rotationDegrees((float) (animation.recoil.z * -10.0D)));
+        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.5D,
+                WeaponSmokeRenderer.STANDARD,
+                LegendaryHeavyRevolverItem.state(stack) == LegendaryHeavyRevolverItem.GunState.RELOADING);
+        poses.popPose();
+
         poses.mulPose(Axis.ZP.rotationDegrees((float) animation.reloadLift.x));
         poses.translate(animation.reloadJolt.x, 0.0D, 0.0D);
         poses.mulPose(Axis.XP.rotationDegrees((float) animation.reloadTilt.x));

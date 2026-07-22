@@ -85,6 +85,15 @@ public final class HangmanItemRenderer extends BlockEntityWithoutLevelRenderer {
         render("Magazine", poses, buffers, light, overlay);
         if (animation.bullets.x == 0.0D) render("Bullets", poses, buffers, light, overlay);
         poses.popPose();
+
+        poses.pushPose();
+        poses.translate(0.0D, 0.0D, 29.0D);
+        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+        poses.scale(1.5F, 1.5F, 1.5F);
+        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.5D,
+                WeaponSmokeRenderer.STANDARD,
+                HangmanItem.state(stack) == HangmanItem.GunState.RELOADING);
+        poses.popPose();
     }
 
     private void renderStatic(PoseStack poses, MultiBufferSource buffers, int light, int overlay) {

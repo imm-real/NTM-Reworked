@@ -82,6 +82,15 @@ public final class HenryItemRenderer extends BlockEntityWithoutLevelRenderer {
         poses.mulPose(Axis.XN.rotationDegrees((float) animation.equip.x));
         poses.translate(0.0D, -2.0D, 4.0D);
 
+        poses.pushPose();
+        poses.translate(0.0D, 1.0D, 8.0D);
+        poses.mulPose(Axis.ZN.rotationDegrees((float) animation.turn.z));
+        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.25D,
+                WeaponSmokeRenderer.STANDARD,
+                HenryRifleItem.state(stack) == HenryRifleItem.GunState.RELOADING);
+        poses.popPose();
+
         renderModel(part(lincoln, GUN, GUN_LINCOLN), poses, buffers, light, overlay);
 
         poses.pushPose();

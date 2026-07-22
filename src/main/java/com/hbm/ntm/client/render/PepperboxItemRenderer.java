@@ -47,6 +47,16 @@ public final class PepperboxItemRenderer extends BlockEntityWithoutLevelRenderer
         poses.mulPose(Axis.XN.rotationDegrees((float) animation.recoil));
         poses.translate(0.0D, 0.0D, 5.0D);
 
+        if (firstPerson) {
+            poses.pushPose();
+            poses.translate(0.0D, 0.5D, 7.0D);
+            poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+            WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.5D,
+                    WeaponSmokeRenderer.STANDARD,
+                    PepperboxItem.state(stack) == PepperboxItem.GunState.RELOADING);
+            poses.popPose();
+        }
+
         renderModel(GRIP, poses, buffers, packedLight, packedOverlay);
 
         poses.pushPose();

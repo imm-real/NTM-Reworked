@@ -95,6 +95,16 @@ public final class DualMaresLegItemRenderer extends BlockEntityWithoutLevelRende
         poses.mulPose(Axis.XN.rotationDegrees((float) animation.flip.x));
         poses.translate(0.0D, 0.0D, 2.0D);
 
+        poses.pushPose();
+        poses.translate(0.0D, 1.0D, 3.75D);
+        poses.mulPose(Axis.ZN.rotationDegrees((float) animation.turn.z));
+        poses.mulPose(Axis.XP.rotationDegrees((float) animation.flip.x));
+        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+        WeaponSmokeRenderer.render(stack, index, poses, buffers, 0.25D,
+                WeaponSmokeRenderer.STANDARD,
+                DualMaresLegItem.state(stack, index) == DualMaresLegItem.GunState.RELOADING);
+        poses.popPose();
+
         renderModel(MaresLegItemRenderer.GUN, poses, buffers, light, overlay);
 
         poses.pushPose();

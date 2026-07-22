@@ -93,6 +93,16 @@ public final class BrokenMaresLegItemRenderer extends BlockEntityWithoutLevelRen
         poses.mulPose(Axis.XN.rotationDegrees((float) animation.flip.x));
         poses.translate(0.0D, 0.0D, 2.0D);
 
+        poses.pushPose();
+        poses.translate(0.0D, 1.0D, 3.75D);
+        poses.mulPose(Axis.ZN.rotationDegrees((float) animation.turn.z));
+        poses.mulPose(Axis.XP.rotationDegrees((float) animation.flip.x));
+        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.25D,
+                WeaponSmokeRenderer.STANDARD,
+                BrokenMaresLegItem.state(stack) == BrokenMaresLegItem.GunState.RELOADING);
+        poses.popPose();
+
         renderModel(GUN_BROKEN, poses, buffers, light, overlay);
 
         poses.pushPose();

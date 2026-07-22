@@ -70,6 +70,15 @@ public final class MaresLegItemRenderer extends BlockEntityWithoutLevelRenderer 
         poses.mulPose(Axis.XN.rotationDegrees((float) animation.equip.x));
         poses.translate(0.0D, 0.0D, 4.0D);
 
+        poses.pushPose();
+        poses.translate(0.0D, 1.0D, 8.0D);
+        poses.mulPose(Axis.ZN.rotationDegrees((float) animation.turn.z));
+        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.25D,
+                WeaponSmokeRenderer.STANDARD,
+                MaresLegItem.state(stack) == MaresLegItem.GunState.RELOADING);
+        poses.popPose();
+
         renderModel(GUN, poses, buffers, light, overlay);
         renderModel(STOCK, poses, buffers, light, overlay);
         renderModel(BARREL, poses, buffers, light, overlay);
