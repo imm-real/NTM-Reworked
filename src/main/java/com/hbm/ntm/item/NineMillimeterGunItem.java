@@ -8,6 +8,8 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.NineMillimeterAmmoType;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
 import com.hbm.ntm.weapon.SednaCrosshair;
+import com.hbm.ntm.weapon.SpentCasingEffects;
+import com.hbm.ntm.weapon.SpentCasingPreset;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -115,7 +117,7 @@ public final class NineMillimeterGunItem extends SednaGunItem {
         tag.putBoolean(EQUIPPED, true);
 
         int animationTimer = tag.getInt(ANIM_TIMER);
-        playOrchestra(level, living, animation(tag), animationTimer, variant);
+        playOrchestra(level, living, tag, animation(tag), animationTimer, variant);
         tag.putInt(ANIM_TIMER, animationTimer + 1);
 
         int timer = tag.getInt(TIMER);
@@ -281,7 +283,7 @@ public final class NineMillimeterGunItem extends SednaGunItem {
         return player.getEyePosition().add(offset);
     }
 
-    private static void playOrchestra(Level level, LivingEntity entity, GunAnimation animation,
+    private static void playOrchestra(Level level, LivingEntity entity, CompoundTag tag, GunAnimation animation,
                                       int timer, Variant variant) {
         if (animation == GunAnimation.EQUIP && timer == variant.equipSoundTick) {
             play(level, entity, ModSounds.GUN_LATCH_OPEN.get(), variant == Variant.UZI ? 1.25F : 1.0F);
@@ -291,6 +293,22 @@ public final class NineMillimeterGunItem extends SednaGunItem {
             if (timer == variant.dryCockTick) {
                 play(level, entity, ModSounds.GUN_PISTOL_COCK.get(), variant == Variant.UZI ? 1.0F : 0.8F);
             }
+        }
+        if (animation == GunAnimation.CYCLE
+                && timer == (variant == Variant.GREASE_GUN ? 2 : 1)) {
+            boolean aiming = tag.getBoolean(AIMING);
+            float momentumPitch = variant == Variant.GREASE_GUN
+                    ? -7.5F + (float) entity.getRandom().nextGaussian() * 5.0F
+                    : -2.5F + (float) entity.getRandom().nextGaussian() * 5.0F;
+            float momentumYaw = variant == Variant.GREASE_GUN
+                    ? 12.0F + (float) entity.getRandom().nextGaussian() * 5.0F
+                    : 10.0F + entity.getRandom().nextFloat() * 15.0F;
+            SpentCasingEffects.eject(entity,
+                    SpentCasingPreset.forNineMillimeter(
+                            NineMillimeterAmmoType.fromLegacyBulletConfig(tag.getInt(MAG_TYPE))),
+                    variant == Variant.GREASE_GUN ? 0.55D : 0.375D,
+                    aiming ? 0.0D : -0.125D, aiming ? 0.0D : -0.25D,
+                    0.0D, 0.18D, -0.12D, 0.01D, momentumPitch, momentumYaw);
         }
         if (animation == GunAnimation.RELOAD) {
             if (timer == variant.magRemoveTick) play(level, entity, ModSounds.GUN_MAG_REMOVE.get(), 1.0F);

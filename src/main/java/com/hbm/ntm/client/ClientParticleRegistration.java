@@ -29,6 +29,7 @@ public final class ClientParticleRegistration {
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(ClientParticleRegistration::registerParticleProviders);
         ClientDisintegrationEffects.register();
+        ClientSpentCasingEffects.register();
         VomitPayload.installClientParticleLimiter(count -> {
             // ClientProxy divided by particleSetting + 1: all/decreased/minimal = 25/12/8.
             int divisor = Minecraft.getInstance().options.particles().get().getId() + 1;

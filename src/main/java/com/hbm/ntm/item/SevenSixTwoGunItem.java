@@ -8,6 +8,8 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
+import com.hbm.ntm.weapon.SpentCasingEffects;
+import com.hbm.ntm.weapon.SpentCasingPreset;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -112,7 +114,7 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
         tag.putBoolean(EQUIPPED, true);
 
         int animationTimer = tag.getInt(ANIM_TIMER);
-        playOrchestra(level, living, animation(tag), animationTimer, variant);
+        playOrchestra(level, living, tag, animation(tag), animationTimer, variant);
         tag.putInt(ANIM_TIMER, animationTimer + 1);
 
         int timer = tag.getInt(TIMER);
@@ -345,9 +347,19 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
         };
     }
 
-    private static void playOrchestra(Level level, LivingEntity entity, GunAnimation animation,
+    private static void playOrchestra(Level level, LivingEntity entity, CompoundTag tag, GunAnimation animation,
                                       int timer, Variant variant) {
         if (variant == Variant.CARBINE) {
+            if (animation == GunAnimation.CYCLE && timer == 1) {
+                boolean aiming = tag.getBoolean(AIMING);
+                SpentCasingEffects.eject(entity,
+                        SpentCasingPreset.forSevenSixTwo(
+                                SevenSixTwoAmmoType.fromLegacyBulletConfig(tag.getInt(MAG_TYPE))),
+                        0.3125D, aiming ? 0.0D : -0.125D, aiming ? 0.0D : -0.25D,
+                        0.0D, 0.21D, -0.06D, 0.01D,
+                        -10.0F + (float) entity.getRandom().nextGaussian() * 2.5F,
+                        2.5F + (float) entity.getRandom().nextGaussian() * 2.0F);
+            }
             if (animation == GunAnimation.CYCLE_DRY) {
                 if (timer == 2) play(level, entity, ModSounds.GUN_DRY_FIRE.get(), 1.0F);
                 if (timer == 8) play(level, entity, ModSounds.GUN_PISTOL_COCK.get(), 0.8F);
@@ -379,6 +391,16 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
             if (timer == 10) play(level, entity, ModSounds.GUN_LATCH_OPEN.get(), 1.0F);
             if (timer == 18) play(level, entity, ModSounds.GUN_REVOLVER_CLOSE.get(), 1.0F);
         } else if (animation == GunAnimation.CYCLE || animation == GunAnimation.CYCLE_DRY) {
+            if (animation == GunAnimation.CYCLE && timer == 12) {
+                boolean aiming = tag.getBoolean(AIMING);
+                SpentCasingEffects.eject(entity,
+                        SpentCasingPreset.forSevenSixTwo(
+                                SevenSixTwoAmmoType.fromLegacyBulletConfig(tag.getInt(MAG_TYPE))),
+                        0.375D, aiming ? 0.0D : -0.125D, aiming ? 0.0D : -0.25D,
+                        -0.05D, 0.2D, -0.025D, 0.01D,
+                        -10.0F + (float) entity.getRandom().nextGaussian() * 10.0F,
+                        (float) entity.getRandom().nextGaussian() * 12.5F);
+            }
             if (animation == GunAnimation.CYCLE_DRY && timer == 0) {
                 play(level, entity, ModSounds.GUN_DRY_FIRE.get(), 0.75F);
             }

@@ -173,6 +173,10 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_BOLT_CLOSE = register("weapon.reload.boltclose");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_RIFLE_COCK = register("weapon.reload.riflecock");
     public static final DeferredHolder<SoundEvent, SoundEvent> GUN_RICOCHET = register("weapon.ricochet");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CASING_SMALL = register("weapon.casing.small");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CASING_MEDIUM = register("weapon.casing.medium");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CASING_LARGE = register("weapon.casing.large");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CASING_SHELL = register("weapon.casing.shell");
     // Sexy (legendary auto shotgun) whiskey inspect drinking foley.
     public static final DeferredHolder<SoundEvent, SoundEvent> PLAYER_GULP = register("player.gulp");
     public static final DeferredHolder<SoundEvent, SoundEvent> PLAYER_GROAN = register("player.groan");

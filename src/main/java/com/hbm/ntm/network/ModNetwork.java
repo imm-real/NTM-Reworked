@@ -175,6 +175,11 @@ public final class ModNetwork {
                 GunEffectPayload.STREAM_CODEC,
                 GunEffectPayload::handle
         );
+        registrar.playToClient(
+                SpentCasingPayload.TYPE,
+                SpentCasingPayload.STREAM_CODEC,
+                SpentCasingPayload::handle
+        );
         registrar.playToServer(
                 DntJetpackInputPayload.TYPE,
                 DntJetpackInputPayload.STREAM_CODEC,

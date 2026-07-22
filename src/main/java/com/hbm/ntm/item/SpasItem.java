@@ -8,6 +8,8 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.Shotgun12GaugeAmmoType;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
+import com.hbm.ntm.weapon.SpentCasingEffects;
+import com.hbm.ntm.weapon.SpentCasingPreset;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -114,7 +116,7 @@ public final class SpasItem extends SednaGunItem {
         tag.putBoolean(EQUIPPED, true);
 
         int animationTimer = tag.getInt(ANIM_TIMER);
-        playOrchestra(level, living, animation(tag), animationTimer,
+        playOrchestra(level, living, tag, animation(tag), animationTimer,
                 Mth.clamp(tag.getInt(MAG_COUNT), 0, CAPACITY));
         tag.putInt(ANIM_TIMER, animationTimer + 1);
 
@@ -327,12 +329,21 @@ public final class SpasItem extends SednaGunItem {
         return player.getEyePosition().add(offset);
     }
 
-    private static void playOrchestra(Level level, LivingEntity entity, GunAnimation animation,
+    private static void playOrchestra(Level level, LivingEntity entity, CompoundTag tag, GunAnimation animation,
                                       int timer, int magCount) {
-        // Orchestra handles clunks. Fire path handles violence. TODO casing entity.
         switch (animation) {
             case CYCLE, ALT_CYCLE -> {
                 if (timer == 8) play(level, entity, ModSounds.GUN_SHOTGUN_COCK.get(), 1.0F);
+                if (timer == 10) {
+                    boolean aiming = tag.getBoolean(AIMING);
+                    SpentCasingEffects.eject(entity,
+                            SpentCasingPreset.forTwelveGauge(
+                                    Shotgun12GaugeAmmoType.fromLegacyBulletConfig(tag.getInt(MAG_TYPE))),
+                            0.375D, aiming ? 0.0D : -0.125D, aiming ? 0.0D : -0.25D,
+                            0.0D, 0.18D, -0.12D, 0.01D,
+                            -3.0F + (float) entity.getRandom().nextGaussian() * 2.5F,
+                            -15.0F + entity.getRandom().nextFloat() * -5.0F);
+                }
             }
             case CYCLE_DRY -> {
                 if (timer == 0) play(level, entity, ModSounds.GUN_DRY_FIRE.get(), 1.0F);

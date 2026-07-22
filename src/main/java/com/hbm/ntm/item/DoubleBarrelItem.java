@@ -8,6 +8,8 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.Shotgun10GaugeAmmoType;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
+import com.hbm.ntm.weapon.SpentCasingEffects;
+import com.hbm.ntm.weapon.SpentCasingPreset;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -102,7 +104,7 @@ public final class DoubleBarrelItem extends SednaGunItem {
         if (!tag.getBoolean(EQUIPPED)) playAnimation(tag, GunAnimation.EQUIP);
         tag.putBoolean(EQUIPPED, true);
         int animationTimer = tag.getInt(ANIM_TIMER);
-        playOrchestra(level, living, animation(tag), animationTimer);
+        playOrchestra(level, living, tag, animation(tag), animationTimer);
         tag.putInt(ANIM_TIMER, animationTimer + 1);
 
         int timer = tag.getInt(TIMER);
@@ -260,12 +262,23 @@ public final class DoubleBarrelItem extends SednaGunItem {
                 .yRot(-player.getYRot() * Mth.DEG_TO_RAD));
     }
 
-    private static void playOrchestra(Level level, LivingEntity entity,
+    private static void playOrchestra(Level level, LivingEntity entity, CompoundTag tag,
                                       GunAnimation animation, int timer) {
         if (animation == GunAnimation.RELOAD) {
             if (timer == 5) play(level, entity, ModSounds.GUN_REVOLVER_COCK.get(), 0.75F);
             if (timer == 19) play(level, entity, ModSounds.GUN_MAG_SMALL_INSERT.get(), 0.9F);
             if (timer == 29) play(level, entity, ModSounds.GUN_REVOLVER_CLOSE.get(), 0.8F);
+            if (timer == 12) {
+                int count = CAPACITY - Mth.clamp(tag.getInt(MAG_PREV), 0, CAPACITY);
+                for (int index = 0; index < count; index++) {
+                    SpentCasingEffects.eject(entity,
+                            SpentCasingPreset.forTenGauge(
+                                    Shotgun10GaugeAmmoType.fromLegacyMetadata(tag.getInt(MAG_TYPE))),
+                            0.0D, -0.1875D, -0.375D, -0.24D, 0.18D, 0.0D, 0.01D,
+                            -20.0F + (float) entity.getRandom().nextGaussian() * 5.0F,
+                            (float) entity.getRandom().nextGaussian() * 2.5F);
+                }
+            }
         } else if (animation == GunAnimation.INSPECT) {
             if (timer == 5) play(level, entity, ModSounds.GUN_REVOLVER_COCK.get(), 0.75F);
             if (timer == 19) play(level, entity, ModSounds.GUN_REVOLVER_CLOSE.get(), 0.8F);
