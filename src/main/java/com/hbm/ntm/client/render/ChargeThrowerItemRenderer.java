@@ -37,15 +37,22 @@ public final class ChargeThrowerItemRenderer extends BlockEntityWithoutLevelRend
         poses.translate(0.5D, 0.5D, 0.5D);
         boolean first = context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND;
-        setupContext(context, poses);
-        if (first) renderFirstPerson(stack, poses, buffers, light, overlay);
-        else renderStatic(stack, poses, buffers, light, overlay);
+        boolean scoped = ChargeThrowerItem.isScoped(stack);
+        setupContext(context, poses, scoped);
+        if (first) renderFirstPerson(stack, poses, buffers, light, overlay, scoped);
+        else renderStatic(stack, poses, buffers, light, overlay, scoped);
         poses.popPose();
     }
 
     private void renderFirstPerson(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                                   int light, int overlay) {
-        poses.scale(0.5F, 0.5F, 0.5F);
+                                   int light, int overlay, boolean scoped) {
+        boolean usingScope = scoped && ClientWeaponEvents.fullyAimed();
+        if (usingScope) {
+            poses.scale(3.5F, 3.5F, 3.5F);
+            poses.translate(-0.5D, -1.5D, -4.0D);
+        } else {
+            poses.scale(0.5F, 0.5F, 0.5F);
+        }
         float time = (ChargeThrowerItem.animationTimer(stack)
                 + Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true)) * 50.0F;
         ChargeThrowerItem.GunAnimation animation = ChargeThrowerItem.animation(stack);
@@ -57,6 +64,7 @@ public final class ChargeThrowerItemRenderer extends BlockEntityWithoutLevelRend
         pivotZ(poses, 0.0D, -1.0D, 0.0D, roll(animation, time));
 
         render("Gun", GUN, poses, buffers, light, overlay);
+        if (scoped && !usingScope) render("Scope", GUN, poses, buffers, light, overlay);
         if (ChargeThrowerItem.rounds(stack) > 0 || animation == ChargeThrowerItem.GunAnimation.RELOAD) {
             Vec ammo = ammo(animation, time);
             poses.translate(ammo.x, ammo.y, ammo.z);
@@ -66,8 +74,9 @@ public final class ChargeThrowerItemRenderer extends BlockEntityWithoutLevelRend
     }
 
     private void renderStatic(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                              int light, int overlay) {
+                              int light, int overlay, boolean scoped) {
         render("Gun", GUN, poses, buffers, light, overlay);
+        if (scoped) render("Scope", GUN, poses, buffers, light, overlay);
         if (ChargeThrowerItem.rounds(stack) > 0) renderAmmo(stack, poses, buffers, light, overlay);
     }
 
@@ -90,7 +99,7 @@ public final class ChargeThrowerItemRenderer extends BlockEntityWithoutLevelRend
                 1.0F, light, overlay, -1);
     }
 
-    private static void setupContext(ItemDisplayContext context, PoseStack poses) {
+    private static void setupContext(ItemDisplayContext context, PoseStack poses, boolean scoped) {
         switch (context) {
             case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND -> {
                 double side = context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND ? 1.0D : -1.0D;
@@ -98,8 +107,9 @@ public final class ChargeThrowerItemRenderer extends BlockEntityWithoutLevelRend
                         Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true));
                 poses.mulPose(Axis.YP.rotationDegrees(180.0F));
                 poses.translate(0.0D, 0.0D, 0.875D);
-                poses.translate(lerp(side * 1.2D, side * 0.75D, aim),
-                        lerp(-1.0D, -0.625D, aim), lerp(2.8D, 1.75D, aim));
+                poses.translate(lerp(side * 1.2D, scoped ? -0.15625D : side * 0.75D, aim),
+                        lerp(-1.0D, scoped ? -0.8125D : -0.625D, aim),
+                        lerp(2.8D, scoped ? 1.6875D : 1.75D, aim));
             }
             case THIRD_PERSON_LEFT_HAND, THIRD_PERSON_RIGHT_HAND -> {
                 setupThirdPerson(context, poses);

@@ -10,10 +10,12 @@ import com.hbm.ntm.weapon.SevenSixTwoAmmoType;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
 import com.hbm.ntm.weapon.SpentCasingEffects;
 import com.hbm.ntm.weapon.SpentCasingPreset;
+import com.hbm.ntm.weapon.WeaponModManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -37,6 +39,8 @@ import java.util.Locale;
 public final class SevenSixTwoGunItem extends SednaGunItem {
     public static final float HIP_SPREAD = 0.025F;
     public static final float MAX_WEAR_SPREAD = 0.125F;
+    private static final ResourceLocation SCOPE = ResourceLocation.fromNamespaceAndPath(
+            "hbm", "textures/misc/scope_bolt.png");
 
     private static final String INITIALIZED = "hbm_initialized";
     private static final String STATE = "state_0";
@@ -76,6 +80,8 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
     @Override public boolean gunAutomatic() { return variant.automatic; }
     @Override public boolean gunBeltFed() { return variant.beltFed; }
     @Override public SednaCrosshair gunCrosshair() { return variant.crosshair; }
+    @Override public float gunAimFovMultiplier(ItemStack stack) { return isScoped(stack) ? 0.34F : 0.67F; }
+    @Override public ResourceLocation gunScopeTexture(ItemStack stack) { return isScoped(stack) ? SCOPE : null; }
     @Override public int gunRounds(ItemStack stack) { return variant.beltFed ? beltCount(stack) : rounds(stack); }
     @Override public int gunCapacity() { return variant.capacity; }
     @Override public float gunWear(ItemStack stack) { return wear(stack); }
@@ -524,6 +530,9 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
         int condition = Mth.clamp((int) ((variant.durability - wear(stack)) * 100.0F / variant.durability), 0, 100);
         tooltip.add(Component.translatable("gui.weapon.condition").append(": " + condition + "%")
                 .withStyle(ChatFormatting.GRAY));
+        for (ItemStack mod : WeaponModManager.installedMods(stack, 0)) {
+            tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+        }
         tooltip.add(Component.translatable(variant == Variant.MAS36
                         ? "gui.weapon.quality.legendary" : "gui.weapon.quality.aside")
                 .withStyle(variant == Variant.MAS36 ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.YELLOW));
@@ -532,6 +541,10 @@ public final class SevenSixTwoGunItem extends SednaGunItem {
     private static String trimDamage(float damage) {
         if (Math.abs(damage - Math.round(damage)) < 0.0001F) return Integer.toString(Math.round(damage));
         return String.format(Locale.ROOT, "%.3f", damage).replaceAll("0+$", "").replaceAll("\\.$", "");
+    }
+
+    public static boolean isScoped(ItemStack stack) {
+        return WeaponModManager.hasMod(stack, 0, WeaponModManager.SCOPE);
     }
 
     public enum Variant {

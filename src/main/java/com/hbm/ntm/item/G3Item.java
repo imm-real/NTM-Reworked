@@ -96,8 +96,14 @@ public final class G3Item extends SednaGunItem {
     @Override public boolean gunAutomatic() { return true; }
     @Override public SednaCrosshair gunCrosshair() { return SednaCrosshair.CIRCLE; }
     @Override public float gunAimFovMultiplier() { return variant.aimFovMultiplier; }
+    @Override public float gunAimFovMultiplier(ItemStack stack) {
+        return isScoped(stack) ? 0.34F : variant.aimFovMultiplier;
+    }
     @Override public ResourceLocation gunScopeTexture() {
         return variant == Variant.ZEBRA ? ZEBRA_SCOPE : null;
+    }
+    @Override public ResourceLocation gunScopeTexture(ItemStack stack) {
+        return isScoped(stack) ? ZEBRA_SCOPE : null;
     }
     @Override public int gunRounds(ItemStack stack) { return rounds(stack); }
     @Override public int gunCapacity() { return CAPACITY; }
@@ -453,6 +459,10 @@ public final class G3Item extends SednaGunItem {
     private static String trimDamage(float damage) {
         if (Math.abs(damage - Math.round(damage)) < 0.0001F) return Integer.toString(Math.round(damage));
         return String.format(Locale.ROOT, "%.3f", damage).replaceAll("0+$", "").replaceAll("\\.$", "");
+    }
+
+    public boolean isScoped(ItemStack stack) {
+        return variant == Variant.ZEBRA || WeaponModManager.hasMod(stack, 0, WeaponModManager.SCOPE);
     }
 
     private static Variant variant(ItemStack stack) {

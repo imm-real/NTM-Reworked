@@ -8,10 +8,12 @@ import com.hbm.ntm.weapon.ChargeThrowerAmmoType;
 import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
+import com.hbm.ntm.weapon.WeaponModManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -37,6 +39,8 @@ public final class ChargeThrowerItem extends SednaGunItem {
     public static final int FIRE_DELAY = 4;
     public static final int DRY_DELAY = 10;
     public static final int RELOAD_TICKS = 60;
+    private static final ResourceLocation SCOPE = ResourceLocation.fromNamespaceAndPath(
+            "hbm", "textures/misc/scope_tool.png");
 
     private static final String INITIALIZED = "hbm_initialized";
     private static final String STATE = "state_0";
@@ -70,6 +74,9 @@ public final class ChargeThrowerItem extends SednaGunItem {
     @Override public boolean gunSecondaryAutomatic() { return true; }
     @Override public SednaCrosshair gunCrosshair() { return SednaCrosshair.L_CIRCUMFLEX; }
     @Override public boolean gunHideCrosshairWhenAimed() { return false; }
+    @Override public boolean gunHideCrosshairWhenAimed(ItemStack stack) { return isScoped(stack); }
+    @Override public float gunAimFovMultiplier(ItemStack stack) { return isScoped(stack) ? 0.34F : 0.67F; }
+    @Override public ResourceLocation gunScopeTexture(ItemStack stack) { return isScoped(stack) ? SCOPE : null; }
     @Override public int gunRounds(ItemStack stack) { return rounds(stack); }
     @Override public int gunCapacity() { return CAPACITY; }
     @Override public float gunWear(ItemStack stack) { return wear(stack); }
@@ -341,7 +348,14 @@ public final class ChargeThrowerItem extends SednaGunItem {
         int condition = Mth.clamp((int) ((DURABILITY - wear(stack)) * 100.0F / DURABILITY), 0, 100);
         tooltip.add(Component.translatable("gui.weapon.condition").append(": " + condition + "%")
                 .withStyle(ChatFormatting.GRAY));
+        for (ItemStack mod : WeaponModManager.installedMods(stack, 0)) {
+            tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+        }
         tooltip.add(Component.translatable("gui.weapon.quality.utility").withStyle(ChatFormatting.YELLOW));
+    }
+
+    public static boolean isScoped(ItemStack stack) {
+        return WeaponModManager.hasMod(stack, 0, WeaponModManager.SCOPE);
     }
 
     public enum GunState { DRAWING, IDLE, COOLDOWN, RELOADING, JAMMED }

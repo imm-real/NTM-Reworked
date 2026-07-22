@@ -25,6 +25,8 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
             HbmNtm.MOD_ID, "models/weapons/lilmac.obj");
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
             HbmNtm.MOD_ID, "textures/models/weapons/heavy_revolver.png");
+    private static final ResourceLocation SCOPE_TEXTURE = ResourceLocation.fromNamespaceAndPath(
+            HbmNtm.MOD_ID, "textures/models/weapons/lilmac_scope.png");
     private static final Set<String> GROUPS = Set.of(
             "Pivot", "Casings", "Bullets", "Hammer", "Cylinder", "Scope", "Gun");
 
@@ -40,16 +42,20 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
         if (!(stack.getItem() instanceof HeavyRevolverItem)) return;
         boolean firstPerson = context == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND
                 || context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
+        boolean scoped = HeavyRevolverItem.isScoped(stack);
 
         poses.pushPose();
-        setupContext(context, poses);
-        if (firstPerson) renderFirstPerson(stack, poses, buffers, packedLight, packedOverlay);
-        else renderStatic(poses, buffers, packedLight, packedOverlay);
+        setupContext(context, poses, scoped);
+        if (!(firstPerson && scoped && ClientWeaponEvents.fullyAimed())) {
+            if (firstPerson) renderFirstPerson(stack, poses, buffers, packedLight, packedOverlay, scoped);
+            else renderStatic(poses, buffers, packedLight, packedOverlay, scoped);
+        }
 
         boolean held = firstPerson || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack);
-        if (held && elapsed >= 0L && elapsed < 75L) {
+        if (held && !(firstPerson && scoped && ClientWeaponEvents.fullyAimed())
+                && elapsed >= 0L && elapsed < 75L) {
             poses.translate(0.125D, 2.5D, 0.0D);
             renderGapFlash(poses, buffers, elapsed / 75.0F);
         }
@@ -57,7 +63,7 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
     }
 
     private void renderFirstPerson(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                                   int light, int overlay) {
+                                   int light, int overlay, boolean scoped) {
         Animation animation = animation(stack);
         float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
         float aim = ClientWeaponEvents.aimingProgress(partial);
@@ -103,9 +109,11 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
         poses.translate(-4.0D, -1.25D, 0.0D);
         render("Hammer", poses, buffers, light, overlay);
         poses.popPose();
+        if (scoped) render("Scope", SCOPE_TEXTURE, poses, buffers, light, overlay);
     }
 
-    private void renderStatic(PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
+    private void renderStatic(PoseStack poses, MultiBufferSource buffers, int light, int overlay,
+                              boolean scoped) {
         poses.mulPose(Axis.YP.rotationDegrees(90.0F));
         render("Gun", poses, buffers, light, overlay);
         render("Cylinder", poses, buffers, light, overlay);
@@ -113,10 +121,16 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
         render("Casings", poses, buffers, light, overlay);
         render("Pivot", poses, buffers, light, overlay);
         render("Hammer", poses, buffers, light, overlay);
+        if (scoped) render("Scope", SCOPE_TEXTURE, poses, buffers, light, overlay);
     }
 
     private void render(String group, PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
-        mesh().render(group, poses.last(), buffers.getBuffer(RenderType.entityCutout(TEXTURE)),
+        render(group, TEXTURE, poses, buffers, light, overlay);
+    }
+
+    private void render(String group, ResourceLocation texture, PoseStack poses,
+                        MultiBufferSource buffers, int light, int overlay) {
+        mesh().render(group, poses.last(), buffers.getBuffer(RenderType.entityCutout(texture)),
                 1.0F, light, overlay, 0xFFFFFFFF);
     }
 
@@ -126,7 +140,7 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
         return mesh;
     }
 
-    private static void setupContext(ItemDisplayContext context, PoseStack poses) {
+    private static void setupContext(ItemDisplayContext context, PoseStack poses, boolean scoped) {
         poses.translate(0.5D, 0.5D, 0.5D);
         switch (context) {
             case GUI -> {
@@ -134,9 +148,11 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
                 poses.scale(1.0F, 1.0F, -1.0F);
                 poses.mulPose(Axis.ZP.rotationDegrees(225.0F));
                 poses.mulPose(Axis.YP.rotationDegrees(90.0F));
-                poses.scale(1.25F / 16.0F, 1.25F / 16.0F, 1.25F / 16.0F);
+                float scale = scoped ? 1.125F : 1.25F;
+                poses.scale(scale / 16.0F, scale / 16.0F, scale / 16.0F);
                 poses.mulPose(Axis.XP.rotationDegrees(25.0F));
                 poses.mulPose(Axis.YP.rotationDegrees(45.0F));
+                if (scoped) poses.translate(0.0D, -0.5D, 0.0D);
             }
             case GROUND -> {
                 poses.scale(0.125F, 0.125F, 0.125F);
@@ -153,8 +169,9 @@ public final class HeavyRevolverItemRenderer extends BlockEntityWithoutLevelRend
                 double side = context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND ? 1.0D : -1.0D;
                 poses.mulPose(Axis.YP.rotationDegrees(180.0F));
                 poses.translate(0.0D, 0.0D, 1.0D);
-                poses.translate(lerp(side * 0.8D, 0.0D, aim), lerp(-0.6D, -3.875D / 8.0D, aim),
-                        lerp(0.8D, 0.0D, aim));
+                poses.translate(lerp(side * 0.8D, 0.0D, aim),
+                        lerp(-0.6D, scoped ? -4.75D / 8.0D : -3.875D / 8.0D, aim),
+                        lerp(0.8D, scoped ? -0.25D : 0.0D, aim));
                 poses.scale(0.125F, 0.125F, 0.125F);
             }
             default -> {

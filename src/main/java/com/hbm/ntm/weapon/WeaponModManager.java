@@ -1,10 +1,13 @@
 package com.hbm.ntm.weapon;
 
-import com.hbm.ntm.item.TwentyTwoGunItem;
-import com.hbm.ntm.item.NineMillimeterGunItem;
-import com.hbm.ntm.item.DualUziItem;
+import com.hbm.ntm.item.ChargeThrowerItem;
 import com.hbm.ntm.item.DualStarFItem;
+import com.hbm.ntm.item.DualUziItem;
 import com.hbm.ntm.item.G3Item;
+import com.hbm.ntm.item.HeavyRevolverItem;
+import com.hbm.ntm.item.NineMillimeterGunItem;
+import com.hbm.ntm.item.SevenSixTwoGunItem;
+import com.hbm.ntm.item.TwentyTwoGunItem;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -20,19 +23,30 @@ public final class WeaponModManager {
     public static final int TABLE_SLOTS = 7;
     public static final int SPEEDLOADER = 200;
     public static final int SILENCER = 201;
+    public static final int SCOPE = 202;
     private static final String MOD_LIST = "KEY_MOD_LIST_";
 
     private WeaponModManager() {}
 
     public static boolean isMod(ItemStack stack) {
         return stack.is(ModItems.WEAPON_MOD_SILENCER.get())
-                || stack.is(ModItems.WEAPON_MOD_SPEEDLOADER.get());
+                || stack.is(ModItems.WEAPON_MOD_SPEEDLOADER.get())
+                || stack.is(ModItems.WEAPON_MOD_SCOPE.get());
     }
 
     public static boolean isApplicable(ItemStack gun, ItemStack mod, int config) {
         if (gun.isEmpty() || mod.isEmpty() || config < 0 || config >= configCount(gun)) return false;
         if (mod.is(ModItems.WEAPON_MOD_SPEEDLOADER.get())) {
             return gun.is(ModItems.GUN_LIBERATOR.get());
+        }
+        if (mod.is(ModItems.WEAPON_MOD_SCOPE.get())) {
+            if (gun.getItem() instanceof HeavyRevolverItem) return true;
+            if (gun.getItem() instanceof G3Item item) return item.variant() == G3Item.Variant.STANDARD;
+            if (gun.getItem() instanceof SevenSixTwoGunItem item) {
+                return item.variant() == SevenSixTwoGunItem.Variant.CARBINE
+                        || item.variant() == SevenSixTwoGunItem.Variant.MAS36;
+            }
+            return gun.getItem() instanceof ChargeThrowerItem;
         }
         if (!mod.is(ModItems.WEAPON_MOD_SILENCER.get())) return false;
         if (gun.getItem() instanceof TwentyTwoGunItem item) {
@@ -58,6 +72,11 @@ public final class WeaponModManager {
         if (gun.getItem() instanceof G3Item item && item.variant() == G3Item.Variant.STANDARD) return 1;
         if (gun.is(ModItems.GUN_AMAT.get())) return 1;
         if (gun.is(ModItems.GUN_LIBERATOR.get())) return 1;
+        if (gun.getItem() instanceof HeavyRevolverItem) return 1;
+        if (gun.getItem() instanceof SevenSixTwoGunItem item
+                && (item.variant() == SevenSixTwoGunItem.Variant.CARBINE
+                || item.variant() == SevenSixTwoGunItem.Variant.MAS36)) return 1;
+        if (gun.getItem() instanceof ChargeThrowerItem) return 1;
         return 0;
     }
 
@@ -76,6 +95,7 @@ public final class WeaponModManager {
         for (int id : installedIds(gun, config)) {
             if (id == SPEEDLOADER) result.add(new ItemStack(ModItems.WEAPON_MOD_SPEEDLOADER.get()));
             if (id == SILENCER) result.add(new ItemStack(ModItems.WEAPON_MOD_SILENCER.get()));
+            if (id == SCOPE) result.add(new ItemStack(ModItems.WEAPON_MOD_SCOPE.get()));
         }
         return result;
     }
@@ -103,7 +123,8 @@ public final class WeaponModManager {
 
     private static int id(ItemStack stack) {
         if (stack.is(ModItems.WEAPON_MOD_SPEEDLOADER.get())) return SPEEDLOADER;
-        return stack.is(ModItems.WEAPON_MOD_SILENCER.get()) ? SILENCER : -1;
+        if (stack.is(ModItems.WEAPON_MOD_SILENCER.get())) return SILENCER;
+        return stack.is(ModItems.WEAPON_MOD_SCOPE.get()) ? SCOPE : -1;
     }
 
     private static int priority(ItemStack stack) {

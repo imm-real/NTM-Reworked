@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "P": {
+      "tag": "c:ingots/polymer"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "G G",
+    "SPS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:weapon_mod_scope"
+  }
+}

@@ -183,7 +183,8 @@ public final class ClientWeaponEvents {
     private static void fov(ComputeFovModifierEvent event) {
         if (!(event.getPlayer().getMainHandItem().getItem() instanceof SednaGunItem gun)) return;
         event.setNewFovModifier(event.getNewFovModifier()
-                * Mth.lerp(aimingProgress, 1.0F, gun.gunAimFovMultiplier()));
+                * Mth.lerp(aimingProgress, 1.0F,
+                        gun.gunAimFovMultiplier(event.getPlayer().getMainHandItem())));
     }
 
     private static void crosshair(RenderGuiLayerEvent.Pre event) {
@@ -198,7 +199,7 @@ public final class ClientWeaponEvents {
         event.setCanceled(true);
         if (!HbmConfig.ENABLE_CROSSHAIRS.get()
                 || (gun != null && gun.gunCrosshairOnlyWhenAimed() && aimingProgress < 1.0F)
-                || (gun != null && gun.gunHideCrosshairWhenAimed() && aimingProgress >= 1.0F)) return;
+                || (gun != null && gun.gunHideCrosshairWhenAimed(held) && aimingProgress >= 1.0F)) return;
 
         GuiGraphics graphics = event.getGuiGraphics();
         SednaCrosshair crosshair = laserDetonator ? SednaCrosshair.L_ARROWS : gun.gunCrosshair();
@@ -320,7 +321,7 @@ public final class ClientWeaponEvents {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null
                 || !(minecraft.player.getMainHandItem().getItem() instanceof SednaGunItem gun)) return;
-        ResourceLocation texture = gun.gunScopeTexture();
+        ResourceLocation texture = gun.gunScopeTexture(minecraft.player.getMainHandItem());
         if (texture != null) renderScope(event.getGuiGraphics(), texture);
     }
 

@@ -8,10 +8,12 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.Magnum44AmmoType;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
+import com.hbm.ntm.weapon.WeaponModManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -42,6 +44,8 @@ public final class HeavyRevolverItem extends SednaGunItem {
     public static final float BASE_DAMAGE = 15.0F;
     public static final float HIP_SPREAD = 0.025F;
     public static final float MAX_WEAR_SPREAD = 0.125F;
+    private static final ResourceLocation SCOPE = ResourceLocation.fromNamespaceAndPath(
+            "hbm", "textures/misc/scope_44.png");
 
     private static final String STATE = "state_0";
     private static final String TIMER = "timer_0";
@@ -67,6 +71,8 @@ public final class HeavyRevolverItem extends SednaGunItem {
 
     @Override public boolean gunAiming(ItemStack stack) { return aiming(stack); }
     @Override public SednaCrosshair gunCrosshair() { return SednaCrosshair.L_CLASSIC; }
+    @Override public float gunAimFovMultiplier(ItemStack stack) { return isScoped(stack) ? 0.34F : 0.67F; }
+    @Override public ResourceLocation gunScopeTexture(ItemStack stack) { return isScoped(stack) ? SCOPE : null; }
     @Override public int gunRounds(ItemStack stack) { return rounds(stack); }
     @Override public int gunCapacity() { return CAPACITY; }
     @Override public float gunWear(ItemStack stack) { return wear(stack); }
@@ -347,12 +353,19 @@ public final class HeavyRevolverItem extends SednaGunItem {
         int condition = Mth.clamp((int) ((DURABILITY - wear(stack)) * 100.0F / DURABILITY), 0, 100);
         tooltip.add(Component.translatable("gui.weapon.condition").append(": " + condition + "%")
                 .withStyle(ChatFormatting.GRAY));
+        for (ItemStack mod : WeaponModManager.installedMods(stack, 0)) {
+            tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+        }
         tooltip.add(Component.translatable("gui.weapon.quality.aside").withStyle(ChatFormatting.YELLOW));
     }
 
     private static String trimDamage(float damage) {
         if (Math.abs(damage - Math.round(damage)) < 0.0001F) return Integer.toString(Math.round(damage));
         return String.format(Locale.ROOT, "%.3f", damage).replaceAll("0+$", "").replaceAll("\\.$", "");
+    }
+
+    public static boolean isScoped(ItemStack stack) {
+        return WeaponModManager.hasMod(stack, 0, WeaponModManager.SCOPE);
     }
 
     public enum GunState { DRAWING, IDLE, COOLDOWN, RELOADING, JAMMED }

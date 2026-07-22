@@ -86,6 +86,63 @@ public final class WeaponModifierGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void scopeOnlyFitsItsFiveSourceReceivers(GameTestHelper helper) {
+        ItemStack scope = new ItemStack(ModItems.WEAPON_MOD_SCOPE.get());
+        helper.assertTrue(WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_HEAVY_REVOLVER.get()), scope, 0),
+                "Scope must fit the standard Heavy Revolver");
+        helper.assertTrue(WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_CARBINE.get()), scope, 0)
+                        && WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_MAS36.get()), scope, 0),
+                "Scope must fit the Carbine and MAS-36");
+        helper.assertTrue(WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_G3.get()), scope, 0)
+                        && WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_CHARGE_THROWER.get()), scope, 0),
+                "Scope must fit the standard G3 and Charge Thrower");
+        helper.assertTrue(!WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_HEAVY_REVOLVER_LILMAC.get()), scope, 0)
+                        && !WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_HEAVY_REVOLVER_PROTEGE.get()), scope, 0)
+                        && !WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_MINIGUN.get()), scope, 0)
+                        && !WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_G3_ZEBRA.get()), scope, 0),
+                "Built-in optics and unlisted receivers must reject the loose scope");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void scopeKeepsItsSourceIdAndStackAwareOptics(GameTestHelper helper) {
+        ItemStack g3 = new ItemStack(ModItems.GUN_G3.get());
+        WeaponModManager.install(g3, 0, List.of(
+                new ItemStack(ModItems.WEAPON_MOD_SILENCER.get()),
+                new ItemStack(ModItems.WEAPON_MOD_SCOPE.get())));
+        helper.assertTrue(WeaponModManager.hasMod(g3, 0, WeaponModManager.SILENCER)
+                        && WeaponModManager.hasMod(g3, 0, WeaponModManager.SCOPE),
+                "G3 must keep its source silencer and scope slots together");
+        helper.assertTrue(WeaponModManager.installedMods(g3, 0).stream()
+                        .anyMatch(stack -> stack.is(ModItems.WEAPON_MOD_SCOPE.get())),
+                "Installed source ID 202 must rebuild the scope table stack");
+        var gun = (com.hbm.ntm.item.G3Item) g3.getItem();
+        helper.assertTrue(gun.gunAimFovMultiplier(g3) == 0.34F
+                        && gun.gunScopeTexture(g3) != null
+                        && gun.gunScopeTexture(g3).getPath().equals("textures/misc/scope_bolt.png"),
+                "Installed scope must supply the source zoom and bolt optic");
+
+        ItemStack chargeThrower = new ItemStack(ModItems.GUN_CHARGE_THROWER.get());
+        WeaponModManager.install(chargeThrower, 0,
+                List.of(new ItemStack(ModItems.WEAPON_MOD_SCOPE.get())));
+        var tool = (com.hbm.ntm.item.ChargeThrowerItem) chargeThrower.getItem();
+        helper.assertTrue(tool.gunHideCrosshairWhenAimed(chargeThrower)
+                        && tool.gunScopeTexture(chargeThrower) != null
+                        && tool.gunScopeTexture(chargeThrower).getPath().equals("textures/misc/scope_tool.png"),
+                "Charge Thrower scope must hide its old crosshair and use the tool optic");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void dualReceiverStorageStaysIndependent(GameTestHelper helper) {
         ItemStack dual = new ItemStack(ModItems.GUN_UZI_AKIMBO.get());
         ItemStack silencer = new ItemStack(ModItems.WEAPON_MOD_SILENCER.get());

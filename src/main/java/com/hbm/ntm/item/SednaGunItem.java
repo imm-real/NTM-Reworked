@@ -26,12 +26,15 @@ public abstract class SednaGunItem extends Item {
     public boolean gunSecondaryAutomatic() { return false; }
     public SednaCrosshair gunCrosshair() { return SednaCrosshair.CIRCLE; }
     public boolean gunHideCrosshairWhenAimed() { return true; }
+    public boolean gunHideCrosshairWhenAimed(ItemStack stack) { return gunHideCrosshairWhenAimed(); }
     /** Stinger hides the reticle until it finishes raising its eyebrow. */
     public boolean gunCrosshairOnlyWhenAimed() { return false; }
     /** Full-aim FOV multiplier. */
     public float gunAimFovMultiplier() { return 0.67F; }
+    public float gunAimFovMultiplier(ItemStack stack) { return gunAimFovMultiplier(); }
     /** Scope overlay, if this gun believes in optics. */
     public ResourceLocation gunScopeTexture() { return null; }
+    public ResourceLocation gunScopeTexture(ItemStack stack) { return gunScopeTexture(); }
     public abstract int gunRounds(ItemStack stack);
     public abstract int gunCapacity();
     public abstract float gunWear(ItemStack stack);

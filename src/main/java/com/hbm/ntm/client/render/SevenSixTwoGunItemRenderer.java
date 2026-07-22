@@ -24,6 +24,7 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
     private static final ResourceLocation MINIGUN_MODEL = id("models/weapons/minigun.obj");
     private static final ResourceLocation MAS36_MODEL = id("models/weapons/mas36.obj");
     private static final ResourceLocation CARBINE_TEXTURE = id("textures/models/weapons/huntsman.png");
+    private static final ResourceLocation CARBINE_SCOPE_TEXTURE = id("textures/models/weapons/carbine_scope.png");
     private static final ResourceLocation MINIGUN_TEXTURE = id("textures/models/weapons/minigun.png");
     private static final ResourceLocation MAS36_TEXTURE = id("textures/models/weapons/mas36.png");
 
@@ -50,28 +51,33 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack);
         long flashDuration = gun.variant() == SevenSixTwoGunItem.Variant.MINIGUN ? 50L : 75L;
-        boolean flash = held && elapsed >= 0L && elapsed < flashDuration;
+        boolean scoped = SevenSixTwoGunItem.isScoped(stack);
+        boolean flash = held && !(firstPerson && scoped && ClientWeaponEvents.fullyAimed())
+                && elapsed >= 0L && elapsed < flashDuration;
 
         poses.pushPose();
-        setupContext(gun.variant(), context, poses);
-        if (firstPerson) renderFirstPerson(stack, gun.variant(), poses, buffers, light, overlay);
-        else renderStatic(gun.variant(), poses, buffers, light, overlay);
+        setupContext(gun.variant(), context, poses, scoped);
+        if (!(firstPerson && scoped && ClientWeaponEvents.fullyAimed())) {
+            if (firstPerson) renderFirstPerson(stack, gun.variant(), poses, buffers, light, overlay, scoped);
+            else renderStatic(gun.variant(), poses, buffers, light, overlay, scoped);
+        }
         if (flash) renderFlash(gun.variant(), firstPerson, poses, buffers, elapsed,
                 ClientWeaponEvents.shotRandom(stack));
         poses.popPose();
     }
 
     private void renderFirstPerson(ItemStack stack, SevenSixTwoGunItem.Variant variant,
-                                   PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
+                                   PoseStack poses, MultiBufferSource buffers, int light, int overlay,
+                                   boolean scoped) {
         switch (variant) {
-            case CARBINE -> renderCarbine(stack, poses, buffers, light, overlay);
+            case CARBINE -> renderCarbine(stack, poses, buffers, light, overlay, scoped);
             case MINIGUN -> renderMinigun(stack, poses, buffers, light, overlay);
-            case MAS36 -> renderMas36(stack, poses, buffers, light, overlay);
+            case MAS36 -> renderMas36(stack, poses, buffers, light, overlay, scoped);
         }
     }
 
     private void renderCarbine(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                                int light, int overlay) {
+                                int light, int overlay, boolean scoped) {
         CarbineAnimation animation = carbineAnimation(stack, animationTime(stack));
         poses.scale(0.5F, 0.5F, 0.5F);
         pivotX(poses, 0.0D, -1.0D, -2.0D, animation.equip.x);
@@ -92,7 +98,9 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
             render(SevenSixTwoGunItem.Variant.CARBINE, "Bullet", poses, buffers, light, overlay);
         }
         poses.popPose();
-        render(SevenSixTwoGunItem.Variant.CARBINE, "IronSight", poses, buffers, light, overlay);
+        if (scoped) render("Scope", CARBINE_SCOPE_TEXTURE, SevenSixTwoGunItem.Variant.CARBINE,
+                poses, buffers, light, overlay);
+        else render(SevenSixTwoGunItem.Variant.CARBINE, "IronSight", poses, buffers, light, overlay);
 
         poses.pushPose();
         poses.translate(0.0D, 1.0D, 8.0D);
@@ -125,7 +133,7 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
     }
 
     private void renderMas36(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
-                             int light, int overlay) {
+                             int light, int overlay, boolean scoped) {
         MasAnimation animation = masAnimation(stack, animationTime(stack));
         poses.scale(0.375F, 0.375F, 0.375F);
         poses.translate(0.0D, -3.0D, -3.0D);
@@ -154,6 +162,7 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
             render(SevenSixTwoGunItem.Variant.MAS36, "Bullet", poses, buffers, light, overlay);
             poses.popPose();
         }
+        if (scoped) render(SevenSixTwoGunItem.Variant.MAS36, "Scope", poses, buffers, light, overlay);
         if (animation.showClip.x != 0.0D) {
             poses.pushPose();
             poses.translate(animation.clip.x, animation.clip.y, animation.clip.z);
@@ -179,13 +188,25 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
     }
 
     private void renderStatic(SevenSixTwoGunItem.Variant variant, PoseStack poses,
-                              MultiBufferSource buffers, int light, int overlay) {
+                              MultiBufferSource buffers, int light, int overlay, boolean scoped) {
         Set<String> groups = switch (variant) {
-            case CARBINE -> Set.of("Gun", "Slide", "Magazine", "IronSight");
+            case CARBINE -> scoped ? Set.of("Gun", "Slide", "Magazine")
+                    : Set.of("Gun", "Slide", "Magazine", "IronSight");
             case MINIGUN -> Set.of("Gun", "Grip", "Barrels");
             case MAS36 -> Set.of("Gun", "Stock", "Bolt");
         };
         for (String group : groups) render(variant, group, poses, buffers, light, overlay);
+        if (scoped && variant == SevenSixTwoGunItem.Variant.CARBINE) {
+            render("Scope", CARBINE_SCOPE_TEXTURE, variant, poses, buffers, light, overlay);
+        } else if (scoped && variant == SevenSixTwoGunItem.Variant.MAS36) {
+            render(variant, "Scope", poses, buffers, light, overlay);
+        }
+    }
+
+    private void render(String group, ResourceLocation texture, SevenSixTwoGunItem.Variant variant,
+                        PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
+        mesh(variant).render(group, poses.last(), buffers.getBuffer(RenderType.entityCutout(texture)),
+                1.0F, light, overlay, -1);
     }
 
     private void render(SevenSixTwoGunItem.Variant variant, String group, PoseStack poses,
@@ -211,7 +232,7 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
     }
 
     private static void setupContext(SevenSixTwoGunItem.Variant variant,
-                                     ItemDisplayContext context, PoseStack poses) {
+                                     ItemDisplayContext context, PoseStack poses, boolean scoped) {
         poses.translate(0.5D, 0.5D, 0.5D);
         switch (context) {
             case GUI -> {
@@ -249,9 +270,10 @@ public final class SevenSixTwoGunItemRenderer extends BlockEntityWithoutLevelRen
                     case MAS36 -> new Vec(side * 1.2D, -1.0D, 1.4D);
                 };
                 Vec aimed = switch (variant) {
-                    case CARBINE -> new Vec(0.0D, -0.78125D, 0.25D);
+                    case CARBINE -> new Vec(0.0D, scoped ? -1.0D : -0.78125D, 0.25D);
                     case MINIGUN -> new Vec(0.0D, -0.78125D, 1.0D);
-                    case MAS36 -> new Vec(0.0D, -0.5853125D, 0.75D);
+                    case MAS36 -> scoped ? new Vec(-0.2D, -0.734375D, 1.125D)
+                            : new Vec(0.0D, -0.5853125D, 0.75D);
                 };
                 poses.translate(lerp(hip.x, aimed.x, aim), lerp(hip.y, aimed.y, aim),
                         lerp(hip.z, aimed.z, aim));
