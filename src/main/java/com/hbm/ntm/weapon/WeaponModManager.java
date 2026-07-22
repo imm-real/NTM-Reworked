@@ -1,6 +1,8 @@
 package com.hbm.ntm.weapon;
 
 import com.hbm.ntm.item.TwentyTwoGunItem;
+import com.hbm.ntm.item.NineMillimeterGunItem;
+import com.hbm.ntm.item.DualUziItem;
 import com.hbm.ntm.registry.ModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -24,10 +26,23 @@ public final class WeaponModManager {
     }
 
     public static boolean isApplicable(ItemStack gun, ItemStack mod, int config) {
-        if (gun.isEmpty() || mod.isEmpty() || config != 0) return false;
-        return mod.is(ModItems.WEAPON_MOD_SILENCER.get())
-                && gun.getItem() instanceof TwentyTwoGunItem item
-                && item.variant() == TwentyTwoGunItem.Variant.AM180;
+        if (gun.isEmpty() || mod.isEmpty() || config < 0 || config >= configCount(gun)) return false;
+        if (!mod.is(ModItems.WEAPON_MOD_SILENCER.get())) return false;
+        if (gun.getItem() instanceof TwentyTwoGunItem item) {
+            return item.variant() == TwentyTwoGunItem.Variant.AM180;
+        }
+        return gun.getItem() instanceof DualUziItem
+                || gun.getItem() instanceof NineMillimeterGunItem item
+                && item.variant() == NineMillimeterGunItem.Variant.UZI;
+    }
+
+    public static int configCount(ItemStack gun) {
+        if (gun.getItem() instanceof DualUziItem) return DualUziItem.RECEIVER_COUNT;
+        if (gun.getItem() instanceof TwentyTwoGunItem item
+                && item.variant() == TwentyTwoGunItem.Variant.AM180) return 1;
+        if (gun.getItem() instanceof NineMillimeterGunItem item
+                && item.variant() == NineMillimeterGunItem.Variant.UZI) return 1;
+        return 0;
     }
 
     public static boolean hasMod(ItemStack gun, int config, int id) {

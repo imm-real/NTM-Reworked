@@ -3,6 +3,7 @@ package com.hbm.ntm.client.render;
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.item.DualUziItem;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -41,17 +42,17 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
                     renderFirstPerson(stack, poses, buffers, packedLight, packedOverlay);
             case THIRD_PERSON_RIGHT_HAND -> {
                 setupThirdPerson(context, poses);
-                renderStatic(1, poses, buffers, packedLight, packedOverlay);
+                renderStatic(stack, 1, poses, buffers, packedLight, packedOverlay);
                 renderHeldFlash(stack, 1, poses, buffers);
             }
             case THIRD_PERSON_LEFT_HAND -> {
                 setupThirdPerson(context, poses);
-                renderStatic(0, poses, buffers, packedLight, packedOverlay);
+                renderStatic(stack, 0, poses, buffers, packedLight, packedOverlay);
                 renderHeldFlash(stack, 0, poses, buffers);
             }
             case GUI -> renderInventory(stack, poses, buffers, packedLight, packedOverlay);
-            case GROUND, FIXED -> renderDropped(poses, buffers, packedLight, packedOverlay);
-            default -> renderDropped(poses, buffers, packedLight, packedOverlay);
+            case GROUND, FIXED -> renderDropped(stack, poses, buffers, packedLight, packedOverlay);
+            default -> renderDropped(stack, poses, buffers, packedLight, packedOverlay);
         }
         poses.popPose();
     }
@@ -83,6 +84,10 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         renderModel(index == 0 ? UZI_GUN_MIRROR : NineMillimeterGunItemRenderer.UZI_GUN,
                 poses, buffers, light, overlay);
+        boolean silenced = WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER);
+        if (silenced) {
+            renderModel(NineMillimeterGunItemRenderer.UZI_SILENCER, poses, buffers, light, overlay);
+        }
 
         poses.pushPose();
         poses.translate(0.0D, 0.3125D, -5.75D);
@@ -108,14 +113,16 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
         poses.popPose();
 
-        poses.pushPose();
-        poses.translate(0.0D, 0.75D, 8.5D);
-        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
-        poses.scale(0.5F, 0.5F, 0.5F);
-        WeaponSmokeRenderer.render(stack, index, poses, buffers, 0.75D,
-                WeaponSmokeRenderer.NINE_MM,
-                DualUziItem.state(stack, index) == DualUziItem.GunState.RELOADING);
-        poses.popPose();
+        if (!silenced) {
+            poses.pushPose();
+            poses.translate(0.0D, 0.75D, 8.5D);
+            poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+            poses.scale(0.5F, 0.5F, 0.5F);
+            WeaponSmokeRenderer.render(stack, index, poses, buffers, 0.75D,
+                    WeaponSmokeRenderer.NINE_MM,
+                    DualUziItem.state(stack, index) == DualUziItem.GunState.RELOADING);
+            poses.popPose();
+        }
     }
 
     private static void renderInventory(ItemStack stack, PoseStack poses,
@@ -130,7 +137,7 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
         poses.mulPose(Axis.XP.rotationDegrees(25.0F));
         poses.mulPose(Axis.YP.rotationDegrees(45.0F));
         poses.translate(0.0D, 1.0D, 0.0D);
-        renderStatic(1, poses, buffers, light, overlay);
+        renderStatic(stack, 1, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.translate(0.0D, 0.0D, 5.0D);
@@ -141,27 +148,27 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
         poses.mulPose(Axis.XP.rotationDegrees(25.0F));
         poses.mulPose(Axis.YN.rotationDegrees(45.0F));
         poses.translate(0.0D, 1.0D, 0.0D);
-        renderStatic(0, poses, buffers, light, overlay);
+        renderStatic(stack, 0, poses, buffers, light, overlay);
         poses.popPose();
     }
 
-    private static void renderDropped(PoseStack poses, MultiBufferSource buffers,
+    private static void renderDropped(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
                                       int light, int overlay) {
         poses.scale(0.125F, 0.125F, 0.125F);
         poses.mulPose(Axis.YN.rotationDegrees(90.0F));
 
         poses.pushPose();
         poses.translate(-1.0D, 1.0D, 0.0D);
-        renderStatic(1, poses, buffers, light, overlay);
+        renderStatic(stack, 1, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.pushPose();
         poses.translate(1.0D, 1.0D, 0.0D);
-        renderStatic(0, poses, buffers, light, overlay);
+        renderStatic(stack, 0, poses, buffers, light, overlay);
         poses.popPose();
     }
 
-    private static void renderStatic(int index, PoseStack poses, MultiBufferSource buffers,
+    private static void renderStatic(ItemStack stack, int index, PoseStack poses, MultiBufferSource buffers,
                                      int light, int overlay) {
         renderModel(index == 0 ? UZI_GUN_MIRROR : NineMillimeterGunItemRenderer.UZI_GUN,
                 poses, buffers, light, overlay);
@@ -169,6 +176,9 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
         renderModel(NineMillimeterGunItemRenderer.UZI_STOCK_FRONT, poses, buffers, light, overlay);
         renderModel(NineMillimeterGunItemRenderer.UZI_SLIDE, poses, buffers, light, overlay);
         renderModel(NineMillimeterGunItemRenderer.UZI_MAGAZINE, poses, buffers, light, overlay);
+        if (WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER)) {
+            renderModel(NineMillimeterGunItemRenderer.UZI_SILENCER, poses, buffers, light, overlay);
+        }
     }
 
     private static void setupThirdPerson(ItemDisplayContext context, PoseStack poses) {
@@ -233,6 +243,7 @@ public final class DualUziItemRenderer extends BlockEntityWithoutLevelRenderer {
 
     private static void renderHeldFlash(ItemStack stack, int index, PoseStack poses,
                                         MultiBufferSource buffers) {
+        if (WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER)) return;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack, index);
         if (elapsed < 0L || elapsed >= 75L) return;
         float progress = elapsed / 75.0F;

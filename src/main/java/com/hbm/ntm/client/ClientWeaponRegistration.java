@@ -243,6 +243,7 @@ public final class ClientWeaponRegistration {
         event.register(NineMillimeterGunItemRenderer.UZI_SLIDE);
         event.register(NineMillimeterGunItemRenderer.UZI_MAGAZINE);
         event.register(NineMillimeterGunItemRenderer.UZI_BULLET);
+        event.register(NineMillimeterGunItemRenderer.UZI_SILENCER);
         event.register(DualUziItemRenderer.UZI_GUN_MIRROR);
         event.register(MaresLegItemRenderer.GUN);
         event.register(MaresLegItemRenderer.STOCK);

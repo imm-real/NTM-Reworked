@@ -3,6 +3,7 @@ package com.hbm.ntm.client.render;
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.item.NineMillimeterGunItem;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -34,6 +35,7 @@ public final class NineMillimeterGunItemRenderer extends BlockEntityWithoutLevel
     public static final ModelResourceLocation UZI_SLIDE = model("uzi_slide");
     public static final ModelResourceLocation UZI_MAGAZINE = model("uzi_magazine");
     public static final ModelResourceLocation UZI_BULLET = model("uzi_bullet");
+    public static final ModelResourceLocation UZI_SILENCER = model("uzi_silencer");
 
     public NineMillimeterGunItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -44,22 +46,27 @@ public final class NineMillimeterGunItemRenderer extends BlockEntityWithoutLevel
                              MultiBufferSource buffers, int packedLight, int packedOverlay) {
         if (!(stack.getItem() instanceof NineMillimeterGunItem gun)) return;
         boolean grease = gun.variant() == NineMillimeterGunItem.Variant.GREASE_GUN;
+        boolean silenced = !grease && WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
         boolean firstPerson = context == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND
                 || context == ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
 
         poses.pushPose();
         setupContext(context, poses, grease);
+        if (silenced && context == ItemDisplayContext.GUI) {
+            poses.scale(0.625F, 0.625F, 0.625F);
+            poses.translate(0.0D, 0.0D, -4.0D);
+        }
         if (firstPerson) {
             if (grease) renderGreaseFirstPerson(stack, poses, buffers, packedLight, packedOverlay);
             else renderUziFirstPerson(stack, poses, buffers, packedLight, packedOverlay);
         } else {
-            renderStatic(grease, poses, buffers, packedLight, packedOverlay);
+            renderStatic(stack, grease, poses, buffers, packedLight, packedOverlay);
         }
 
         boolean held = firstPerson || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack);
-        if (held && elapsed >= 0L && elapsed < 75L) {
+        if (held && !silenced && elapsed >= 0L && elapsed < 75L) {
             renderMuzzleFlash(poses, buffers, elapsed / 75.0F, grease);
         }
         poses.popPose();
@@ -131,6 +138,8 @@ public final class NineMillimeterGunItemRenderer extends BlockEntityWithoutLevel
         poses.translate(0.0D, 0.0D, animation.recoil.z);
 
         renderModel(UZI_GUN, poses, buffers, light, overlay);
+        boolean silenced = WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
+        if (silenced) renderModel(UZI_SILENCER, poses, buffers, light, overlay);
 
         poses.pushPose();
         poses.translate(0.0D, 0.3125D, -5.75D);
@@ -154,17 +163,19 @@ public final class NineMillimeterGunItemRenderer extends BlockEntityWithoutLevel
         if (animation.bullet.x == 1.0D) renderModel(UZI_BULLET, poses, buffers, light, overlay);
         poses.popPose();
 
-        poses.pushPose();
-        poses.translate(0.0D, 0.75D, 8.5D);
-        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
-        poses.scale(0.5F, 0.5F, 0.5F);
-        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.75D,
-                WeaponSmokeRenderer.NINE_MM,
-                NineMillimeterGunItem.state(stack) == NineMillimeterGunItem.GunState.RELOADING);
-        poses.popPose();
+        if (!silenced) {
+            poses.pushPose();
+            poses.translate(0.0D, 0.75D, 8.5D);
+            poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+            poses.scale(0.5F, 0.5F, 0.5F);
+            WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.75D,
+                    WeaponSmokeRenderer.NINE_MM,
+                    NineMillimeterGunItem.state(stack) == NineMillimeterGunItem.GunState.RELOADING);
+            poses.popPose();
+        }
     }
 
-    private static void renderStatic(boolean grease, PoseStack poses, MultiBufferSource buffers,
+    private static void renderStatic(ItemStack stack, boolean grease, PoseStack poses, MultiBufferSource buffers,
                                      int light, int overlay) {
         if (grease) {
             renderModel(GREASE_GUN, poses, buffers, light, overlay);
@@ -179,6 +190,9 @@ public final class NineMillimeterGunItemRenderer extends BlockEntityWithoutLevel
             renderModel(UZI_STOCK_BACK, poses, buffers, light, overlay);
             renderModel(UZI_SLIDE, poses, buffers, light, overlay);
             renderModel(UZI_MAGAZINE, poses, buffers, light, overlay);
+            if (WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)) {
+                renderModel(UZI_SILENCER, poses, buffers, light, overlay);
+            }
         }
     }
 

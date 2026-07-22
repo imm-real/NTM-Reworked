@@ -6,6 +6,7 @@ import com.hbm.ntm.registry.ModItems;
 import com.hbm.ntm.registry.ModSounds;
 import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.NineMillimeterAmmoType;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.SpentCasingEffects;
@@ -203,7 +204,10 @@ public final class NineMillimeterGunItem extends SednaGunItem {
         Vec3 heading = player.getLookAngle();
 
         level.addFreshEntity(new BulletEntity(level, player, ammo, damage, spread, origin, heading));
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), variant.fireSound.get(),
+        SoundEvent fireSound = variant == Variant.UZI
+                && WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)
+                ? ModSounds.GUN_RIFLE_SILENCER.get() : variant.fireSound.get();
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound,
                 SoundSource.PLAYERS, 1.0F, 1.0F);
         if (player instanceof ServerPlayer serverPlayer && serverPlayer.connection.getConnection().isConnected()) {
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(player,
@@ -419,6 +423,9 @@ public final class NineMillimeterGunItem extends SednaGunItem {
         int condition = Mth.clamp((int) ((DURABILITY - wear(stack)) * 100.0F / DURABILITY), 0, 100);
         tooltip.add(Component.translatable("gui.weapon.condition").append(": " + condition + "%")
                 .withStyle(ChatFormatting.GRAY));
+        for (ItemStack mod : WeaponModManager.installedMods(stack, 0)) {
+            tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+        }
         tooltip.add(Component.translatable("gui.weapon.quality.aside").withStyle(ChatFormatting.YELLOW));
     }
 

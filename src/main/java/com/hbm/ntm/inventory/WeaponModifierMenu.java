@@ -1,6 +1,5 @@
 package com.hbm.ntm.inventory;
 
-import com.hbm.ntm.item.TwentyTwoGunItem;
 import com.hbm.ntm.registry.ModMenus;
 import com.hbm.ntm.weapon.WeaponModManager;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -42,11 +41,12 @@ public final class WeaponModifierMenu extends AbstractContainerMenu {
 
     public ItemStack gunStack() { return gun.getItem(0); }
     public int config() { return config; }
+    public int configCount() { return WeaponModManager.configCount(gunStack()); }
 
     @Override
     public boolean clickMenuButton(Player player, int id) {
-        if (id != 0) return false;
-        config = 0;
+        if (id < 0 || id >= configCount()) return false;
+        config = id;
         loadInstalled();
         return true;
     }
@@ -59,7 +59,7 @@ public final class WeaponModifierMenu extends AbstractContainerMenu {
         ItemStack copy = stack.copy();
         if (index < 8) {
             if (!moveItemStackTo(stack, 8, slots.size(), true)) return ItemStack.EMPTY;
-        } else if (stack.getItem() instanceof TwentyTwoGunItem) {
+        } else if (WeaponModManager.configCount(stack) > 0) {
             if (!moveItemStackTo(stack, 0, 1, false)) return ItemStack.EMPTY;
         } else if (WeaponModManager.isMod(stack)) {
             if (!moveItemStackTo(stack, 1, 8, false)) return ItemStack.EMPTY;
@@ -105,8 +105,7 @@ public final class WeaponModifierMenu extends AbstractContainerMenu {
     private final class GunSlot extends Slot {
         private GunSlot() { super(gun, 0, 8, 108); }
         @Override public boolean mayPlace(ItemStack stack) {
-            return stack.getItem() instanceof TwentyTwoGunItem item
-                    && item.variant() == TwentyTwoGunItem.Variant.AM180;
+            return WeaponModManager.configCount(stack) > 0;
         }
         @Override public int getMaxStackSize() { return 1; }
         @Override public void set(ItemStack stack) {

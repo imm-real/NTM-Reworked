@@ -62,4 +62,19 @@ public final class WeaponModifierScreen extends AbstractContainerScreen<WeaponMo
         }
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && menu.configCount() > 1
+                && mouseX >= leftPos + 26 && mouseX < leftPos + 33
+                && mouseY > topPos + 111 && mouseY <= topPos + 121) {
+            int next = (menu.config() + 1) % menu.configCount();
+            if (minecraft != null && minecraft.player != null && minecraft.gameMode != null) {
+                menu.clickMenuButton(minecraft.player, next);
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, next);
+            }
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
 }

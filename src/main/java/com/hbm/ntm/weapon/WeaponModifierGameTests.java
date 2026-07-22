@@ -20,7 +20,7 @@ public final class WeaponModifierGameTests {
     private WeaponModifierGameTests() {}
 
     @GameTest(template = "empty")
-    public static void silencerOnlyFitsThePortedReceiver(GameTestHelper helper) {
+    public static void silencerOnlyFitsPortedReceivers(GameTestHelper helper) {
         ItemStack silencer = new ItemStack(ModItems.WEAPON_MOD_SILENCER.get());
         helper.assertTrue(WeaponModManager.isApplicable(
                         new ItemStack(ModItems.GUN_AM180.get()), silencer, 0),
@@ -28,6 +28,14 @@ public final class WeaponModifierGameTests {
         helper.assertTrue(!WeaponModManager.isApplicable(
                         new ItemStack(ModItems.GUN_STAR_F.get()), silencer, 0),
                 "Silencer must stay disabled for receivers without ported effects");
+        helper.assertTrue(WeaponModManager.isApplicable(
+                        new ItemStack(ModItems.GUN_UZI.get()), silencer, 0),
+                "Silencer must fit the single Uzi receiver");
+        ItemStack dual = new ItemStack(ModItems.GUN_UZI_AKIMBO.get());
+        helper.assertTrue(WeaponModManager.configCount(dual) == 2
+                        && WeaponModManager.isApplicable(dual, silencer, 0)
+                        && WeaponModManager.isApplicable(dual, silencer, 1),
+                "Silencer must fit both independent dual Uzi receivers");
         helper.succeed();
     }
 
@@ -43,6 +51,39 @@ public final class WeaponModifierGameTests {
         WeaponModManager.uninstall(gun, 0);
         helper.assertTrue(!WeaponModManager.hasMod(gun, 0, WeaponModManager.SILENCER),
                 "Uninstall must clear the receiver list");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void dualReceiverStorageStaysIndependent(GameTestHelper helper) {
+        ItemStack dual = new ItemStack(ModItems.GUN_UZI_AKIMBO.get());
+        ItemStack silencer = new ItemStack(ModItems.WEAPON_MOD_SILENCER.get());
+        WeaponModManager.install(dual, 1, List.of(silencer));
+        helper.assertTrue(!WeaponModManager.hasMod(dual, 0, WeaponModManager.SILENCER)
+                        && WeaponModManager.hasMod(dual, 1, WeaponModManager.SILENCER),
+                "Dual Uzi receiver one must not mutate receiver zero");
+        WeaponModManager.install(dual, 0, List.of(silencer));
+        WeaponModManager.uninstall(dual, 1);
+        helper.assertTrue(WeaponModManager.hasMod(dual, 0, WeaponModManager.SILENCER)
+                        && !WeaponModManager.hasMod(dual, 1, WeaponModManager.SILENCER),
+                "Dual Uzi receiver zero must survive receiver one removal");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void tableSwitchCommitsTheSelectedDualReceiver(GameTestHelper helper) {
+        var player = helper.makeMockPlayer(GameType.SURVIVAL);
+        WeaponModifierMenu menu = new WeaponModifierMenu(0, player.getInventory());
+        ItemStack dual = new ItemStack(ModItems.GUN_UZI_AKIMBO.get());
+        menu.getSlot(0).set(dual);
+        helper.assertTrue(menu.configCount() == 2 && menu.clickMenuButton(player, 1),
+                "Dual Uzi must expose its second table configuration");
+        menu.getSlot(1).set(new ItemStack(ModItems.WEAPON_MOD_SILENCER.get()));
+        ItemStack taken = menu.getSlot(0).remove(1);
+        menu.getSlot(0).onTake(player, taken);
+        helper.assertTrue(!WeaponModManager.hasMod(taken, 0, WeaponModManager.SILENCER)
+                        && WeaponModManager.hasMod(taken, 1, WeaponModManager.SILENCER),
+                "Taking the dual Uzi must commit only the selected receiver");
         helper.succeed();
     }
 
