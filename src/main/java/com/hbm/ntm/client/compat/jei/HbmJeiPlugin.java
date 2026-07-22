@@ -4,6 +4,7 @@ import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.client.screen.AnvilScreen;
 import com.hbm.ntm.client.screen.AmmoPressScreen;
 import com.hbm.ntm.client.screen.AssemblyMachineScreen;
+import com.hbm.ntm.client.screen.BreedingReactorScreen;
 import com.hbm.ntm.client.screen.CentrifugeScreen;
 import com.hbm.ntm.client.screen.ChemicalPlantScreen;
 import com.hbm.ntm.client.screen.CrucibleScreen;
@@ -14,6 +15,8 @@ import com.hbm.ntm.client.compat.jei.FoundryJeiRecipes.SmeltingRecipe;
 import com.hbm.ntm.recipe.AssemblyClientRecipes;
 import com.hbm.ntm.recipe.AmmoPressRecipes;
 import com.hbm.ntm.recipe.AssemblyRecipe;
+import com.hbm.ntm.recipe.BreederRecipes;
+import com.hbm.ntm.recipe.BreederRecipes.DisplayRecipe;
 import com.hbm.ntm.recipe.CentrifugeRecipes;
 import com.hbm.ntm.recipe.CentrifugeRecipes.CentrifugeRecipe;
 import com.hbm.ntm.recipe.ChemicalPlantRecipes;
@@ -67,6 +70,8 @@ public final class HbmJeiPlugin implements IModPlugin {
             RecipeType.create(HbmNtm.MOD_ID, "crucible_smelting", SmeltingRecipe.class);
     public static final RecipeType<CastingRecipe> FOUNDRY_CASTING =
             RecipeType.create(HbmNtm.MOD_ID, "foundry_casting", CastingRecipe.class);
+    public static final RecipeType<DisplayRecipe> BREEDING_REACTOR =
+            RecipeType.create(HbmNtm.MOD_ID, "breeding", DisplayRecipe.class);
 
     private static final ResourceLocation UID =
             ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "jei");
@@ -95,7 +100,8 @@ public final class HbmJeiPlugin implements IModPlugin {
                 new RefineryRecipeCategory(gui),
                 new CrucibleSmeltingRecipeCategory(gui),
                 new FoundryCastingRecipeCategory(gui),
-                new CrucibleRecipeCategory(gui));
+                new CrucibleRecipeCategory(gui),
+                new BreedingReactorRecipeCategory(gui));
     }
 
     @Override
@@ -112,6 +118,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipes(CRUCIBLE_SMELTING, FoundryJeiRecipes.smelting());
         registration.addRecipes(FOUNDRY_CASTING, FoundryJeiRecipes.casting());
         registration.addRecipes(CRUCIBLE, CrucibleRecipes.all());
+        registration.addRecipes(BREEDING_REACTOR, BreederRecipes.all());
         registeredAssemblyRecipes = AssemblyClientRecipes.all();
         registration.addRecipes(ASSEMBLY, registeredAssemblyRecipes);
     }
@@ -138,6 +145,8 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(CRUCIBLE_SMELTING, ModItems.MACHINE_CRUCIBLE_ITEM.get());
         registration.addRecipeCatalysts(FOUNDRY_CASTING,
                 ModItems.FOUNDRY_MOLD_ITEM.get(), ModItems.FOUNDRY_BASIN_ITEM.get());
+        registration.addRecipeCatalysts(BREEDING_REACTOR,
+                ModItems.MACHINE_REACTOR_BREEDING_ITEM.get());
     }
 
     @Override
@@ -151,6 +160,8 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipeClickArea(MachineShredderScreen.class, 63, 89, 34, 18, SHREDDER);
         registration.addRecipeClickArea(CrucibleScreen.class, 151, 71, 18, 18,
                 CRUCIBLE, CRUCIBLE_SMELTING);
+        registration.addRecipeClickArea(BreedingReactorScreen.class, 68, 9, 30, 37,
+                BREEDING_REACTOR);
     }
 
     @Override

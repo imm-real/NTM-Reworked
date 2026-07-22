@@ -8,7 +8,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 /** Exact built-in hbmBreeder defaults; an external reload layer remains a shared-system boundary. */
@@ -35,6 +37,31 @@ public final class BreederRecipes {
 
     @Nullable public static BaseRecipe rod(BreedingRodItem.Type input) { return RODS.get(input); }
     public static int rodRecipeCount() { return RODS.size() * BreedingRodItem.Form.values().length; }
+    public static List<DisplayRecipe> all() {
+        List<DisplayRecipe> recipes = new ArrayList<>();
+        for (BreedingRodItem.Type type : BreedingRodItem.Type.values()) {
+            if (!RODS.containsKey(type)) continue;
+            for (BreedingRodItem.Form form : BreedingRodItem.Form.values()) {
+                Item item = BuiltInRegistries.ITEM.get(formId(form));
+                ItemStack input = BreedingRodItem.stack(item, type, 1);
+                Recipe recipe = get(input);
+                if (recipe == null) continue;
+                recipes.add(new DisplayRecipe(
+                        id("breeding/" + form.id() + "/" + type.id()),
+                        input, recipe.output(), recipe.flux()));
+            }
+        }
+        Item etched = BuiltInRegistries.ITEM.getOptional(ETCHED_SWORD).orElse(null);
+        if (etched != null) {
+            ItemStack input = new ItemStack(etched);
+            Recipe recipe = get(input);
+            if (recipe != null) {
+                recipes.add(new DisplayRecipe(id("breeding/meteorite_sword"),
+                        input, recipe.output(), recipe.flux()));
+            }
+        }
+        return List.copyOf(recipes);
+    }
     public static float progressPerTick(int flux, int requiredFlux) {
         // TileEntityMachineReactorBreeding used integer division here. Keep it: excess
         // flux advances the breeder in whole multiples of the base rate.
@@ -60,8 +87,12 @@ public final class BreederRecipes {
                             BreedingRodItem.Type input, BreedingRodItem.Type output, int flux) {
         recipes.put(input, new BaseRecipe(output, flux));
     }
+    private static ResourceLocation formId(BreedingRodItem.Form form) {
+        return ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, form.id());
+    }
     private static ResourceLocation id(String path) { return ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, path); }
 
     public record BaseRecipe(BreedingRodItem.Type output, int flux) { }
     public record Recipe(ItemStack output, int flux) { }
+    public record DisplayRecipe(ResourceLocation id, ItemStack input, ItemStack output, int flux) { }
 }
