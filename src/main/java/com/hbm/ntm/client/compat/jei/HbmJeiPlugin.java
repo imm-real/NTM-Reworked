@@ -80,6 +80,8 @@ public final class HbmJeiPlugin implements IModPlugin {
             RecipeType.create(HbmNtm.MOD_ID, "zirnox", ZirnoxRecipes.Recipe.class);
     public static final RecipeType<CombinationOvenRecipes.Recipe> COMBINATION_OVEN =
             RecipeType.create(HbmNtm.MOD_ID, "combination_oven", CombinationOvenRecipes.Recipe.class);
+    public static final RecipeType<SawmillJeiRecipe> SAWMILL =
+            RecipeType.create(HbmNtm.MOD_ID, "sawmill", SawmillJeiRecipe.class);
 
     private static final ResourceLocation UID =
             ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "jei");
@@ -111,7 +113,8 @@ public final class HbmJeiPlugin implements IModPlugin {
                 new CrucibleRecipeCategory(gui),
                 new BreedingReactorRecipeCategory(gui),
                 new ZirnoxRecipeCategory(gui),
-                new CombinationOvenRecipeCategory(gui));
+                new CombinationOvenRecipeCategory(gui),
+                new SawmillRecipeCategory(gui));
     }
 
     @Override
@@ -131,6 +134,7 @@ public final class HbmJeiPlugin implements IModPlugin {
         registration.addRecipes(BREEDING_REACTOR, BreederRecipes.all());
         registration.addRecipes(ZIRNOX, ZirnoxRecipes.all());
         registration.addRecipes(COMBINATION_OVEN, CombinationOvenRecipes.all());
+        registration.addRecipes(SAWMILL, SawmillJeiRecipe.all());
         registeredAssemblyRecipes = AssemblyClientRecipes.all();
         registration.addRecipes(ASSEMBLY, registeredAssemblyRecipes);
     }
@@ -161,6 +165,7 @@ public final class HbmJeiPlugin implements IModPlugin {
                 ModItems.MACHINE_REACTOR_BREEDING_ITEM.get());
         registration.addRecipeCatalysts(ZIRNOX, ModItems.REACTOR_ZIRNOX_ITEM.get());
         registration.addRecipeCatalysts(COMBINATION_OVEN, ModItems.FURNACE_COMBINATION_ITEM.get());
+        registration.addRecipeCatalysts(SAWMILL, ModItems.MACHINE_SAWMILL_ITEM.get());
     }
 
     @Override
