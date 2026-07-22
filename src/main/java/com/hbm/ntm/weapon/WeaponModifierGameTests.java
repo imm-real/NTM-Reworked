@@ -25,9 +25,9 @@ public final class WeaponModifierGameTests {
         helper.assertTrue(WeaponModManager.isApplicable(
                         new ItemStack(ModItems.GUN_AM180.get()), silencer, 0),
                 "Silencer must fit the American-180 receiver");
-        helper.assertTrue(!WeaponModManager.isApplicable(
+        helper.assertTrue(WeaponModManager.isApplicable(
                         new ItemStack(ModItems.GUN_STAR_F.get()), silencer, 0),
-                "Silencer must stay disabled for receivers without ported effects");
+                "Silencer must fit the Star F receiver");
         helper.assertTrue(WeaponModManager.isApplicable(
                         new ItemStack(ModItems.GUN_UZI.get()), silencer, 0),
                 "Silencer must fit the single Uzi receiver");
@@ -36,6 +36,11 @@ public final class WeaponModifierGameTests {
                         && WeaponModManager.isApplicable(dual, silencer, 0)
                         && WeaponModManager.isApplicable(dual, silencer, 1),
                 "Silencer must fit both independent dual Uzi receivers");
+        ItemStack dualStar = new ItemStack(ModItems.GUN_STAR_F_AKIMBO.get());
+        helper.assertTrue(WeaponModManager.configCount(dualStar) == 2
+                        && WeaponModManager.isApplicable(dualStar, silencer, 0)
+                        && WeaponModManager.isApplicable(dualStar, silencer, 1),
+                "Silencer must fit both independent dual Star F receivers");
         helper.succeed();
     }
 
@@ -84,6 +89,22 @@ public final class WeaponModifierGameTests {
         helper.assertTrue(!WeaponModManager.hasMod(taken, 0, WeaponModManager.SILENCER)
                         && WeaponModManager.hasMod(taken, 1, WeaponModManager.SILENCER),
                 "Taking the dual Uzi must commit only the selected receiver");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void dualStarStorageStaysIndependent(GameTestHelper helper) {
+        ItemStack dual = new ItemStack(ModItems.GUN_STAR_F_AKIMBO.get());
+        ItemStack silencer = new ItemStack(ModItems.WEAPON_MOD_SILENCER.get());
+        WeaponModManager.install(dual, 0, List.of(silencer));
+        helper.assertTrue(WeaponModManager.hasMod(dual, 0, WeaponModManager.SILENCER)
+                        && !WeaponModManager.hasMod(dual, 1, WeaponModManager.SILENCER),
+                "Elite Star F receiver zero must not mutate receiver one");
+        WeaponModManager.install(dual, 1, List.of(silencer));
+        WeaponModManager.uninstall(dual, 0);
+        helper.assertTrue(!WeaponModManager.hasMod(dual, 0, WeaponModManager.SILENCER)
+                        && WeaponModManager.hasMod(dual, 1, WeaponModManager.SILENCER),
+                "Elite Star F receiver one must survive receiver zero removal");
         helper.succeed();
     }
 

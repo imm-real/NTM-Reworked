@@ -8,6 +8,7 @@ import com.hbm.ntm.weapon.GunInput;
 import com.hbm.ntm.weapon.SednaCrosshair;
 import com.hbm.ntm.weapon.StandardAmmoTypes;
 import com.hbm.ntm.weapon.TwentyTwoAmmoType;
+import com.hbm.ntm.weapon.WeaponModManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -187,8 +188,10 @@ public final class DualStarFItem extends SednaGunItem {
         Vec3 heading = player.getLookAngle();
 
         level.addFreshEntity(new BulletEntity(level, player, ammo, damage, spread, origin, heading));
-        level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                ModSounds.GUN_STAR_F_FIRE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        SoundEvent fireSound = WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER)
+                ? ModSounds.GUN_RIFLE_SILENCER.get() : ModSounds.GUN_STAR_F_FIRE.get();
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound,
+                SoundSource.PLAYERS, 1.0F, 1.0F);
         if (player instanceof ServerPlayer serverPlayer
                 && serverPlayer.connection.getConnection().isConnected()) {
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(player,
@@ -379,6 +382,9 @@ public final class DualStarFItem extends SednaGunItem {
                     * 100.0F / DURABILITY), 0, 100);
             tooltip.add(Component.translatable("gui.weapon.condition")
                     .append(": " + condition + "%").withStyle(ChatFormatting.GRAY));
+            for (ItemStack mod : WeaponModManager.installedMods(stack, index)) {
+                tooltip.add(mod.getHoverName().copy().withStyle(ChatFormatting.YELLOW));
+            }
         }
         tooltip.add(Component.translatable("gui.weapon.quality.bside").withStyle(ChatFormatting.GOLD));
     }

@@ -198,8 +198,7 @@ public final class TwentyTwoGunItem extends SednaGunItem {
         Vec3 heading = player.getLookAngle();
 
         level.addFreshEntity(new BulletEntity(level, player, ammo, damage, spread, origin, heading));
-        SoundEvent fireSound = variant == Variant.AM180
-                && WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)
+        SoundEvent fireSound = WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)
                 ? ModSounds.GUN_RIFLE_SILENCER.get() : variant.fireSound.get();
         level.playSound(null, player.getX(), player.getY(), player.getZ(), fireSound,
                 SoundSource.PLAYERS, 1.0F, 1.0F);

@@ -48,13 +48,19 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
         boolean held = firstPerson || context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND
                 || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack);
-        boolean silenced = gun.variant() == TwentyTwoGunItem.Variant.AM180
+        boolean silenced = (gun.variant() == TwentyTwoGunItem.Variant.AM180
+                || gun.variant() == TwentyTwoGunItem.Variant.STAR_F)
                 && WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
         long duration = gun.variant() == TwentyTwoGunItem.Variant.AM180
                 ? (silenced ? 75L : 50L) : 75L;
 
         poses.pushPose();
         setupContext(gun.variant(), context, poses);
+        if (silenced && gun.variant() == TwentyTwoGunItem.Variant.STAR_F
+                && context == ItemDisplayContext.GUI) {
+            poses.scale(0.625F, 0.625F, 0.625F);
+            poses.translate(0.0D, 0.0D, -6.0D);
+        }
         if (firstPerson) {
             if (gun.variant() == TwentyTwoGunItem.Variant.AM180) {
                 renderAm180FirstPerson(stack, poses, buffers, light, overlay);
@@ -68,7 +74,7 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
             if (gun.variant() == TwentyTwoGunItem.Variant.AM180) {
                 renderAm180Flash(poses, buffers, elapsed / (float) duration,
                         ClientWeaponEvents.shotRandom(stack), silenced);
-            } else {
+            } else if (!silenced) {
                 renderStarFlash(poses, buffers, elapsed / (float) duration,
                         ClientWeaponEvents.shotRandom(stack));
             }
@@ -130,14 +136,18 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
         poses.scale(0.25F, 0.25F, 0.25F);
         renderStarAnimated(mesh(TwentyTwoGunItem.Variant.STAR_F), STAR_TEXTURE,
                 animation, 1, poses, buffers, light, overlay);
+        boolean silenced = WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER);
+        if (silenced) renderStarSilencer(poses, buffers, light, overlay);
 
-        poses.pushPose();
-        poses.translate(0.0D, 3.0D, 6.125D);
-        poses.mulPose(Axis.YP.rotationDegrees(90.0F));
-        poses.scale(0.5F, 0.5F, 0.5F);
-        WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.75D,
-                WeaponSmokeRenderer.TWENTY_TWO, reloading(stack));
-        poses.popPose();
+        if (!silenced) {
+            poses.pushPose();
+            poses.translate(0.0D, 3.0D, 6.125D);
+            poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+            poses.scale(0.5F, 0.5F, 0.5F);
+            WeaponSmokeRenderer.render(stack, 0, poses, buffers, 0.75D,
+                    WeaponSmokeRenderer.TWENTY_TWO, reloading(stack));
+            poses.popPose();
+        }
     }
 
     private static boolean reloading(ItemStack stack) {
@@ -188,6 +198,9 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
             }
         } else {
             renderStarStatic(mesh(variant), STAR_TEXTURE, poses, buffers, light, overlay);
+            if (WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)) {
+                renderStarSilencer(poses, buffers, light, overlay);
+            }
         }
     }
 
@@ -196,6 +209,15 @@ public final class TwentyTwoGunItemRenderer extends BlockEntityWithoutLevelRende
         for (String group : Set.of("Gun", "Slide", "Mag", "Hammer")) {
             render(mesh, texture, group, poses, buffers, light, overlay);
         }
+    }
+
+    static void renderStarSilencer(PoseStack poses, MultiBufferSource buffers,
+                                   int light, int overlay) {
+        poses.pushPose();
+        poses.translate(0.0D, 2.375D, -0.25D);
+        NineMillimeterGunItemRenderer.renderModel(NineMillimeterGunItemRenderer.UZI_SILENCER,
+                poses, buffers, light, overlay);
+        poses.popPose();
     }
 
     private void render(TwentyTwoGunItem.Variant variant, String group, PoseStack poses,

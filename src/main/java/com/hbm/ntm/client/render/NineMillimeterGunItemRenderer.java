@@ -366,8 +366,8 @@ public final class NineMillimeterGunItemRenderer extends BlockEntityWithoutLevel
         return start + (end - start) * progress;
     }
 
-    private static void renderModel(ModelResourceLocation location, PoseStack poses, MultiBufferSource buffers,
-                                    int packedLight, int packedOverlay) {
+    static void renderModel(ModelResourceLocation location, PoseStack poses, MultiBufferSource buffers,
+                            int packedLight, int packedOverlay) {
         Minecraft minecraft = Minecraft.getInstance();
         BakedModel model = minecraft.getModelManager().getModel(location);
         ModelBlockRenderer renderer = minecraft.getBlockRenderer().getModelRenderer();

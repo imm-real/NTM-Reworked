@@ -3,6 +3,7 @@ package com.hbm.ntm.client.render;
 import com.hbm.ntm.client.ClientWeaponEvents;
 import com.hbm.ntm.client.model.EnvsuitMesh;
 import com.hbm.ntm.item.DualStarFItem;
+import com.hbm.ntm.weapon.WeaponModManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -31,17 +32,17 @@ public final class DualStarFItemRenderer extends BlockEntityWithoutLevelRenderer
                     renderFirstPerson(stack, poses, buffers, light, overlay);
             case THIRD_PERSON_RIGHT_HAND -> {
                 setupThirdPerson(context, poses);
-                renderStatic(1, poses, buffers, light, overlay);
+                renderStatic(stack, 1, poses, buffers, light, overlay);
                 renderHeldFlash(stack, 1, poses, buffers);
             }
             case THIRD_PERSON_LEFT_HAND -> {
                 setupThirdPerson(context, poses);
-                renderStatic(0, poses, buffers, light, overlay);
+                renderStatic(stack, 0, poses, buffers, light, overlay);
                 renderHeldFlash(stack, 0, poses, buffers);
             }
-            case GUI -> renderInventory(poses, buffers, light, overlay);
-            case GROUND, FIXED -> renderDropped(poses, buffers, light, overlay);
-            default -> renderDropped(poses, buffers, light, overlay);
+            case GUI -> renderInventory(stack, poses, buffers, light, overlay);
+            case GROUND, FIXED -> renderDropped(stack, poses, buffers, light, overlay);
+            default -> renderDropped(stack, poses, buffers, light, overlay);
         }
         poses.popPose();
     }
@@ -64,24 +65,30 @@ public final class DualStarFItemRenderer extends BlockEntityWithoutLevelRenderer
             TwentyTwoGunItemRenderer.renderStarAnimated(mesh(),
                     TwentyTwoGunItemRenderer.STAR_ELITE_TEXTURE, animation, direction,
                     poses, buffers, light, overlay);
-            poses.pushPose();
-            poses.translate(0.0D, 3.0D, 6.125D);
-            poses.mulPose(Axis.YP.rotationDegrees(90.0F));
-            poses.scale(0.5F, 0.5F, 0.5F);
-            WeaponSmokeRenderer.render(stack, index, poses, buffers, 0.75D,
-                    WeaponSmokeRenderer.TWENTY_TWO,
-                    DualStarFItem.state(stack, index) == DualStarFItem.GunState.RELOADING);
-            poses.popPose();
+            boolean silenced = WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER);
+            if (silenced) {
+                TwentyTwoGunItemRenderer.renderStarSilencer(poses, buffers, light, overlay);
+            } else {
+                poses.pushPose();
+                poses.translate(0.0D, 3.0D, 6.125D);
+                poses.mulPose(Axis.YP.rotationDegrees(90.0F));
+                poses.scale(0.5F, 0.5F, 0.5F);
+                WeaponSmokeRenderer.render(stack, index, poses, buffers, 0.75D,
+                        WeaponSmokeRenderer.TWENTY_TWO,
+                        DualStarFItem.state(stack, index) == DualStarFItem.GunState.RELOADING);
+                poses.popPose();
+            }
             renderHeldFlash(stack, index, poses, buffers);
             poses.popPose();
         }
     }
 
-    private void renderInventory(PoseStack poses, MultiBufferSource buffers,
+    private void renderInventory(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
                                  int light, int overlay) {
         poses.scale(1.0F, -1.0F, 1.0F);
         poses.scale(1.0F, 1.0F, -1.0F);
         poses.scale(1.5F / 16.0F, 1.5F / 16.0F, 1.5F / 16.0F);
+        if (anySilenced(stack)) poses.scale(0.75F, 0.75F, 0.75F);
 
         poses.pushPose();
         poses.mulPose(Axis.ZP.rotationDegrees(225.0F));
@@ -89,7 +96,7 @@ public final class DualStarFItemRenderer extends BlockEntityWithoutLevelRenderer
         poses.mulPose(Axis.XP.rotationDegrees(25.0F));
         poses.mulPose(Axis.YP.rotationDegrees(45.0F));
         poses.translate(0.5D, 0.0D, 0.0D);
-        renderStatic(1, poses, buffers, light, overlay);
+        renderStatic(stack, 1, poses, buffers, light, overlay);
         poses.popPose();
 
         poses.translate(0.0D, 0.0D, 5.0D);
@@ -100,28 +107,32 @@ public final class DualStarFItemRenderer extends BlockEntityWithoutLevelRenderer
         poses.mulPose(Axis.XP.rotationDegrees(25.0F));
         poses.mulPose(Axis.YN.rotationDegrees(45.0F));
         poses.translate(-0.5D, 0.0D, 0.0D);
-        renderStatic(0, poses, buffers, light, overlay);
+        renderStatic(stack, 0, poses, buffers, light, overlay);
         poses.popPose();
     }
 
-    private void renderDropped(PoseStack poses, MultiBufferSource buffers,
+    private void renderDropped(ItemStack stack, PoseStack poses, MultiBufferSource buffers,
                                int light, int overlay) {
         poses.scale(0.075F, 0.075F, 0.075F);
+        if (anySilenced(stack)) poses.scale(0.75F, 0.75F, 0.75F);
         poses.mulPose(Axis.YN.rotationDegrees(90.0F));
         poses.pushPose();
         poses.translate(-1.0D, 1.0D, 0.0D);
-        renderStatic(1, poses, buffers, light, overlay);
+        renderStatic(stack, 1, poses, buffers, light, overlay);
         poses.popPose();
         poses.pushPose();
         poses.translate(1.0D, 1.0D, 0.0D);
-        renderStatic(0, poses, buffers, light, overlay);
+        renderStatic(stack, 0, poses, buffers, light, overlay);
         poses.popPose();
     }
 
-    private void renderStatic(int index, PoseStack poses, MultiBufferSource buffers,
+    private void renderStatic(ItemStack stack, int index, PoseStack poses, MultiBufferSource buffers,
                               int light, int overlay) {
         TwentyTwoGunItemRenderer.renderStarStatic(mesh(),
                 TwentyTwoGunItemRenderer.STAR_ELITE_TEXTURE, poses, buffers, light, overlay);
+        if (WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER)) {
+            TwentyTwoGunItemRenderer.renderStarSilencer(poses, buffers, light, overlay);
+        }
     }
 
     private static void setupThirdPerson(ItemDisplayContext context, PoseStack poses) {
@@ -151,10 +162,16 @@ public final class DualStarFItemRenderer extends BlockEntityWithoutLevelRenderer
 
     private static void renderHeldFlash(ItemStack stack, int index, PoseStack poses,
                                         MultiBufferSource buffers) {
+        if (WeaponModManager.hasMod(stack, index, WeaponModManager.SILENCER)) return;
         long elapsed = System.currentTimeMillis() - ClientWeaponEvents.lastShot(stack, index);
         if (elapsed < 0L || elapsed >= 75L) return;
         TwentyTwoGunItemRenderer.renderStarFlash(poses, buffers, elapsed / 75.0F,
                 ClientWeaponEvents.shotRandom(stack, index));
+    }
+
+    private static boolean anySilenced(ItemStack stack) {
+        return WeaponModManager.hasMod(stack, 0, WeaponModManager.SILENCER)
+                || WeaponModManager.hasMod(stack, 1, WeaponModManager.SILENCER);
     }
 
     private EnvsuitMesh mesh() {
