@@ -102,6 +102,7 @@ import com.hbm.ntm.block.ElectricFurnaceBlock;
 import com.hbm.ntm.block.RadioactiveBlock;
 import com.hbm.ntm.block.RadGenBlock;
 import com.hbm.ntm.block.RadioTorchBlock;
+import com.hbm.ntm.block.RadioTelexBlock;
 import com.hbm.ntm.block.RadonGasBlock;
 import com.hbm.ntm.block.RefineryBlock;
 import com.hbm.ntm.block.ResearchReactorBlock;
@@ -284,6 +285,7 @@ public final class ModBlocks {
     public static final DeferredBlock<FluidUtilityBlock> FLUID_COUNTER_VALVE;
     public static final DeferredBlock<FluidPumpBlock> FLUID_PUMP;
     public static final DeferredBlock<DrainagePipeBlock> MACHINE_DRAIN;
+    public static final DeferredBlock<RadioTelexBlock> RADIO_TELEX;
     public static final DeferredBlock<ConventionalExplosiveBlock> DYNAMITE;
     public static final DeferredBlock<ConventionalExplosiveBlock> TNT_NTM;
     public static final DeferredBlock<ConventionalExplosiveBlock> SEMTEX;
@@ -862,6 +864,9 @@ public final class ModBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                         .strength(5.0F, 10.0F).sound(SoundType.METAL)
                         .requiresCorrectToolForDrops().noOcclusion()));
+        RADIO_TELEX = BLOCKS.register("radio_telex", () -> new RadioTelexBlock(
+                BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
+                        .strength(3.0F, 10.0F).sound(SoundType.WOOD).noOcclusion()));
         DYNAMITE = registerExplosive("dynamite", 8.0F);
         TNT_NTM = registerExplosive("tnt_ntm", 10.0F);
         SEMTEX = registerExplosive("semtex", 12.0F);

@@ -488,6 +488,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.FLUID_COUNTER_VALVE_ITEM.get());
                         output.accept(ModItems.FLUID_PUMP_ITEM.get());
                         output.accept(ModItems.MACHINE_DRAIN_ITEM.get());
+                        output.accept(ModItems.RADIO_TELEX_ITEM.get());
                         output.accept(ModItems.CONVEYOR_WAND.get());
                         output.accept(ModItems.CONVEYOR_WAND_EXPRESS.get());
                         output.accept(ModItems.CONVEYOR_WAND_DOUBLE.get());

@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "analog"
+        },
+        "minecraft:custom_model_data": 7
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "C": {
+      "item": "hbm:crt_display"
+    },
+    "R": {
+      "item": "hbm:radio_torch_receiver"
+    },
+    "S": {
+      "item": "hbm:radio_torch_sender"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "SCR",
+    "W#W",
+    "WWW"
+  ],
+  "result": {
+    "count": 2,
+    "id": "hbm:radio_telex"
+  }
+}

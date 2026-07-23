@@ -1,0 +1,5 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/radio_telex.obj",
+  "flip_v": true
+}

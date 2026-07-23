@@ -27,6 +27,8 @@ import com.hbm.ntm.client.render.DieselGeneratorRenderer;
 import com.hbm.ntm.client.render.DfcComponentRenderer;
 import com.hbm.ntm.client.render.DfcCoreRenderer;
 import com.hbm.ntm.client.render.DrainagePipeRenderer;
+import com.hbm.ntm.client.render.RadioTelexItemRenderer;
+import com.hbm.ntm.client.render.RadioTelexRenderer;
 import com.hbm.ntm.client.render.ElectricHeaterRenderer;
 import com.hbm.ntm.client.render.FireboxRenderer;
 import com.hbm.ntm.client.render.FensuItemRenderer;
@@ -139,6 +141,7 @@ import com.hbm.ntm.client.screen.NukeFstbmbScreen;
 import com.hbm.ntm.client.screen.OilDerrickScreen;
 import com.hbm.ntm.client.screen.RefineryScreen;
 import com.hbm.ntm.client.screen.RadioTorchScreen;
+import com.hbm.ntm.client.screen.RadioTelexScreen;
 import com.hbm.ntm.client.screen.RadGenScreen;
 import com.hbm.ntm.client.screen.ResearchReactorScreen;
 import com.hbm.ntm.client.screen.SolderingStationScreen;
@@ -250,6 +253,7 @@ public final class ClientMachineRegistration {
         event.register(ModMenus.CRANE_EXTRACTOR.get(), CraneExtractorScreen::new);
         event.register(ModMenus.CRANE_INSERTER.get(), CraneInserterScreen::new);
         event.register(ModMenus.RADIO_TORCH.get(), RadioTorchScreen::new);
+        event.register(ModMenus.RADIO_TELEX.get(), RadioTelexScreen::new);
         event.register(ModMenus.TURRET_FRIENDLY.get(), TurretFriendlyScreen::new);
     }
 
@@ -309,6 +313,7 @@ public final class ClientMachineRegistration {
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_FLUIDTANK.get(), FluidStorageTankRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.FLUID_BARREL.get(), FluidBarrelRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_DRAIN.get(), DrainagePipeRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.RADIO_TELEX.get(), RadioTelexRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_ASSEMBLY_MACHINE.get(), AssemblyMachineRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_CHEMICAL_PLANT.get(), ChemicalPlantRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MACHINE_SOLDERING_STATION.get(), SolderingStationRenderer::new);
@@ -471,6 +476,7 @@ public final class ClientMachineRegistration {
         event.register(CentrifugeRenderer.MODEL);
         event.register(CrackingTowerRenderer.MODEL);
         event.register(DrainagePipeRenderer.MODEL);
+        event.register(RadioTelexRenderer.MODEL);
         event.register(FractionTowerRenderer.MODEL);
         event.register(FractionTowerSeparatorRenderer.MODEL);
         event.register(CrucibleRenderer.MODEL);
@@ -669,6 +675,11 @@ public final class ClientMachineRegistration {
 
             @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() { return renderer; }
         }, ModItems.MACHINE_FLUIDTANK_ITEM.get());
+        event.registerItem(new IClientItemExtensions() {
+            private final RadioTelexItemRenderer renderer = new RadioTelexItemRenderer();
+
+            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() { return renderer; }
+        }, ModItems.RADIO_TELEX_ITEM.get());
         event.registerItem(new IClientItemExtensions() {
             private final SawbladeItemRenderer renderer = new SawbladeItemRenderer();
 

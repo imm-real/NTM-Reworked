@@ -4,6 +4,7 @@
     "hbm:frozen_log",
     "hbm:frozen_planks",
     "hbm:waste_log",
-    "hbm:waste_planks"
+    "hbm:waste_planks",
+    "hbm:radio_telex"
   ]
 }

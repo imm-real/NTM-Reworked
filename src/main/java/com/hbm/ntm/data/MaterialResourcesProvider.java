@@ -913,6 +913,7 @@ public final class MaterialResourcesProvider implements DataProvider {
         mineableBlocks.add("hbm:fluid_counter_valve");
         mineableBlocks.add("hbm:fluid_pump");
         mineableBlocks.add("hbm:machine_drain");
+        axeBlocks.add("hbm:radio_telex");
         mineableBlocks.add("hbm:machine_battery_socket");
         mineableBlocks.add("hbm:machine_battery_redd");
         mineableBlocks.add("hbm:machine_press");
@@ -1625,12 +1626,16 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, powerGaugeRecipe(), recipes, hbm("red_cable_gauge")));
         writes.add(save(output, fluidPumpRecipe(), recipes, hbm("fluid_pump")));
         writes.add(save(output, drainagePipeRecipe(), recipes, hbm("machine_drain")));
+        writes.add(save(output, radioTelexRecipe(), recipes, hbm("radio_telex")));
         writes.add(save(output, unconditionalMultipartState("machine_drain"), blockStates,
                 hbm("machine_drain")));
+        writes.add(save(output, unconditionalMultipartState("radio_telex"), blockStates,
+                hbm("radio_telex")));
         for (String block : List.of("fluid_valve", "fluid_switch", "fluid_counter_valve",
                 "fluid_duct_gauge", "red_cable_gauge", "fluid_pump", "machine_drain")) {
             writes.add(save(output, selfDropLoot(block), lootTables, hbm(block)));
         }
+        writes.add(save(output, selfDropLoot("radio_telex"), lootTables, hbm("radio_telex")));
         writes.add(save(output, pipeModel(), itemModels, hbm("pipe")));
         writes.add(save(output, generatedItemModel("pipe_copper"), itemModels, hbm("pipe_copper")));
         writes.add(save(output, generatedItemModel("pipe_steel"), itemModels, hbm("pipe_steel")));
@@ -4455,6 +4460,16 @@ public final class MaterialResourcesProvider implements DataProvider {
         return shapedItemRecipe(List.of("PPP", "T  ", "PPP"), Map.of(
                 "P", materialComponentIngredient("hbm:plate_cast", "steel", 30),
                 "T", itemIngredient("hbm:tank_steel")), "hbm:machine_drain");
+    }
+
+    private JsonObject radioTelexRecipe() {
+        return shapedItemRecipe(List.of("SCR", "W#W", "WWW"), Map.of(
+                "S", itemIngredient("hbm:radio_torch_sender"),
+                "C", itemIngredient("hbm:crt_display"),
+                "R", itemIngredient("hbm:radio_torch_receiver"),
+                "W", tagIngredient("minecraft:planks"),
+                "#", customComponentIngredient("hbm:circuit", "type", "analog", 7)),
+                "hbm:radio_telex", 2);
     }
 
     private JsonObject fluidDuctUntypingRecipe() {

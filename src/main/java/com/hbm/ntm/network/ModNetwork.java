@@ -86,6 +86,11 @@ public final class ModNetwork {
                 RadioTorchConfigPayload::handle
         );
         registrar.playToServer(
+                RadioTelexPayload.TYPE,
+                RadioTelexPayload.STREAM_CODEC,
+                RadioTelexPayload::handle
+        );
+        registrar.playToServer(
                 FluidPumpConfigPayload.TYPE,
                 FluidPumpConfigPayload.STREAM_CODEC,
                 FluidPumpConfigPayload::handle
