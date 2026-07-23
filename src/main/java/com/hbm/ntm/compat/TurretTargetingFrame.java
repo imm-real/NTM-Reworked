@@ -12,4 +12,6 @@ public interface TurretTargetingFrame {
     default Vec3 hbm$entityPosition(Entity entity) { return entity.position(); }
     default Vec3 hbm$entityEyePosition(Entity entity) { return entity.getEyePosition(); }
     default Vec3 hbm$velocityAt(Vec3 localPosition) { return Vec3.ZERO; }
+    default float hbm$minimumPitch(float sourceMinimum) { return sourceMinimum; }
+    default float hbm$maximumPitch(float sourceMaximum) { return sourceMaximum; }
 }

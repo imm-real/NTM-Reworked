@@ -39,9 +39,11 @@ public final class TurretFriendlyGameTests {
 
         Vec3 east = TurretFriendlyBlockEntity.barrelDirection(0F, -90F);
         Vec3 west = TurretFriendlyBlockEntity.barrelDirection(0F, 90F);
+        Vec3 down = TurretFriendlyBlockEntity.barrelDirection(90F, 0F);
         helper.assertTrue(east.x > 0.999D && Math.abs(east.z) < 0.001D
-                        && west.x < -0.999D && Math.abs(west.z) < 0.001D,
-                "The barrel must fire toward its target instead of through the rear of the model");
+                        && west.x < -0.999D && Math.abs(west.z) < 0.001D
+                        && down.y < -0.999D,
+                "The barrel must cover its complete Sable firing envelope without reversing");
 
         Vec3 compensated = TurretFriendlyBlockEntity.compensatedDirection(
                 new Vec3(0D, 0D, 20D), new Vec3(2D, 0D, 0D), 10D);

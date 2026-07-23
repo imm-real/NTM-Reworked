@@ -249,7 +249,7 @@ public final class TurretFriendlyBlockEntity extends BlockEntity
         Aim wanted = wantedAim(target);
         yaw = stepAngle(yaw, wanted.yaw(), variant.yawSpeed());
         pitch = Mth.clamp(stepAngle(pitch, wanted.pitch(), variant.pitchSpeed()),
-                variant.minPitch(), variant.maxPitch());
+                hbm$minimumPitch(variant.minPitch()), hbm$maximumPitch(variant.maxPitch()));
     }
 
     private boolean aligned(Entity target) {

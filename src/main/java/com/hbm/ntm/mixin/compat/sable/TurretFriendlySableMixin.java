@@ -64,4 +64,14 @@ public abstract class TurretFriendlySableMixin extends BlockEntity implements Tu
         return level == null || subLevel == null
                 ? Vec3.ZERO : Sable.HELPER.getVelocity(level, subLevel, localPosition).scale(1D / 20D);
     }
+
+    @Override
+    public float hbm$minimumPitch(float sourceMinimum) {
+        return hbm$subLevel() == null ? sourceMinimum : -90F;
+    }
+
+    @Override
+    public float hbm$maximumPitch(float sourceMaximum) {
+        return hbm$subLevel() == null ? sourceMaximum : 90F;
+    }
 }
