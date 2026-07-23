@@ -20,6 +20,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -46,6 +47,12 @@ public final class OilDerrickGameTests {
                         && !OilBubbleFeature.insideBubble(6, 0, 0, 8)
                         && !OilBubbleFeature.insideBubble(0, 4, 0, 8),
                 "Oil bubbles must use dx²+dz²+3dy² < radius²/2");
+        ChunkPos negativeChunk = new ChunkPos(-2, 3);
+        check(helper, OilBubbleFeature.insideChunk(-32, 48, negativeChunk)
+                        && OilBubbleFeature.insideChunk(-17, 63, negativeChunk)
+                        && !OilBubbleFeature.insideChunk(-16, 63, negativeChunk)
+                        && !OilBubbleFeature.insideChunk(-17, 64, negativeChunk),
+                "Oil bubble writes must stay inside the chunk currently being generated");
         check(helper, BuiltInRegistries.FEATURE.getKey(ModFeatures.OIL_BUBBLE.get())
                         .equals(ResourceLocation.fromNamespaceAndPath(HbmNtm.MOD_ID, "oil_bubble")),
                 "The custom Oil bubble feature must be registered under hbm:oil_bubble");

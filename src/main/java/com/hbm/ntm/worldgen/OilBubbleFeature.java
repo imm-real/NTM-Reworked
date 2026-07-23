@@ -6,6 +6,7 @@ import com.hbm.ntm.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -50,11 +51,18 @@ public final class OilBubbleFeature extends Feature<NoneFeatureConfiguration> {
         double radiusSquared = radius * radius / 2.0D;
         int horizontal = (int) Math.ceil(Math.sqrt(radiusSquared));
         int vertical = (int) Math.ceil(Math.sqrt(radiusSquared / 3.0D));
+        ChunkPos chunk = new ChunkPos(origin);
+        int minX = chunk.getMinBlockX();
+        int minZ = chunk.getMinBlockZ();
+        int maxX = chunk.getMaxBlockX();
+        int maxZ = chunk.getMaxBlockZ();
         BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
         int changed = 0;
 
-        for (int x = centerX - horizontal; x <= centerX + horizontal; x++) {
-            for (int z = centerZ - horizontal; z <= centerZ + horizontal; z++) {
+        for (int x = Math.max(centerX - horizontal, minX);
+             x <= Math.min(centerX + horizontal, maxX); x++) {
+            for (int z = Math.max(centerZ - horizontal, minZ);
+                 z <= Math.min(centerZ + horizontal, maxZ); z++) {
                 for (int y = Math.max(level.getMinBuildHeight(), centerY - vertical);
                      y <= Math.min(level.getMaxBuildHeight() - 1, centerY + vertical); y++) {
                     int dx = x - centerX;
@@ -71,7 +79,7 @@ public final class OilBubbleFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        addSurfaceSpot(level, random, centerX, centerZ);
+        addSurfaceSpot(level, random, centerX, centerZ, chunk);
         return changed > 0;
     }
 
@@ -85,10 +93,12 @@ public final class OilBubbleFeature extends Feature<NoneFeatureConfiguration> {
         return dx * dx + dz * dz + dy * dy * 3.0D < radiusSquared;
     }
 
-    private static void addSurfaceSpot(WorldGenLevel level, RandomSource random, int centerX, int centerZ) {
+    private static void addSurfaceSpot(WorldGenLevel level, RandomSource random, int centerX, int centerZ,
+                                       ChunkPos chunk) {
         for (int i = 0; i < SURFACE_SPOTS; i++) {
             int x = centerX + (int) (random.nextGaussian() * SURFACE_WIDTH);
             int z = centerZ + (int) (random.nextGaussian() * SURFACE_WIDTH);
+            if (!insideChunk(x, z, chunk)) continue;
             int surface = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
             int distanceX = x - centerX;
             int distanceZ = z - centerZ;
@@ -96,10 +106,21 @@ public final class OilBubbleFeature extends Feature<NoneFeatureConfiguration> {
             scarColumn(level, random, x, surface, z, inner);
         }
 
-        carveMarker(level, centerX, centerZ, true);
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
-            carveMarker(level, centerX + direction.getStepX(), centerZ + direction.getStepZ(), false);
+        if (insideChunk(centerX, centerZ, chunk)) {
+            carveMarker(level, centerX, centerZ, true);
         }
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            int x = centerX + direction.getStepX();
+            int z = centerZ + direction.getStepZ();
+            if (insideChunk(x, z, chunk)) {
+                carveMarker(level, x, z, false);
+            }
+        }
+    }
+
+    public static boolean insideChunk(int x, int z, ChunkPos chunk) {
+        return x >= chunk.getMinBlockX() && x <= chunk.getMaxBlockX()
+                && z >= chunk.getMinBlockZ() && z <= chunk.getMaxBlockZ();
     }
 
     private static void scarColumn(WorldGenLevel level, RandomSource random, int x, int surface, int z,
