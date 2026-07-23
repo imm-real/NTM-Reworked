@@ -1,0 +1,4 @@
+{"multipart":[
+  {"when":{"enabled":"false"},"apply":{"model":"hbm:block/fluid_valve_off"}},
+  {"when":{"enabled":"true"},"apply":{"model":"hbm:block/fluid_valve_on"}}
+]}

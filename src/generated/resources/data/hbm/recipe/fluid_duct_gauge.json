@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hbm:fluid_duct_neo"
+    },
+    {
+      "item": "hbm:ingot_steel"
+    },
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "basic"
+        },
+        "minecraft:custom_model_data": 8
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:fluid_duct_gauge"
+  }
+}

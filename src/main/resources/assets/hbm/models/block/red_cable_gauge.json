@@ -1,0 +1,6 @@
+{
+  "textures":{"base":"hbm:block/deco_red_copper","gauge":"hbm:block/cable_gauge","particle":"hbm:block/deco_red_copper"},
+  "elements":[{"from":[0,0,0],"to":[16,16,16],"faces":{
+    "down":{"texture":"#base"},"up":{"texture":"#base"},"north":{"texture":"#gauge"},
+    "south":{"texture":"#base"},"west":{"texture":"#base"},"east":{"texture":"#base"}}}]
+}

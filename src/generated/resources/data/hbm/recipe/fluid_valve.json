@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "hbm:fluid_duct_neo"
+    },
+    "L": {
+      "item": "minecraft:lever"
+    }
+  },
+  "pattern": [
+    "L",
+    "D"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:fluid_valve"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "hbm:fluid_duct_neo"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "R",
+    "D"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:fluid_switch"
+  }
+}

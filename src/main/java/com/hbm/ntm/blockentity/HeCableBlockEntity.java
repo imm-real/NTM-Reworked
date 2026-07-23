@@ -9,13 +9,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public final class HeCableBlockEntity extends BlockEntity implements HeConductor {
-    private HeNode node;
+public class HeCableBlockEntity extends BlockEntity implements HeConductor {
+    protected HeNode node;
 
     public HeCableBlockEntity(BlockPos position, BlockState state) {
-        super(ModBlockEntities.RED_CABLE.get(), position, state);
+        this(ModBlockEntities.RED_CABLE.get(), position, state);
+    }
+
+    protected HeCableBlockEntity(BlockEntityType<?> type, BlockPos position, BlockState state) {
+        super(type, position, state);
     }
 
     public static void serverTick(Level level, BlockPos position, BlockState state, HeCableBlockEntity cable) {
@@ -43,7 +48,7 @@ public final class HeCableBlockEntity extends BlockEntity implements HeConductor
         // Keep the node; UNINOS cable topology survives chunk unload.
     }
 
-    private void ensureNode(ServerLevel level) {
+    protected void ensureNode(ServerLevel level) {
         if (node != null && !node.expired()) {
             return;
         }
@@ -53,5 +58,9 @@ public final class HeCableBlockEntity extends BlockEntity implements HeConductor
             node = createNode(worldPosition);
             manager.createNode(node);
         }
+    }
+
+    protected HeNode node() {
+        return node;
     }
 }

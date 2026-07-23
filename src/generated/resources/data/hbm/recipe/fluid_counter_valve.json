@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "chip"
+        },
+        "minecraft:custom_model_data": 5
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "V": {
+      "item": "hbm:fluid_switch"
+    }
+  },
+  "pattern": [
+    "C",
+    "V"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:fluid_counter_valve"
+  }
+}

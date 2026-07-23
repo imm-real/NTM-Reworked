@@ -28,6 +28,8 @@ public final class ModSounds {
 
     public static final DeferredHolder<SoundEvent, SoundEvent> RESEARCH_REACTOR_COVER =
             register("block.rbmk_az5_cover");
+    public static final DeferredHolder<SoundEvent, SoundEvent> REACTOR_START =
+            register("block.reactor_start");
 
     public static final DeferredHolder<SoundEvent, SoundEvent> WARN_OVERSPEED = SOUNDS.register(
             "block.warn_overspeed",

@@ -3,6 +3,8 @@ package com.hbm.ntm.machine;
 import com.hbm.ntm.HbmNtm;
 import com.hbm.ntm.block.FluidDuctBlock;
 import com.hbm.ntm.block.HeatBoilerBlock;
+import com.hbm.ntm.block.FluidUtilityBlock;
+import com.hbm.ntm.blockentity.FluidUtilityBlockEntity;
 import com.hbm.ntm.blockentity.HeatBoilerBlockEntity;
 import com.hbm.ntm.blockentity.ArcWelderBlockEntity;
 import com.hbm.ntm.item.FluidDuctItem;
@@ -20,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -188,6 +191,68 @@ public final class FluidDuctGameTests {
                         && receiver.tank().getFluidAmount() == 750
                         && receiver.tank().getFluid().is(ModFluids.HOTOIL.get()),
                 "Boiler output pushing must deliver Hot Oil through HOTOIL ducts to a typed receiver");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void valveSplitsAndRejoinsTypedNetwork(GameTestHelper helper) {
+        BlockPos boilerPos = new BlockPos(3, 1, 3);
+        HeatBoilerBlock boilerBlock = ModBlocks.MACHINE_BOILER.get();
+        BlockState boilerState = boilerBlock.defaultBlockState().setValue(HeatBoilerBlock.FACING, Direction.NORTH);
+        helper.setBlock(boilerPos, boilerState);
+        boilerBlock.setPlacedBy(helper.getLevel(), helper.absolutePos(boilerPos), boilerState,
+                helper.makeMockPlayer(GameType.SURVIVAL), new ItemStack(ModItems.MACHINE_BOILER_ITEM.get()));
+
+        BlockPos valvePos = boilerPos.east(2);
+        helper.setBlock(valvePos, ModBlocks.FLUID_VALVE.get().defaultBlockState()
+                .setValue(FluidDuctBlock.TYPE, FluidIdentifierItem.Selection.WATER));
+        BlockPos ductPos = boilerPos.east(3);
+        helper.setBlock(ductPos, ModBlocks.FLUID_DUCT_NEO.get().defaultBlockState()
+                .setValue(FluidDuctBlock.TYPE, FluidIdentifierItem.Selection.WATER));
+        IFluidHandler duct = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
+                helper.absolutePos(ductPos), Direction.EAST);
+        check(helper, duct != null && duct.fill(new FluidStack(
+                net.minecraft.world.level.material.Fluids.WATER, 250),
+                IFluidHandler.FluidAction.EXECUTE) == 0,
+                "A closed source Fluid Valve must split its typed network");
+
+        helper.setBlock(valvePos, helper.getBlockState(valvePos).setValue(FluidUtilityBlock.OPEN, true));
+        check(helper, duct.fill(new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 250),
+                IFluidHandler.FluidAction.EXECUTE) == 250,
+                "An open source Fluid Valve must rejoin its typed network");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void counterRecordsAcceptedFluidAndRorReset(GameTestHelper helper) throws Exception {
+        BlockPos boilerPos = new BlockPos(3, 1, 3);
+        HeatBoilerBlock boilerBlock = ModBlocks.MACHINE_BOILER.get();
+        BlockState boilerState = boilerBlock.defaultBlockState().setValue(HeatBoilerBlock.FACING, Direction.NORTH);
+        helper.setBlock(boilerPos, boilerState);
+        boilerBlock.setPlacedBy(helper.getLevel(), helper.absolutePos(boilerPos), boilerState,
+                helper.makeMockPlayer(GameType.SURVIVAL), new ItemStack(ModItems.MACHINE_BOILER_ITEM.get()));
+
+        BlockPos counterPos = boilerPos.east(2);
+        helper.setBlock(counterPos, ModBlocks.FLUID_COUNTER_VALVE.get().defaultBlockState()
+                .setValue(FluidDuctBlock.TYPE, FluidIdentifierItem.Selection.WATER)
+                .setValue(FluidUtilityBlock.OPEN, true));
+        BlockPos ductPos = boilerPos.east(3);
+        helper.setBlock(ductPos, ModBlocks.FLUID_DUCT_NEO.get().defaultBlockState()
+                .setValue(FluidDuctBlock.TYPE, FluidIdentifierItem.Selection.WATER));
+        IFluidHandler duct = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
+                helper.absolutePos(ductPos), Direction.EAST);
+        check(helper, duct != null && duct.fill(new FluidStack(
+                net.minecraft.world.level.material.Fluids.WATER, 400),
+                IFluidHandler.FluidAction.EXECUTE) == 400,
+                "The counter valve must pass accepted fluid while open");
+        FluidUtilityBlockEntity counter = helper.getBlockEntity(counterPos);
+        check(helper, counter.counter() == 400
+                        && "400".equals(counter.provideRorValue("VAL:value")),
+                "The counter and ROR value must record actual accepted transfer");
+        counter.runRorFunction("FUN:reset", new String[0]);
+        check(helper, counter.counter() == 0, "The source ROR reset function must clear the counter");
+        counter.runRorFunction("FUN:setstate", new String[]{"0"});
+        check(helper, !counter.routesFluid(), "The source ROR state function must close the counter valve");
         helper.succeed();
     }
 

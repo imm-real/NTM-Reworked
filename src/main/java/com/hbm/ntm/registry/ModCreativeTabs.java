@@ -482,6 +482,10 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.BARREL_TCALLOY.get());
                         output.accept(ModItems.BARREL_ANTIMATTER.get());
                         output.accept(ModItems.FLUID_DUCT_NEO_ITEM.get());
+                        output.accept(ModItems.FLUID_DUCT_GAUGE_ITEM.get());
+                        output.accept(ModItems.FLUID_VALVE_ITEM.get());
+                        output.accept(ModItems.FLUID_SWITCH_ITEM.get());
+                        output.accept(ModItems.FLUID_COUNTER_VALVE_ITEM.get());
                         output.accept(ModItems.CONVEYOR_WAND.get());
                         output.accept(ModItems.CONVEYOR_WAND_EXPRESS.get());
                         output.accept(ModItems.CONVEYOR_WAND_DOUBLE.get());
@@ -490,6 +494,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.CRANE_INSERTER_ITEM.get());
                         output.accept(ModItems.CRANE_BOXER_ITEM.get());
                         output.accept(ModItems.RED_CABLE_ITEM.get());
+                        output.accept(ModItems.RED_CABLE_GAUGE_ITEM.get());
                         output.accept(ModItems.MACHINE_CONVERTER_HE_FE.get());
                         output.accept(ModItems.MACHINE_CONVERTER_FE_HE.get());
                         output.accept(ModItems.MACHINE_BATTERY_SOCKET_ITEM.get());

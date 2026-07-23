@@ -19,6 +19,8 @@ import com.hbm.ntm.blockentity.HeatExchangerBlockEntity;
 import com.hbm.ntm.blockentity.HighPowerCondenserBlockEntity;
 import com.hbm.ntm.blockentity.FluidBurnerBlockEntity;
 import com.hbm.ntm.blockentity.FluidDuctBlockEntity;
+import com.hbm.ntm.blockentity.FluidUtilityBlockEntity;
+import com.hbm.ntm.blockentity.PowerGaugeBlockEntity;
 import com.hbm.ntm.blockentity.FoundryOutletBlockEntity;
 import com.hbm.ntm.blockentity.FluidStorageTankBlockEntity;
 import com.hbm.ntm.blockentity.GasTurbineBlockEntity;
@@ -61,6 +63,14 @@ public final class ClientLookOverlay {
             if (minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof FoundryOutletBlockEntity outlet) {
                 renderFoundryOutlet(event.getGuiGraphics(), minecraft, outlet);
             }
+            return;
+        }
+        if (minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof FluidUtilityBlockEntity utility) {
+            renderFluidUtility(event.getGuiGraphics(), minecraft, utility);
+            return;
+        }
+        if (minecraft.level.getBlockEntity(hit.getBlockPos()) instanceof PowerGaugeBlockEntity gauge) {
+            renderPowerGauge(event.getGuiGraphics(), minecraft, gauge);
             return;
         }
         if (state.is(ModBlocks.FLUID_DUCT_NEO.get())) {
@@ -216,6 +226,42 @@ public final class ClientLookOverlay {
         var selection = duct.selection();
         graphics.drawString(minecraft.font,
                 Component.translatable(selection.translationKey()), x, y, selection.color(), true);
+    }
+
+    private static void renderFluidUtility(GuiGraphics graphics, Minecraft minecraft,
+                                           FluidUtilityBlockEntity utility) {
+        int x = graphics.guiWidth() / 2 + 8;
+        int y = graphics.guiHeight() / 2;
+        Component title = utility.getBlockState().getBlock().getName();
+        graphics.drawString(minecraft.font, title, x + 1, y - 9, 0x404000, false);
+        graphics.drawString(minecraft.font, title, x, y - 10, 0xFFFF00, false);
+        var selection = utility.selection();
+        graphics.drawString(minecraft.font, Component.translatable(selection.translationKey()),
+                x, y, selection.color(), true);
+        if (utility.kind() == com.hbm.ntm.block.FluidUtilityBlock.Kind.COUNTER) {
+            graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                    "Counter: %,d", utility.counter()), x, y + 10, 0xFFFFFF, true);
+        } else if (utility.kind() == com.hbm.ntm.block.FluidUtilityBlock.Kind.GAUGE) {
+            graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                    "%,d mB/t", utility.deltaTick()), x, y + 10, 0xFFFFFF, true);
+            graphics.drawString(minecraft.font, String.format(java.util.Locale.US,
+                    "%,d mB/s", utility.deltaSecond()), x, y + 20, 0xFFFFFF, true);
+        }
+    }
+
+    private static void renderPowerGauge(GuiGraphics graphics, Minecraft minecraft,
+                                         PowerGaugeBlockEntity gauge) {
+        int x = graphics.guiWidth() / 2 + 8;
+        int y = graphics.guiHeight() / 2;
+        Component title = gauge.getBlockState().getBlock().getName();
+        graphics.drawString(minecraft.font, title, x + 1, y - 9, 0x404000, false);
+        graphics.drawString(minecraft.font, title, x, y - 10, 0xFFFF00, false);
+        graphics.drawString(minecraft.font,
+                com.hbm.ntm.item.BatteryPackItem.shortNumber(gauge.deltaTick()) + "HE/t",
+                x, y, 0xFFFFFF, true);
+        graphics.drawString(minecraft.font,
+                com.hbm.ntm.item.BatteryPackItem.shortNumber(gauge.deltaSecond()) + "HE/s",
+                x, y + 10, 0xFFFFFF, true);
     }
 
     private static void renderFoundryOutlet(GuiGraphics graphics, Minecraft minecraft,

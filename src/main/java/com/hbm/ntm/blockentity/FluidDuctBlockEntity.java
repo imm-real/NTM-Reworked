@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -22,11 +23,15 @@ import java.util.Map;
 import java.util.Set;
 
 /** Typed fluid graph node. Ducts route fluid but never store it. */
-public final class FluidDuctBlockEntity extends BlockEntity {
+public class FluidDuctBlockEntity extends BlockEntity {
     private final IFluidHandler handler = new DuctHandler();
 
     public FluidDuctBlockEntity(BlockPos position, BlockState state) {
-        super(ModBlockEntities.FLUID_DUCT.get(), position, state);
+        this(ModBlockEntities.FLUID_DUCT.get(), position, state);
+    }
+
+    protected FluidDuctBlockEntity(BlockEntityType<?> type, BlockPos position, BlockState state) {
+        super(type, position, state);
     }
 
     public FluidIdentifierItem.Selection selection() {
@@ -35,6 +40,13 @@ public final class FluidDuctBlockEntity extends BlockEntity {
 
     public IFluidHandler fluidHandler(@Nullable Direction side) {
         return handler;
+    }
+
+    public boolean routesFluid() {
+        return true;
+    }
+
+    protected void recordTransfer(int amount) {
     }
 
     private final class DuctHandler implements IFluidHandler {
@@ -47,7 +59,8 @@ public final class FluidDuctBlockEntity extends BlockEntity {
 
         @Override public int fill(FluidStack resource, FluidAction action) {
             if (resource.isEmpty() || !isFluidValid(0, resource) || !(level instanceof ServerLevel server)) return 0;
-            List<IFluidHandler> receivers = findReceivers(server);
+            NetworkSearch search = findReceivers(server);
+            List<IFluidHandler> receivers = search.receivers();
             if (receivers.isEmpty()) return 0;
 
             List<Integer> capacities = new ArrayList<>(receivers.size());
@@ -73,6 +86,9 @@ public final class FluidDuctBlockEntity extends BlockEntity {
                 moved += receivers.get(index).fill(offered, FluidAction.EXECUTE);
                 remainingCapacity -= capacity;
             }
+            if (moved > 0) {
+                for (FluidDuctBlockEntity duct : search.ducts()) duct.recordTransfer(moved);
+            }
             return moved;
         }
 
@@ -80,20 +96,26 @@ public final class FluidDuctBlockEntity extends BlockEntity {
         @Override public FluidStack drain(int maxDrain, FluidAction action) { return FluidStack.EMPTY; }
     }
 
-    private List<IFluidHandler> findReceivers(ServerLevel server) {
+    private NetworkSearch findReceivers(ServerLevel server) {
         FluidIdentifierItem.Selection type = selection();
         ArrayDeque<BlockPos> queue = new ArrayDeque<>();
         Set<BlockPos> visited = new HashSet<>();
         Map<BlockPos, IFluidHandler> endpoints = new LinkedHashMap<>();
+        List<FluidDuctBlockEntity> ducts = new ArrayList<>();
         queue.add(worldPosition);
         visited.add(worldPosition);
 
         while (!queue.isEmpty()) {
             BlockPos ductPosition = queue.removeFirst();
+            if (!(server.getBlockEntity(ductPosition) instanceof FluidDuctBlockEntity current)
+                    || !current.routesFluid()) continue;
+            ducts.add(current);
             for (Direction direction : Direction.values()) {
                 BlockPos neighbor = ductPosition.relative(direction);
                 if (server.getBlockEntity(neighbor) instanceof FluidDuctBlockEntity duct) {
-                    if (duct.selection() == type && visited.add(neighbor)) queue.addLast(neighbor);
+                    if (duct.selection() == type && duct.routesFluid() && visited.add(neighbor)) {
+                        queue.addLast(neighbor);
+                    }
                     continue;
                 }
                 if (endpoints.containsKey(neighbor)) continue;
@@ -102,6 +124,9 @@ public final class FluidDuctBlockEntity extends BlockEntity {
                 if (candidate != null) endpoints.put(neighbor.immutable(), candidate);
             }
         }
-        return List.copyOf(endpoints.values());
+        return new NetworkSearch(List.copyOf(endpoints.values()), List.copyOf(ducts));
+    }
+
+    private record NetworkSearch(List<IFluidHandler> receivers, List<FluidDuctBlockEntity> ducts) {
     }
 }

@@ -43,6 +43,8 @@ import com.hbm.ntm.block.FractionTowerBlock;
 import com.hbm.ntm.block.FractionTowerSeparatorBlock;
 import com.hbm.ntm.block.GasTurbineBlock;
 import com.hbm.ntm.block.FluidDuctBlock;
+import com.hbm.ntm.block.FluidUtilityBlock;
+import com.hbm.ntm.block.PowerGaugeBlock;
 import com.hbm.ntm.block.FluidBurnerBlock;
 import com.hbm.ntm.block.FluidBarrelBlock;
 import com.hbm.ntm.block.FluidStorageTankBlock;
@@ -206,6 +208,7 @@ public final class ModBlocks {
     public static final DeferredBlock<FluidBarrelBlock> BARREL_TCALLOY;
     public static final DeferredBlock<FluidBarrelBlock> BARREL_ANTIMATTER;
     public static final DeferredBlock<HeCableBlock> RED_CABLE;
+    public static final DeferredBlock<PowerGaugeBlock> RED_CABLE_GAUGE;
     public static final DeferredBlock<BatterySocketBlock> MACHINE_BATTERY_SOCKET;
     public static final DeferredBlock<FensuBlock> MACHINE_BATTERY_REDD;
     public static final DeferredBlock<MachinePressBlock> MACHINE_PRESS;
@@ -273,6 +276,10 @@ public final class ModBlocks {
     public static final DeferredBlock<ConverterHEtoFEBlock> MACHINE_CONVERTER_HE_FE;
     public static final DeferredBlock<ConverterFEtoHEBlock> MACHINE_CONVERTER_FE_HE;
     public static final DeferredBlock<FluidDuctBlock> FLUID_DUCT_NEO;
+    public static final DeferredBlock<FluidUtilityBlock> FLUID_DUCT_GAUGE;
+    public static final DeferredBlock<FluidUtilityBlock> FLUID_VALVE;
+    public static final DeferredBlock<FluidUtilityBlock> FLUID_SWITCH;
+    public static final DeferredBlock<FluidUtilityBlock> FLUID_COUNTER_VALVE;
     public static final DeferredBlock<ConventionalExplosiveBlock> DYNAMITE;
     public static final DeferredBlock<ConventionalExplosiveBlock> TNT_NTM;
     public static final DeferredBlock<ConventionalExplosiveBlock> SEMTEX;
@@ -580,6 +587,10 @@ public final class ModBlocks {
                         .requiresCorrectToolForDrops()
                         .noOcclusion())
         );
+        RED_CABLE_GAUGE = BLOCKS.register("red_cable_gauge",
+                () -> new PowerGaugeBlock(BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL).strength(5.0F, 10.0F).sound(SoundType.METAL)
+                        .requiresCorrectToolForDrops()));
         MACHINE_BATTERY_SOCKET = BLOCKS.register(
                 "machine_battery_socket",
                 () -> new BatterySocketBlock(BlockBehaviour.Properties.of()
@@ -835,6 +846,10 @@ public final class ModBlocks {
                 () -> new FluidDuctBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
                         .strength(5.0F, 6.0F).sound(SoundType.METAL)
                         .requiresCorrectToolForDrops().noOcclusion()));
+        FLUID_DUCT_GAUGE = fluidUtility("fluid_duct_gauge", FluidUtilityBlock.Kind.GAUGE);
+        FLUID_VALVE = fluidUtility("fluid_valve", FluidUtilityBlock.Kind.VALVE);
+        FLUID_SWITCH = fluidUtility("fluid_switch", FluidUtilityBlock.Kind.SWITCH);
+        FLUID_COUNTER_VALVE = fluidUtility("fluid_counter_valve", FluidUtilityBlock.Kind.COUNTER);
         DYNAMITE = registerExplosive("dynamite", 8.0F);
         TNT_NTM = registerExplosive("tnt_ntm", 10.0F);
         SEMTEX = registerExplosive("semtex", 12.0F);
@@ -1099,6 +1114,12 @@ public final class ModBlocks {
         BLOCK_COKE_COAL = registerCokeBlock("block_coke_coal");
         BLOCK_COKE_LIGNITE = registerCokeBlock("block_coke_lignite");
         BLOCK_COKE_PETROLEUM = registerCokeBlock("block_coke_petroleum");
+    }
+
+    private static DeferredBlock<FluidUtilityBlock> fluidUtility(String name, FluidUtilityBlock.Kind kind) {
+        return BLOCKS.register(name, () -> new FluidUtilityBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.METAL).strength(5.0F, 10.0F).sound(SoundType.METAL)
+                .requiresCorrectToolForDrops(), kind));
     }
 
     private static DeferredBlock<FluidBarrelBlock> fluidBarrel(String name, FluidBarrelBlock.Type type,

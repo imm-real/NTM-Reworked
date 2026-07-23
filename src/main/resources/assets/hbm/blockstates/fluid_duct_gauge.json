@@ -1,0 +1,8 @@
+{"multipart":[
+  {"when":{"facing":"north"},"apply":{"model":"hbm:block/fluid_duct_gauge"}},
+  {"when":{"facing":"south"},"apply":{"model":"hbm:block/fluid_duct_gauge","y":180}},
+  {"when":{"facing":"west"},"apply":{"model":"hbm:block/fluid_duct_gauge","y":270}},
+  {"when":{"facing":"east"},"apply":{"model":"hbm:block/fluid_duct_gauge","y":90}},
+  {"when":{"facing":"up"},"apply":{"model":"hbm:block/fluid_duct_gauge","x":90}},
+  {"when":{"facing":"down"},"apply":{"model":"hbm:block/fluid_duct_gauge","x":270}}
+]}

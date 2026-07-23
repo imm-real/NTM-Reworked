@@ -24,6 +24,11 @@ final class HbmEnglishTranslations {
         language.addProperty("key.hbm.aim", "Aim / Zoom");
         GuideBookContent.english().forEach(language::addProperty);
         language.addProperty("block.hbm.red_cable", "Red Copper Cable");
+        language.addProperty("block.hbm.red_cable_gauge", "Power Gauge");
+        language.addProperty("block.hbm.red_cable_gauge.desc.0", "Cable that displays how much power");
+        language.addProperty("block.hbm.red_cable_gauge.desc.1", "moves within the network per tick.");
+        language.addProperty("block.hbm.red_cable_gauge.desc.2", "Split networks connected by energy");
+        language.addProperty("block.hbm.red_cable_gauge.desc.3", "storage blocks are considered as one shared network.");
         language.addProperty("block.hbm.machine_press", "Burner Press");
         language.addProperty("block.hbm.machine_ammo_press", "Ammo Press");
         language.addProperty("block.hbm.turret_chekhov", "Heavy Machine Gun Turret \"Chekhov's Gun\"");
@@ -314,6 +319,16 @@ final class HbmEnglishTranslations {
         language.addProperty("block.hbm.machine_converter_fe_he", "FE to HE Converter");
         language.addProperty("item.hbm.magnetron", "Magnetron");
         language.addProperty("block.hbm.fluid_duct_neo", "Universal Fluid Duct");
+        language.addProperty("block.hbm.fluid_duct_gauge", "Flow Gauge Pipe");
+        language.addProperty("block.hbm.fluid_valve", "Fluid Valve");
+        language.addProperty("block.hbm.fluid_switch", "Redstone Fluid Valve");
+        language.addProperty("block.hbm.fluid_counter_valve", "Fluid Valve with Counter");
+        language.addProperty("block.hbm.fluid_duct_gauge.desc.0", "Pipe that displays how much fluid");
+        language.addProperty("block.hbm.fluid_duct_gauge.desc.1", "moves within the network per tick.");
+        language.addProperty("block.hbm.fluid_duct_gauge.desc.2", "Split networks connected by barrels");
+        language.addProperty("block.hbm.fluid_duct_gauge.desc.3", "or tanks are considered as one shared network.");
+        language.addProperty("block.hbm.fluid_counter_valve.desc",
+                "Beware of loops in your fluid network...");
         language.addProperty("item.hbm.fluid_duct", "Fluid Duct:");
         language.addProperty("hbmfluid.smoke", "Smoke");
         language.addProperty("fluid.hbm.smoke", "Smoke");

@@ -247,6 +247,7 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> RADIO_TORCH_READER_ITEM;
     public static final DeferredItem<BlockItem> RADIO_TORCH_CONTROLLER_ITEM;
     public static final DeferredItem<BlockItem> RED_CABLE_ITEM;
+    public static final DeferredItem<DescriptionBlockItem> RED_CABLE_GAUGE_ITEM;
     public static final DeferredItem<BlockItem> MACHINE_PRESS_ITEM;
     public static final DeferredItem<BlockItem> AMMO_PRESS_ITEM;
     public static final DeferredItem<BlockItem> TURRET_CHEKHOV_ITEM;
@@ -383,6 +384,10 @@ public final class ModItems {
     public static final DeferredItem<DepthRockBlockItem> DEPTH_NETHER_TILES_ITEM;
     public static final DeferredItem<BlockItem> FLUID_DUCT_NEO_ITEM;
     public static final DeferredItem<FluidDuctItem> FLUID_DUCT;
+    public static final DeferredItem<DescriptionBlockItem> FLUID_DUCT_GAUGE_ITEM;
+    public static final DeferredItem<BlockItem> FLUID_VALVE_ITEM;
+    public static final DeferredItem<BlockItem> FLUID_SWITCH_ITEM;
+    public static final DeferredItem<DescriptionBlockItem> FLUID_COUNTER_VALVE_ITEM;
     public static final DeferredItem<BlockItem> DYNAMITE_ITEM;
     public static final DeferredItem<BlockItem> TNT_NTM_ITEM;
     public static final DeferredItem<BlockItem> SEMTEX_ITEM;
@@ -936,6 +941,10 @@ public final class ModItems {
         AMS_CORE_THINGY = ITEMS.register("ams_core_thingy", () -> new DfcCoreItem(
                 DfcCoreItem.Kind.THINGY, 5_000_000_000L, 250, 5, 2_500));
         RED_CABLE_ITEM = ITEMS.registerSimpleBlockItem("red_cable", ModBlocks.RED_CABLE);
+        RED_CABLE_GAUGE_ITEM = ITEMS.register("red_cable_gauge",
+                () -> new DescriptionBlockItem(ModBlocks.RED_CABLE_GAUGE.get(), new Item.Properties(),
+                        "block.hbm.red_cable_gauge.desc.0", "block.hbm.red_cable_gauge.desc.1",
+                        "block.hbm.red_cable_gauge.desc.2", "block.hbm.red_cable_gauge.desc.3"));
         MACHINE_PRESS_ITEM = ITEMS.registerSimpleBlockItem("machine_press", ModBlocks.MACHINE_PRESS);
         AMMO_PRESS_ITEM = ITEMS.registerSimpleBlockItem("machine_ammo_press", ModBlocks.AMMO_PRESS);
         TURRET_CHEKHOV_ITEM = ITEMS.registerSimpleBlockItem("turret_chekhov", ModBlocks.TURRET_CHEKHOV);
@@ -1142,6 +1151,15 @@ public final class ModItems {
         MACHINE_BOILER_ITEM = ITEMS.registerSimpleBlockItem("machine_boiler", ModBlocks.MACHINE_BOILER);
         FLUID_DUCT_NEO_ITEM = ITEMS.registerSimpleBlockItem("fluid_duct_neo", ModBlocks.FLUID_DUCT_NEO);
         FLUID_DUCT = ITEMS.register("fluid_duct", () -> new FluidDuctItem(ModBlocks.FLUID_DUCT_NEO.get()));
+        FLUID_DUCT_GAUGE_ITEM = ITEMS.register("fluid_duct_gauge",
+                () -> new DescriptionBlockItem(ModBlocks.FLUID_DUCT_GAUGE.get(), new Item.Properties(),
+                        "block.hbm.fluid_duct_gauge.desc.0", "block.hbm.fluid_duct_gauge.desc.1",
+                        "block.hbm.fluid_duct_gauge.desc.2", "block.hbm.fluid_duct_gauge.desc.3"));
+        FLUID_VALVE_ITEM = ITEMS.registerSimpleBlockItem("fluid_valve", ModBlocks.FLUID_VALVE);
+        FLUID_SWITCH_ITEM = ITEMS.registerSimpleBlockItem("fluid_switch", ModBlocks.FLUID_SWITCH);
+        FLUID_COUNTER_VALVE_ITEM = ITEMS.register("fluid_counter_valve",
+                () -> new DescriptionBlockItem(ModBlocks.FLUID_COUNTER_VALVE.get(), new Item.Properties(),
+                        "block.hbm.fluid_counter_valve.desc"));
         DYNAMITE_ITEM = ITEMS.registerSimpleBlockItem("dynamite", ModBlocks.DYNAMITE);
         TNT_NTM_ITEM = ITEMS.registerSimpleBlockItem("tnt_ntm", ModBlocks.TNT_NTM);
         SEMTEX_ITEM = ITEMS.registerSimpleBlockItem("semtex", ModBlocks.SEMTEX);

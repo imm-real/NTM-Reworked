@@ -134,7 +134,7 @@ public final class FluidDuctBlock extends BaseEntityBlock {
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, TYPE, RENDER_SHAPE);
     }
 
-    private BlockState connections(BlockGetter level, BlockPos pos, BlockState state) {
+    public BlockState connections(BlockGetter level, BlockPos pos, BlockState state) {
         FluidIdentifierItem.Selection type = state.getValue(TYPE);
         boolean[] actual = new boolean[6];
         int count = 0;
@@ -142,8 +142,9 @@ public final class FluidDuctBlock extends BaseEntityBlock {
             BlockPos neighborPos = pos.relative(direction);
             BlockState neighbor = level.getBlockState(neighborPos);
             boolean connected;
-            if (neighbor.getBlock() instanceof FluidDuctBlock) {
-                connected = neighbor.getValue(TYPE) == type;
+            BlockEntity neighborEntity = level.getBlockEntity(neighborPos);
+            if (neighborEntity instanceof FluidDuctBlockEntity duct) {
+                connected = duct.selection() == type;
             } else {
                 connected = level instanceof Level world
                         && world.getCapability(Capabilities.FluidHandler.BLOCK,
@@ -180,8 +181,8 @@ public final class FluidDuctBlock extends BaseEntityBlock {
         for (Direction direction : Direction.values()) level.updateNeighborsAt(pos.relative(direction), this);
     }
 
-    private void retagConnected(Level level, BlockPos origin, FluidIdentifierItem.Selection oldType,
-                                FluidIdentifierItem.Selection newType, int depthLimit) {
+    public void retagConnected(Level level, BlockPos origin, FluidIdentifierItem.Selection oldType,
+                               FluidIdentifierItem.Selection newType, int depthLimit) {
         record Visit(BlockPos pos, int depth) { }
         ArrayDeque<Visit> queue = new ArrayDeque<>();
         Set<BlockPos> visited = new HashSet<>();
@@ -190,8 +191,13 @@ public final class FluidDuctBlock extends BaseEntityBlock {
         while (!queue.isEmpty()) {
             Visit visit = queue.removeFirst();
             BlockState state = level.getBlockState(visit.pos());
-            if (!(state.getBlock() instanceof FluidDuctBlock) || state.getValue(TYPE) != oldType) continue;
-            setType(level, visit.pos(), state, newType);
+            if (!(level.getBlockEntity(visit.pos()) instanceof FluidDuctBlockEntity duct)
+                    || duct.selection() != oldType || !state.hasProperty(TYPE)) continue;
+            if (state.getBlock() instanceof FluidDuctBlock normal) {
+                normal.setType(level, visit.pos(), state, newType);
+            } else {
+                level.setBlock(visit.pos(), state.setValue(TYPE, newType), Block.UPDATE_ALL);
+            }
             if (visit.depth() >= depthLimit) continue;
             for (Direction direction : Direction.values()) {
                 BlockPos next = visit.pos().relative(direction);

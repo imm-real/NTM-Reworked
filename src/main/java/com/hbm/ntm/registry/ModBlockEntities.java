@@ -51,6 +51,7 @@ import com.hbm.ntm.blockentity.FireboxBlockEntity;
 import com.hbm.ntm.blockentity.FensuBlockEntity;
 import com.hbm.ntm.blockentity.FensuProxyBlockEntity;
 import com.hbm.ntm.blockentity.FluidDuctBlockEntity;
+import com.hbm.ntm.blockentity.FluidUtilityBlockEntity;
 import com.hbm.ntm.blockentity.FluidBarrelBlockEntity;
 import com.hbm.ntm.blockentity.FluidStorageTankBlockEntity;
 import com.hbm.ntm.blockentity.FluidStorageTankProxyBlockEntity;
@@ -66,6 +67,7 @@ import com.hbm.ntm.blockentity.FoundryOutletBlockEntity;
 import com.hbm.ntm.blockentity.DynamicSlagBlockEntity;
 import com.hbm.ntm.blockentity.GeigerCounterBlockEntity;
 import com.hbm.ntm.blockentity.HeCableBlockEntity;
+import com.hbm.ntm.blockentity.PowerGaugeBlockEntity;
 import com.hbm.ntm.blockentity.HeatBoilerBlockEntity;
 import com.hbm.ntm.blockentity.HeatBoilerProxyBlockEntity;
 import com.hbm.ntm.blockentity.HeatExchangerBlockEntity;
@@ -216,6 +218,9 @@ public final class ModBlockEntities {
                     "red_cable",
                     () -> BlockEntityType.Builder.of(HeCableBlockEntity::new, ModBlocks.RED_CABLE.get()).build(null)
             );
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PowerGaugeBlockEntity>> POWER_GAUGE =
+            BLOCK_ENTITY_TYPES.register("red_cable_gauge", () -> BlockEntityType.Builder.of(
+                    PowerGaugeBlockEntity::new, ModBlocks.RED_CABLE_GAUGE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BatterySocketBlockEntity>> BATTERY_SOCKET =
             BLOCK_ENTITY_TYPES.register(
@@ -548,6 +553,11 @@ public final class ModBlockEntities {
             BLOCK_ENTITY_TYPES.register("fluid_duct",
                     () -> BlockEntityType.Builder.of(FluidDuctBlockEntity::new,
                             ModBlocks.FLUID_DUCT_NEO.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidUtilityBlockEntity>> FLUID_UTILITY =
+            BLOCK_ENTITY_TYPES.register("fluid_utility", () -> BlockEntityType.Builder.of(
+                    FluidUtilityBlockEntity::new, ModBlocks.FLUID_DUCT_GAUGE.get(),
+                    ModBlocks.FLUID_VALVE.get(), ModBlocks.FLUID_SWITCH.get(),
+                    ModBlocks.FLUID_COUNTER_VALVE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidStorageTankBlockEntity>> MACHINE_FLUIDTANK =
             BLOCK_ENTITY_TYPES.register("machine_fluidtank",

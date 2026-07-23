@@ -1,4 +1,8 @@
 {
+  "block.reactor_start": {
+    "category": "block",
+    "sounds": [{"name": "hbm:block/reactor_start", "stream": false}]
+  },
   "weapon.fire.lasergatling": {"sounds": [{"name": "hbm:weapon/fire/lasergatling", "stream": false}]},
   "alarm.train_horn": {"sounds": [{"name": "hbm:alarm/train_horn", "stream": false}]},
   "weapon.train_impact": {"sounds": [{"name": "hbm:weapon/train_impact", "stream": false}]},

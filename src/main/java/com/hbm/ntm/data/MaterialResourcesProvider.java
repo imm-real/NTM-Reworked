@@ -906,6 +906,11 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, tag(aggregateStorageBlocks), blockTags, aggregateStorageTag));
         writes.add(save(output, tag(aggregateStorageBlockItems), itemTags, aggregateStorageTag));
         mineableBlocks.add("hbm:red_cable");
+        mineableBlocks.add("hbm:red_cable_gauge");
+        mineableBlocks.add("hbm:fluid_duct_gauge");
+        mineableBlocks.add("hbm:fluid_valve");
+        mineableBlocks.add("hbm:fluid_switch");
+        mineableBlocks.add("hbm:fluid_counter_valve");
         mineableBlocks.add("hbm:machine_battery_socket");
         mineableBlocks.add("hbm:machine_battery_redd");
         mineableBlocks.add("hbm:machine_press");
@@ -1611,6 +1616,15 @@ public final class MaterialResourcesProvider implements DataProvider {
         writes.add(save(output, fluidIdentifierRecipe(), recipes, hbm("fluid_identifier_multi")));
         writes.add(save(output, fluidDuctBaseRecipe(), recipes, hbm("fluid_duct_neo")));
         writes.add(save(output, fluidDuctUntypingRecipe(), recipes, hbm("fluid_duct_neo_from_typed")));
+        writes.add(save(output, fluidValveRecipe(), recipes, hbm("fluid_valve")));
+        writes.add(save(output, fluidSwitchRecipe(), recipes, hbm("fluid_switch")));
+        writes.add(save(output, fluidCounterValveRecipe(), recipes, hbm("fluid_counter_valve")));
+        writes.add(save(output, fluidDuctGaugeRecipe(), recipes, hbm("fluid_duct_gauge")));
+        writes.add(save(output, powerGaugeRecipe(), recipes, hbm("red_cable_gauge")));
+        for (String block : List.of("fluid_valve", "fluid_switch", "fluid_counter_valve",
+                "fluid_duct_gauge", "red_cable_gauge")) {
+            writes.add(save(output, selfDropLoot(block), lootTables, hbm(block)));
+        }
         writes.add(save(output, pipeModel(), itemModels, hbm("pipe")));
         writes.add(save(output, generatedItemModel("pipe_copper"), itemModels, hbm("pipe_copper")));
         writes.add(save(output, generatedItemModel("pipe_steel"), itemModels, hbm("pipe_steel")));
@@ -4386,6 +4400,40 @@ public final class MaterialResourcesProvider implements DataProvider {
         recipe.add("key", key);
         recipe.add("result", recipeResult("hbm:fluid_duct_neo", 8));
         return recipe;
+    }
+
+    private JsonObject fluidValveRecipe() {
+        return foundryShaped(List.of("L", "D"), Map.of(
+                "L", itemIngredient("minecraft:lever"),
+                "D", itemIngredient("hbm:fluid_duct_neo")), "hbm:fluid_valve", 1);
+    }
+
+    private JsonObject fluidSwitchRecipe() {
+        return foundryShaped(List.of("R", "D"), Map.of(
+                "R", itemIngredient("minecraft:redstone"),
+                "D", itemIngredient("hbm:fluid_duct_neo")), "hbm:fluid_switch", 1);
+    }
+
+    private JsonObject fluidCounterValveRecipe() {
+        return foundryShaped(List.of("C", "V"), Map.of(
+                "C", customComponentIngredient("hbm:circuit", "type", "chip", 5),
+                "V", itemIngredient("hbm:fluid_switch")), "hbm:fluid_counter_valve", 1);
+    }
+
+    private JsonObject fluidDuctGaugeRecipe() {
+        return shapelessRecipe(List.of(
+                itemIngredient("hbm:fluid_duct_neo"),
+                itemIngredient("hbm:ingot_steel"),
+                customComponentIngredient("hbm:circuit", "type", "basic", 8)),
+                recipeResult("hbm:fluid_duct_gauge", 1));
+    }
+
+    private JsonObject powerGaugeRecipe() {
+        return shapelessRecipe(List.of(
+                itemIngredient("hbm:red_cable"),
+                itemIngredient("hbm:ingot_steel"),
+                customComponentIngredient("hbm:circuit", "type", "basic", 8)),
+                recipeResult("hbm:red_cable_gauge", 1));
     }
 
     private JsonObject fluidDuctUntypingRecipe() {

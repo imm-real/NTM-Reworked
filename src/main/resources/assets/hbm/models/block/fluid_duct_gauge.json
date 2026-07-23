@@ -1,0 +1,12 @@
+{
+  "textures":{"base":"hbm:block/deco_steel","overlay":"hbm:block/fluid_duct_paintable_overlay","gauge":"hbm:block/pipe_gauge","particle":"hbm:block/deco_steel"},
+  "elements":[
+    {"from":[0,0,0],"to":[16,16,16],"faces":{
+      "down":{"texture":"#base"},"up":{"texture":"#base"},"north":{"texture":"#base"},
+      "south":{"texture":"#base"},"west":{"texture":"#base"},"east":{"texture":"#base"}}},
+    {"from":[-0.01,-0.01,-0.01],"to":[16.01,16.01,16.01],"faces":{
+      "down":{"texture":"#overlay"},"up":{"texture":"#overlay"},
+      "north":{"texture":"#gauge"},"south":{"texture":"#overlay"},
+      "west":{"texture":"#overlay"},"east":{"texture":"#overlay"}}}
+  ]
+}
