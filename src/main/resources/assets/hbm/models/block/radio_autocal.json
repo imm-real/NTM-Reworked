@@ -1,0 +1,5 @@
+{
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/radio_autocal.obj",
+  "flip_v": true
+}

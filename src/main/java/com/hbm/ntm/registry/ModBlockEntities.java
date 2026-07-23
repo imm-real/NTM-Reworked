@@ -55,6 +55,7 @@ import com.hbm.ntm.blockentity.FluidUtilityBlockEntity;
 import com.hbm.ntm.blockentity.FluidPumpBlockEntity;
 import com.hbm.ntm.blockentity.DrainagePipeBlockEntity;
 import com.hbm.ntm.blockentity.RadioTelexBlockEntity;
+import com.hbm.ntm.blockentity.RadioAutocalBlockEntity;
 import com.hbm.ntm.blockentity.FluidBarrelBlockEntity;
 import com.hbm.ntm.blockentity.FluidStorageTankBlockEntity;
 import com.hbm.ntm.blockentity.FluidStorageTankProxyBlockEntity;
@@ -570,6 +571,9 @@ public final class ModBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RadioTelexBlockEntity>> RADIO_TELEX =
             BLOCK_ENTITY_TYPES.register("radio_telex", () -> BlockEntityType.Builder.of(
                     RadioTelexBlockEntity::new, ModBlocks.RADIO_TELEX.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RadioAutocalBlockEntity>> RADIO_AUTOCAL =
+            BLOCK_ENTITY_TYPES.register("radio_autocal", () -> BlockEntityType.Builder.of(
+                    RadioAutocalBlockEntity::new, ModBlocks.RADIO_AUTOCAL.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidStorageTankBlockEntity>> MACHINE_FLUIDTANK =
             BLOCK_ENTITY_TYPES.register("machine_fluidtank",

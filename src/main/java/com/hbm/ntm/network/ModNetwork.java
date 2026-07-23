@@ -91,6 +91,11 @@ public final class ModNetwork {
                 RadioTelexPayload::handle
         );
         registrar.playToServer(
+                RadioAutocalPayload.TYPE,
+                RadioAutocalPayload.STREAM_CODEC,
+                RadioAutocalPayload::handle
+        );
+        registrar.playToServer(
                 FluidPumpConfigPayload.TYPE,
                 FluidPumpConfigPayload.STREAM_CODEC,
                 FluidPumpConfigPayload::handle

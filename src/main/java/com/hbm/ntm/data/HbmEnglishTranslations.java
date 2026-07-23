@@ -159,6 +159,7 @@ final class HbmEnglishTranslations {
         language.addProperty("block.hbm.radio_torch_reader", "Redstone-over-Radio Reader");
         language.addProperty("block.hbm.radio_torch_controller", "Redstone-over-Radio Controller");
         language.addProperty("block.hbm.radio_telex", "Telex Machine");
+        language.addProperty("block.hbm.radio_autocal", "AUTOCAL Automatic Calculator");
         language.addProperty("container.rttySender", "RoR Transmitter");
         language.addProperty("container.rttyReceiver", "RoR Receiver");
         language.addProperty("container.rttyCounter", "RoR Item Counter");
@@ -166,6 +167,7 @@ final class HbmEnglishTranslations {
         language.addProperty("container.rttyReader", "RoR Reader");
         language.addProperty("container.rttyController", "RoR Controller");
         language.addProperty("container.radioTelex", "Telex Machine");
+        language.addProperty("container.autocal", "AUTOCAL Automatic Calculator");
         language.addProperty("item.hbm.nuclear_waste_long", "Long-Lived Nuclear Waste");
         language.addProperty("item.hbm.nuclear_waste_long_tiny", "Tiny Pile of Long-Lived Nuclear Waste");
         language.addProperty("item.hbm.nuclear_waste_long_depleted", "Decayed Long-Lived Nuclear Waste");

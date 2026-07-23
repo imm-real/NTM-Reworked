@@ -38,6 +38,7 @@ import com.hbm.ntm.inventory.MachineShredderMenu;
 import com.hbm.ntm.inventory.MicrowaveMenu;
 import com.hbm.ntm.inventory.RadioTorchMenu;
 import com.hbm.ntm.inventory.RadioTelexMenu;
+import com.hbm.ntm.inventory.RadioAutocalMenu;
 import com.hbm.ntm.inventory.LargeNukeMenu;
 import com.hbm.ntm.inventory.NukeManMenu;
 import com.hbm.ntm.inventory.BombMultiMenu;
@@ -252,6 +253,8 @@ public final class ModMenus {
             "radio_torch", () -> IMenuTypeExtension.create(RadioTorchMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<RadioTelexMenu>> RADIO_TELEX = MENUS.register(
             "radio_telex", () -> IMenuTypeExtension.create(RadioTelexMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<RadioAutocalMenu>> RADIO_AUTOCAL = MENUS.register(
+            "radio_autocal", () -> IMenuTypeExtension.create(RadioAutocalMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<TurretFriendlyMenu>> TURRET_FRIENDLY = MENUS.register(
             "turret_friendly", () -> IMenuTypeExtension.create(TurretFriendlyMenu::new));
 

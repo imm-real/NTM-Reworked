@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "type": "analog"
+        },
+        "minecraft:custom_model_data": 7
+      },
+      "items": "hbm:circuit",
+      "strict": false
+    },
+    "P": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:custom_data": {
+          "material": "steel"
+        },
+        "minecraft:custom_model_data": 30
+      },
+      "items": "hbm:plate_cast",
+      "strict": false
+    },
+    "R": {
+      "item": "hbm:radio_torch_receiver"
+    },
+    "T": {
+      "item": "hbm:radio_torch_sender"
+    }
+  },
+  "pattern": [
+    "TAR",
+    "PAP",
+    "PAP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:radio_autocal"
+  }
+}

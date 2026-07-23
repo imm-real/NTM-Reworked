@@ -94,6 +94,7 @@ public final class HbmConfig {
     public static final ModConfigSpec.IntValue WATER_PUMP_ELECTRIC_SPEED;
     public static final ModConfigSpec.IntValue CONDENSER_INPUT_CAPACITY;
     public static final ModConfigSpec.IntValue CONDENSER_OUTPUT_CAPACITY;
+    public static final ModConfigSpec.IntValue AUTOCAL_MAX_CLOCK;
     public static final ModConfigSpec.LongValue POWERED_CONDENSER_MAX_POWER;
     public static final ModConfigSpec.IntValue POWERED_CONDENSER_INPUT_CAPACITY;
     public static final ModConfigSpec.IntValue POWERED_CONDENSER_OUTPUT_CAPACITY;
@@ -219,6 +220,11 @@ public final class HbmConfig {
         builder.push("condenser");
         CONDENSER_INPUT_CAPACITY = builder.defineInRange("inputTankSize", 100, 1, Integer.MAX_VALUE);
         CONDENSER_OUTPUT_CAPACITY = builder.defineInRange("outputTankSize", 100, 1, Integer.MAX_VALUE);
+        builder.pop();
+        builder.push("autocal");
+        AUTOCAL_MAX_CLOCK = builder
+                .comment("Maximum AUTOCAL instructions per tick. Original default: 20.")
+                .defineInRange("maxClockSpeed", 20, 1, Integer.MAX_VALUE);
         builder.pop();
         builder.push("condenserPowered");
         POWERED_CONDENSER_MAX_POWER = builder.defineInRange("maxPower", 10_000_000L, 1L, Long.MAX_VALUE);
