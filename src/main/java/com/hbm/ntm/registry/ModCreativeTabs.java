@@ -534,6 +534,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.RAD_X.get());
                         output.accept(ModItems.PILL_HERBAL.get());
                         output.accept(ModItems.CHEESE.get());
+                        output.accept(ModItems.COIN_MASKMAN.get());
                         output.accept(ModItems.GAS_MASK_FILTER.get());
                         output.accept(ModItems.GAS_MASK_FILTER_MONO.get());
                         output.accept(ModItems.GAS_MASK_FILTER_COMBO.get());
@@ -589,6 +590,7 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.TURRET_ARTY_ITEM.get());
                         output.accept(ModItems.TURRET_HIMARS_ITEM.get());
                         output.accept(ModItems.TURRET_SENTRY_ITEM.get());
+                        output.accept(ModItems.MASK_MAN_SPAWN_EGG.get());
                         output.accept(ModItems.AMMO_DGK.get());
                         for (com.hbm.ntm.weapon.ArtilleryAmmoType type
                                 : com.hbm.ntm.weapon.ArtilleryAmmoType.values()) {

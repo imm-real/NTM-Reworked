@@ -21,6 +21,8 @@ import com.hbm.ntm.entity.LaserPistolBeamEntity;
 import com.hbm.ntm.entity.NI4NIBeamEntity;
 import com.hbm.ntm.entity.NI4NICoinEntity;
 import com.hbm.ntm.entity.MiniNukeProjectileEntity;
+import com.hbm.ntm.entity.MaskManEntity;
+import com.hbm.ntm.entity.MaskManProjectileEntity;
 import com.hbm.ntm.entity.RocketProjectileEntity;
 import com.hbm.ntm.entity.CogEntity;
 import com.hbm.ntm.entity.ChlorineCloudEntity;
@@ -52,6 +54,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -269,6 +272,19 @@ public final class ModEntities {
                             .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(256).updateInterval(1)
                             .build("hbm:entity_turret_ordnance"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<MaskManEntity>> MASK_MAN =
+            ENTITY_TYPES.register("entity_mob_mask_man",
+                    () -> EntityType.Builder.<MaskManEntity>of(MaskManEntity::new, MobCategory.MONSTER)
+                            .fireImmune().sized(2.0F, 5.0F).clientTrackingRange(10).updateInterval(1)
+                            .build("hbm:entity_mob_mask_man"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<MaskManProjectileEntity>> MASK_MAN_PROJECTILE =
+            ENTITY_TYPES.register("entity_mask_man_projectile",
+                    () -> EntityType.Builder.<MaskManProjectileEntity>of(
+                                    MaskManProjectileEntity::new, MobCategory.MISC)
+                            .fireImmune().sized(0.5F, 0.5F).clientTrackingRange(10).updateInterval(1)
+                            .build("hbm:entity_mask_man_projectile"));
+
     public static final DeferredHolder<EntityType<?>, EntityType<MiniNukeProjectileEntity>> MINI_NUKE_PROJECTILE =
             ENTITY_TYPES.register("entity_bullet_mini_nuke",
                     () -> EntityType.Builder.<MiniNukeProjectileEntity>of(
@@ -395,5 +411,10 @@ public final class ModEntities {
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
+        eventBus.addListener(ModEntities::registerAttributes);
+    }
+
+    private static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(MASK_MAN.get(), MaskManEntity.createAttributes().build());
     }
 }

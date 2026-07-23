@@ -168,10 +168,12 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.food.FoodProperties;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -577,6 +579,8 @@ public final class ModItems {
     public static final DeferredItem<RadiationMedicineItem> PILL_HERBAL;
     public static final DeferredItem<MkuSyringeItem> SYRINGE_MKUNICORN;
     public static final DeferredItem<Item> CHEESE;
+    public static final DeferredItem<Item> COIN_MASKMAN;
+    public static final DeferredItem<DeferredSpawnEggItem> MASK_MAN_SPAWN_EGG;
     public static final DeferredItem<Item> REACHER;
     public static final DeferredItem<Item> HAZMAT_CLOTH;
     public static final DeferredItem<ClothRagItem> RAG;
@@ -1462,6 +1466,11 @@ public final class ModItems {
         SYRINGE_MKUNICORN = ITEMS.register("syringe_mkunicorn", MkuSyringeItem::new);
         CHEESE = ITEMS.registerSimpleItem("cheese", new Item.Properties().food(
                 new FoodProperties.Builder().nutrition(5).saturationModifier(0.75F).build()));
+        COIN_MASKMAN = ITEMS.registerSimpleItem("coin_maskman",
+                new Item.Properties().rarity(Rarity.UNCOMMON));
+        MASK_MAN_SPAWN_EGG = ITEMS.register("entity_mob_mask_man_spawn_egg",
+                () -> new DeferredSpawnEggItem(ModEntities.MASK_MAN, 0x818572, 0xC7C1B7,
+                        new Item.Properties()));
         REACHER = ITEMS.registerSimpleItem("reacher", new Item.Properties().stacksTo(1));
         HAZMAT_CLOTH = ITEMS.registerSimpleItem("hazmat_cloth", new Item.Properties());
         RAG = ITEMS.register("rag", ClothRagItem::new);

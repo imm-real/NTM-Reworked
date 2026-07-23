@@ -1343,6 +1343,9 @@ final class HbmEnglishTranslations {
         language.addProperty("item.hbm.ashglasses", "Ash Goggles");
         language.addProperty("item.hbm.gas_mask", "Gas Mask");
         language.addProperty("item.hbm.gas_mask_m65", "M65-Z Gas Mask");
+        language.addProperty("item.hbm.coin_maskman", "Maskman Coin");
+        language.addProperty("item.hbm.entity_mob_mask_man_spawn_egg", "Mask Man Spawn Egg");
+        language.addProperty("entity.hbm.entity_mob_mask_man", "Mask Man");
         language.addProperty("item.hbm.gas_mask_mono", "Half Mask");
         language.addProperty("item.hbm.gas_mask_olde", "Leather Gas Mask");
         language.addProperty("item.hbm.mask_rag", "Crude Protective Mask");

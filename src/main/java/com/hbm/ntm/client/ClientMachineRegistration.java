@@ -336,6 +336,10 @@ public final class ClientMachineRegistration {
         event.registerBlockEntityRenderer(ModBlockEntities.TURRET_SENTRY.get(), TurretFriendlyRenderer::new);
         event.registerEntityRenderer(ModEntities.TURRET_ORDNANCE.get(),
                 com.hbm.ntm.client.render.TurretOrdnanceRenderer::new);
+        event.registerEntityRenderer(ModEntities.MASK_MAN.get(),
+                com.hbm.ntm.client.render.MaskManRenderer::new);
+        event.registerEntityRenderer(ModEntities.MASK_MAN_PROJECTILE.get(),
+                com.hbm.ntm.client.render.MaskManProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.COG.get(), CogRenderer::new);
         event.registerEntityRenderer(ModEntities.SAWBLADE.get(), SawbladeRenderer::new);
         event.registerEntityRenderer(ModEntities.PRIMED_EXPLOSIVE.get(), PrimedExplosiveRenderer::new);

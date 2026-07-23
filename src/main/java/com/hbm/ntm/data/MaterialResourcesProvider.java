@@ -1433,6 +1433,9 @@ public final class MaterialResourcesProvider implements DataProvider {
         )) {
             writes.add(save(output, generatedItemModel(protection), itemModels, hbm(protection)));
         }
+        writes.add(save(output, generatedItemModel("coin_maskman"), itemModels, hbm("coin_maskman")));
+        writes.add(save(output, parentItemModel("minecraft:item/template_spawn_egg"), itemModels,
+                hbm("entity_mob_mask_man_spawn_egg")));
         for (String piece : List.of("envsuit_helmet", "envsuit_plate", "envsuit_legs", "envsuit_boots")) {
             // Every context gets the full M1TTY fashion show.
             writes.add(save(output, parentItemModel("builtin/entity"), itemModels, hbm(piece)));
